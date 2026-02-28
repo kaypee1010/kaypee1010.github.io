@@ -5,6 +5,8 @@ permalink: /awards/
 author_profile: true
 ---
 
+## Academic Achievements
+
 - UGC NET Qualified — December 2015, December 2017
 
 - GATE Qualified Multiple Years  
@@ -13,8 +15,29 @@ author_profile: true
 
 - NPTEL Gold Certification — Joy of Computing Using Python (IIT, 2019)
 
-- APO Taiwan Training Funding — Cyber Physical Systems
+---
 
-- Honorable Mention — GovHack Australia 2020
+## International Recognition
 
-- Letter of Appreciation — Melbourne Data Analytics Platform (2021)
+- Selected by Government of India for fully sponsored international training under  
+  **Asian Productivity Organization (APO), Taiwan** — Cyber-Physical Systems.
+
+- Letter of Appreciation — Melbourne Data Analytics Platform (Australia), 2021  
+  for outstanding research performance.
+
+---
+
+## Invited Talks & Industry Engagement
+
+- Invited Expert Lecture — “AI Tools for Engineers in the Manufacturing Set-up”  
+  V-Guard Industries Ltd., February 2026.
+
+- Invited Technical Talk — “Why AI is No Longer Optional in Energy Engineering”  
+  Institution of Engineers (India), December 2025.
+
+---
+
+## Innovation & Competitions
+
+- Honorable Mention — GovHack Australia 2020  
+  for development of open-data predictive analytics system.
