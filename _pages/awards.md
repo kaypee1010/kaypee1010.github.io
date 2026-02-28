@@ -35,9 +35,7 @@ author_profile: true
 
 - Invited Technical Talk — “Why AI is No Longer Optional in Energy Engineering”  
   Institution of Engineers (India), December 2025  
-  [Certificate](../files/awards/Er Kamalpreet Singh- IOE Appreciation Letter.pdf)
-
----
+  [Certificate](../files/awards/ioe-appreciation-2025.pdf)
 
 ## Innovation & Competitions
 
