@@ -22,3 +22,9 @@ main:
 
   - title: "Talks"
     url: /talks/
+
+  - title: "Membership"
+    url: /membership/
+
+  - title: "CV"
+    url: /cv/
