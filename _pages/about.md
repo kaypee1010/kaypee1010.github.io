@@ -20,6 +20,34 @@ Academic researcher and industry practitioner with international experience acro
 
 </div>
 
+<!-- ================= Research Identity Badges ================= -->
+
+<div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; margin-bottom:30px;">
+
+<a href="https://scholar.google.com/citations?user=vxEyeVMAAAAJ" target="_blank"
+style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+🎓 Google Scholar </a>
+
+<a href="https://orcid.org/0000-0001-7949-0767" target="_blank"
+style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+🆔 ORCID </a>
+
+<a href="https://www.scopus.com/authid/detail.uri?authorId=56688926400" target="_blank"
+style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+📊 Scopus Author </a>
+
+<a href="https://www.linkedin.com/in/kaypee-singh/" target="_blank"
+style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+💼 LinkedIn </a>
+
+<a href="https://github.com/kaypee1010" target="_blank"
+style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+💻 GitHub </a>
+
+</div>
+
+
+
 ## 🔬 Research Interests
 
 <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:20px;">
@@ -33,6 +61,7 @@ Machine learning, deep learning, predictive modeling, applied AI systems.
 <h4>📊 Data Science & Engineering</h4>
 Data pipelines, big data analytics, cloud platforms, Snowflake ecosystem.
 </div>
+
 
 <div style="padding:18px; border-radius:12px; background:#2d2d2d; color:#ffffff; border:1px solid #3a3a3a;">
 <h4>🌐 Internet of Things (IoT)</h4>
