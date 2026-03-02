@@ -16,7 +16,7 @@ repository: "kaypee1010.github.io"
 
 author:
   name   : "Kamal Preet Singh"
-  avatar : "/images/profile.png"
+  avatar : "profile.png"
   bio    : "Assistant Professor | AI/ML, Data Science<br><strong>Swami Rama Himlayan University, Dehradun, India</strong>"
   googlescholar: "https://scholar.google.com/citations?user=vxEyeVMAAAAJ"
   orcid: "https://orcid.org/0000-0001-7949-0767"
