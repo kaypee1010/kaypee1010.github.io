@@ -3,6 +3,7 @@ layout: single
 title: "Education"
 permalink: /education/
 author_profile: true
+author: "Kamal Preet Singh"
 ---
 
 ## 🎓 Master of Information Technology (Artificial Intelligence)
