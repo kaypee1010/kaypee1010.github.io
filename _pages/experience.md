@@ -5,106 +5,109 @@ permalink: /experience/
 author_profile: true
 ---
 
-
 ## 🏫 Academic Experience
 
-### Assistant Professor
+### Assistant Professor  
+**Swami Rama Himalayan University (SRHU), Dehradun, India**  
+Aug 2024 – Present  
 
-**Swami Rama Himalayan University (SRHU), Dehradun, India**
-Aug 2024 – Present
-
-* Teaching core courses including **Artificial Intelligence & Machine Learning**, **Introduction to Data Science**, **Deep Learning & NLP**, **AI & Robotics**, and **Object-Oriented Programming**.
-* Implementing NEP-2020 aligned flipped classroom pedagogy and case-based learning approaches.
-* Designing curriculum aligned with **Outcome-Based Education (OBE)** frameworks and industry requirements.
-* Supervising undergraduate innovation projects in AI and IoT domains including smart infrastructure systems.
-* Mentoring and guiding more than 50 students in academic and technical development.
-
----
-
-### Assistant Professor
-
-**Maharishi Markandeshwar (Deemed to be University), Mullana, India**
-Aug 2023 – Aug 2024
-
-* Delivered courses in **Machine Learning using Python** and **Object-Oriented Programming**.
-* Implemented flipped learning methodologies to enhance experiential learning outcomes.
-* Integrated OBE-based assessment methodologies in teaching and evaluation.
-* Supervised undergraduate projects including **IoT-based Smart Parking System**.
+- Teaching courses including **Machine Learning**, **Artificial Intelligence**, **Data Science**, and **Object-Oriented Programming** aligned with NEP-2020 curriculum.
+- Delivered specialized modules in **Introduction to Data Science**, **AI & Robotics**, and **Deep Learning Concepts**.
+- Implementing **flipped classroom pedagogy**, case-based learning, and real-world datasets to enhance experiential learning.
+- Mentoring undergraduate and postgraduate projects in **AI, IoT, and Cyber-Physical Systems**.
+- Academic coordination, student mentoring, and curriculum development aligned with **Outcome-Based Education (OBE)** frameworks.
+- Active engagement in research activities including patents and interdisciplinary collaborations.
 
 ---
 
-### Assistant Professor
+### Assistant Professor  
+**Maharishi Markandeshwar (Deemed to be University), Mullana, India**  
+Aug 2023 – Aug 2024  
 
-**University of Petroleum & Energy Studies (UPES), Dehradun, India**
-Jul 2015 – Feb 2020
-
-* Taught courses including **Computer Networks**, **Cybersecurity**, **Database Management Systems**, and Programming subjects.
-* Designed academic content aligned with accreditation standards (NAAC, NBA, NIRF).
-* Conducted Faculty Development Programs on open-source technologies and cloud tools.
-* Delivered **LaTeX training workshop** for more than 50 faculty members.
-* Participated in academic audits, curriculum development, and student mentoring initiatives.
+- Taught **Machine Learning using Python** and **Object-Oriented Programming**.
+- Integrated industry-relevant datasets and practical problem-solving approaches into curriculum delivery.
+- Implemented **NEP-2020 aligned teaching methodologies** and Outcome-Based assessment practices.
+- Guided undergraduate research and capstone projects in AI-based applications.
 
 ---
 
-### Assistant Professor
+### Assistant Professor  
+**University of Petroleum & Energy Studies (UPES), Dehradun, India**  
+Jul 2015 – Feb 2020  
 
-**Lovely Professional University (LPU), Jalandhar, India**
-Jul 2013 – May 2015
-
-* Taught **Data Structures**, **Programming Fundamentals**, and **Database Systems**.
-* Guided undergraduate academic projects and laboratory coursework.
-
----
-
-## 🌏 Industry Experience
-
-### Data Engineer / Data Analyst
-
-**HCF Insurance, Sydney, Australia**
-Aug 2022 – Aug 2023
-
-* Designed and deployed enterprise-scale **ETL pipelines** using **Talend** and **Snowflake** for analytics and reporting workflows.
-* Improved data quality and reporting efficiency through automated transformation processes.
-* Delivered analytical insights supporting marketing strategy, compliance monitoring, and operational decision-making.
-* Contributed to digital transformation initiatives enabling transition to fully online service delivery.
+- Delivered courses including **Computer Networks**, **Cybersecurity**, **Database Systems**, and **Programming**.
+- Conducted **Faculty Development Programs (FDPs)** on open-source technologies and cloud computing tools.
+- Organized technical workshops including **LaTeX training** for academic staff.
+- Participated in institutional quality initiatives including **NAAC / NBA / NIRF** processes.
+- Mentored students for academic projects, internships, and career pathways.
 
 ---
 
-### Associate Data Consultant
+### Assistant Professor  
+**Lovely Professional University (LPU), Jalandhar, India**  
+Jul 2013 – May 2015  
 
-**Servian, Melbourne, Australia**
-Jan 2022 – Jul 2022
-
-* Delivered data engineering and analytics solutions for enterprise clients including Betfair.
-* Managed Snowflake data environments and optimized analytical workflows.
-* Developed dashboards and reporting tools to improve marketing intelligence and decision-making.
-* Worked in client-facing technical consulting role across multiple projects.
+- Taught foundational courses including **Data Structures**, **Programming Fundamentals**, and **Database Systems**.
+- Supervised laboratory sessions and undergraduate academic projects.
+- Contributed to curriculum delivery and student mentoring activities.
 
 ---
 
-### Data Analyst
+## 🌏 International Industry Experience
 
-**Kepler Analytics Pty Ltd, Melbourne, Australia**
-Dec 2021 – Jan 2022
+### Data Engineer / Data Analyst  
+**HCF Insurance, Sydney, Australia**  
+Aug 2022 – Aug 2023  
 
-* Developed business intelligence models from transactional datasets for real-time reporting.
-* Automated reporting workflows improving operational efficiency.
-
----
-
-### Data Research Intern
-
-**Melbourne Data Analytics Platform (MDAP), University of Melbourne**
-Jul 2021 – Dec 2021
-
-* Built **Python-based machine learning pipelines** for text classification and computer vision applications.
-* Conducted data preprocessing, exploratory analysis, and model evaluation across research lifecycle.
-* Received **Letter of Appreciation** for outstanding research performance.
+- Designed and maintained enterprise-scale **data pipelines** using **Talend**, **SQL**, and **Snowflake** cloud data warehouse.
+- Supported business intelligence initiatives for **marketing analytics**, **compliance reporting**, and **digital transformation**.
+- Delivered analytics solutions enabling transition toward data-driven decision-making post-COVID.
+- Collaborated with cross-functional stakeholders including business teams, architects, and data governance units.
+- Contributed to **AI/ML data preparation workflows** supporting advanced analytics initiatives.
 
 ---
 
-## 🔗 Academic–Industry Integration
+### Associate Data Consultant  
+**Servian, Melbourne, Australia**  
+Jan 2022 – Jul 2022  
 
-My professional journey integrates academic research with industry practice across **Artificial Intelligence, Data Science, and Cyber-Physical Systems**.
-This dual exposure supports applied research, industry collaboration, and experiential learning for students while enabling translation of research outcomes into practical solutions.
-d experiential learning for students.
+- Delivered data consulting services for enterprise clients including **Betfair**.
+- Managed **Snowflake analytics environments**, service requests, and production data pipelines.
+- Built analytics dashboards and reporting frameworks for marketing and operational insights.
+- Worked in client-facing consulting role bridging business requirements with technical implementation.
+
+---
+
+### Data Analyst  
+**Kepler Analytics Pty Ltd, Melbourne, Australia**  
+Dec 2021 – Jan 2022  
+
+- Performed exploratory data analysis and reporting on transactional datasets.
+- Supported real-time analytics and visualization requirements for business insights.
+
+---
+
+### Data Research Intern  
+**Melbourne Data Analytics Platform (MDAP), University of Melbourne**  
+Jul 2021 – Dec 2021  
+
+- Developed **Python-based machine learning pipelines** for:
+  - Social media text classification
+  - Computer vision tasks
+- Contributed across the research lifecycle including data preprocessing, modeling, evaluation, and reporting.
+- Received **Letter of Appreciation** for outstanding research contribution.
+
+---
+
+## 🔬 Academic–Industry Integration
+
+My professional trajectory uniquely integrates **academic research, international industry experience, and applied artificial intelligence practice**.  
+
+This dual exposure strengthens:
+
+- Applied research and innovation
+- Industry collaboration and consultancy
+- Experiential learning for students
+- Translation of theoretical concepts into real-world solutions
+
+My work focuses on **Artificial Intelligence, Data Science, Cyber-Physical Systems, and Intelligent Infrastructure**.
