@@ -4,7 +4,6 @@ Kamal Preet Singh:
   bio         : "Assistant Professor | AI, Data Science, Cyber-Physical Systems"
   avatar      : "/images/profile.png"
   location    : "Dehradun, India"
-
   links:
     - label: "Google Scholar"
       icon: "fas fa-graduation-cap"
