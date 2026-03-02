@@ -22,7 +22,7 @@ Academic researcher and industry practitioner with international experience acro
 
 <!-- ================= Research Identity Badges ================= -->
 
-<div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; margin-bottom:30px;">
+<div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; margin-bottom:30px;">
 
 <a href="https://scholar.google.com/citations?user=vxEyeVMAAAAJ" target="_blank"
 style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
@@ -43,7 +43,6 @@ style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid
 <a href="https://github.com/kaypee1010" target="_blank"
 style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#f3f4f6;">
 💻 GitHub </a>
-
 </div>
 
 
@@ -78,19 +77,19 @@ AI-driven safety systems, intelligent infrastructure, real-time decision systems
 ## 📊 Research Metrics
 
 * Citations: ~400
-* h-index: 7
-* i10-index: 7
+* **h-index**: 7
+* **i10-index**: 7
 * Patents: 6+ Published
-* International Industry Experience: Australia
+* International Industry Experience: **Australia**
 
 ## 📈 Academic Highlights
 
-* 📚 **400+ Citations (Google Scholar)**
-* 📊 **h-index:** 7  | **i10-index:** 7 
-* 🏛️ **Scopus Indexed Publications**
-* 🌍 **International Research & Industry Experience — Australia & India**
-* 🧠 **Industry Experience — Data Engineering & Analytics**
-* 📜 **Multiple Patents Published (2025–2026)**
+* **400+** Citations (Google Scholar)
+* **h-index:** 7  | **i10-index:** 7 
+* **Scopus Indexed Publications**
+* International Research & Industry Experience — **Australia & India**
+* **Industry Experience** — Data Engineering & Analytics
+* **Multiple Patents Published (2025–2026)**
 
 ## 📄 Curriculum Vitae
 
