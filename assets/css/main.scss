@@ -86,4 +86,10 @@
   transform: translateY(-3px);
   transition: 0.2s ease;
 }
+.author__avatar img {
+  width: 220px !important;
+  height: 220px !important;
+  object-fit: cover;
+  border-radius: 12px !important;
+}
 
