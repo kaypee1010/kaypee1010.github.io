@@ -3,6 +3,8 @@ Assistant Professor — Artificial Intelligence & Data Science
 Swami Rama Himalayan University, Dehradun, India
 
 Email: [kamalpreetsingh@srhu.edu.in](mailto:kamalpreetsingh@srhu.edu.in)
+LinkedIn: https://www.linkedin.com/in/kaypee-singh/  
+GitHub: https://github.com/kaypee1010  
 Google Scholar: https://scholar.google.com/citations?user=vxEyeVMAAAAJ
 ORCID: https://orcid.org/0000-0001-7949-0767
 
