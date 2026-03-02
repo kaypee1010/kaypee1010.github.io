@@ -1,16 +1,15 @@
 ---
 layout: single
-title: "About"
+title: ""
 permalink: /
 author_profile: true
 ---
 
-
 <div style="padding: 28px; border-radius: 12px; background: linear-gradient(135deg,#1e3a5f,#2563eb); color: white; margin-bottom: 30px;">
 
-<h1 style="margin-bottom:6px;">Kamal Preet Singh</h1>
+<h1 style="margin-bottom:6px;">Kamal Preet Singh (K.P)</h1>
 
-<h3 style="margin-top:0;">Assistant Professor | Artificial Intelligence | Data Science | Cyber-Physical Systems</h3>
+<h3 style="margin-top:0;">Assistant Professor | Artificial Intelligence | Machine Learning | Data Science | Cyber-Physical Systems</h3>
 
 <p style="font-size:16px; line-height:1.6;">
 Academic researcher and industry practitioner with international experience across Australia and India, specializing in Machine Learning, Data Engineering, IoT Systems, and Applied Artificial Intelligence. Passionate about building intelligent systems that bridge research innovation with real-world deployment.
@@ -42,7 +41,8 @@ style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid
 
 <a href="https://github.com/kaypee1010" target="_blank"
 style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#f3f4f6;">
-💻 GitHub </a>
+💻 Github </a>
+
 </div>
 
 
@@ -85,7 +85,6 @@ AI-driven safety systems, intelligent infrastructure, real-time decision systems
 ## 📈 Academic Highlights
 
 * **400+** Citations (Google Scholar)
-* **h-index:** 7  | **i10-index:** 7 
 * **Scopus Indexed Publications**
 * International Research & Industry Experience — **Australia & India**
 * **Industry Experience** — Data Engineering & Analytics
@@ -93,7 +92,7 @@ AI-driven safety systems, intelligent infrastructure, real-time decision systems
 
 ## 📄 Curriculum Vitae
 
-<div style="margin-top:15px;">
+<div style="margin-top:12px;">
 
 <a href="/files/cv/academic_cv.pdf" class="btn btn--primary btn--large">📘 Academic CV</a>
 
