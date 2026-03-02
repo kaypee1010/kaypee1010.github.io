@@ -57,7 +57,7 @@ AI-driven safety systems, intelligent infrastructure, real-time decision systems
 ## 📈 Academic Highlights
 
 * 📚 **400+ Citations (Google Scholar)**
-* 📊 **h-index: 7 | i10-index: 7**
+* 📊 **h-index: 7** | **i10-index: 7**
 * 🏛️ **Scopus Indexed Publications**
 * 🌍 **International Research & Industry Experience — Australia & India**
 * 🧠 **Industry Experience — Data Engineering & Analytics**
