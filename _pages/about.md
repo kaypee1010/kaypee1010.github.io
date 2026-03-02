@@ -52,8 +52,8 @@ style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid
 <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:20px;">
 
 <div style="padding:18px; border-radius:12px; background:#2d2d2d; color:#ffffff; border:1px solid #3a3a3a;">
-<h4>🤖 Artificial Intelligence</h4>
-Machine learning, deep learning, predictive modeling, applied AI systems.
+<h4>🤖 Artificial Intelligence & Machine Learning</h4>
+Machine learning, Natural Language Processing (NLP), predictive modeling, applied AI systems.
 </div>
 
 <div style="padding:18px; border-radius:12px; background:#2d2d2d; color:#ffffff; border:1px solid #3a3a3a;">
