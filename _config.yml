@@ -17,40 +17,15 @@ repository: "kaypee1010.github.io"
 author:
   name   : "Kamal Preet Singh"
   avatar : "profile.png"
-  bio    : "Assistant Professor | AI/ML, Data Science<br><strong>Swami Rama Himlayan University, Dehradun, India</strong>"
+  bio    : "Assistant Professor | AI/ML| Data Science<br><strong>Swami Rama Himlayan University, Dehradun, India</strong>"
   googlescholar: "https://scholar.google.com/citations?user=vxEyeVMAAAAJ"
   orcid: "https://orcid.org/0000-0001-7949-0767"
   scopus: "https://www.scopus.com/authid/detail.uri?authorId=56688926400"
   linkedin: "kaypee-singh"
   github: "kaypee1010"
-  links:
-    - label: "Google Scholar"
-      icon: "fas fa-graduation-cap"
-      url: "https://scholar.google.com/citations?user=vxEyeVMAAAAJ"
+  
 
-    - label: "ORCID"
-      icon: "ai ai-orcid"
-      url: "https://orcid.org/0000-0001-7949-0767"
 
-    - label: "Scopus"
-      icon: "ai ai-scopus"
-      url: "https://www.scopus.com/authid/detail.uri?authorId=56688926400"
-
-    - label: "LinkedIn"
-      icon: "fab fa-linkedin"
-      url: "https://www.linkedin.com/in/kaypee-singh/"
-
-    - label: "GitHub"
-      icon: "fab fa-github"
-      url: "https://github.com/kaypee1010"
-
-googlescholar: "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-orcid: "0000-0001-7949-0767"
-researchgate: ""
-scopus: "56688926400"
-
-github: "kaypee1010"
-linkedin: "https://www.linkedin.com/in/kaypee-singh/"
 
 include:
 
