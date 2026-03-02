@@ -46,24 +46,39 @@
 ================================ */
 
 .publication-card {
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--global-border-color);
   padding: 18px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  transition: 0.2s;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  background: var(--global-bg-color);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: all 0.25s ease;
 }
 
 .publication-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.archive__item-title {
+  margin-bottom: 6px;
+}
+
+.archive__item-title a {
+  text-decoration: none;
+}
+
+.archive__item-title a:hover {
+  color: var(--global-base-color);
 }
 
 .pub-buttons {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .pub-buttons .btn {
   margin-right: 8px;
-  margin-top: 5px;
+  margin-top: 6px;
+  border-radius: 6px;
+  font-size: 0.85em;
 }
