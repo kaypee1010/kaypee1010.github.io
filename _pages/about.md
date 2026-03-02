@@ -3,6 +3,7 @@ layout: single
 title: ""
 permalink: /
 author_profile: true
+author: "Kamal Preet Singh"
 ---
 
 <div style="padding: 28px; border-radius: 12px; background: linear-gradient(135deg,#1e3a5f,#2563eb); color: white; margin-bottom: 30px;">
