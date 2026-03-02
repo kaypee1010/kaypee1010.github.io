@@ -17,7 +17,7 @@ repository: "kaypee1010.github.io"
 author:
   name   : "Kamal Preet(K.P) Singh"
   avatar : "/images/profile.png"
-  bio         : "Assistant Professor | Artificial Intelligence | Data Science | Cyber-Physical Systems<br><strong>Swami Rama Himalayan University, Dehradun, India</strong>"
+  bio    : "Assistant Professor | AI/ML, Data Science, Cyber-Physical Systems"
   location : "Swami Rama Himlayan University, Dehradun, India"
   links:
     - label: "Google Scholar"
