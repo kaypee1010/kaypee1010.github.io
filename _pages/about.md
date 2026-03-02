@@ -22,7 +22,7 @@ Academic researcher and industry practitioner with international experience acro
 
 <!-- ================= Research Identity Badges ================= -->
 
-<div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; margin-bottom:30px;">
+<div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; margin-bottom:25px;">
 
 <a href="https://scholar.google.com/citations?user=vxEyeVMAAAAJ" target="_blank"
 style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
@@ -30,7 +30,7 @@ style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid
 
 <a href="https://orcid.org/0000-0001-7949-0767" target="_blank"
 style="padding:9x 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
-🆔 ORCID </a>
+🆔 ORCID  </a>
 
 <a href="https://www.scopus.com/authid/detail.uri?authorId=56688926400" target="_blank"
 style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
@@ -41,8 +41,8 @@ style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid
 💼 LinkedIn </a>
 
 <a href="https://github.com/kaypee1010" target="_blank"
-style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#f3f4f6;">
-💻 Github </a>
+style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
+💻 Github  </a>
 
 </div>
 
