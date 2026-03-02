@@ -25,23 +25,23 @@ Academic researcher and industry practitioner with international experience acro
 <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; margin-bottom:30px;">
 
 <a href="https://scholar.google.com/citations?user=vxEyeVMAAAAJ" target="_blank"
-style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 🎓 Google Scholar </a>
 
 <a href="https://orcid.org/0000-0001-7949-0767" target="_blank"
-style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 🆔 ORCID </a>
 
 <a href="https://www.scopus.com/authid/detail.uri?authorId=56688926400" target="_blank"
-style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 📊 Scopus Author </a>
 
 <a href="https://www.linkedin.com/in/kaypee-singh/" target="_blank"
-style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 💼 LinkedIn </a>
 
 <a href="https://github.com/kaypee1010" target="_blank"
-style="padding:10px 16px; border-radius:8px; background:#ffffff; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#1f2937;">
+style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#f3f4f6;">
 💻 GitHub </a>
 
 </div>
