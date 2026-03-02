@@ -43,6 +43,14 @@ My teaching approach emphasizes experiential learning, industry relevance, and p
 
 ## 📄 Curriculum Vitae
 
+<div style="margin-top:15px;">
+
+<a href="/files/cv/academic_cv.pdf" class="btn btn--primary btn--large">📘 Academic CV</a>
+
+<a href="/files/cv/industry_resume.pdf" class="btn btn--success btn--large">💼 Industry Resume</a>
+
+</div>
+
 <a href="/files/cv/academic_cv.pdf" class="btn btn--primary">Download Academic CV</a>
 
 <a href="/files/cv/industry_resume.pdf" class="btn btn--success">Download Industry Resume</a>
