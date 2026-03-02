@@ -3,6 +3,7 @@ layout: single
 title: "Certifications & Faculty Development"
 permalink: /certifications/
 author_profile: true
+author: "Kamal Preet Singh"
 ---
 
 ## ☁️ Professional Certifications
