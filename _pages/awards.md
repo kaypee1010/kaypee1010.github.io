@@ -7,7 +7,7 @@ author_profile: true
 
 ## 🏆 Academic & Competitive Achievements
 
-- **UGC NET Qualified** — December 2015, December 2017
+- **UGC NET Qualified** — December 2015
 
 - **GATE Qualified — Multiple Years**
   - 2010 — IIT Guwahati
