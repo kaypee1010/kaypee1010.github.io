@@ -15,16 +15,31 @@ url: "https://kaypee1010.github.io"
 repository: "kaypee1010.github.io"
 
 author:
-  avatar: "/images/profile.png"
-  name: "Kamal Preet Singh"
-  bio: "Assistant Professor | AI • Machine Learning • Data Science"
-  location: "Dehradun, India"
-  employer: "Swami Rama Himalayan University"
-  email: "kamalpreetsingh@srhu.edu.in"
-  github: "kaypee1010"
-  linkedin: "kaypee-singh"
-  googlescholar: "https://scholar.google.com/citations?user=vxEyeVMAAAAJ"
-  cv: "/files/cv/KamalPreetSingh_CV.pdf"
+  name   : "Kamal Preet Singh"
+  avatar : "/images/profile.png"
+  bio    : "Assistant Professor | AI, Data Science, Cyber-Physical Systems"
+  location : "Dehradun, India"
+
+  links:
+    - label: "Google Scholar"
+      icon: "fas fa-graduation-cap"
+      url: "https://scholar.google.com/citations?user=vxEyeVMAAAAJ"
+
+    - label: "ORCID"
+      icon: "ai ai-orcid"
+      url: "https://orcid.org/0000-0001-7949-0767"
+
+    - label: "Scopus"
+      icon: "ai ai-scopus"
+      url: "https://www.scopus.com/authid/detail.uri?authorId=56688926400"
+
+    - label: "LinkedIn"
+      icon: "fab fa-linkedin"
+      url: "https://www.linkedin.com/in/kaypee-singh/"
+
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/kaypee1010"
 
 googlescholar: "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
 orcid: "0000-0001-7949-0767"
