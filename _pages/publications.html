@@ -1,146 +1,35 @@
-Mobility Management in Constrained Wireless Nodes: A Review
-International Journal of Innovative Technology and Exploring Engineering (IJITEE)
-2019-04 | Journal article
-Show less detail
-Language
-English
-URL
-https://www.ijitee.org/wp-content/uploads/papers/v8i6c/F12300486C19.pdf
-Citation (bibtex)
-Show citation
-Description
-The key aspect of IoT is interoperability, the potential of different technologies, different hardware platforms, various communication protocols, different operating systems to communicate with each other. Mobile support is required for interoperability between fixed and mobile nodes. As wireless nodes have certain limitations, like reduced power, low-energy and limited resources, attention is required while designing the mobility management scheme. The main challenge in Low Power and Mobile Network is to provide Quality of Service along with the support of mobility. In this paper, latest work in the mobility support of RPL has been discussed in detail along with their contributions and shortcomings.
-Country/Location of publication
-India
-Added
-2019-08-27
-Last modified
-2019-08-27
-Source
-:
-Kamal Preet Singh
-A secure authentication scheme in multi-operator domain (SAMD) for wireless mesh network
-Advances in Intelligent Systems and Computing
-2017 | Book
-DOI: 10.1007/978-981-10-1675-2_35
-EID: 2-s2.0-84984781437
-Contributors: Singh, N.; Chhabra, G.; Singh, K.P.; Saini, H.
-Show less detail
-URL
-http://www.scopus.com/inward/record.url?eid=2-s2.0-84984781437&partnerID=MN8TOARS
-Contributors
-Singh, N.
+---
+layout: archive
+title: "Publications"
+permalink: /publications/
+author_profile: true
+---
 
-Chhabra, G.
+{% if site.author.googlescholar %}
+  <div class="wordwrap">
+    You can also find my articles on 
+    <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.
+  </div>
+{% endif %}
 
-Singh, K.P.
+{% include base_path %}
 
-Saini, H.
-
-Citation (bibtex)
-Show citation
-Added
-2019-08-27
-Last modified
-2022-05-29
-Source
-:
-Kamal Preet Singh via Scopus - Elsevier
-Prediction of reactor performance in CATSOL-based sulphur recovery unit by ANN
-Advances in Intelligent Systems and Computing
-2017 | Book
-DOI: 10.1007/978-981-10-1678-3_15
-EID: 2-s2.0-84985020944
-Contributors: Chhabra, G.; Narayanan, A.; Singh, N.; Singh, K.P.
-Show less detail
-URL
-http://www.scopus.com/inward/record.url?eid=2-s2.0-84985020944&partnerID=MN8TOARS
-Contributors
-Chhabra, G.
-
-Narayanan, A.
-
-Singh, N.
-
-Singh, K.P.
-
-Citation (bibtex)
-Show citation
-Added
-2019-08-27
-Last modified
-2022-05-29
-Source
-:
-Kamal Preet Singh via Scopus - Elsevier
-An efficient multipath dynamic routing protocol for mobile WSNs
-Procedia Computer Science
-2015 | Conference paper
-DOI: 10.1016/j.procs.2015.01.014
-EID: 2-s2.0-84931451279
-Contributors: Kaur, R.; Singh, K.P.
-Show less detail
-URL
-http://www.scopus.com/inward/record.url?eid=2-s2.0-84931451279&partnerID=MN8TOARS
-Contributors
-Kaur, R.
-
-Singh, K.P.
-
-Citation (bibtex)
-Show citation
-Added
-2019-08-27
-Last modified
-2022-05-29
-Source
-:
-Kamal Preet Singh via Scopus - Elsevier
-Use of gradient technique for extracting features from handwritten Gurmukhi characters and numerals
-Procedia Computer Science
-2015 | Conference paper
-DOI: 10.1016/j.procs.2015.02.116
-EID: 2-s2.0-84931344517
-Contributors: Aggarwal, A.; Singh, K.; Singh, K.
-Show less detail
-URL
-http://www.scopus.com/inward/record.url?eid=2-s2.0-84931344517&partnerID=MN8TOARS
-Contributors
-Aggarwal, A.
-
-Singh, K.
-
-Singh, K.
-
-Citation (bibtex)
-Show citation
-Added
-2019-08-27
-Last modified
-2022-05-29
-Source
-:
-Kamal Preet Singh via Scopus - Elsevier
-Hadoop: Addressing challenges of Big Data
-Souvenir of the 2014 IEEE International Advance Computing Conference, IACC 2014
-2014 | Conference paper
-DOI: 10.1109/IAdCC.2014.6779407
-EID: 2-s2.0-84899085923
-Contributors: Singh, K.; Kaur, R.
-Show less detail
-URL
-http://www.scopus.com/inward/record.url?eid=2-s2.0-84899085923&partnerID=MN8TOARS
-Contributors
-Singh, K.
-
-Kaur, R.
-
-Citation (bibtex)
-Show citation
-Added
-2019-08-27
-Last modified
-2022-05-29
-Source
-:
-Kamal Preet Singh via Scopus - Elsevier
+{% if site.publication_category %}
+  {% for category in site.publication_category %}
+    {% assign title_shown = false %}
+    {% for post in site.publications reversed %}
+      {% if post.category != category[0] %}
+        {% continue %}
+      {% endif %}
+      {% unless title_shown %}
+        <h2>{{ category[1].title }}</h2><hr />
+        {% assign title_shown = true %}
+      {% endunless %}
+      {% include archive-single.html %}
+    {% endfor %}
+  {% endfor %}
+{% else %}
+  {% for post in site.publications reversed %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}
