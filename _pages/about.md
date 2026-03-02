@@ -18,33 +18,6 @@ Academic researcher and industry practitioner with international experience acro
 
 <a href="/files/cv/academic_cv.pdf" class="btn btn--primary">📄 Academic CV</a> <a href="/files/cv/industry_resume.pdf" class="btn btn--success">💼 Industry Resume</a> <a href="/publications/" class="btn btn--info">📚 Publications</a>
 
-</div>
-
-<!-- ================= Research Identity Badges ================= -->
-
-<div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; margin-bottom:25px;">
-
-<a href="https://scholar.google.com/citations?user=vxEyeVMAAAAJ" target="_blank"
-style="padding:7px 13px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
-🎓 Google Scholar </a>
-
-<a href="https://orcid.org/0000-0001-7949-0767" target="_blank"
-style="padding:7x 13px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
-🆔 ORCID  </a>
-
-<a href="https://www.scopus.com/authid/detail.uri?authorId=56688926400" target="_blank"
-style="padding:7px 13px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
-📊 Scopus Author </a>
-
-<a href="https://www.linkedin.com/in/kaypee-singh/" target="_blank"
-style="padding:7px 13px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
-💼 LinkedIn </a>
-
-<a href="https://github.com/kaypee1010" target="_blank"
-style="padding:7px 13px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
-💻 Github  </a>
-
-</div>
 
 
 ## 🔬 Research Interests
