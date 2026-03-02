@@ -18,7 +18,7 @@ Academic researcher and industry practitioner with international experience acro
 
 <a href="/files/cv/academic_cv.pdf" class="btn btn--primary">📄 Academic CV</a> <a href="/files/cv/industry_resume.pdf" class="btn btn--success">💼 Industry Resume</a> <a href="/publications/" class="btn btn--info">📚 Publications</a>
 
-
+</div>
 
 ## 🔬 Research Interests
 
