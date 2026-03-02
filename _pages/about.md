@@ -9,9 +9,9 @@ author_profile: true
 
 <h1 style="margin-bottom:6px;">Kamal Preet Singh (K.P)</h1>
 
-<h3 style="margin-top:0;">Assistant Professor | Artificial Intelligence | Machine Learning | Data Science | Cyber-Physical Systems</h3>
+<h4 style="margin-top:0;">Assistant Professor | Artificial Intelligence | Machine Learning | Data Science | Cyber-Physical Systems</h4>
 
-<p style="font-size:16px; line-height:1.6;">
+<p style="font-size:14px; line-height:1.6;">
 Academic researcher and industry practitioner with international experience across Australia and India, specializing in Machine Learning, Data Engineering, IoT Systems, and Applied Artificial Intelligence. Passionate about building intelligent systems that bridge research innovation with real-world deployment.
 </p>
 
@@ -24,23 +24,23 @@ Academic researcher and industry practitioner with international experience acro
 <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; margin-bottom:30px;">
 
 <a href="https://scholar.google.com/citations?user=vxEyeVMAAAAJ" target="_blank"
-style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
+style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 🎓 Google Scholar </a>
 
 <a href="https://orcid.org/0000-0001-7949-0767" target="_blank"
-style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
+style="padding:9x 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 🆔 ORCID </a>
 
 <a href="https://www.scopus.com/authid/detail.uri?authorId=56688926400" target="_blank"
-style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
+style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 📊 Scopus Author </a>
 
 <a href="https://www.linkedin.com/in/kaypee-singh/" target="_blank"
-style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
+style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#111827;">
 💼 LinkedIn </a>
 
 <a href="https://github.com/kaypee1010" target="_blank"
-style="padding:8px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#f3f4f6;">
+style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid #e5e7eb; text-decoration:none; font-weight:600; color:#f3f4f6;">
 💻 Github </a>
 
 </div>
