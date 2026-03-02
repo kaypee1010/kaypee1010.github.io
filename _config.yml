@@ -19,7 +19,6 @@ author:
   avatar : "/images/profile.png"
   bio    : "Assistant Professor | AI/ML, Data Science, Cyber-Physical Systems"
   location : "Dehradun, India"
-
   links:
     - label: "Google Scholar"
       icon: "fas fa-graduation-cap"
