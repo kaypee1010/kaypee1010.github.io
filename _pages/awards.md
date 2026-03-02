@@ -3,6 +3,7 @@ layout: single
 title: "Awards and Recognition"
 permalink: /awards/
 author_profile: true
+author: "Kamal Preet Singh"
 ---
 
 ## 🏆 Academic & Competitive Achievements

@@ -47,7 +47,6 @@ style="padding:9px 14px; border-radius:6px; background:#f3f4f6; border:1px solid
 </div>
 
 
-
 ## 🔬 Research Interests
 
 <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:20px;">
