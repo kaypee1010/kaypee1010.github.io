@@ -1,18 +1,27 @@
 # Authors
+Kamal Preet Singh:
+  name        : "Kamal Preet Singh"
+  bio         : "Assistant Professor | AI, Data Science, Cyber-Physical Systems"
+  avatar      : "/images/profile.png"
+  location    : "Dehradun, India"
 
-Name Name:
-  name        : "Name Name"
-  uri         : "https://name.com"
-  email       : "name@name.com"
-  bio         : "This is the first name."
-  avatar      : "bio-photo-2.jpg"
-  twitter     : "name"
-  google_plus : "Name"
+  links:
+    - label: "Google Scholar"
+      icon: "fas fa-graduation-cap"
+      url: "https://scholar.google.com/citations?user=vxEyeVMAAAAJ"
 
-Name2 Name2:
-  name        : "Name2 Name2"
-  email       : "name2@name2.com"
-  bio         : "I ordered what?"
-  avatar      : "bio-photo.jpg"
-  twitter     : "name2"
-  google_plus : "Name"
+    - label: "ORCID"
+      icon: "ai ai-orcid"
+      url: "https://orcid.org/0000-0001-7949-0767"
+
+    - label: "Scopus"
+      icon: "ai ai-scopus"
+      url: "https://www.scopus.com/authid/detail.uri?authorId=56688926400"
+
+    - label: "LinkedIn"
+      icon: "fab fa-linkedin"
+      url: "https://www.linkedin.com/in/kaypee-singh/"
+
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/kaypee1010"
