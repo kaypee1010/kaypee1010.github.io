@@ -41,3 +41,29 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+/* ================================
+   Publication Cards Styling
+================================ */
+
+.publication-card {
+  border: 1px solid #e6e6e6;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: 0.2s;
+}
+
+.publication-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pub-buttons {
+  margin-top: 10px;
+}
+
+.pub-buttons .btn {
+  margin-right: 8px;
+  margin-top: 5px;
+}
