@@ -1,52 +1,34 @@
-Basic Site Settings
+locale: "en-US"
+site_theme: "default"
 
-locale                   : "en-US"
-site_theme               : "default"
+title: "Kamal Preet Singh"
+title_separator: "-"
+name: "Kamal Preet Singh"
+position: "Assistant Professor"
+affiliation: "Swami Rama Himalayan University, Dehradun, India"
+email: "kamalpreet1010@gmail.com"
+baseurl: ""
 
-title                    : "Kamal Preet Singh"
-title_separator          : "-"
-name                     : &name "Kamal Preet Singh"
-position                 : "Assistant Professor"
-affiliation              : "Swami Rama Himalayan University, Dehradun, India"
-email                    : "kamalpreet1010@gmail.com"
-baseurl                  : ""
+description: "Assistant Professor specializing in Artificial Intelligence, Machine Learning, Data Analytics, and Cybersecurity with academic and industry experience across India and Australia."
 
-description              : &description "Assistant Professor specializing in Artificial Intelligence, Machine Learning, Data Analytics, and Cybersecurity with academic and industry experience across India and Australia."
-
-url                      : "https://kaypee1010.github.io"
-repository               : "kaypee1010/kaypee1010.github.io"
-
-Author Profile Sidebar
+url: "https://kaypee1010.github.io"
+repository: "kaypee1010/kaypee1010.github.io"
 
 author:
-avatar           : "/images/profile.jpg"
-name             : "Kamal Preet Singh"
-pronouns         :
-bio              : "Assistant Professor | AI • Machine Learning • Data Science"
-location         : "Dehradun, India"
-employer         : "Swami Rama Himalayan University"
-email            : "kamalpreetsingh@srhu.edu.in"
+avatar: "/images/profile.jpg"
+name: "Kamal Preet Singh"
+bio: "Assistant Professor | AI • Machine Learning • Data Science"
+location: "Dehradun, India"
+employer: "Swami Rama Himalayan University"
+email: "kamalpreetsingh@srhu.edu.in"
 
-Academic Profiles
+googlescholar: "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+orcid: "0000-0001-7949-0767"
+researchgate: ""
+scopus: ""
 
-googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-orcid            : "0000-0001-7949-0767"
-researchgate     : ""
-scopus           : ""
-
-Development / Research Platforms
-
-github           : "kaypee1010"
-kaggle           :
-stackoverflow    :
-
-Social Media
-
-linkedin         : "https://www.linkedin.com/in/kaypee-singh/"
-twitter          :
-youtube          :
-
-IMPORTANT — MUST BE OUTSIDE AUTHOR
+github: "kaypee1010"
+linkedin: "https://www.linkedin.com/in/kaypee-singh/"
 
 include:
 
