@@ -1,4 +1,5 @@
-# Basic Site Settings
+lBasic Site Settings
+
 locale                   : "en-US"
 site_theme               : "default"
 
@@ -8,47 +9,47 @@ name                     : &name "Kamal Preet Singh"
 position                 : "Assistant Professor"
 affiliation              : "Swami Rama Himalayan University, Dehradun, India"
 email                    : "kamalpreet1010@gmail.com"
-baseurl                  : "/kp_singh"
+baseurl                  : ""
 
 description              : &description "Assistant Professor specializing in Artificial Intelligence, Machine Learning, Data Analytics, and Cybersecurity with academic and industry experience across India and Australia."
 
 url                      : "https://kaypee1010.github.io"
 repository               : "kaypee1010/kaypee1010.github.io"
 
+Author Profile Sidebar
 
-# Author Profile Sidebar
 author:
+avatar           : "/images/profile.jpg"
+name             : "Kamal Preet Singh"
+pronouns         :
+bio              : "Assistant Professor | AI • Machine Learning • Data Science"
+location         : "Dehradun, India"
+employer         : "Swami Rama Himalayan University"
+email            : "kamalpreetsingh@srhu.edu.in"
 
-  avatar           : "/images/profile.jpg"
-  name             : "Kamal Preet Singh"
-  pronouns         :
-  bio              : "Assistant Professor | AI • Machine Learning • Data Science"
-  location         : "Dehradun, India"
-  employer         : "Swami Rama Himalayan University"
-  email            : "kamalpreetsingh@srhu.edu.in"
+Academic Profiles
 
+googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+orcid            : "0000-0001-7949-0767"
+researchgate     : ""
+scopus           : ""
 
-  # Academic Profiles
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-  orcid            : "0000-0001-7949-0767"     # Add later if available
-  researchgate     : ""
-  scopus           : ""
+Development / Research Platforms
 
+github           : "kaypee1010"
+kaggle           :
+stackoverflow    :
 
-  # Development / Research Platforms
-  github           : "kaypee1010"
-  kaggle           :
-  stackoverflow    :
+Social Media
 
+linkedin         : "https://www.linkedin.com/in/kaypee-singh/"
+twitter          :
+youtube          :
 
-  # Social Media
-  linkedin         : "https://www.linkedin.com/in/kaypee-singh/"   # Add LinkedIn later
-  twitter          :
-  youtube          :
+IMPORTANT — MUST BE OUTSIDE AUTHOR
 
+include:
 
-
-  include:
-  - .htaccess
-  - _pages
-  - files
+- .htaccess
+- _pages
+- files
