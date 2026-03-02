@@ -3,7 +3,7 @@ Data Scientist | Data Engineer | Data Analyst
 
 Email: [kamalpreetsingh@srhu.edu.in](mailto:kamalpreetsingh@srhu.edu.in)
 Linkedin: "https://www.linkedin.com/in/kaypee-singh/"
-GitHub: "kaypee1010"
+GitHub: https://github.com/kaypee1010
 
 ---
 
