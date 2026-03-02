@@ -5,7 +5,7 @@ permalink: /patents/
 author_profile: true
 ---
 
-## 🧠 Published Indian Patent Applications
+##  Published Indian Patent Applications
 
 ### 1️⃣ A System for Real-Time Context-Aware AI Orchestration for Pilgrimage Safety and Assistance
 

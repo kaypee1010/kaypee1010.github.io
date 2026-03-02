@@ -5,7 +5,7 @@ permalink: /publications/
 author_profile: true
 ---
 
-## 📊 Research Metrics
+## Research Metrics
 
 - **Google Scholar Citations:** ~400+
 - **h-index:** 7  
@@ -17,7 +17,7 @@ author_profile: true
 
 ---
 
-## 🧠 Selected Journal Publications
+## Selected Journal Publications
 
 ### Applied Machine Learning for Developing Next-Generation Functional Materials  
 **Advanced Functional Materials**, 2021  
@@ -82,7 +82,7 @@ JETIR, 2019
 
 ---
 
-## 🔬 Research Domains
+## Research Domains
 
 - Artificial Intelligence & Machine Learning  
 - Internet of Things (IoT)  
@@ -94,7 +94,7 @@ JETIR, 2019
 
 ---
 
-## 📈 Research Impact Statement
+## Research Impact Statement
 
 The research contributions span interdisciplinary domains integrating artificial intelligence, IoT systems, smart infrastructure, and cybersecurity with applications in healthcare, transportation, and intelligent environments. Publications include high-impact journals, Springer book chapters, IEEE conferences, and indexed international journals.
 
