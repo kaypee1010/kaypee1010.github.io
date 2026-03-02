@@ -47,6 +47,3 @@ My teaching approach emphasizes experiential learning, industry relevance, and p
 
 <a href="/files/cv/industry_resume.pdf" class="btn btn--success">Download Industry Resume</a>
 
-[Download Academic CV](/files/cv/academic_cv.pdf){: .btn .btn--primary }
-
-[Download Industry Resume](/files/cv/industry_resume.pdf){: .btn .btn--success }
