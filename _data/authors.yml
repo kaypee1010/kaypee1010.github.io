@@ -1,8 +1,8 @@
 # Authors
 Kamal Preet Singh:
-  name        : "Kamal Preet Singh"
-  bio         : "Assistant Professor<br> | Artificial Intelligence | Machine Learning | Data Science<br><strong>Swami Rama Himalayan University, Dehradun, India</strong>"
   avatar      : "/images/profile.png"
+  name        : "Kamal Preet Singh"
+  bio         : "Assistant Professor<br>  Artificial Intelligence | Machine Learning | Data Science<br><strong>Swami Rama Himalayan University, Dehradun, India</strong>"
   location    : "Dehradun, India"
   links:
     - label: "Google Scholar"
