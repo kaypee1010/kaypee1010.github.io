@@ -6,7 +6,7 @@ author_profile: true
 author: "Kamal Preet Singh"
 ---
 
-## ☁️ Professional Certifications
+## Professional Certifications
 
 - **AWS Certified Cloud Practitioner**  
   Amazon Web Services, 2021  
@@ -18,7 +18,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 📊 Data & Analytics Training
+## Data & Analytics Training
 
 - **Tableau 2020 A-Z: Hands-On Tableau Training for Data Science**  
   Udemy, 2021  
@@ -36,7 +36,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🎓 Faculty Development Programs (FDP)
+## Faculty Development Programs (FDP)
 
 - **NPTEL-AICTE Faculty Development Programme**  
   *Joy of Computing Using Python* — IIT Madras (2019)  
@@ -49,7 +49,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🧑‍🏫 Teaching Qualification
+## Teaching Qualification
 
 - **Post Graduate Certificate in Academic Practice (PGCAP)**  
   University of Petroleum & Energy Studies (UPES), 2019  
