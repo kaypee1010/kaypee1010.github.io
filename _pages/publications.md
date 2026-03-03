@@ -52,7 +52,7 @@ UGC-CARE Listed | IF ≈ 2.1
 
 ---
 
-## 📘 Conference Proceedings & Book Chapters
+##  Conference Proceedings & Book Chapters
 
 ### Role and Impact of Wearables in IoT Healthcare  
 Proceedings of International Conference on Computational Intelligence  
@@ -100,8 +100,8 @@ The research contributions span interdisciplinary domains integrating artificial
 
 ---
 
-## 🔗 Full Publication List
+##  Full Publication List
 
 For complete and up-to-date publications:
 
-👉 [Google Scholar](https://scholar.google.com/citations?user=vxEyeVMAAAAJ)  
+[Google Scholar](https://scholar.google.com/citations?user=vxEyeVMAAAAJ)  

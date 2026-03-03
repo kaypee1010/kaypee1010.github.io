@@ -6,7 +6,7 @@ author_profile: true
 author: "Kamal Preet Singh"
 
 ---
-## 🚀 Professional Experience
+## Professional Experience
 
 ---
 
@@ -56,7 +56,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🌏 International Industry Experience
+## International Industry Experience
 
 ---
 
@@ -105,7 +105,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🔬 Academic–Industry Integration
+## Academic–Industry Integration
 
 My career integrates:
 

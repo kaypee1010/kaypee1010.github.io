@@ -79,7 +79,7 @@ author_profile: true
 
 ---
 
-## 📊 Research & Innovation Focus Areas
+## Research & Innovation Focus Areas
 
 - Artificial Intelligence and Context-Aware Systems  
 - Internet of Things (IoT) and Smart Infrastructure  
@@ -90,7 +90,7 @@ author_profile: true
 
 ---
 
-## 📌 Patent Portfolio Summary
+## Patent Portfolio Summary
 
 - Total Patent Applications: **6**
 - First Author / Primary Inventor: **Majority**

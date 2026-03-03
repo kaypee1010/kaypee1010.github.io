@@ -6,7 +6,7 @@ author_profile: true
 author: "Kamal Preet Singh"
 ---
 
-## 🏆 Academic & Competitive Achievements
+##  Academic & Competitive Achievements
 
 - **UGC NET Qualified** — December 2015
 
@@ -23,7 +23,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🌍 International & Government Recognition
+##  International & Government Recognition
 
 - **Selected by Government of India** for fully funded international training under  
   **Asian Productivity Organization (APO), Taiwan**  
@@ -36,7 +36,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🎤 Professional Recognition & Invited Talks
+## Professional Recognition & Invited Talks
 
 - **Invited Expert Lecture**  
   “AI Tools for Engineers in Manufacturing Set-up”  
@@ -50,7 +50,7 @@ author: "Kamal Preet Singh"
 
 ---
 
-## 🚀 Innovation & Competitions
+## Innovation & Competitions
 
 - **Honourable Mention — GovHack Australia 2020**  
   Project: Super Savings (Australian Government Data Innovation Challenge)  

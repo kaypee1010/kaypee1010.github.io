@@ -7,7 +7,7 @@ author_profile: true
 
 ## Professional Memberships
 
-### 🏛 Institution of Engineers (India) — IEI
+### Institution of Engineers (India) — IEI
 
 **Member**  
 Institution of Engineers (India)
@@ -20,7 +20,7 @@ Membership reflects professional recognition and engagement with the engineering
 
 ---
 
-### 🎓 Indian Society for Technical Education (ISTE)
+### Indian Society for Technical Education (ISTE)
 
 **Life Member**  
 Indian Society for Technical Education (ISTE)
