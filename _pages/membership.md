@@ -5,7 +5,6 @@ permalink: /membership/
 author_profile: true
 ---
 
-## Professional Memberships
 
 ### Institution of Engineers (India) — IEI
 
