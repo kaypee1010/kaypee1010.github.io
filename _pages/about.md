@@ -5,7 +5,7 @@ permalink: /
 author_profile: true
 ---
 
-<div style="padding:40px 30px; border-radius:14px; background:linear-gradient(135deg,#0f172a,#1e293b); color:white; margin-bottom:40px;">
+<div style="padding: 26px; border-radius: 14px; background: linear-gradient(135deg,#0f172a,#1e293b); color: #f8fafc; margin-bottom: 32px;">
 
 <h1 style="margin-bottom:8px; font-weight:700;">Kamal Preet Singh</h1>
 
