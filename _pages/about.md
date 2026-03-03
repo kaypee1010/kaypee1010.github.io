@@ -27,7 +27,7 @@ Academic researcher and industry practitioner with international experience acro
 </div>
 
 
-## 🔬 Research Focus
+##  Research Focus
 
 <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
 <div style="padding:18px; border-radius:14px; background:#1f2937; color:#e5e7eb; border:1px solid #374151;">
@@ -48,7 +48,7 @@ Intelligent infrastructure, smart systems, AI-driven safety frameworks.
 </div>
 
 
-## 📊 Research Impact Snapshot
+##  Research Impact Snapshot
 
 <div style="display:flex; flex-wrap:wrap; gap:40px; margin-top:20px; font-size:18px;">
 
