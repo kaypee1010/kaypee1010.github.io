@@ -41,6 +41,27 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+/* ==============================
+   Global Typography Refinement
+============================== */
+
+body {
+  font-size: 15.5px;   /* Slightly reduced from default */
+  line-height: 1.65;
+}
+
+h1 { font-size: 28px; }
+h2 { font-size: 22px; }
+h3 { font-size: 18px; }
+h4 { font-size: 16px; }
+
+.page__content p {
+  font-size: 15.5px;
+}
+
+.author__name {
+  font-size: 17px;
+}
 /* ================================
    Publication Cards Styling
 ================================ */
