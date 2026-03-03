@@ -7,7 +7,7 @@ author_profile: true
 
 <div style="padding: 26px; border-radius: 14px; background: linear-gradient(135deg,#0f172a,#1e293b); color: #f8fafc; margin-bottom: 32px;">
 
-<h1 style="margin-bottom:6px; font-weight:700;">Kamal Preet Singh</h1>
+<h1 style="margin-bottom:6px; font-weight:700;">Kamal Preet (K.P) Singh</h1>
 
 <h3 style="margin-top:0; font-weight:400;">
 Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
