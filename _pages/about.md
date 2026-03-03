@@ -30,8 +30,7 @@ Academic researcher and industry practitioner with international experience acro
 ## 🔬 Research Focus
 
 <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
-
-<div style="padding:18px; border-radius:14px; background:#1f2937; color:#e5e7eb; border:1px solid #374151;">>
+<div style="padding:18px; border-radius:14px; background:#1f2937; color:#e5e7eb; border:1px solid #374151;">
 <h4>Artificial Intelligence & Machine Learning</h4>
 Machine Learning, Deep Learning, Natural Language Processing (NLP), predictive modeling.
 </div>
