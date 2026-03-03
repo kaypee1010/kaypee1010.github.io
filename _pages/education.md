@@ -32,7 +32,7 @@ Computer Science & Engineering — Information Security
 **PEC University of Engineering & Technology, Chandigarh, India**  
 Awarded: October 2013  
 
-**CGPA:** 8.25 / 10
+**CGPA:** 8.25 / 10 |
 
 Research-intensive postgraduate degree focused on secure computing systems and applied cryptographic frameworks.
 
