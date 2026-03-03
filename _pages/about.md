@@ -18,9 +18,9 @@ Academic researcher and industry practitioner with international experience acro
 </p>
 
 <div style="margin-top:25px;">
-<a href="/files/cv/academic_cv.pdf" class="btn btn--primary btn--large">📘 Academic CV</a>
-<a href="/files/cv/industry_resume.pdf" class="btn btn--success btn--large">💼 Industry Resume</a>
-<a href="/publications/" class="btn btn--info btn--large">📚 Publications</a>
+<a href="/files/cv/academic_cv.pdf" class="btn btn--primary btn--large">Academic CV</a>
+<a href="/files/cv/industry_resume.pdf" class="btn btn--success btn--large">Industry Resume</a>
+<a href="/publications/" class="btn btn--info btn--large">Publications</a>
 </div>
 
 
