@@ -24,22 +24,6 @@ author:
   linkedin: "kaypee-singh"
   github: "kaypee1010"
 
-label: "Academic CV"
-icon: "fas fa-file-alt"
-url: "/files/cv/academic_cv.pdf"
-
-label: "Industry Resume"
-icon: "fas fa-briefcase"
-url: "/files/cv/industry_resume.pdf"
-
-label: "Publications"
-icon: "fas fa-book"
-url: "/publications/"
-
-label: "Talks"
-icon: "fas fa-microphone"
-url: "/talks/"
-  
 
 
 
