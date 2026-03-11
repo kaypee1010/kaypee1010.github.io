@@ -11,6 +11,15 @@ author_profile: true
 <p style="font-size:14px; opacity:0.8; margin-top:4px;">
 400+ Citations &nbsp;&nbsp;|&nbsp;&nbsp; h-index 7 &nbsp;&nbsp;|&nbsp;&nbsp; 6+ Patents
 </p>
+<p style="margin-top:6px; font-size:14px;">
+<a href="/files/cv/academic_cv.pdf" target="_blank" style="margin-right:18px;">
+<i class="fas fa-file-lines"></i> Academic CV
+</a>
+
+<a href="/files/cv/industry_resume.pdf" target="_blank">
+<i class="fas fa-briefcase"></i> Industry Resume
+</a>
+</p>
 <h3 style="margin-top:0; font-weight:400;">
 Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
 </h3>
