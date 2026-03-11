@@ -6,12 +6,18 @@ author_profile: true
 author: "Kamal Preet Singh"
 ---
 
-## Master of Information Technology (Artificial Intelligence)
+<div class="edu-timeline">
 
-🏫**University of Melbourne, Australia** — Dec 2021  
+<div class="edu-item">
+<div class="edu-year">2021</div>
+<div class="edu-content">
+
+### Master of Information Technology (Artificial Intelligence)
+
+<i class="fas fa-graduation-cap"></i> **University of Melbourne, Australia**  
 **WAM:** 74 / 100 | **GPA:** 7.4 / 10  
 
-Advanced postgraduate specialization in Artificial Intelligence and Data Science with emphasis on research-driven problem solving and industry-oriented intelligent systems.
+Advanced postgraduate specialization in Artificial Intelligence and Data Science with emphasis on research-driven intelligent systems.
 
 **Focus Areas**
 - Artificial Intelligence & Machine Learning  
@@ -20,58 +26,64 @@ Advanced postgraduate specialization in Artificial Intelligence and Data Science
 - Computer Vision  
 - Data Ethics & Responsible AI  
 
-This international program integrated research methodology with practical industry-oriented AI applications and data-driven system design.
+</div>
+</div>
 
----
+<div class="edu-item">
+<div class="edu-year">2013</div>
+<div class="edu-content">
 
-## Master of Engineering  
+### Master of Engineering  
 Computer Science & Engineering — Information Security
 
-🏫**PEC University of Engineering & Technology, Chandigarh, India** — Oct 2013  
+<i class="fas fa-graduation-cap"></i> **PEC University of Engineering & Technology, Chandigarh**
+
 **CGPA:** 8.25 / 10  
 
-Research-intensive postgraduate degree focused on secure computing systems, applied cryptography, and network security architectures.
-
-**Core Areas**
+Core Areas
 - Cryptography  
 - Network Security  
 - Cyber Law  
 - Secure Systems Architecture  
 
----
+</div>
+</div>
 
-## Post Graduate Certificate in Academic Practice (PGCAP)
+<div class="edu-item">
+<div class="edu-year">2019</div>
+<div class="edu-content">
 
-🏫**University of Petroleum & Energy Studies (UPES), Dehradun, India** — 2019  
+### Post Graduate Certificate in Academic Practice (PGCAP)
+
+<i class="fas fa-graduation-cap"></i> **University of Petroleum & Energy Studies, Dehradun**
+
 **GPA:** 7.93 / 10  
 
-Formal higher-education qualification focused on university pedagogy, curriculum design, and academic leadership.
-
-**Coverage**
+Coverage
 - Curriculum Design  
-- Outcome-Based Education (OBE)  
+- Outcome-Based Education  
 - Assessment & Evaluation  
 - Academic Governance  
 
 [View Certificate](../files/certifications/pgcap-2019.jpeg)
 
----
+</div>
+</div>
 
-## Bachelor of Technology  
+<div class="edu-item">
+<div class="edu-year">2011</div>
+<div class="edu-content">
+
+### Bachelor of Technology  
 Computer Science & Engineering
 
-🏫**Guru Nanak Dev Engineering College (GNDEC), Ludhiana**  
-Punjab Technical University — May 2011  
+<i class="fas fa-graduation-cap"></i> **Guru Nanak Dev Engineering College, Ludhiana**  
+Punjab Technical University  
 
 **GPA:** 8.33 / 10  
 First Division with Distinction
 
----
+</div>
+</div>
 
-## School Education
-
-🏫 **Senior Secondary (CBSE)**  
-St. Soldier International Convent School, Mohali — 2007  
-
-🏫**Secondary Education (CISCE)**  
-St. Thomas School, Jagadhri — 2005
+</div>
