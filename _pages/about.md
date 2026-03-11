@@ -16,14 +16,6 @@ Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
 <p style="font-size:15.5px; line-height:1.65; margin-top:20px;">
 Academic researcher and industry practitioner with international experience across Australia and India. My work integrates Artificial Intelligence, Data Engineering, IoT Systems, and Cyber-Physical Systems to build deployable intelligent infrastructure.
 </p>
-
-<div style="margin-top:25px;">
-<a href="/files/cv/academic_cv.pdf" class="btn btn--primary btn--large">Academic CV</a>
-<a href="/files/cv/industry_resume.pdf" class="btn btn--success btn--large">Industry Resume</a>
-<a href="/publications/" class="btn btn--info btn--large">Publications</a>
-</div>
-
-
 </div>
 
 
