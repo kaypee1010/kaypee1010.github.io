@@ -121,4 +121,29 @@ h4 { font-size: 16px; }
 .page__content hr {
   opacity: 0.25;
 }
+.edu-timeline {
+position: relative;
+margin-top: 20px;
+}
 
+.edu-item {
+display: grid;
+grid-template-columns: 80px 1fr;
+margin-bottom: 40px;
+}
+
+.edu-year {
+font-weight: 700;
+font-size: 18px;
+color: #9ca3af;
+}
+
+.edu-content {
+padding-left: 10px;
+border-left: 2px solid #374151;
+padding-bottom: 10px;
+}
+
+.edu-content h3 {
+margin-top: 0;
+}
