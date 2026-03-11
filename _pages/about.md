@@ -8,9 +8,23 @@ author_profile: true
 <div style="padding: 26px; border-radius: 14px; background: linear-gradient(135deg,#0f172a,#1e293b); color: #f8fafc; margin-bottom: 32px;">
 
 <h1 style="margin-bottom:6px; font-weight:700;">Kamal Preet (K.P) Singh</h1>
-<p style="font-size:14px; opacity:0.8; margin-top:4px;">
-400+ Citations &nbsp;&nbsp;|&nbsp;&nbsp; h-index 7 &nbsp;&nbsp;|&nbsp;&nbsp; 6+ Patents
-</p>
+
+<div style="margin-top:6px; margin-bottom:10px;">
+
+<span style="background:#1f2937; padding:4px 10px; border-radius:6px; margin-right:6px;">
+400+ Citations
+</span>
+
+<span style="background:#1f2937; padding:4px 10px; border-radius:6px; margin-right:6px;">
+h-index 7
+</span>
+
+<span style="background:#1f2937; padding:4px 10px; border-radius:6px;">
+6+ Patents
+</span>
+
+</div>
+
 <p style="margin-top:6px; font-size:14px;">
 <a href="/files/cv/academic_cv.pdf" target="_blank" style="margin-right:18px;">
 <i class="fas fa-file-lines"></i> Academic CV
@@ -20,7 +34,7 @@ author_profile: true
 <i class="fas fa-briefcase"></i> Industry Resume
 </a>
 </p>
-<h3 style="margin-top:0; font-weight:400;">
+<h3 style="margin-top:8px font-weight:400;">
 Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
 </h3>
 
