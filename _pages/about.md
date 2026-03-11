@@ -9,7 +9,7 @@ author_profile: true
 
 <h1 style="margin-bottom:6px; font-weight:700;">Kamal Preet (K.P) Singh</h1>
 
-<div style="margin-top:6px; margin-bottom:10px;">
+<div style="margin-top:6px; margin-bottom:6px;">
 
 <span style="background:#1f2937; padding:4px 10px; border-radius:6px; margin-right:6px;">
 400+ Citations
@@ -29,7 +29,7 @@ h-index 7
 <a href="/files/cv/academic_cv.pdf" target="_blank" style="margin-right:18px;">
 <i class="fas fa-file-lines"></i> Academic CV
 </a>
-
+&nbsp; • &nbsp;
 <a href="/files/cv/industry_resume.pdf" target="_blank">
 <i class="fas fa-briefcase"></i> Industry Resume
 </a>

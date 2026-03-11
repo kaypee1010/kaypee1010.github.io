@@ -47,7 +47,7 @@
 
 body {
   font-size: 15.5px;   /* Slightly reduced from default */
-  line-height: 1.65;
+  line-height: 1.58;
 }
 
 h1 { font-size: 28px; }
@@ -57,6 +57,11 @@ h4 { font-size: 16px; }
 
 .page__content p {
   font-size: 15.5px;
+  margin-bottom: 0.6em;
+}
+.page__content h2 {
+  margin-top: 24px;
+  margin-bottom: 6px;
 }
 
 .author__name {
