@@ -8,13 +8,13 @@ author_profile: true
 <div style="padding: 26px; border-radius: 14px; background: linear-gradient(135deg,#0f172a,#1e293b); color: #f8fafc; margin-bottom: 32px;">
 
 <h1 style="margin-bottom:6px; font-weight:700;">Kamal Preet (K.P) Singh</h1>
-
-<h3 style="margin-top:0; font-weight:400;">
-Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
-</h3>
 <p style="font-size:14px; opacity:0.8; margin-top:4px;">
 400+ Citations &nbsp;&nbsp;|&nbsp;&nbsp; h-index 7 &nbsp;&nbsp;|&nbsp;&nbsp; 6+ Patents
 </p>
+<h3 style="margin-top:0; font-weight:400;">
+Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
+</h3>
+
 
 <p style="font-size:15.5px; line-height:1.65; margin-top:20px;">
 Academic researcher and industry practitioner with international experience across Australia and India. My work integrates Artificial Intelligence, Data Engineering, IoT Systems, and Cyber-Physical Systems to build deployable intelligent infrastructure.
