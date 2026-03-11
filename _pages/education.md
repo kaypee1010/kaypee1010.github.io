@@ -8,7 +8,7 @@ author: "Kamal Preet Singh"
 
 ## Master of Information Technology (Artificial Intelligence)
 
-**University of Melbourne, Australia** — Dec 2021  
+🎓 **University of Melbourne, Australia** — Dec 2021  
 **WAM:** 74 / 100 | **GPA:** 7.4 / 10  
 
 Advanced postgraduate specialization in Artificial Intelligence and Data Science with emphasis on research-driven problem solving and industry-oriented intelligent systems.
@@ -27,7 +27,7 @@ This international program integrated research methodology with practical indust
 ## Master of Engineering  
 Computer Science & Engineering — Information Security
 
-**PEC University of Engineering & Technology, Chandigarh, India** — Oct 2013  
+🎓 **PEC University of Engineering & Technology, Chandigarh, India** — Oct 2013  
 **CGPA:** 8.25 / 10  
 
 Research-intensive postgraduate degree focused on secure computing systems, applied cryptography, and network security architectures.
@@ -42,7 +42,7 @@ Research-intensive postgraduate degree focused on secure computing systems, appl
 
 ## Post Graduate Certificate in Academic Practice (PGCAP)
 
-**University of Petroleum & Energy Studies (UPES), Dehradun, India** — 2019  
+🎓  **University of Petroleum & Energy Studies (UPES), Dehradun, India** — 2019  
 **GPA:** 7.93 / 10  
 
 Formal higher-education qualification focused on university pedagogy, curriculum design, and academic leadership.
@@ -60,7 +60,7 @@ Formal higher-education qualification focused on university pedagogy, curriculum
 ## Bachelor of Technology  
 Computer Science & Engineering
 
-**Guru Nanak Dev Engineering College (GNDEC), Ludhiana**  
+🎓 **Guru Nanak Dev Engineering College (GNDEC), Ludhiana**  
 Punjab Technical University — May 2011  
 
 **GPA:** 8.33 / 10  
@@ -70,8 +70,8 @@ First Division with Distinction
 
 ## School Education
 
-**Senior Secondary (CBSE)**  
+🎓 **Senior Secondary (CBSE)**  
 St. Soldier International Convent School, Mohali — 2007  
 
-**Secondary Education (CISCE)**  
+🎓 **Secondary Education (CISCE)**  
 St. Thomas School, Jagadhri — 2005
