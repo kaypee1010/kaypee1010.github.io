@@ -47,6 +47,10 @@ h-index 7
 Assistant Professor | Artificial Intelligence | Machine Learning | Data Science
 </h3>
 
+<p style="font-size:14px; margin-top:4px; color:#cbd5f5;">
+UGC NET Qualified | GATE Qualified (6×)
+</p>
+
 <p style="font-size:15.5px; line-height:1.6; margin-top:12px;">
 Academic researcher and industry practitioner with international experience across Australia and India. My work integrates Artificial Intelligence, Data Engineering, IoT Systems, and Cyber-Physical Systems to build deployable intelligent infrastructure.
 </p>
