@@ -5,97 +5,132 @@ permalink: /patents/
 author_profile: true
 ---
 
-##  Published Indian Patent Applications
+## Patent Portfolio
 
-### 1️⃣ A System for Real-Time Context-Aware AI Orchestration for Pilgrimage Safety and Assistance
-
-- Inventors: Kamal Preet Singh, Saloni Goel, Harsh Narayan Rajbhar, Shobhit Panwar, Shivam Sharma, Gautam Rawat  
-- Application Number: 202511128965 A  
-- Filing Date: 19 Dec 2025  
-- Publication Date: 23 Jan 2026  
-- Status: Published  
-
-[View Document](../files/patents/202511128965.pdf)
+- **Total Patent Applications:** 6  
+- **Jurisdiction:** India  
+- **Filing Year:** 2025–2026  
+- **Status:** Published  
 
 ---
 
-### 2️⃣ An Autonomous IoT-Based Water Leak Detection and Fixture-Level Shut-Off System for Shared Facilities
+## Published Indian Patent Applications
 
-- Inventors: Kavya Pant, Gunjan Chhabra, Kamal Preet Singh, Radhe Shankar  
-- Application Number: 202511128353 A  
-- Filing Date: 17 Dec 2025  
-- Publication Date: 26 Jan 2026  
-- Status: Published  
+<div class="publication-card">
 
-[View Document](../files/patents/202511128353.pdf)
+<b>A System for Real-Time Context-Aware AI Orchestration for Pilgrimage Safety and Assistance</b>
+
+Inventors: Kamal Preet Singh, Saloni Goel, Harsh Narayan Rajbhar, Shobhit Panwar, Shivam Sharma, Gautam Rawat  
+
+Application No: 202511128965 A  
+Filing Date: 19 Dec 2025  
+Publication Date: 23 Jan 2026  
+Status: Published  
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/patents/202511128965.pdf">View Document</a>
+</div>
+
+</div>
+
+<div class="publication-card">
+
+<b>An Autonomous IoT-Based Water Leak Detection and Fixture-Level Shut-Off System for Shared Facilities</b>
+
+Inventors: Kavya Pant, Gunjan Chhabra, Kamal Preet Singh, Radhe Shankar  
+
+Application No: 202511128353 A  
+Filing Date: 17 Dec 2025  
+Publication Date: 26 Jan 2026  
+Status: Published  
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/patents/202511128353.pdf">View Document</a>
+</div>
+
+</div>
+
+<div class="publication-card">
+
+<b>A System for Dynamic Credential Lifecycle Management for Mobile Hotspot Access</b>
+
+Inventor: Kamal Preet Singh  
+
+Application No: 202511129502 A  
+Filing Date: 20 Dec 2025  
+Publication Date: 30 Jan 2026  
+Status: Published  
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/patents/202511129502.pdf">View Document</a>
+</div>
+
+</div>
+
+<div class="publication-card">
+
+<b>Apparatus for Context-Aware Multimodal Wearable HCI with Privacy-Preserved Output and Safety Fallback Protocols</b>
+
+Inventor: Kamal Preet Singh  
+
+Application No: 202511131505 A  
+Filing Date: 24 Dec 2025  
+Publication Date: 6 Feb 2026  
+Status: Published  
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/patents/202511131505.pdf">View Document</a>
+</div>
+
+</div>
+
+<div class="publication-card">
+
+<b>A Trust-Based Device Pairing System for Re-Authentication in Personal Mobile Hotspots</b>
+
+Inventor: Kamal Preet Singh  
+
+Application No: 202511131162 A  
+Filing Date: 24 Dec 2025  
+Publication Date: 6 Feb 2026  
+Status: Published  
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/patents/202511131162.pdf">View Document</a>
+</div>
+
+</div>
+
+<div class="publication-card">
+
+<b>A Real-Time Vehicle Compliance Verification and Risk-Based Service Authorization System</b>
+
+Inventor: Kamal Preet Singh  
+
+Application No: 202511131165 A  
+Filing Date: 24 Dec 2025  
+Publication Date: 6 Feb 2026  
+Status: Published  
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/patents/202511131165.pdf">View Document</a>
+</div>
+
+</div>
 
 ---
 
-### 3️⃣ A System for Dynamic Credential Lifecycle Management for Mobile Hotspot Access
+## Innovation Focus Areas
 
-- Inventor: Kamal Preet Singh  
-- Application Number: 202511129502 A  
-- Filing Date: 20 Dec 2025  
-- Publication Date: 30 Jan 2026  
-- Status: Published  
-
-[View Document](../files/patents/202511129502.pdf)
-
----
-
-### 4️⃣ Apparatus for Context-Aware Multimodal Wearable HCI with Privacy-Preserved Output and Safety Fallback Protocols
-
-- Inventor: Kamal Preet Singh  
-- Application Number: 202511131505 A  
-- Filing Date: 24 Dec 2025  
-- Publication Date: 6 Feb 2026  
-- Status: Published  
-
-[View Document](../files/patents/202511131505.pdf)
-
----
-
-### 5️⃣ A Trust-Based Device Pairing System for Re-Authentication in Personal Mobile Hotspots
-
-- Inventor: Kamal Preet Singh  
-- Application Number: 202511131162 A  
-- Filing Date: 24 Dec 2025  
-- Publication Date: 6 Feb 2026  
-- Status: Published  
-
-[View Document](../files/patents/202511131162.pdf)
-
----
-
-### 6️⃣ A Real-Time Vehicle Compliance Verification and Risk-Based Service Authorization System
-
-- Inventor: Kamal Preet Singh  
-- Application Number: 202511131165 A  
-- Filing Date: 24 Dec 2025  
-- Publication Date: 6 Feb 2026  
-- Status: Published  
-
-[View Document](../files/patents/202511131165.pdf)
-
----
-
-## Research & Innovation Focus Areas
-
-- Artificial Intelligence and Context-Aware Systems  
-- Internet of Things (IoT) and Smart Infrastructure  
+- Artificial Intelligence & Context-Aware Systems  
+- Internet of Things (IoT) & Smart Infrastructure  
 - Cyber-Physical Systems  
-- Mobile Security and Authentication  
-- Intelligent Transportation and Compliance Systems  
+- Mobile Security & Authentication  
+- Intelligent Transportation Systems  
 - Human–Computer Interaction (HCI)
 
 ---
 
-## Patent Portfolio Summary
+## Innovation Impact
 
-- Total Patent Applications: **6**
-- First Author / Primary Inventor: **Majority**
-- Filing Year: **2025–2026**
-- Jurisdiction: **India**
-- Status: **Published**
-
-The portfolio reflects interdisciplinary innovation across AI, IoT, smart mobility, and cyber-physical systems with real-world deployment potential.
+This patent portfolio reflects research-driven innovation across **Artificial Intelligence, IoT infrastructure, smart mobility systems, and cyber-physical architectures**, with practical applications in safety systems, intelligent infrastructure, and digital security.
