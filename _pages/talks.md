@@ -52,7 +52,9 @@ World Engineering Day for Sustainable Development<br>
 Presented insights on how Artificial Intelligence, smart infrastructure, and data-driven engineering systems are shaping sustainable technological ecosystems.
 </p>
 
-<img src="/files/talks/world-engineering-day-2026.jpg" style="margin-top:16px;border-radius:8px;max-width:520px;">
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/talks/worldengineeringday2026.jpg">View Event Poster</a>
+</div>
 
 </div>
 
@@ -105,6 +107,10 @@ National Energy Conservation Day<br>
 <p>
 Delivered a technical session discussing the role of Artificial Intelligence, data analytics, and intelligent automation in modern energy systems and engineering decision-making.
 </p>
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/talks/energyconservationday2025.jpg">View Event Poster</a>
+</div>
 
 </div>
 
