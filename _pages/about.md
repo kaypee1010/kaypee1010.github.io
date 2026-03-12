@@ -9,7 +9,7 @@ author_profile: true
 
 <h1 style="margin-bottom:6px; font-weight:700;">Kamal Preet (K.P) Singh</h1>
 
-<div style="margin-top:6px; margin-bottom:6px;">
+<div style="margin-top:4px; margin-bottom:6px;">
 
 <span style="background:#1f2937; padding:4px 10px; border-radius:6px; margin-right:6px;">
 400+ Citations
