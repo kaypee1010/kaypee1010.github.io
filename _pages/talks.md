@@ -103,10 +103,8 @@ National Energy Conservation Day<br>
 </p>
 
 <p>
-Delivered a technical session discussing the role of AI, data analytics, and intelligent automation in modern energy systems and engineering decision-making.
+Delivered a technical session discussing the role of Artificial Intelligence, data analytics, and intelligent automation in modern energy systems and engineering decision-making.
 </p>
-
-<img src="/files/talks/energy-conservation-day-2025.jpg" style="margin-top:16px;border-radius:8px;max-width:520px;">
 
 </div>
 
