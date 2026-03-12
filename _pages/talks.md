@@ -12,43 +12,60 @@ author_profile: true
 
 <h4>🌊 AI Tools for Safety Management in Hydro Power Plants</h4>
 
-<b>Invited Expert Lecture</b>  
+<b>Invited Expert Lecture</b>
 
-<strong>Venue:</strong> UJVNL Training Centre, Dhakrani (Dakpathar), Dehradun  
-<strong>Event:</strong> National Safety Week 2026 — Uttarakhand Productivity Council  
-<strong>Date:</strong> <span class="talk-date">9 March 2026</span>  
+<strong>Venue</strong><br>
+UJVNL Training Centre, Dhakrani (Dakpathar), Dehradun
+
+<strong>Event</strong><br>
+National Safety Week 2026 — Uttarakhand Productivity Council
+
+<strong>Date</strong><br>
+<span class="talk-date">9 March 2026</span>
 
 Delivered an expert lecture to engineers from various hydro power stations of UJVNL on the application of Artificial Intelligence for safety monitoring, risk prediction, and intelligent decision support in hydro power plant operations.
 
 </div>
 
 
+
 <div class="publication-card">
 
 <h4>⚙ Smart Engineering for a Sustainable Future</h4>
 
-<b>Invited Technical Talk — World Engineering Day</b>  
+<b>Invited Technical Talk — World Engineering Day</b>
 
-<strong>Venue:</strong> Institution of Engineers (India), Uttarakhand State Centre, Dehradun  
-<strong>Event:</strong> World Engineering Day for Sustainable Development  
-<strong>Date:</strong> <span class="talk-date">6 March 2026</span>  
+<strong>Venue</strong><br>
+Institution of Engineers (India), Uttarakhand State Centre, Dehradun
+
+<strong>Event</strong><br>
+World Engineering Day for Sustainable Development
+
+<strong>Date</strong><br>
+<span class="talk-date">6 March 2026</span>
 
 Presented insights on how Artificial Intelligence, smart infrastructure, and data-driven engineering systems are shaping sustainable technological ecosystems.
 
-<img src="/files/talks/world-engineering-day-2026.jpg" style="margin-top:12px;border-radius:8px;">
+<img src="/files/talks/world-engineering-day-2026.jpg" style="margin-top:14px;border-radius:8px;">
 
 </div>
+
 
 
 <div class="publication-card">
 
 <h4>🏭 AI Tools for Engineers in Manufacturing</h4>
 
-<b>Invited Industry Expert Lecture</b>  
+<b>Invited Industry Expert Lecture</b>
 
-<strong>Venue:</strong> V-Guard Industries Ltd., Kashipur  
-<strong>Event:</strong> National Productivity Week 2026 — Uttarakhand Productivity Council  
-<strong>Date:</strong> <span class="talk-date">14 February 2026</span>  
+<strong>Venue</strong><br>
+V-Guard Industries Ltd., Kashipur
+
+<strong>Event</strong><br>
+National Productivity Week 2026 — Uttarakhand Productivity Council
+
+<strong>Date</strong><br>
+<span class="talk-date">14 February 2026</span>
 
 Delivered an industry-focused lecture demonstrating how artificial intelligence tools can enhance engineering productivity, workflow automation, and decision-making in manufacturing environments.
 
@@ -59,19 +76,25 @@ Delivered an industry-focused lecture demonstrating how artificial intelligence 
 </div>
 
 
+
 <div class="publication-card">
 
 <h4>⚡ Artificial Intelligence in Energy Engineering</h4>
 
-<b>Invited Technical Talk</b>  
+<b>Invited Technical Talk</b>
 
-<strong>Venue:</strong> Institution of Engineers (India), Uttarakhand State Centre, Dehradun  
-<strong>Event:</strong> National Energy Conservation Day  
-<strong>Date:</strong> <span class="talk-date">14 December 2025</span>  
+<strong>Venue</strong><br>
+Institution of Engineers (India), Uttarakhand State Centre, Dehradun
+
+<strong>Event</strong><br>
+National Energy Conservation Day
+
+<strong>Date</strong><br>
+<span class="talk-date">14 December 2025</span>
 
 Delivered a technical session discussing the role of AI, data analytics, and intelligent automation in modern energy systems and engineering decision-making.
 
-<img src="/files/talks/energy-conservation-day-2025.jpg" style="margin-top:12px;border-radius:8px;">
+<img src="/files/talks/energy-conservation-day-2025.jpg" style="margin-top:14px;border-radius:8px;">
 
 </div>
 
