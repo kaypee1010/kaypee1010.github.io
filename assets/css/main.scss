@@ -161,3 +161,35 @@ margin-bottom:20px;
 margin-right:8px;
 margin-bottom:8px;
 }
+/* ==============================
+   Hero Section Spacing Fix
+============================== */
+
+.page__content h1,
+.page__content h2,
+.page__content h3 {
+  margin-bottom: 6px;
+}
+
+.page__content p {
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+/* tighten spacing under CV links */
+.hero-links {
+  margin-bottom: 8px;
+}
+
+/* ==============================
+   Research Focus Card Spacing
+============================== */
+
+.card-hover h3 {
+  margin-bottom: 6px;
+}
+
+.card-hover p {
+  margin-top: 4px;
+  line-height: 1.5;
+}
