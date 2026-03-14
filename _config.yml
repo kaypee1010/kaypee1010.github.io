@@ -1,15 +1,16 @@
 locale: "en-US"
 site_theme: "default"
 
-title: "K.P"
+title: "K.P Singh"
 title_separator: "-"
 name: "Kamal Preet Singh"
 position: "Assistant Professor"
 affiliation: "Swami Rama Himalayan University, Dehradun, India"
 email: "kamalpreet1010@gmail.com"
 baseurl: ""
+keywords: "Kamalpreet Singh, KP Singh, AI researcher India, Machine Learning professor India"
 
-description: "Assistant Professor specializing in Artificial Intelligence, Machine Learning, Data Analytics, and Cybersecurity with academic and industry experience across India and Australia."
+description: "Official website of Kamal Preet Singh (KP Singh), Assistant Professor specializing in Artificial Intelligence, Machine Learning, Data Science and Cybersecurity."
 
 url: "https://kpsingh.in"
 repository: "kaypee1010.github.io"
@@ -31,8 +32,14 @@ author:
 
   
 
-
-
+social:
+  links:
+    - https://github.com/kaypee1010
+    - https://orcid.org/0000-0001-7949-0767
+    - https://scholar.google.com/citations?user=vxEyeVMAAAAJ
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 include:
 
