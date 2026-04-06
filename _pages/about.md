@@ -31,7 +31,7 @@ h-index 7
 
 <div style="font-size:14px; margin-bottom:10px;">
 
-<a href="/files/cv/academic_cv.pdf" target="_blank" style="margin-right:14px;">
+<a href="/files/cv/KP_Academics.pdf" target="_blank" style="margin-right:14px;">
 <i class="fas fa-file-lines"></i> Academic CV
 </a>
 
