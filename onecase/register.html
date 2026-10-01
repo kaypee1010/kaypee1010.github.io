@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en" data-base="1.2.0" data-persist="off" data-page="onecase-register" data-theme="dark">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b1220" id="themeColor">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
+<meta name="description" content="Open your case file for One Case, The Neemgarh File: choose your school's door, verify your university email and get your agent number.">
+<title>Register | One Case</title>
+<style>
+/* ===== 1. TOKENS (kp-html-base names; One Case brand values from brand/BRAND.md) ===== */
+:root{
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  --pad:clamp(16px,4vw,32px); --gap:clamp(12px,3vw,24px);
+  --r:14px; --r-lg:20px; --r-pill:999px;
+  --nav-h:64px;
+  --dur-1:140ms; --dur-2:260ms; --dur-3:460ms;
+  --ease-out:cubic-bezier(.22,.61,.36,1); --ease-in:cubic-bezier(.55,.06,.68,.19);
+  --step-0:clamp(1rem,.95rem + .25vw,1.12rem);
+  --step-2:clamp(1.5rem,1.25rem + 1.3vw,2.2rem);
+  --step-3:clamp(2rem,1.5rem + 2.6vw,3.2rem);
+  --font-type:"Special Elite","Courier New",ui-monospace,monospace;
+  --font-head:"Oswald","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+  --manila:#e8d7a9; --manila-deep:#cdb57c; --ink:#221d14; --ink-muted:#5a4f3a; --stamp:#c8302f; --paper:#e9e4d4; --night:#0b1220;
+  /* light = "daylight case file" */
+  --bg:#efe4c4; --card:#f8f1dc; --soft:#e6d8b3; --fg:#221d14; --muted:#5a4f3a;
+  --line:#b9a47a; --accent:#221d14; --accent-fg:#ffb547; --accent-2:#a8231f;
+  --hl:#221d14; --red-text:#a8231f; --field:#fbf6e6; --shade:rgba(34,29,20,.18);
+  --nav-bg:rgba(239,228,196,.88);
+}
+/* dark = "night", layer 2 (system preference unless the user forced light) */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+    --line:#33456a; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#c8302f;
+    --hl:#ffb547; --red-text:#ff6b5e; --field:#0e1729; --shade:rgba(0,0,0,.5);
+    --nav-bg:rgba(11,18,32,.86);
+  }
+}
+/* dark, layer 3 (explicit toggle; night is the brand default). KEEP IDENTICAL to layer 2. */
+:root[data-theme="dark"]{
+  --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+  --line:#33456a; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#c8302f;
+  --hl:#ffb547; --red-text:#ff6b5e; --field:#0e1729; --shade:rgba(0,0,0,.5);
+  --nav-bg:rgba(11,18,32,.86);
+}
+
+/* ===== 2. RESET / BASE ===== */
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%;text-size-adjust:100%;
+  scroll-padding-top:calc(var(--nav-h) + var(--sat) + 12px);scroll-behavior:smooth}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);min-height:100dvh;
+  font:400 var(--step-0)/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  overflow-x:clip;-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility;
+  padding-top:calc(var(--nav-h) + var(--sat) + var(--gap));
+  padding-bottom:calc(var(--sab) + var(--gap));
+  padding-left:calc(var(--sal) + var(--pad)); padding-right:calc(var(--sar) + var(--pad));
+  display:flex;flex-direction:column}
+img,video,canvas,svg{max-width:100%;display:block;height:auto}
+h1,h2,h3{font-family:var(--font-head);font-weight:600;text-transform:uppercase;letter-spacing:.01em}
+h1{font-size:var(--step-3);line-height:1.02;margin:.15em 0 .3em;text-wrap:balance}
+h2{font-size:var(--step-2);line-height:1.1;margin:.2em 0 .35em;text-wrap:balance}
+h3{font-size:1.15rem;line-height:1.2;margin:0 0 .3em}
+p{text-wrap:pretty;margin:0 0 .8em}
+a{color:inherit;text-underline-offset:3px}
+button,input,select,textarea{font:inherit;color:inherit}
+input:not([type=checkbox]):not([type=radio]),select,textarea{font-size:max(16px,1em);min-height:48px;padding:10px 14px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--field);max-width:100%;width:100%}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--red-text)}
+:focus-visible{outline:2px solid var(--hl);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}
+.skip:focus{display:inline-flex;align-items:center;min-height:48px;left:12px;top:calc(var(--sat) + 8px);z-index:100;background:var(--card);color:var(--fg);padding:12px 16px;border-radius:10px;border:1px solid var(--line)}
+[hidden]{display:none !important}
+
+/* ===== 3. NAV (kp-html-base class names; event brand per the approved deviation) ===== */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:8px;
+  padding:calc(var(--sat) + 8px) calc(var(--sar) + var(--pad)) 8px calc(var(--sal) + var(--pad));
+  background:var(--nav-bg);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.nav{background:var(--card)}}
+.nav-brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto;text-decoration:none;color:inherit}
+.nav-brand>div{min-width:0}
+.nav-logo{width:40px;height:40px;flex:none;border-radius:50%;object-fit:contain;background:transparent}
+.nav-name{font-family:var(--font-head);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-sub{font-size:.75rem;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;flex:none;
+  border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);
+  font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
+  font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+@media (hover:hover){.theme-toggle:hover{background:var(--soft)}}
+.nav-roll{cursor:default;background:var(--soft);color:var(--fg);border:1px solid var(--line);font-variant-numeric:tabular-nums;max-width:44vw;overflow:hidden;
+  font-family:var(--font-type);font-weight:400;letter-spacing:.04em}
+@media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 10px;font-size:.78rem}.nav-roll-label{display:none}}
+@media (max-width:479px){.nav-roll-label{display:none}.nav-roll{padding:0 12px}}
+
+/* ===== 4. LAYOUT / COMPONENTS ===== */
+.wrap{max-width:46rem;margin-inline:auto;width:100%;flex:1 0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--gap)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;min-width:48px;padding:12px 20px;border-radius:var(--r-pill);cursor:pointer;
+  border:1.5px solid var(--line);background:var(--card);color:var(--fg);font-weight:600;text-decoration:none;text-align:center;line-height:1.2;
+  transition:transform var(--dur-1) var(--ease-out),opacity var(--dur-1)}
+.btn:active{transform:scale(.96)}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
+.btn-primary{background:var(--accent);color:var(--accent-fg);border-color:transparent;font-family:var(--font-head);text-transform:uppercase;letter-spacing:.05em;font-size:1.05rem}
+.btn-block{width:100%}
+.btn-quiet{background:transparent}
+.linkbtn{background:none;border:0;padding:0 4px;min-height:48px;color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.meter{height:6px;border-radius:var(--r-pill);background:var(--soft);overflow:hidden}
+.meter>span{display:block;height:100%;border-radius:inherit;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform var(--dur-3) var(--ease-out)}
+.muted{color:var(--muted)}
+.tw{font-family:var(--font-type);letter-spacing:.06em}
+.kicker{font-family:var(--font-type);font-size:.9rem;letter-spacing:.1em;color:var(--muted);margin:0}
+.lede{color:var(--muted);margin:0 0 1rem}
+.mock-banner{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0 0 14px;padding:8px 12px;border:1.5px dashed var(--red-text);border-radius:10px;
+  font-family:var(--font-type);font-size:.85rem;color:var(--fg);background:var(--card)}
+.mock-banner b{color:var(--red-text);font-weight:400}
+.mock-banner details{font-family:system-ui,sans-serif;font-size:.85rem;width:100%;margin-top:-8px}
+.mock-banner summary{cursor:pointer;min-height:48px;display:flex;align-items:center}
+.mock-banner ul{margin:0;padding-left:1.1em}
+.notice{border-left:4px solid var(--hl);background:var(--card);border-radius:8px;padding:10px 14px;margin:0 0 14px}
+.field{display:grid;gap:6px;margin:0 0 16px}
+.field>label,.lab{font-weight:600}
+.hint{font-size:.9rem;color:var(--muted);margin:0}
+.field-err,.form-err{color:var(--red-text);font-weight:600;font-size:.95rem;margin:0}
+.field-err:empty,.form-err:empty{display:none}
+.form-err{padding:10px 14px;border:1.5px solid var(--red-text);border-radius:12px;background:var(--card);margin:0 0 14px}
+.form-ok{padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);margin:0 0 14px;font-weight:600}
+.form-ok:empty{display:none}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.screen>h2:focus{outline:none}
+.row-between{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+
+/* ===== typewriter label (types once, cursor stops after 2 s) ===== */
+.type-once{display:inline-block;white-space:nowrap;overflow:hidden;max-width:100%;
+  clip-path:inset(0 100% 0 0);animation:oc-type var(--type-ms,900ms) steps(var(--type-steps,30),end) .15s forwards}
+.type-once::after{content:"";display:inline-block;width:.55em;height:1em;margin-left:2px;vertical-align:-2px;background:currentColor;animation:oc-blink .7s steps(1) 3 forwards}
+@keyframes oc-type{to{clip-path:inset(0 0 0 0)}}
+@keyframes oc-blink{50%{opacity:0}100%{opacity:0}}
+
+/* ===== One-time code input ===== */
+.otp{font-family:var(--font-type) !important;font-size:2rem !important;letter-spacing:.45em;text-align:center;padding-left:.45em !important;min-height:64px !important;
+  font-variant-numeric:tabular-nums;max-width:20rem !important;margin-inline:auto}
+
+/* ===== Stamp ===== */
+.stamp{position:absolute;display:inline-block;padding:4px 12px;font:400 30px/1 var(--font-type);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stamp);border:4px double var(--stamp);border-radius:6px;transform:rotate(-8deg);pointer-events:none;filter:url(#stampRough);opacity:.9}
+
+/* ===== Agent card ===== */
+.agent-card{position:relative;background:var(--manila);color:var(--ink);border:1px solid var(--manila-deep);border-radius:10px;padding:12px 14px 10px;
+  box-shadow:0 14px 30px var(--shade),0 2px 0 rgba(255,255,255,.35) inset}
+.ac-head{display:flex;justify-content:space-between;gap:8px;font:400 .72rem/1.2 var(--font-type);letter-spacing:.1em;color:var(--ink-muted);
+  border-bottom:2px solid var(--stamp);padding-bottom:6px;margin-bottom:10px}
+.ac-body{display:flex;gap:12px;align-items:center}
+.ac-photo{flex:none;width:64px;height:78px;border-radius:4px;background:var(--night);display:grid;place-items:center;position:relative;overflow:hidden;
+  border:2px solid var(--manila-deep)}
+.ac-photo svg{position:absolute;inset:0;width:100%;height:100%}
+.ac-init{position:relative;font:600 1.35rem/1 var(--font-head);color:var(--paper);letter-spacing:.04em}
+.ac-main{min-width:0}
+.ac-lab{margin:0;font:400 .72rem/1 var(--font-type);letter-spacing:.14em;color:var(--ink-muted)}
+.ac-num{margin:2px 0 2px;font:700 clamp(1.9rem,9vw,2.6rem)/1 var(--font-head);letter-spacing:.02em;color:var(--ink);white-space:nowrap}
+.ac-name{margin:0;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.ac-meta{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:10px 0 6px;padding:0}
+.ac-meta div{min-width:0}
+.ac-meta dt{font:400 .68rem/1.2 var(--font-type);letter-spacing:.12em;color:var(--ink-muted);text-transform:uppercase}
+.ac-meta dd{margin:0;font-weight:600;font-size:.92rem;line-height:1.25;overflow-wrap:anywhere}
+.ac-foot{margin:6px 0 0;font:400 .62rem/1.3 var(--font-type);letter-spacing:.1em;color:var(--ink-muted);border-top:1px dashed var(--manila-deep);padding-top:6px}
+.agent-card .stamp{right:10px;top:-6px;font-size:26px;padding:3px 10px;background:transparent}
+
+/* ===== Footer ===== */
+.foot{max-width:46rem;margin:40px auto 0;width:100%;padding-top:18px;border-top:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;font-size:.9rem;color:var(--muted)}
+.foot img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--line)}
+.foot p{margin:0 0 4px}
+.foot a{color:var(--fg);display:inline-flex;align-items:center;min-height:48px}
+.foot .tw{color:var(--fg)}
+
+/* ===== KIT (quiz / event pages) ===== */
+body.has-dock{padding-bottom:calc(var(--dock-h,80px) + var(--sab) + var(--gap))}
+.dock{position:fixed;inset:auto 0 0 0;z-index:40;display:flex;gap:12px;align-items:center;
+  padding:12px calc(var(--sar) + var(--pad)) calc(var(--sab) + 12px) calc(var(--sal) + var(--pad));
+  background:var(--nav-bg);border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.dock{background:var(--card)}}
+.dock .btn{flex:1}
+.countdown,.countup{font-variant-numeric:tabular-nums}
+::view-transition-old(root){animation:kp-out var(--dur-2) var(--ease-in) both}
+::view-transition-new(root){animation:kp-in var(--dur-2) var(--ease-out) both}
+@keyframes kp-out{to{opacity:0;transform:translateX(-12px)}}
+@keyframes kp-in{from{opacity:0;transform:translateX(12px)}}
+[data-motion="paused"] *,[data-motion="paused"] *::before,[data-motion="paused"] *::after{animation-play-state:paused !important}
+
+dialog{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);color:var(--fg);padding:0;width:min(40rem,calc(100vw - 24px));max-height:calc(100dvh - 48px)}
+dialog::backdrop{background:rgba(5,8,15,.7)}
+.dlg-body{padding:20px;overflow:auto;max-height:calc(100dvh - 140px)}
+.dlg-foot{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;padding:12px 20px calc(12px + var(--sab));border-top:1px solid var(--line)}
+
+/* ===== REGISTER PAGE ===== */
+.page-head{margin:0 0 14px}
+.progress{margin:0 0 20px}
+.progress-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:.92rem;margin-bottom:8px}
+.progress-row .tw{color:var(--hl);font-size:.85rem;letter-spacing:.12em}
+.progress-name{font-weight:600;text-align:right}
+.screen>h2{margin-top:0}
+
+/* doors */
+.doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px;margin:14px 0 0;padding:0;border:0;min-width:0}
+@media (min-width:620px){.doors{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.door{position:relative;display:flex;flex-direction:column;gap:3px;min-height:88px;padding:26px 12px 12px;border-radius:4px 10px 10px 10px;
+  background:var(--card);border:1.5px solid var(--line);cursor:pointer;
+  transition:transform var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),background-color var(--dur-1)}
+.door input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.door-code{position:absolute;top:-1px;left:-1.5px;padding:3px 10px 4px;font:400 .8rem/1 var(--font-type);letter-spacing:.14em;
+  background:var(--soft);color:var(--fg);border:1.5px solid var(--line);border-top:0;border-radius:0 0 8px 0}
+.door-name{font:600 1.02rem/1.15 var(--font-head);text-transform:uppercase;letter-spacing:.02em;overflow-wrap:anywhere}
+.door-room{font-size:.86rem;line-height:1.25;color:var(--muted)}
+.door-tick{position:absolute;top:6px;right:8px;font:400 .72rem/1 var(--font-type);letter-spacing:.1em;color:var(--hl);opacity:0;transform:scale(.6);
+  transition:opacity var(--dur-2),transform var(--dur-2) var(--ease-out)}
+.door.is-on{border-color:var(--hl);background:var(--soft);box-shadow:0 0 0 1.5px var(--hl) inset}
+.door.is-on .door-code{background:var(--accent);color:var(--accent-fg);border-color:var(--hl)}
+.door.is-on .door-tick{opacity:1;transform:none}
+.door:has(input:focus-visible){outline:2px solid var(--hl);outline-offset:3px}
+.door:active{transform:scale(.98)}
+@media (hover:hover){.door:hover{border-color:var(--hl)}}
+.door.from-poster{margin-bottom:4px}
+.stickybar{position:sticky;bottom:0;z-index:5;margin:16px calc(-1 * var(--pad)) 0;padding:12px var(--pad) calc(12px + var(--sab));
+  background:var(--nav-bg);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.stickybar{background:var(--bg)}}
+.stickybar .form-err{margin-bottom:10px}
+.alt{margin:14px 0 0;text-align:center;color:var(--muted)}
+.alt .linkbtn{color:var(--fg)}
+
+/* details */
+.two{display:grid;gap:0 14px}
+@media (min-width:560px){.two{grid-template-columns:1fr 1fr}}
+select{appearance:none;-webkit-appearance:none;background-image:none;padding-right:40px}
+.sel{position:relative}
+.sel::after{content:"";position:absolute;right:16px;top:50%;width:9px;height:9px;border-right:2px solid var(--fg);border-bottom:2px solid var(--fg);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.chosen{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--card)}
+.chosen .tw{color:var(--hl)}
+
+/* code */
+.code-box{text-align:center}
+.code-box .lede{margin-bottom:18px}
+.masked{font-family:var(--font-type);color:var(--fg);letter-spacing:.04em;overflow-wrap:anywhere}
+.code-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:14px}
+
+/* consent */
+.consent{position:relative;display:grid;grid-template-columns:28px 1fr;gap:2px 12px;align-items:start;padding:14px;margin:0 0 10px;
+  border:1.5px solid var(--line);border-radius:12px;background:var(--card);cursor:pointer;transition:border-color var(--dur-1)}
+.consent input{width:26px;height:26px;margin:2px 0 0;accent-color:var(--hl);grid-row:span 2;cursor:pointer}
+.consent-title{font-weight:700;line-height:1.3}
+.consent-title .tag{display:inline-block;margin-left:6px;font:400 .72rem/1 var(--font-type);letter-spacing:.12em;vertical-align:2px;padding:3px 6px;border-radius:4px;border:1px solid currentColor}
+.tag-req{color:var(--red-text)}
+.tag-opt{color:var(--muted)}
+.consent-text{font-size:.94rem;line-height:1.45;color:var(--muted)}
+.consent:has(input:checked){border-color:var(--hl)}
+.consent-more{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;margin:4px 0 14px}
+.consent-more a{display:inline-flex;align-items:center;min-height:48px;font-weight:600}
+
+/* success stage: folder, card, stamp */
+.stage{position:relative;height:372px;max-width:420px;margin:6px auto 0;perspective:1000px}
+.folder-back{position:absolute;inset:auto 0 0 0;height:250px;background:var(--manila-deep);border-radius:4px 12px 12px 12px;box-shadow:0 18px 36px var(--shade)}
+.folder-tab{position:absolute;top:-28px;left:0;width:48%;height:30px;padding:7px 12px 0;background:var(--manila-deep);border-radius:10px 10px 0 0;
+  font:400 .8rem/1 var(--font-type);letter-spacing:.14em;color:var(--ink);white-space:nowrap;overflow:hidden}
+.stage .agent-card{position:absolute;left:6%;right:6%;bottom:138px;z-index:2;transform:rotate(-1.5deg)}
+.folder-front{position:absolute;inset:auto 0 0 0;height:150px;z-index:3;background:var(--manila);border-radius:3px 3px 12px 12px;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:0 18px 18px;transform-origin:50% 100%;
+  box-shadow:0 -1px 0 rgba(34,29,20,.25),0 -10px 18px -10px rgba(34,29,20,.45)}
+.folder-front .tw{font-size:.82rem;letter-spacing:.16em;color:var(--ink-muted)}
+.folder-front .folder-conf{color:var(--stamp);font-size:.9rem}
+.stage.play .folder-back,.stage.play .folder-front{animation:oc-folder-in 260ms var(--ease-out) both}
+.stage.play .folder-front{animation:oc-folder-in 260ms var(--ease-out) both,oc-flap 900ms 160ms var(--ease-out) both}
+.stage.play .agent-card{animation:oc-card-out 760ms 200ms cubic-bezier(.2,.75,.25,1) both,oc-shake 200ms 1180ms linear 1}
+.stage.play .agent-card .stamp{animation:oc-stamp 300ms 900ms cubic-bezier(.3,1.4,.5,1) both}
+@keyframes oc-folder-in{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes oc-flap{0%{transform:rotateX(0)}45%{transform:rotateX(32deg)}100%{transform:rotateX(6deg)}}
+@keyframes oc-card-out{0%{transform:translateY(205px) rotate(0deg)}72%{transform:translateY(-16px) rotate(-2.6deg)}100%{transform:translateY(0) rotate(-1.5deg)}}
+@keyframes oc-stamp{0%{opacity:0;transform:rotate(-8deg) scale(1.6)}100%{opacity:.9;transform:rotate(-8deg) scale(1)}}
+@keyframes oc-shake{0%,100%{translate:0 0}25%{translate:2px 0}50%{translate:-2px 1px}75%{translate:1px -1px}}
+
+.done-head{text-align:center}
+.done-head .lede{max-width:30rem;margin-inline:auto}
+.done-count{text-align:center;margin:18px 0 0;font-size:1.05rem}
+.done-count .countup{font:700 1.6rem/1 var(--font-head);color:var(--hl);margin-right:4px}
+
+/* race */
+.race{margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.race-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.race-head .tw{font-size:.8rem;letter-spacing:.14em;color:var(--muted)}
+.race-head strong{font-family:var(--font-head);text-transform:uppercase;letter-spacing:.02em;font-weight:600}
+.race-list{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.race-list li{display:grid;grid-template-columns:2.2em 2.8em 1fr 3.4em;align-items:center;gap:8px;font-size:.9rem;font-variant-numeric:tabular-nums}
+.race-list .rk{color:var(--muted);text-align:right}
+.race-list .rc{font-family:var(--font-type);letter-spacing:.08em}
+.race-list .rn{text-align:right}
+.rbar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}
+.rbar>span{display:block;height:100%;border-radius:inherit;background:var(--muted);transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform 1s var(--ease-out)}
+.race-list li.me{font-weight:700}
+.race-list li.me .rbar>span{background:var(--accent)}
+.race-list li.me .rc{color:var(--hl)}
+.race-list li.gap{display:block;text-align:center;color:var(--muted);line-height:1}
+.plus1{display:inline-block;margin-left:4px;font:400 .78rem/1 var(--font-type);color:var(--hl);animation:oc-pop 600ms 1.4s var(--ease-out) both}
+@keyframes oc-pop{0%{opacity:0;transform:translateY(6px) scale(.6)}60%{opacity:1;transform:translateY(-3px) scale(1.15)}100%{opacity:1;transform:none}}
+
+.done-ctas{display:grid;gap:10px;margin:18px 0 8px}
+@media (min-width:560px){.done-ctas{grid-template-columns:1fr 1fr}.done-ctas .btn-primary{grid-column:1 / -1}}
+.a2hs{margin:4px 0 16px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.a2hs h3{font-size:1rem}
+.a2hs ol{margin:0 0 10px;padding-left:1.2em}
+.a2hs .cols{display:grid;gap:12px}
+@media (min-width:560px){.a2hs .cols{grid-template-columns:1fr 1fr}}
+.next{margin:12px 0 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.next ol{margin:0;padding-left:1.25em;display:grid;gap:8px}
+.next h3{margin-bottom:8px}
+
+/* closed */
+.closed-card{text-align:center;padding:24px 18px}
+.closed-card .stamp{position:static;display:inline-block;margin:6px auto 16px}
+.notify-form{max-width:26rem;margin:12px auto 0;text-align:left}
+
+/* consent dialog */
+.full-form h3{margin-top:1.1em}
+.full-form table{border-collapse:collapse;width:100%;font-size:.92rem}
+.full-form td,.full-form th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.full-form ul{padding-left:1.2em}
+.stage::before{content:"";position:absolute;left:50%;top:44%;width:100%;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,181,71,.22),rgba(255,181,71,0) 70%);opacity:0}
+.stage.play::before{animation:oc-glow 900ms 600ms var(--ease-out) both}
+@keyframes oc-glow{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
+/* ===== REDUCED MOTION (always last) ===== */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important}
+  [data-reveal]{opacity:1 !important;transform:none !important}
+  .type-once{clip-path:none !important;animation:none !important}
+  .type-once::after{display:none}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="beamGrad" cx="0.2" cy="0.85" r="1">
+      <stop offset="0" stop-color="#ffb547" stop-opacity="1"/>
+      <stop offset="1" stop-color="#ffb547" stop-opacity="0.15"/>
+    </radialGradient>
+    <filter id="stampRough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/>
+    </filter>
+  </defs>
+  <symbol id="torch" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19" fill="#0b1220" stroke="#ffb547" stroke-width="1.5"/>
+    <path d="M14.5 25.5 L28 8.5 A14 14 0 0 1 34.5 19 Z" fill="url(#beamGrad)"/>
+    <path d="M9 31 L15 25" stroke="#e9e4d4" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="15.2" cy="24.8" r="2.4" fill="#ffb547"/>
+  </symbol>
+</svg>
+<nav class="nav" aria-label="One Case"><div class="nav-brand"><svg class="nav-logo" role="img" aria-label="One Case torch mark"><use href="#torch"/></svg><div><div class="nav-name">One Case</div><div class="nav-sub">R&amp;D Cell &times; Center of AI</div></div></div><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">&#9728;&#65039;</button><a class="nav-cta" href="https://kpsingh.in/onecase/">Case home</a></nav>
+
+<main id="main" class="wrap" tabindex="-1">
+  <div class="mock-banner" id="mockBanner" hidden><b>MOCK MODE, code: 123456</b> <span>Nothing is sent or saved.</span>
+    <details><summary>Test inputs for this mock</summary><ul>
+      <li>taken@sgtuniversity.org: already registered</li><li>busy@sgtuniversity.org: too many requests</li>
+      <li>down@sgtuniversity.org: server busy</li><li>any @gmail.com: wrong domain</li>
+      <li>code 000000: expired; any other code: wrong</li><li>add ?phase=tease to the address: registration closed</li></ul></details></div>
+  <p class="notice" id="announcement" role="status" hidden></p>
+
+  <header class="page-head">
+    <p class="kicker"><span class="type-once" style="--type-steps:28;--type-ms:800ms">CASE FILE 0 &middot; THE NEEMGARH FILE</span></p>
+    <h1>Open your case file</h1>
+    <p class="lede" id="pageLede">Sixty seconds. Phone only. Your school has a door.</p>
+  </header>
+
+  <div class="progress" id="progress">
+    <div class="progress-row"><span class="tw" id="stepLabel">STEP 1 OF 5</span><span class="progress-name" id="stepName">Choose your door</span></div>
+    <div class="meter" role="progressbar" aria-label="Registration progress" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="meter"><span id="meterBar" style="--p:.2"></span></div>
+  </div>
+  <p class="sr-only" aria-live="polite" id="live"></p>
+
+  <!-- STEP 1: door -->
+  <section class="screen" id="s-door" aria-labelledby="h-door">
+    <h2 id="h-door" tabindex="-1">Choose your door</h2>
+    <p class="muted" id="doorIntro">One case, twenty doors. Pick your school; your team enters through the same door.</p>
+    <fieldset class="doors" id="doors"><legend class="sr-only">Your school</legend></fieldset>
+    <div class="stickybar">
+      <p class="form-err" id="doorErr" role="alert"></p>
+      <button class="btn btn-primary btn-block" type="button" id="doorNext" data-qa="door-next">Continue</button>
+    </div>
+    <p class="alt">Already registered? <button class="linkbtn" type="button" id="toLogin" data-qa="to-login">Log in</button></p>
+  </section>
+
+  <!-- STEP 2: details -->
+  <section class="screen" id="s-details" aria-labelledby="h-details" hidden>
+    <h2 id="h-details" tabindex="-1">Who is the agent?</h2>
+    <p class="chosen"><span class="tw">DOOR</span> <strong id="chosenDoor">School</strong> <button class="linkbtn" type="button" id="changeDoor">Change</button></p>
+    <form id="fDetails" novalidate>
+      <p class="form-err" id="detailsErr" role="alert"></p>
+      <div class="field">
+        <label for="fName">Full name</label>
+        <input id="fName" name="name" data-qa="name" type="text" autocomplete="name" autocapitalize="words" maxlength="60" enterkeyhint="next" aria-describedby="eName" required>
+        <p class="field-err" id="eName"></p>
+      </div>
+      <div class="two">
+        <div class="field">
+          <label for="fEnrol">Enrolment number</label>
+          <input id="fEnrol" name="enrol" data-qa="enrol" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" enterkeyhint="next" aria-describedby="eEnrol" required>
+          <p class="field-err" id="eEnrol"></p>
+        </div>
+        <div class="field">
+          <label for="fYear">Year of study</label>
+          <div class="sel"><select id="fYear" name="year" data-qa="year" aria-describedby="eYear" required><option value="">Choose your year</option></select></div>
+          <p class="field-err" id="eYear"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="fEmail">University email</label>
+        <input id="fEmail" name="email" data-qa="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send" aria-describedby="hEmail eEmail" required>
+        <p class="hint" id="hEmail">We send a 6-digit code here. It must end with @sgtuniversity.org or @sgtuniversity.ac.in.</p>
+        <p class="field-err" id="eEmail"></p>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="fWebsite">Leave this empty</label><input id="fWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <button class="btn btn-primary btn-block" type="submit" id="startBtn" data-qa="start">Send my code</button>
+    </form>
+    <p class="alt">Already registered? <button class="linkbtn" type="button" id="toLogin2">Log in</button></p>
+  </section>
+
+  <!-- LOGIN (returning students) -->
+  <section class="screen" id="s-login" aria-labelledby="h-login" hidden>
+    <h2 id="h-login" tabindex="-1">Welcome back, Agent</h2>
+    <p class="muted">Type the university email you registered with. We send you a fresh code.</p>
+    <form id="fLogin" novalidate>
+      <p class="form-err" id="loginErr" role="alert"></p>
+      <div class="field">
+        <label for="lEmail">University email</label>
+        <input id="lEmail" data-qa="login-email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send" required>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="loginBtn" data-qa="login-start">Send me a code</button>
+    </form>
+    <p class="alt">New here? <button class="linkbtn" type="button" id="toRegister">Open a case file</button></p>
+  </section>
+
+  <!-- STEP 3: code -->
+  <section class="screen code-box" id="s-code" aria-labelledby="h-code" hidden>
+    <h2 id="h-code" tabindex="-1">Check your inbox</h2>
+    <p class="lede">We sent a 6-digit code to <span class="masked" id="maskedEmail">your email</span>. It works for 10 minutes.</p>
+    <form id="fCode" novalidate>
+      <p class="form-err" id="codeErr" role="alert"></p>
+      <p class="form-ok" id="codeOk" role="status"></p>
+      <div class="field">
+        <label for="otp" class="sr-only">6-digit code</label>
+        <input id="otp" class="otp" data-qa="otp" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" enterkeyhint="done" placeholder="&middot;&middot;&middot;&middot;&middot;&middot;" aria-describedby="codeHint">
+        <p class="hint" id="codeHint">Paste or type the code. Not there? Check Spam or Promotions.</p>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="verifyBtn" data-qa="verify">Verify code</button>
+    </form>
+    <div class="code-actions">
+      <button class="btn" type="button" id="resendBtn" data-qa="resend">Resend code</button>
+      <button class="btn btn-quiet" type="button" id="changeEmail">Change email</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: consent -->
+  <section class="screen" id="s-consent" aria-labelledby="h-consent" hidden>
+    <h2 id="h-consent" tabindex="-1">Your choices</h2>
+    <p class="muted">Ticks A and B are needed to compete. C and D are your choice; they never change your scores.</p>
+    <p class="form-err" id="consentErr" role="alert"></p>
+    <fieldset style="border:0;margin:0;padding:0;min-width:0"><legend class="sr-only">Consent</legend>
+      <label class="consent"><input type="checkbox" id="cA" data-qa="consent-a"><span class="consent-title">A. Recording for scoring <span class="tag tag-req">REQUIRED</span></span>
+        <span class="consent-text">My Drop voice note, spoken arguments and finale pitch may be recorded, transcribed and rated by software and jurors, to score me and review appeals. Recordings with my name are deleted 12 months after the finale.</span></label>
+      <label class="consent"><input type="checkbox" id="cB" data-qa="consent-b"><span class="consent-title">B. My written work <span class="tag tag-req">REQUIRED</span></span>
+        <span class="consent-text">My written answers, notes, reports, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as the championship record for 12 months, then deleted or anonymised.</span></label>
+      <label class="consent"><input type="checkbox" id="cC" data-qa="consent-c"><span class="consent-title">C. Research use <span class="tag tag-opt">OPTIONAL</span></span>
+        <span class="consent-text">My voice note, transcript and writing may be used as anonymised samples in the convenor's research on English fluency. Kept up to 5 years. No published result will identify me.</span></label>
+      <label class="consent"><input type="checkbox" id="cD" data-qa="consent-d"><span class="consent-title">D. Photos and video <span class="tag tag-opt">OPTIONAL</span></span>
+        <span class="consent-text">Photos and video of me at venues and on stage may be used in SGT University communications. I can ask for any item to be taken down.</span></label>
+    </fieldset>
+    <p class="consent-more"><a href="#consent-full" id="openConsent">Read the full consent form</a><span class="muted">Under 18? A parent or guardian must also sign.</span></p>
+    <button class="btn btn-primary btn-block" type="button" id="finishBtn" data-qa="finish">Open my case file</button>
+  </section>
+
+  <!-- STEP 5: success -->
+  <section class="screen" id="s-done" aria-labelledby="h-done" hidden>
+    <div class="done-head">
+      <p class="kicker" id="doneKicker">FILE OPENED</p>
+      <h2 id="h-done" tabindex="-1">Welcome, Agent.</h2>
+      <p class="lede" id="doneLede">Your case file is open. Screenshot your card: this number follows you all season.</p>
+    </div>
+    <div class="stage" id="stage">
+      <div class="folder-back" aria-hidden="true"><span class="folder-tab"></span></div>
+      <article class="agent-card" id="agentCard" data-qa="agent-card" aria-label="Your agent card">
+        <div class="ac-head"><span>THE NEEMGARH FILE</span></div>
+        <div class="ac-body">
+          <div class="ac-photo" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M6 40 L26 0 L40 0 L40 22 Z" fill="#ffb547" opacity=".22"/></svg><span class="ac-init" id="acInit">A</span></div>
+          <div class="ac-main">
+            <p class="ac-lab">AGENT</p>
+            <p class="ac-num" id="acNum" data-qa="agent-number">LAW-000</p>
+            <p class="ac-name" id="acName">Agent</p>
+          </div>
+        </div>
+        <dl class="ac-meta">
+          <div><dt>Door</dt><dd id="acDoor">Door</dd></div>
+          <div><dt>School</dt><dd id="acSchool">School</dd></div>
+        </dl>
+        <p class="ac-foot">R&amp;D CELL &times; CENTER OF AI &middot; SGT UNIVERSITY</p>
+        <span class="stamp" aria-hidden="true">OPEN</span>
+      </article>
+      <div class="folder-front" aria-hidden="true"><span class="tw">CASE FILE 0 &middot; THE NEEMGARH FILE</span><span class="tw folder-conf">CONFIDENTIAL</span></div>
+    </div>
+    <p class="done-count" id="doneCount"><span class="countup" id="totalCount" aria-hidden="true">0</span><span aria-hidden="true">investigators have opened the file.</span><span class="sr-only" id="totalSr"></span></p>
+
+    <div class="race" id="race" aria-labelledby="raceTitle">
+      <div class="race-head"><span class="tw" id="raceTitle">SCHOOL RACE</span><strong id="raceRank">Your school</strong></div>
+      <ol class="race-list" id="raceList"></ol>
+    </div>
+
+    <div class="done-ctas">
+      <a class="btn btn-primary" id="waInvite" data-qa="wa-invite" href="https://wa.me/" target="_blank" rel="noopener">Invite your team on WhatsApp</a>
+      <button class="btn" type="button" id="a2hsBtn" aria-expanded="false" aria-controls="a2hs">Add to home screen</button>
+      <a class="btn" href="team.html" id="toTeam">Go to the team room</a>
+    </div>
+    <div class="a2hs" id="a2hs" hidden>
+      <h3>Keep One Case on your home screen</h3>
+      <p><button class="btn btn-primary" type="button" id="installBtn" hidden>Install now</button></p>
+      <div class="cols">
+        <div><p class="tw">IPHONE (SAFARI)</p><ol><li>Tap the Share button.</li><li>Choose <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>.</li></ol></div>
+        <div><p class="tw">ANDROID (CHROME)</p><ol><li>Tap the three-dot menu.</li><li>Choose <strong>Add to Home screen</strong> or <strong>Install app</strong>.</li><li>Confirm.</li></ol></div>
+      </div>
+      <p class="hint">Opened inside Instagram or WhatsApp? Use the menu to open the page in Safari or Chrome first.</p>
+    </div>
+    <div class="next">
+      <h3>What happens next</h3>
+      <ol>
+        <li>Find two teammates from your school. Teams are exactly 3.</li>
+        <li>The Drop opens <strong id="dropDate">Mon 4 Jan</strong>: a 12-minute phone qualifier.</li>
+        <li>Watch your university inbox. Codes and reminders come from One Case.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CLOSED -->
+  <section class="screen" id="s-closed" aria-labelledby="h-closed" hidden>
+    <div class="card closed-card">
+      <span class="stamp" aria-hidden="true">CLASSIFIED</span>
+      <h2 id="h-closed" tabindex="-1">The file is still sealed</h2>
+      <p id="closedText">Registration opens at the Reveal.</p>
+      <form class="notify-form" id="fNotify" novalidate>
+        <p class="form-err" id="notifyErr" role="alert"></p>
+        <p class="form-ok" id="notifyOk" role="status"></p>
+        <div class="field">
+          <label for="nEmail">Tell me when it opens</label>
+          <input id="nEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="name@sgtuniversity.org">
+        </div>
+        <div class="hp" aria-hidden="true"><label for="nWebsite">Leave this empty</label><input id="nWebsite" type="text" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn-primary btn-block" type="submit" id="notifyBtn">Notify me</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<dialog id="consent-full" aria-labelledby="cfTitle">
+  <div class="dlg-body full-form">
+    <p class="kicker">DOCUMENT 06 &middot; VERSION 1.0 DRAFT</p>
+    <h2 id="cfTitle">Consent form and information sheet</h2>
+    <p>Organised by the R&amp;D Cell and the Center of AI, SGT University, Gurugram. Convenor and data contact: Kamal Preet Singh. This sheet follows the principles of the Digital Personal Data Protection Act, 2023: we tell you the purpose, collect only what we need, keep it only as long as needed, you can withdraw, and you have a named person to contact.</p>
+    <h3>1. What this championship is</h3>
+    <p>One Case. Your School. Your Rules. is a student championship built on a fictional case, The Neemgarh File. You take a 12-minute phone qualifier (The Drop), then compete in teams through four episodes, ending in a stage finale. Some of this is recorded. This sheet is about those recordings and your written work.</p>
+    <h3>2. What we collect and why</h3>
+    <ul>
+      <li><strong>Registration details</strong> (name, university email, school, enrolment number, year): to register you, form teams, contact you and issue certificates. Needed.</li>
+      <li><strong>Your Drop answers and 120-word note</strong>: to score The Drop. Needed.</li>
+      <li><strong>Your 60-second voice note</strong>: to score speaking. It is transcribed and rated by software; a human checks a sample. Needed.</li>
+      <li><strong>Audio and video of spoken arguments, cross-examinations and the finale pitch</strong>: to score you, review appeals and give feedback. Needed.</li>
+      <li><strong>Written submissions and prompt ledgers</strong>: to score you and check integrity. Needed.</li>
+      <li><strong>Photos and video at venues</strong>: for university communications. Optional (box D).</li>
+      <li><strong>Anonymised speech and writing samples</strong>: for research on English fluency. Optional (box C).</li>
+    </ul>
+    <p>We do not collect your Aadhaar number, financial details, caste, religion, health information or home address. If any of these appear in something you write or say, we do not use them.</p>
+    <h3>3. Who sees your data</h3>
+    <ul>
+      <li>The organising team (staff and volunteers with a signed confidentiality undertaking): registration data, submissions, recordings, scores.</li>
+      <li>Jurors: your submissions and live performance, by team code only in Episodes 1 to 3; names at the finale.</li>
+      <li>The event platform and the speech-rating service: under a written agreement, only to run the championship.</li>
+      <li>The finale audience and university communications: your finale pitch and photos, only if you tick box D.</li>
+      <li>The convenor's research team: anonymised samples only, if you tick box C.</li>
+    </ul>
+    <h3>4. Your choices</h3>
+    <p><strong>Box A, recording for scoring (required).</strong> Your voice note, spoken arguments, cross-examinations and finale pitch may be recorded (audio and video), transcribed and rated by software and by human jurors, to score you and review any appeal. Identifiable recordings are deleted 12 months after the finale, unless you renew consent.</p>
+    <p><strong>Box B, written submissions (required).</strong> Your written answers, notes, reports, flaw lists, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as a record of the championship. Kept with your name for 12 months after the finale, then deleted or anonymised.</p>
+    <p><strong>Box C, research use (optional).</strong> The convenor is researching English fluency in university students under university ethics approval. If you agree, your voice note, its transcript, your 120-word note and your written submissions may be used as anonymised samples: your name, email, phone, team name and any identifying words are removed first. Results may be published; none will identify you. Kept up to 5 years. Your participation and scores are not affected by your choice.</p>
+    <p><strong>Box D, photos and video (optional).</strong> Photos and video of you at venues and on stage may be used on SGT University's website, social media, newsletters, posters and highlight reel for this and future editions. You can ask for any photo or clip to be taken down at any time. Without box D we avoid featuring you, though wide shots of a public stage cannot fully exclude you.</p>
+    <h3>5. Your rights</h3>
+    <ul>
+      <li>See or correct your data: email the privacy helpdesk with your registered university email; reply within 15 working days.</li>
+      <li>Withdraw box C: any time. Samples are anonymised 90 days after the finale; withdraw before then and nothing of yours enters the research set.</li>
+      <li>Withdraw box D: name the photo, clip or post; taken down within 15 working days.</li>
+      <li>Delete identifiable recordings and submissions (A and B): after the appeal period closes; deletion within 30 days. Scores and certificates stay as records.</li>
+      <li>Complain: first to the convenor, then the university's Grievance Redressal Cell, or the Data Protection Board of India as the Act provides.</li>
+    </ul>
+    <p>Withdrawing A or B during the championship means you cannot continue to compete, because scoring depends on them.</p>
+    <h3>6. Security</h3>
+    <p>Data is stored on the event platform and university systems with access limited to named people. Recordings are named by participant ID and team code wherever possible. We do not sell or share your data with anyone not named above. If a breach affects you, we tell you and the university within 72 hours.</p>
+    <h3>7. Students under 18</h3>
+    <p>Your parent or guardian must also sign the form. Email a photo of the signed form to the privacy helpdesk before The Drop opens. Your registration is held until we receive it.</p>
+    <p class="hint">The privacy helpdesk address is published on the event home page.</p>
+  </div>
+  <div class="dlg-foot"><button class="btn btn-primary" type="button" id="closeConsent">Close</button></div>
+</dialog>
+
+<footer class="foot">
+  <img src="icons/KP_Singh.png" alt="K.P. Singh, Convenor" width="40" height="40">
+  <div>
+    <p><span class="tw">One Case. Your School. Your Rules.</span> The Neemgarh File is a fictional case.</p>
+    <p>R&amp;D Cell &times; Center of AI, SGT University. Convenor: K.P. Singh, <a href="https://kpsingh.in" target="_blank" rel="noopener">kpsingh.in</a></p>
+    <p>Your data: we keep only what registration needs, never in your browser. To see, correct or delete it, follow Part 5 of the <a href="register.html#consent-full">consent form</a>.</p>
+  </div>
+</footer>
+<script>
+/* ===== KP BASE JS 1.2.0 (event profile: memory-only store, no browser storage of any kind) ===== */
+(function(){
+  'use strict';
+  var root=document.documentElement;
+  var KP=window.KP=window.KP||{};
+  var RM=matchMedia('(prefers-reduced-motion: reduce)');
+  KP.reduced=function(){return RM.matches;};
+
+  /* -- MODULE: STORE (memory only; the ONLY option for quiz and event pages) -- */
+  var mem={};
+  KP.store={
+    get:function(k){return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;},
+    set:function(k,v){mem[k]=String(v);},
+    remove:function(k){delete mem[k];}
+  };
+
+  /* -- MODULE: THEME TOGGLE (three-layer pattern; icon-only; night is the brand default via data-theme on <html>) -- */
+  var btn=document.getElementById('themeToggle');
+  var mq=matchMedia('(prefers-color-scheme: dark)');
+  function isDark(){return root.dataset.theme?root.dataset.theme==='dark':mq.matches;}
+  function paintToggle(){
+    var d=isDark();
+    if(btn){btn.textContent=d?'☀️':'🌙';btn.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme');}
+    var m=document.getElementById('themeColor'),bg=getComputedStyle(root).getPropertyValue('--bg').trim();
+    if(m&&bg)m.setAttribute('content',bg);
+  }
+  var saved=KP.store.get('theme');
+  if(saved==='light'||saved==='dark')root.dataset.theme=saved;
+  if(btn)btn.addEventListener('click',function(){
+    var next=isDark()?'light':'dark';root.dataset.theme=next;KP.store.set('theme',next);paintToggle();
+  });
+  if(mq.addEventListener)mq.addEventListener('change',paintToggle);
+  paintToggle();
+  KP.paintToggle=paintToggle;
+
+  /* -- MODULE: PERF GUARD (weak phones: flag so heavy effects can switch off) -- */
+  (function(){
+    var last=performance.now(),slow=0,n=0;
+    (function tick(t){
+      var dt=t-last;last=t;
+      if(dt>34&&++slow>12)root.dataset.perf='low';
+      if(++n<240&&!root.dataset.perf)requestAnimationFrame(tick);
+    })(last);
+  })();
+
+  /* -- KIT: SWAP (animated screen change; instant when unsupported or reduced motion) -- */
+  var vt=null;
+  KP.swap=function(render){
+    if(!document.startViewTransition||KP.reduced()){render();return;}
+    try{if(vt)vt.skipTransition();}catch(e){}           /* never stack transitions (fast taps, WebKit) */
+    try{
+      var t=vt=document.startViewTransition(render);
+      t.finished.then(function(){if(vt===t)vt=null;},function(){if(vt===t)vt=null;});
+    }catch(e){vt=null;render();}
+  };
+  KP.inTransition=function(){return !!vt;};
+
+  /* -- KIT: COUNT-UP (0 to N; put the final value in a .sr-only sibling) -- */
+  KP.countUp=function(el,to,o){
+    o=o||{};var ms=o.ms||900,from=o.from||0,fmt=o.format||function(v){return String(Math.round(v));};
+    if(KP.reduced()){el.textContent=fmt(to);return;}
+    var t0=performance.now();
+    (function step(now){
+      var p=Math.min((now-t0)/ms,1),e=1-Math.pow(1-p,3);
+      el.textContent=fmt(from+(to-from)*e);
+      if(p<1)requestAnimationFrame(step);
+    })(t0);
+    setTimeout(function(){el.textContent=fmt(to);},ms+80);
+  };
+
+  /* -- KIT: CONFETTI (one shot, at most 90 pieces, about 1.6 s; silent under reduced motion, low perf or paused) -- */
+  KP.confetti=function(o){
+    o=o||{};
+    if(KP.reduced()||root.dataset.perf==='low'||root.dataset.motion==='paused')return;
+    try{
+      var n=Math.min(o.count||80,90),W=innerWidth,H=innerHeight,dpr=Math.min(devicePixelRatio||1,2);
+      var cv=document.createElement('canvas');
+      cv.setAttribute('aria-hidden','true');
+      cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90';
+      cv.width=W*dpr;cv.height=H*dpr;document.body.appendChild(cv);
+      var cx=cv.getContext('2d');cx.scale(dpr,dpr);
+      var cols=o.colors||['#ffb547','#c8302f','#e8d7a9','#e9e4d4','#9fb3c8'];
+      var ox=o.x!=null?o.x:W/2,oy=o.y!=null?o.y:H*.35;
+      var ps=[];for(var i=0;i<n;i++)ps.push({x:ox+(Math.random()-.5)*W*.25,y:oy,vx:(Math.random()-.5)*10,vy:-Math.random()*10-3,
+        s:4+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[(Math.random()*cols.length)|0]});
+      var f=0,max=o.frames||100,raf;
+      var end=function(){cancelAnimationFrame(raf);cv.remove();removeEventListener('pagehide',end);};
+      (function loop(){
+        if(document.hidden){end();return;}
+        cx.clearRect(0,0,W,H);
+        ps.forEach(function(p){p.vy+=.28;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;
+          cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+        if(++f<max)raf=requestAnimationFrame(loop);else end();
+      })();
+      addEventListener('pagehide',end);
+    }catch(e){}
+  };
+
+  /* -- KIT: NAV ROLL (event variant: shows the AGENT NUMBER). Replaces the nav CTA link with a NON-clickable badge.
+        textContent only, never innerHTML. -- */
+  KP.setRoll=function(roll,label){
+    var cta=document.querySelector('.nav .nav-cta');if(!cta)return;
+    var s=cta.tagName==='SPAN'?cta:document.createElement('span');
+    s.className='nav-cta nav-roll';s.textContent='';
+    var lab=document.createElement('span');lab.className='nav-roll-label';lab.textContent=(label||'Agent')+' ';
+    s.appendChild(lab);s.appendChild(document.createTextNode(String(roll)));
+    s.setAttribute('aria-label',(label||'Agent')+' '+roll);
+    if(cta!==s)cta.replaceWith(s);
+  };
+  /* Put the original link back (log out). */
+  KP.clearRoll=function(html){
+    var cta=document.querySelector('.nav .nav-roll');if(!cta)return;
+    var a=document.createElement('a');a.className='nav-cta';a.href=html.href;a.textContent=html.text;cta.replaceWith(a);
+  };
+})();
+
+/* ===== ONE CASE CLIENT (config, API client per site/API.md, validators, mock server). Memory only. ===== */
+var OC=(function(){
+  'use strict';
+  /* Defaults mirror site/config/event.json. Over http(s) the page reads config/event.json at start, so the
+     convenor only edits that file (api_url) after deploying. Opened as a local file, these defaults apply. */
+  var cfg={
+    base_url:'https://kpsingh.in/onecase', api_url:'',
+    reveal_at:'2026-12-21T11:00:00+05:30', drop_from:'2027-01-04T09:00:00+05:30', drop_to:'2027-01-08T23:59:00+05:30',
+    finale_at:'2027-01-29T17:30:00+05:30', team_lock_at:'2027-01-12T12:00:00+05:30',
+    allowed_domains:['sgtuniversity.org','sgtuniversity.ac.in']
+  };
+  var SCHOOLS=[
+    {code:'MED',name:'Faculty of Medicine & Health Sciences',short:'Medicine',door:'Grand Round'},
+    {code:'DEN',name:'Faculty of Dental Sciences',short:'Dental',door:'Chairside Conference'},
+    {code:'NUR',name:'Faculty of Nursing',short:'Nursing',door:'Care Conference'},
+    {code:'AHS',name:'School of Allied Health Sciences',short:'Allied Health',door:'Bench Report'},
+    {code:'PHY',name:'School of Physiotherapy',short:'Physiotherapy',door:'Clinical Reasoning Round'},
+    {code:'PHA',name:'Pharmacy (SGT College of Pharmacy + Dept of Pharmaceutical Sciences & Research)',short:'Pharmacy',door:'Pharmacovigilance Round'},
+    {code:'AYU',name:'Indian Medical System (Ayurveda)',short:'Ayurveda',door:'Nidan Sabha'},
+    {code:'NYS',name:'School of Naturopathy & Yogic Sciences',short:'Naturopathy & Yoga',door:'Swasthya Shivir'},
+    {code:'AGR',name:'Faculty of Agricultural Sciences',short:'Agriculture',door:'Kisan Goshthi'},
+    {code:'ENG',name:'School of Engineering & Technology',short:'Engineering',door:'Hackathon'},
+    {code:'SCI',name:'School of Basic and Applied Sciences',short:'Basic & Applied Sciences',door:'Journal Club'},
+    {code:'LAW',name:'School of Law',short:'Law',door:'Moot Court'},
+    {code:'COM',name:'School of Commerce & Management',short:'Commerce & Management',door:'Case Method Boardroom'},
+    {code:'GBS',name:'SGT Global Business School',short:'Global Business School',door:'Crisis Boardroom'},
+    {code:'DES',name:'School of Design',short:'Design',door:'Design Charrette'},
+    {code:'MEF',name:'School of Emerging Media, Communication and Film Studies',short:'Media & Film',door:'Editorial Room'},
+    {code:'HSS',name:'School of Humanities, Social Sciences & Liberal Arts',short:'Humanities & Social Sciences',door:'Field Notes'},
+    {code:'BEH',name:'School of Behavioural Sciences',short:'Behavioural Sciences',door:'Rumour Lab'},
+    {code:'EDU',name:'Faculty of Education',short:'Education',door:'Staff Room'},
+    {code:'HTM',name:'School of Hotel & Tourism Management',short:'Hotel & Tourism',door:'Kitchen Audit'}
+  ];
+  var YEARS=['1st year','2nd year','3rd year','4th year','5th year','PG 1st year','PG 2nd year'];
+  var GET_ACTIONS={phase:1,stats:1,verify_cert:1};
+  var MSG={
+    BAD_EMAIL_DOMAIN:'Please use your SGT University email address. Personal email addresses cannot be used.',
+    ALREADY_REGISTERED:'This email or enrolment number already has a case file. Use "Log in" instead.',
+    BAD_OTP:'That code does not match. Check the latest email and try again.',
+    OTP_EXPIRED:'That code has expired. Ask for a new one and use it within 10 minutes.',
+    TOO_MANY_TRIES:'Too many wrong codes. Ask for a new code and try again.',
+    RATE_LIMITED:'Too many requests for now. Wait a little while, then try again.',
+    TEAM_FULL:'That team already has 3 agents. Ask your friends to check the code, or start your own team.',
+    TEAM_OTHER_SCHOOL:'That team belongs to a different school. All 3 members must be from the same school.',
+    TEAM_NOT_FOUND:'We could not find a team with that code. Check the 6 characters and try again.',
+    TEAM_LOCKED:'Teams are locked now, so changes are closed. Contact the organisers if something is wrong.',
+    NOT_LOGGED_IN:'Your session has ended. Please log in again.',
+    PHASE_CLOSED:'This is not open right now. Check the home page for the dates.',
+    SERVER_BUSY:'The case server is busy. Please try again in a moment.',
+    BAD_INPUT:'Something in the form needs a second look. Please check and try again.',
+    NETWORK:'We could not reach the case server. Check your internet connection and try again.'
+  };
+
+  var qs=new URLSearchParams(location.search);
+  var forceMock=qs.get('mock')==='1';
+  var ready=(location.protocol==='file:'?Promise.resolve():
+    fetch('config/event.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(!j)return;
+      ['base_url','api_url','reveal_at','drop_from','drop_to','finale_at','team_lock_at'].forEach(function(k){if(typeof j[k]==='string')cfg[k]=j[k];});
+    }).catch(function(){}));
+  function isMock(){return forceMock||!cfg.api_url;}
+  function base(){return String(cfg.base_url).replace(/\/+$/,'');}
+
+  /* ---------- API client ---------- */
+  function norm(j){
+    if(!j||typeof j!=='object')return {success:false,code:'SERVER_BUSY',message:MSG.SERVER_BUSY};
+    if(j.success)return j;
+    return {success:false,code:j.code||'SERVER_BUSY',message:j.message||MSG[j.code]||MSG.SERVER_BUSY};
+  }
+  function real(action,body){
+    var ctl='AbortController' in window?new AbortController():null,timer=ctl?setTimeout(function(){ctl.abort();},20000):0;
+    var p;
+    if(GET_ACTIONS[action]){
+      var q='?action='+encodeURIComponent(action);
+      Object.keys(body||{}).forEach(function(k){q+='&'+encodeURIComponent(k)+'='+encodeURIComponent(body[k]);});
+      p=fetch(cfg.api_url+q,{method:'GET',signal:ctl&&ctl.signal});
+    }else{
+      var b={action:action};Object.keys(body||{}).forEach(function(k){b[k]=body[k];});
+      p=fetch(cfg.api_url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(b),signal:ctl&&ctl.signal});
+    }
+    return p.then(function(r){return r.json();}).then(norm,function(){return {success:false,code:'NETWORK',message:MSG.NETWORK};})
+      .then(function(x){clearTimeout(timer);return x;});
+  }
+  function api(action,body){
+    return ready.then(function(){
+      if(isMock())return new Promise(function(res){setTimeout(function(){res(norm(mock(action,body||{})));},MOCK_DELAY);});
+      return real(action,body||{});
+    });
+  }
+
+  /* ---------- validators (the server is the authority; these only save a round trip) ---------- */
+  function cleanName(v){return String(v||'').replace(/\s+/g,' ').trim();}
+  function checkName(v){v=cleanName(v);
+    if(!v)return 'Type your name.';
+    if(v.length<2||v.length>60||!/^[\p{L}\p{M} .'-]+$/u.test(v)||!/\p{L}/u.test(v))return 'Use letters only, as on your ID card (2 to 60 characters).';
+    return '';}
+  function cleanEnrol(v){return String(v||'').toUpperCase().replace(/\s+/g,'');}
+  function checkEnrol(v){v=cleanEnrol(v);if(!v)return 'Type your enrolment number.';
+    return /^[A-Z0-9/-]{4,20}$/.test(v)?'':'Check your enrolment number. It has 4 to 20 letters or digits.';}
+  function cleanEmail(v){return String(v||'').trim().toLowerCase();}
+  function checkEmail(v){v=cleanEmail(v);
+    if(!v)return {code:'BAD_INPUT',msg:'Type your university email.'};
+    if(v.length>120||!/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(v))return {code:'BAD_INPUT',msg:'That email looks incomplete. It should look like name@'+cfg.allowed_domains[0]+'.'};
+    if(cfg.allowed_domains.indexOf(v.split('@')[1])<0)return {code:'BAD_EMAIL_DOMAIN',msg:'Use your university email (ending @'+cfg.allowed_domains.join(' or @')+'). Personal email addresses cannot be used.'};
+    return null;}
+  var BLOCK_SUBSTR=['fuck','shit','bitch','porn','cunt','whore','slut','nigg','chutiya','chutia','madarchod','bhenchod','behenchod','bhosd','harami','kamina',
+    'google','microsoft','amazon','tesla','adidas','samsung','cocacola','pepsi','facebook','instagram','whatsapp','youtube','netflix','openai','chatgpt',
+    'reliance','adani','ambani','infosys','flipkart','zomato','swiggy','paytm','patanjali','sdmoffice','districtlab','police','government','ministry',
+    'collector','pollutionboard','municipal','kejriwal','trump','shahrukh','salmankhan','kohli','dhoni','elonmusk'];
+  var BLOCK_WORDS=['ass','sex','rape','dick','randi','gandu','lund','apple','nike','meta','tata','jio','airtel','modi','gandhi','musk','virat','srk','cbi','sdm','dm','govt','nazi','hitler','isis'];
+  function teamNameProblem(raw){
+    var name=String(raw||'').replace(/\s+/g,' ').trim();
+    if(!name)return 'Give your team a name.';
+    if(name.length<3)return 'Team names need at least 3 characters.';
+    if(name.length>30)return 'Team names can have at most 30 characters.';
+    if(!/^[\p{L}\p{M}\p{N}][\p{L}\p{M}\p{N} '&.-]*$/u.test(name)||!/\p{L}/u.test(name))return 'Use letters, numbers, spaces and simple punctuation.';
+    var leet={'0':'o','1':'i','3':'e','4':'a','5':'s','7':'t','@':'a','$':'s','!':'i'};
+    var low=name.toLowerCase().replace(/[013457@$!]/g,function(c){return leet[c];});
+    var sq=low.replace(/[^a-z]/g,''),words=low.split(/[^a-z]+/).filter(String),i;
+    for(i=0;i<BLOCK_SUBSTR.length;i++)if(sq.indexOf(BLOCK_SUBSTR[i])>=0)return 'That name cannot be used. No real people, brands, official bodies or rude words.';
+    for(i=0;i<words.length;i++)if(BLOCK_WORDS.indexOf(words[i])>=0)return 'That name cannot be used. No real people, brands, official bodies or rude words.';
+    return '';
+  }
+  function maskEmail(email){
+    var at=String(email).indexOf('@');if(at<1)return '***';
+    var local=email.slice(0,at),keep=local.length>3?2:1;
+    return local.slice(0,keep)+new Array(Math.max(3,Math.min(local.length-keep,10))+1).join('*')+email.slice(at);
+  }
+  function school(code){for(var i=0;i<SCHOOLS.length;i++)if(SCHOOLS[i].code===code)return SCHOOLS[i];return null;}
+  function fmtDate(iso,withTime){
+    var d=new Date(iso);if(isNaN(d))return '';
+    var o={timeZone:'Asia/Kolkata',weekday:'short',day:'numeric',month:'short'};
+    if(withTime){o.hour='2-digit';o.minute='2-digit';o.hourCycle='h23';}
+    try{return new Intl.DateTimeFormat('en-GB',o).format(d).replace(/,/g,'').replace(/\s*(\d{2}:\d{2})$/,', $1');}catch(e){return d.toDateString();}
+  }
+  function initials(name){var p=cleanName(name).split(' ').filter(String);return ((p[0]||'?').charAt(0)+(p.length>1?p[p.length-1].charAt(0):'')).toUpperCase();}
+  function cleanSource(s){s=String(s||'').trim().toLowerCase();return /^[a-z0-9_-]{1,32}$/.test(s)?s:'';}
+
+  /* ---------- OTP input: digits only, paste-friendly ---------- */
+  function wireOtp(input,onFull){
+    function clean(){var d=input.value.replace(/\D/g,'').slice(0,6);if(input.value!==d)input.value=d;if(d.length===6&&onFull)onFull(d);}
+    input.addEventListener('input',clean);
+    input.addEventListener('paste',function(e){
+      var t=(e.clipboardData||window.clipboardData);if(!t)return;
+      var d=String(t.getData('text')||'').replace(/\D/g,'').slice(0,6);
+      if(d){e.preventDefault();input.value=d;clean();}
+    });
+  }
+  /* A resend button that counts down (no looping animation; plain text tick). */
+  function resendTimer(btn,seconds,label){
+    var left=seconds,t;
+    btn.disabled=true;
+    function paint(){btn.textContent=left>0?label+' in '+left+' s':label;btn.disabled=left>0;}
+    paint();clearInterval(btn._t);
+    t=btn._t=setInterval(function(){left--;paint();if(left<=0)clearInterval(t);},1000);
+  }
+
+  /* ================= MOCK SERVER (same shapes and rules as Code.gs; memory only) ================= */
+  var MOCK_DELAY=qs.get('mockdelay')?Math.min(+qs.get('mockdelay')||0,3000):260;
+  var MOCK_CODE='123456',MOCK_ADMIN_KEY='mock-key',MOCK_ADMINS=['convenor@sgtuniversity.org'];
+  var M=null;
+  function db(){
+    if(M)return M;
+    var baseCounts={MED:142,DEN:58,NUR:77,AHS:64,PHY:41,PHA:83,AYU:36,NYS:22,AGR:49,ENG:131,SCI:55,LAW:96,COM:88,GBS:61,DES:47,MEF:52,HSS:44,BEH:33,EDU:28,HTM:39};
+    M={phase:/^(tease|register|drop|episodes|finale|after)$/.test(qs.get('phase')||'')?qs.get('phase'):'register',announce:'',
+      base:baseCounts,extra:{},regs:{},byAgent:{},seq:{},pend:{},sends:{},tokens:{},teams:{},scans:[],notify:{},
+      sources:{'p1-canteen':[61,212],'ig-bio':[48,130],'wa':[33,0],'door-law':[21,64],'direct':[0,0]},byDay:[]};
+    SCHOOLS.forEach(function(s){M.seq[s.code]=baseCounts[s.code];M.extra[s.code]=0;});
+    var d0=Date.parse('2026-12-21T12:00:00+05:30');
+    [212,164,121,98,133,141,118].forEach(function(n,i){M.byDay.push({day:new Date(d0+i*864e5).toISOString().slice(0,10),count:n});});
+    function seed(email,name,code,agent){var r={email:email,name:name,enrol:'SEED'+agent.replace('-',''),year:'2nd year',school:code,agent:agent,seed:true};M.regs[email]=r;M.byAgent[agent]=r;}
+    seed('riya.k@sgtuniversity.org','Riya Kapoor','LAW','LAW-011');seed('aman.s@sgtuniversity.org','Aman Sethi','LAW','LAW-012');
+    seed('kabir.m@sgtuniversity.org','Kabir Malik','LAW','LAW-013');seed('neha.d@sgtuniversity.org','Neha Dutt','MED','MED-021');
+    M.teams.FULLQ3={code:'FULLQ3',name:'Moot Point',school:'LAW',members:['LAW-011','LAW-012','LAW-013'],captain:'LAW-011'};
+    M.teams.MEDQ7K={code:'MEDQ7K',name:'Night Rounds',school:'MED',members:['MED-021'],captain:'MED-021'};
+    return M;
+  }
+  function ok(d){return {success:true,data:d};}
+  function no(code,msg){return {success:false,code:code,message:msg||MSG[code]};}
+  function rid(){var s='',h='0123456789abcdef';for(var i=0;i<32;i++)s+=h.charAt((Math.random()*16)|0);return s.slice(0,8)+'-'+s.slice(8,12)+'-4'+s.slice(13,16)+'-a'+s.slice(17,20)+'-'+s.slice(20,32);}
+  function stats(){var d=db(),t=0,by=SCHOOLS.map(function(s){var c=d.base[s.code]+d.extra[s.code];t+=c;return {code:s.code,count:c};});return {total:t,bySchool:by,updatedAt:Date.now()};}
+  function teamOut(t){return {team_code:t.code,team_name:t.name,school:t.school,invite_url:base()+'/team.html',
+    members:t.members.map(function(a){var r=db().byAgent[a];return {agent:a,name:r?r.name:'Agent',captain:a===t.captain};}),lock_at:cfg.team_lock_at};}
+  function teamOf(agent){var T=db().teams;for(var k in T)if(T[k].members.indexOf(agent)>=0)return T[k];return null;}
+  function locked(){return qs.get('locked')==='1'||Date.now()>=Date.parse(cfg.team_lock_at);}
+  function who(tok){var e=db().tokens[tok];return e?db().regs[e]||(MOCK_ADMINS.indexOf(e)>=0?{admin:true,email:e}:null):null;}
+  function send(email){var d=db();d.sends[email]=(d.sends[email]||0)+1;return d.sends[email]<=3;}
+  function checkOtp(b,kind){
+    var d=db(),p=d.pend[b.pending_id];
+    if(!p)return no('OTP_EXPIRED','That code has expired. Ask for a new one.');
+    if(p.kind!==kind)return no('BAD_INPUT');
+    var otp=String(b.otp||'').replace(/\D/g,'');
+    if(!/^\d{6}$/.test(otp))return no('BAD_INPUT','Enter the 6-digit code from the email.');
+    if(p.tries>=5)return no('TOO_MANY_TRIES');
+    if(otp==='000000')return no('OTP_EXPIRED');
+    if(otp!==MOCK_CODE){p.tries++;if(p.tries>=5)return no('TOO_MANY_TRIES');var left=5-p.tries;return no('BAD_OTP',MSG.BAD_OTP+' '+left+(left===1?' try':' tries')+' left.');}
+    return null;
+  }
+  function mock(action,b){
+    var d=db(),e,r,t,me,err;
+    switch(action){
+    case 'phase':
+      if(cleanSource(b.s))d.scans.push(cleanSource(b.s));
+      var s=stats();
+      return ok({phase:d.phase,serverNow:Date.now(),reveal_at:cfg.reveal_at,drop_from:cfg.drop_from,drop_to:cfg.drop_to,finale_at:cfg.finale_at,total:s.total,bySchool:s.bySchool,announce:d.announce});
+    case 'stats':return ok(stats());
+    case 'verify_cert':return ok({valid:false});
+    case 'notify':
+      if(String(b.hp||'').trim())return ok({ok:true});
+      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?err.msg:null);
+      d.notify[cleanEmail(b.email)]=1;return ok({ok:true});
+    case 'register_start':
+      if(String(b.hp||'').trim())return ok({pending_id:rid(),email_masked:maskEmail(cleanEmail(b.email)||'agent@sgtuniversity.org')});
+      if(d.phase!=='register'&&d.phase!=='drop')return no('PHASE_CLOSED',d.phase==='tease'?'Registration opens at the Reveal. Check the home page for the date.':'Registration is closed now.');
+      if(checkName(b.name))return no('BAD_INPUT','Please type your name as it appears on your ID, in letters only.');
+      if(checkEnrol(b.enrol))return no('BAD_INPUT','Please check your enrolment number. It has 4 to 20 letters or digits.');
+      if(YEARS.indexOf(b.year)<0)return no('BAD_INPUT','Please choose your year of study.');
+      if(!school(b.school))return no('BAD_INPUT','Please choose your school.');
+      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      e=cleanEmail(b.email);
+      if(/^busy@/.test(e))return no('RATE_LIMITED');
+      if(/^down@/.test(e))return no('SERVER_BUSY');
+      if(/^taken@/.test(e)||d.regs[e])return no('ALREADY_REGISTERED');
+      for(var k in d.regs)if(d.regs[k].enrol===cleanEnrol(b.enrol))return no('ALREADY_REGISTERED');
+      if(!send(e))return no('RATE_LIMITED');
+      r=rid();d.pend[r]={kind:'reg',tries:0,data:{name:cleanName(b.name),enrol:cleanEnrol(b.enrol),year:b.year,school:b.school,email:e,source:cleanSource(b.source)||'direct'}};
+      return ok({pending_id:r,email_masked:maskEmail(e)});
+    case 'register_verify':
+      var c=b.consents||{};
+      if(c.A!==true||c.B!==true)return no('BAD_INPUT','Tick boxes A and B to take part. Boxes C and D are your choice.');
+      err=checkOtp(b,'reg');if(err)return err;
+      var p=d.pend[b.pending_id].data;delete d.pend[b.pending_id];
+      if(d.regs[p.email])return no('ALREADY_REGISTERED');
+      d.seq[p.school]++;var n=String(d.seq[p.school]);while(n.length<3)n='0'+n;
+      p.agent=p.school+'-'+n;p.consents=c;d.regs[p.email]=p;d.byAgent[p.agent]=p;d.extra[p.school]++;
+      t=rid();d.tokens[t]=p.email;
+      var st=stats(),mine=0;st.bySchool.forEach(function(x){if(x.code===p.school)mine=x.count;});
+      return ok({token:t,agent:p.agent,name:p.name,school:p.school,total:st.total,schoolCount:mine,rank:1+st.bySchool.filter(function(x){return x.count>mine;}).length});
+    case 'resend_code':
+      var pr=d.pend[b.pending_id];if(!pr)return no('OTP_EXPIRED','That sign-in has expired. Go back and start again.');
+      e=pr.kind==='reg'?pr.data.email:pr.email;
+      if(!send(e))return no('RATE_LIMITED');
+      pr.tries=0;return ok({email_masked:maskEmail(e)});
+    case 'login_start':
+      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      e=cleanEmail(b.email);
+      if(/^busy@/.test(e))return no('RATE_LIMITED');
+      if(/^new\./.test(e))return no('BAD_INPUT','We could not find a case file for that email. Register first, it takes a minute.');
+      if(!d.regs[e]&&MOCK_ADMINS.indexOf(e)<0){   // mock convenience: any other university email logs in as a registered agent
+        var pre=(e.split('.')[0]||'').toUpperCase(),sc=school(pre)?pre:'LAW';
+        d.seq[sc]++;var nn=String(d.seq[sc]);while(nn.length<3)nn='0'+nn;
+        var local=e.split('@')[0].replace(/^[a-z]{3}\./,'').replace(/[^a-z]+/g,' ').trim()||'agent';
+        var nm=local.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
+        var rr={email:e,name:nm,enrol:'MOCK'+sc+nn,year:'2nd year',school:sc,agent:sc+'-'+nn};d.regs[e]=rr;d.byAgent[rr.agent]=rr;d.extra[sc]++;
+      }
+      if(!send(e))return no('RATE_LIMITED');
+      r=rid();d.pend[r]={kind:'login',tries:0,email:e};
+      return ok({pending_id:r,email_masked:maskEmail(e)});
+    case 'login_verify':
+      err=checkOtp(b,'login');if(err)return err;
+      e=d.pend[b.pending_id].email;delete d.pend[b.pending_id];
+      t=rid();d.tokens[t]=e;
+      if(!d.regs[e])return ok({token:t,agent:null,name:'Organiser',school:null,team:null,admin:true});
+      r=d.regs[e];var tm=teamOf(r.agent);
+      var out={token:t,agent:r.agent,name:r.name,school:r.school,team:tm?teamOut(tm):null};
+      if(MOCK_ADMINS.indexOf(e)>=0)out.admin=true;
+      return ok(out);
+    case 'team_create':case 'team_join':case 'team_status':case 'team_leave':
+      me=who(b.token);if(!me||me.admin&&!me.agent)return no('NOT_LOGGED_IN');
+      if(action==='team_status'){t=teamOf(me.agent);return ok(t?teamOut(t):{team:null,lock_at:cfg.team_lock_at});}
+      if(locked())return no('TEAM_LOCKED');
+      if(action==='team_leave'){
+        t=teamOf(me.agent);
+        if(t){t.members=t.members.filter(function(a){return a!==me.agent;});
+          if(!t.members.length)delete d.teams[t.code];else if(t.captain===me.agent)t.captain=t.members[0];}
+        return ok({team:null,lock_at:cfg.team_lock_at});
+      }
+      if(action==='team_create'){
+        var nmx=String(b.team_name||'').replace(/\s+/g,' ').trim(),pb=teamNameProblem(nmx);
+        if(pb)return no('BAD_INPUT',pb);
+        t=teamOf(me.agent);if(t)return no('BAD_INPUT','You are already in team "'+t.name+'". Leave it first to start a new one.');
+        for(var k2 in d.teams)if(d.teams[k2].name.toLowerCase()===nmx.toLowerCase())return no('BAD_INPUT','Another team already uses that name. Try a different one.');
+        var A='ABCDFGHJKLMNPQRSTUVWXYZ',B2=A+'23456789',code;
+        do{code=A.charAt((Math.random()*A.length)|0);for(var i=0;i<5;i++)code+=B2.charAt((Math.random()*B2.length)|0);}while(d.teams[code]);
+        t=d.teams[code]={code:code,name:nmx,school:me.school,members:[me.agent],captain:me.agent};
+        return ok(teamOut(t));
+      }
+      var jc=String(b.team_code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+      if(!/^[A-Z0-9]{6}$/.test(jc))return no('TEAM_NOT_FOUND','Team codes have 6 letters and numbers. Check it and try again.');
+      t=d.teams[jc];if(!t)return no('TEAM_NOT_FOUND');
+      if(t.members.indexOf(me.agent)>=0)return ok(teamOut(t));
+      var mine2=teamOf(me.agent);if(mine2)return no('BAD_INPUT','You are already in team "'+mine2.name+'". Leave it first to join another.');
+      if(t.school!==me.school)return no('TEAM_OTHER_SCHOOL');
+      if(t.members.length>=3)return no('TEAM_FULL');
+      t.members.push(me.agent);return ok(teamOut(t));
+    case 'admin_set_phase':case 'admin_summary':case 'admin_export':case 'admin_announce':
+      me=who(b.token);
+      if(b.admin_key!==MOCK_ADMIN_KEY||!me||MOCK_ADMINS.indexOf(me.email)<0)return no('NOT_LOGGED_IN','Admin access only. Check the admin key and log in with an organiser email.');
+      if(action==='admin_set_phase'){if(!/^(tease|register|drop|episodes|finale|after)$/.test(b.phase))return no('BAD_INPUT','Unknown phase.');d.phase=b.phase;return ok({phase:d.phase});}
+      if(action==='admin_announce'){var tx=String(b.text||'').replace(/\s+/g,' ').trim();if(tx.length>280)return no('BAD_INPUT','Keep the announcement under 280 characters.');d.announce=tx;return ok({announce:tx});}
+      if(action==='admin_export')return ok({name:'onecase_registrations_mock.csv',url:'https://drive.google.com/',rows:stats().total});
+      var s2=stats(),src=Object.keys(d.sources).map(function(k){return {source:k,registrations:d.sources[k][0],scans:d.sources[k][1]};});
+      d.scans.forEach(function(x){var f=src.filter(function(y){return y.source===x;})[0];if(f)f.scans++;else src.push({source:x,registrations:0,scans:1});});
+      var tc=0,tf=0;for(var k3 in d.teams){tc++;if(d.teams[k3].members.length===3)tf++;}
+      return ok({phase:d.phase,phases:['tease','register','drop','episodes','finale','after'],announce:d.announce,total:s2.total,bySchool:s2.bySchool,
+        bySource:src.sort(function(a,b3){return b3.registrations-a.registrations;}),byDay:d.byDay,teams:{total:tc+180,complete:tf+122},notify:412+Object.keys(d.notify).length,
+        pending:Object.keys(d.pend).length,mailQuota:1312,updatedAt:Date.now()});
+    }
+    return no('BAD_INPUT','Unknown action.');
+  }
+
+  /* ---------- shared page bits ---------- */
+  function showMockBanner(extra){
+    ready.then(function(){
+      var b=document.getElementById('mockBanner');if(!b||!isMock())return;
+      b.hidden=false;
+      if(extra){var x=document.getElementById('mockExtra');if(x)x.textContent=extra;}
+    });
+  }
+  function showAnnouncement(text){
+    var a=document.getElementById('announcement');if(!a)return;
+    a.textContent=text||'';a.hidden=!text;
+  }
+
+  return {cfg:cfg,SCHOOLS:SCHOOLS,YEARS:YEARS,MSG:MSG,qs:qs,ready:ready,isMock:isMock,base:base,api:api,
+    checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkEmail:checkEmail,cleanEmail:cleanEmail,
+    teamNameProblem:teamNameProblem,maskEmail:maskEmail,school:school,fmtDate:fmtDate,initials:initials,cleanSource:cleanSource,
+    wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
+})();
+
+/* ===== REGISTER: 5-step flow (door, details, code, consent, success) + returning-student login ===== */
+(function(){
+  'use strict';
+  var $=function(id){return document.getElementById(id);};
+  var STEPS={'s-door':[1,'Choose your door'],'s-details':[2,'Your details'],'s-code':[3,'Check your inbox'],'s-consent':[4,'Your choices'],'s-done':[5,'Case file open']};
+  var st={school:'',source:OC.cleanSource(OC.qs.get('s')),pending:'',masked:'',mode:'reg',otp:'',busy:false,installEvt:null};
+  var preset=(OC.qs.get('school')||'').toUpperCase();
+  if(!OC.school(preset))preset='';
+
+  OC.showMockBanner();
+
+  /* ---------- screens ---------- */
+  function show(id,focus){
+    KP.swap(function(){
+      ['s-door','s-details','s-login','s-code','s-consent','s-done','s-closed'].forEach(function(s){$(s).hidden=s!==id;});
+      var step=STEPS[id];
+      var done=id==='s-done';
+      var head=document.querySelector('.page-head');if(head)head.hidden=done;   /* payoff: the agent card is the hero */
+      $('progress').hidden=done||!step||(st.mode==='login'&&id!=='s-door');
+      if(step){
+        $('stepLabel').textContent='STEP '+step[0]+' OF 5';$('stepName').textContent=step[1];
+        $('meter').setAttribute('aria-valuenow',step[0]);$('meterBar').style.setProperty('--p',step[0]/5);
+      }
+      window.scrollTo(0,0);
+    });
+    setTimeout(function(){var h=$(id).querySelector('h2');if(h&&focus!==false)try{h.focus({preventScroll:true});}catch(e){}},30);
+    $('live').textContent=STEPS[id]?'Step '+STEPS[id][0]+' of 5: '+STEPS[id][1]:'';
+  }
+  function busy(btn,on,text){
+    st.busy=on;btn.disabled=on;
+    if(on){btn.dataset.label=btn.textContent;btn.textContent=text||'Working…';btn.setAttribute('aria-busy','true');}
+    else{if(btn.dataset.label)btn.textContent=btn.dataset.label;btn.removeAttribute('aria-busy');}
+  }
+  function setErr(el,msg){el.textContent=msg||'';}
+
+  /* ---------- step 1: doors ---------- */
+  var list=OC.SCHOOLS.slice();
+  if(preset){list.sort(function(a,b){return (b.code===preset)-(a.code===preset);});}
+  var doors=$('doors');
+  list.forEach(function(s){
+    var l=document.createElement('label');l.className='door';l.setAttribute('data-qa','school-card');l.dataset.code=s.code;
+    var i=document.createElement('input');i.type='radio';i.name='school';i.value=s.code;
+    i.setAttribute('aria-label',s.short+', '+s.door);
+    var c=document.createElement('span');c.className='door-code';c.textContent=s.code;
+    var n=document.createElement('span');n.className='door-name';n.textContent=s.short;
+    var r=document.createElement('span');r.className='door-room';r.textContent=s.door;
+    var t=document.createElement('span');t.className='door-tick';t.setAttribute('aria-hidden','true');t.textContent='YOUR DOOR';
+    l.appendChild(i);l.appendChild(c);l.appendChild(n);l.appendChild(r);l.appendChild(t);
+    i.addEventListener('change',function(){pick(s.code);});
+    doors.appendChild(l);
+  });
+  function pick(code){
+    st.school=code;var s=OC.school(code);
+    [].forEach.call(doors.querySelectorAll('.door'),function(d){var on=d.dataset.code===code;d.classList.toggle('is-on',on);d.querySelector('input').checked=on;});
+    $('doorNext').textContent='Continue: '+s.door;
+    setErr($('doorErr'),'');
+  }
+  if(preset){
+    pick(preset);
+    $('doorIntro').textContent='Your poster pointed to '+OC.school(preset).short+'. Not your school? Pick another door.';
+  }
+  $('doorNext').addEventListener('click',function(){
+    if(!st.school){setErr($('doorErr'),'Choose your school\'s door to continue.');return;}
+    var s=OC.school(st.school);$('chosenDoor').textContent=s.short+' · '+s.door;
+    st.mode='reg';show('s-details');
+  });
+  $('changeDoor').addEventListener('click',function(){show('s-door');});
+
+  /* ---------- step 2: details ---------- */
+  OC.YEARS.forEach(function(y){var o=document.createElement('option');o.value=y;o.textContent=y;$('fYear').appendChild(o);});
+  var F={name:$('fName'),enrol:$('fEnrol'),year:$('fYear'),email:$('fEmail')};
+  var E={name:$('eName'),enrol:$('eEnrol'),year:$('eYear'),email:$('eEmail')};
+  function fieldErr(k,msg){setErr(E[k],msg);if(msg)F[k].setAttribute('aria-invalid','true');else F[k].removeAttribute('aria-invalid');}
+  F.email.addEventListener('blur',function(){
+    var v=F.email.value.trim();
+    if(v&&v.indexOf('@')<0)F.email.value=v+'@'+OC.cfg.allowed_domains[0];
+    if(F.email.value.trim()){var e=OC.checkEmail(F.email.value);if(e)fieldErr('email',e.msg);}
+  });
+  /* Errors appear on blur but only clear while typing, so a tap on the button never lands on a moving target. */
+  ['name','enrol','year','email'].forEach(function(k){F[k].addEventListener(k==='year'?'change':'input',function(){if(E[k].textContent)fieldErr(k,'');setErr($('detailsErr'),'');});});
+  ['name','enrol'].forEach(function(k){F[k].addEventListener('blur',function(){
+    var m=k==='name'?OC.checkName(F.name.value):OC.checkEnrol(F.enrol.value);
+    if(F[k].value&&m)fieldErr(k,m);});});
+  $('fDetails').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    setErr($('detailsErr'),'');
+    var v=F.email.value.trim();if(v&&v.indexOf('@')<0)F.email.value=v+'@'+OC.cfg.allowed_domains[0];
+    var errs={name:OC.checkName(F.name.value),enrol:OC.checkEnrol(F.enrol.value),year:F.year.value?'':'Choose your year.',email:(OC.checkEmail(F.email.value)||{}).msg||''};
+    var first=null;
+    Object.keys(errs).forEach(function(k){fieldErr(k,errs[k]);if(errs[k]&&!first)first=F[k];});
+    if(first){first.focus();return;}
+    var btn=$('startBtn');busy(btn,true,'Sending your code…');
+    OC.api('register_start',{name:OC.cleanName(F.name.value),enrol:OC.cleanEnrol(F.enrol.value),year:F.year.value,school:st.school,
+      email:OC.cleanEmail(F.email.value),source:st.source,hp:$('fWebsite').value}).then(function(r){
+      busy(btn,false);
+      if(r.success){st.pending=r.data.pending_id;st.masked=r.data.email_masked;st.mode='reg';toCode();return;}
+      if(r.code==='BAD_EMAIL_DOMAIN'){fieldErr('email',r.message);F.email.focus();return;}
+      if(r.code==='PHASE_CLOSED'){closed(r.message);return;}
+      setErr($('detailsErr'),r.message);
+      if(r.code==='ALREADY_REGISTERED')$('detailsErr').appendChild(loginLink(OC.cleanEmail(F.email.value)));
+    });
+  });
+  function loginLink(email){
+    var b=document.createElement('button');b.type='button';b.className='linkbtn';b.textContent='Log in instead';
+    b.addEventListener('click',function(){$('lEmail').value=email||'';st.mode='login';show('s-login');});
+    var s=document.createElement('span');s.textContent=' ';s.appendChild(b);return s;
+  }
+
+  /* ---------- login ---------- */
+  function toLogin(){st.mode='login';if(F.email.value&&!$('lEmail').value)$('lEmail').value=F.email.value.trim();show('s-login');}
+  $('toLogin').addEventListener('click',toLogin);$('toLogin2').addEventListener('click',toLogin);
+  $('toRegister').addEventListener('click',function(){st.mode='reg';show('s-door');});
+  $('fLogin').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var e=OC.checkEmail($('lEmail').value);setErr($('loginErr'),e?e.msg:'');if(e){$('lEmail').focus();return;}
+    var btn=$('loginBtn');busy(btn,true,'Sending your code…');
+    OC.api('login_start',{email:OC.cleanEmail($('lEmail').value)}).then(function(r){
+      busy(btn,false);
+      if(r.success){st.pending=r.data.pending_id;st.masked=r.data.email_masked;st.mode='login';toCode();return;}
+      setErr($('loginErr'),r.message);
+    });
+  });
+
+  /* ---------- step 3: code ---------- */
+  function toCode(){
+    $('maskedEmail').textContent=st.masked;$('otp').value='';setErr($('codeErr'),'');setErr($('codeOk'),'');
+    $('verifyBtn').textContent=st.mode==='login'?'Log in':'Verify code';
+    show('s-code',false);
+    OC.resendTimer($('resendBtn'),30,'Resend code');
+    setTimeout(function(){try{$('otp').focus({preventScroll:true});}catch(e){}},60);
+  }
+  OC.wireOtp($('otp'),function(){setErr($('codeErr'),'');});
+  $('fCode').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var code=$('otp').value.replace(/\D/g,'');
+    if(code.length!==6){setErr($('codeErr'),'Enter all 6 digits of the code from the email.');$('otp').focus();return;}
+    st.otp=code;setErr($('codeErr'),'');
+    if(st.mode==='reg'){show('s-consent');return;}
+    var btn=$('verifyBtn');busy(btn,true,'Checking…');
+    OC.api('login_verify',{pending_id:st.pending,otp:code}).then(function(r){
+      busy(btn,false);
+      if(r.success){
+        if(!r.data.agent){setErr($('codeErr'),'This email belongs to an organiser. Use the admin page instead.');return;}
+        done(r.data,true);return;
+      }
+      codeError(r);
+    });
+  });
+  function codeError(r){
+    setErr($('codeOk'),'');setErr($('codeErr'),r.message);$('otp').value='';
+    if(r.code==='OTP_EXPIRED'||r.code==='TOO_MANY_TRIES'){clearInterval($('resendBtn')._t);$('resendBtn').disabled=false;$('resendBtn').textContent='Send a new code';}
+    try{$('otp').focus({preventScroll:true});}catch(e){}
+  }
+  $('resendBtn').addEventListener('click',function(){
+    var btn=this;if(st.busy)return;
+    busy(btn,true,'Sending…');
+    OC.api('resend_code',{pending_id:st.pending}).then(function(r){
+      busy(btn,false);
+      if(r.success){setErr($('codeErr'),'');$('codeOk').textContent='A new code is on its way to '+r.data.email_masked+'. Use the newest email.';OC.resendTimer(btn,30,'Resend code');return;}
+      setErr($('codeOk'),'');setErr($('codeErr'),r.message);
+      if(r.code==='OTP_EXPIRED'){btn.textContent='Start again';btn.onclick=function(){btn.onclick=null;show(st.mode==='login'?'s-login':'s-details');};}
+    });
+  });
+  $('changeEmail').addEventListener('click',function(){show(st.mode==='login'?'s-login':'s-details');setTimeout(function(){(st.mode==='login'?$('lEmail'):F.email).focus();},60);});
+
+  /* ---------- step 4: consent ---------- */
+  ['cA','cB'].forEach(function(id){$(id).addEventListener('change',function(){if($('cA').checked&&$('cB').checked)setErr($('consentErr'),'');});});
+  $('finishBtn').addEventListener('click',function(){
+    if(st.busy)return;
+    if(!$('cA').checked||!$('cB').checked){setErr($('consentErr'),'Tick boxes A and B to take part. Boxes C and D are your choice.');($('cA').checked?$('cB'):$('cA')).focus();return;}
+    var btn=this;busy(btn,true,'Opening your file…');
+    OC.api('register_verify',{pending_id:st.pending,otp:st.otp,consents:{A:true,B:true,C:$('cC').checked,D:$('cD').checked}}).then(function(r){
+      busy(btn,false);
+      if(r.success){done(r.data,false);return;}
+      if(r.code==='BAD_OTP'||r.code==='OTP_EXPIRED'||r.code==='TOO_MANY_TRIES'){show('s-code');setTimeout(function(){codeError(r);},40);return;}
+      if(r.code==='ALREADY_REGISTERED'){show('s-details');setTimeout(function(){setErr($('detailsErr'),r.message);$('detailsErr').appendChild(loginLink(OC.cleanEmail(F.email.value)));},40);return;}
+      setErr($('consentErr'),r.message);
+    });
+  });
+  var dlg=$('consent-full');
+  function openConsent(ev){if(ev)ev.preventDefault();try{dlg.showModal();}catch(e){dlg.setAttribute('open','');}}
+  $('openConsent').addEventListener('click',openConsent);
+  $('closeConsent').addEventListener('click',function(){dlg.close?dlg.close():dlg.removeAttribute('open');});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+  if(location.hash==='#consent-full')setTimeout(openConsent,300);
+
+  /* ---------- step 5: success ---------- */
+  function done(d,returning){
+    var s=OC.school(d.school)||{short:d.school,door:'',name:d.school};
+    $('acNum').textContent=d.agent;$('acName').textContent=d.name;$('acInit').textContent=OC.initials(d.name);
+    $('acDoor').textContent=s.door;$('acSchool').textContent=s.short;
+    KP.setRoll(d.agent,'Agent');
+    $('doneKicker').textContent=returning?'FILE REOPENED':'FILE OPENED';
+    $('h-done').textContent=returning?'Welcome back, Agent.':'Welcome, Agent.';
+    $('doneLede').textContent=returning?(d.team?'Your team: '+d.team.team_name+' ('+d.team.members.length+' of 3). The team room has the details.':'You are not in a team yet. Teams are exactly 3 from your school.')
+      :'Your case file is open. Screenshot your card: this number follows you all season.';
+    $('dropDate').textContent=OC.fmtDate(OC.cfg.drop_from,true);
+    var msg='I just opened my case file for One Case. Your School. Your Rules. (The Neemgarh File). Teams are 3 agents from the same school.\n'+
+      'Register: '+OC.base()+'/register.html?school='+encodeURIComponent(d.school)+'&s=wa-invite\n'+
+      'Join my team: '+OC.base()+'/team.html';
+    $('waInvite').href='https://wa.me/?text='+encodeURIComponent(msg);
+    show('s-done');
+    var stage=$('stage');stage.classList.remove('play');void stage.offsetWidth;stage.classList.add('play');
+    setTimeout(function(){
+      var r=$('agentCard').getBoundingClientRect();
+      if(!returning)KP.confetti({count:84,x:r.left+r.width*.8,y:r.top+70});
+    },KP.reduced()?0:1150);
+    race(d,returning);
+  }
+  function race(d,returning){
+    var total=d.total,mine=d.schoolCount,rank=d.rank;
+    OC.api('stats',{}).then(function(r){
+      var rows=r.success?r.data.bySchool.slice():[];
+      if(r.success&&!total)total=r.data.total;
+      rows.forEach(function(x){if(x.code===d.school&&mine==null)mine=x.count;});
+      if(!rows.length)rows=[{code:d.school,count:mine||1}];
+      rows.sort(function(a,b){return b.count-a.count||(a.code===d.school?-1:b.code===d.school?1:0);});
+      var idx=0;rows.forEach(function(x,i){if(x.code===d.school)idx=i;});
+      if(!rank)rank=idx+1;
+      var max=rows[0].count||1,show5=rows.slice(0,5),ol=$('raceList');ol.textContent='';
+      if(idx>=5){show5=rows.slice(0,4);}
+      function li(x,pos){
+        var me=x.code===d.school,l=document.createElement('li');if(me)l.className='me';
+        var k=document.createElement('span');k.className='rk';k.textContent='#'+pos;
+        var c=document.createElement('span');c.className='rc';c.textContent=x.code;
+        var b=document.createElement('span');b.className='rbar';var f=document.createElement('span');b.appendChild(f);
+        var n=document.createElement('span');n.className='rn';n.textContent=x.count;
+        var start=me&&!returning?Math.max(0,x.count-1):x.count;
+        f.style.setProperty('--p',(start/max).toFixed(3));
+        if(me&&!returning){n.textContent=start;setTimeout(function(){f.style.setProperty('--p',(x.count/max).toFixed(3));n.textContent=x.count;
+          var p=document.createElement('span');p.className='plus1';p.textContent='+1';n.appendChild(p);},KP.reduced()?0:1300);}
+        l.appendChild(k);l.appendChild(c);l.appendChild(b);l.appendChild(n);
+        l.setAttribute('aria-label','Rank '+pos+', '+((OC.school(x.code)||{}).short||x.code)+', '+x.count+' agents');
+        return l;
+      }
+      show5.forEach(function(x,i){ol.appendChild(li(x,i+1));});
+      if(idx>=5){var g=document.createElement('li');g.className='gap';g.setAttribute('aria-hidden','true');g.textContent='⋮';ol.appendChild(g);ol.appendChild(li(rows[idx],idx+1));}
+      var sn=(OC.school(d.school)||{}).short||d.school;
+      $('raceRank').textContent=sn+' is #'+rank+' of 20';
+      if(total){
+        $('totalSr').textContent=total+' investigators have opened the file.';
+        setTimeout(function(){KP.countUp($('totalCount'),total,{ms:1100,from:Math.max(0,total-40),format:function(v){return Math.round(v).toLocaleString('en-IN');}});},KP.reduced()?0:900);
+      }else{$('doneCount').hidden=true;}
+    });
+  }
+  $('a2hsBtn').addEventListener('click',function(){
+    var open=$('a2hs').hidden;$('a2hs').hidden=!open;this.setAttribute('aria-expanded',String(open));
+    if(open)$('a2hs').scrollIntoView({block:'nearest',behavior:KP.reduced()?'auto':'smooth'});
+  });
+  addEventListener('beforeinstallprompt',function(e){e.preventDefault();st.installEvt=e;$('installBtn').hidden=false;});
+  $('installBtn').addEventListener('click',function(){if(st.installEvt){st.installEvt.prompt();st.installEvt=null;this.hidden=true;}});
+
+  /* ---------- closed phase + notify ---------- */
+  function closed(text){
+    $('closedText').textContent=text||'Registration is closed now.';
+    $('pageLede').textContent='Registration is not open right now.';
+    st.mode='closed';show('s-closed');
+  }
+  $('fNotify').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var e=OC.checkEmail($('nEmail').value);setErr($('notifyOk'),'');setErr($('notifyErr'),e?e.msg:'');if(e)return;
+    var btn=$('notifyBtn');busy(btn,true,'Saving…');
+    OC.api('notify',{email:OC.cleanEmail($('nEmail').value),hp:$('nWebsite').value}).then(function(r){
+      busy(btn,false);
+      if(r.success){$('notifyOk').textContent='Done. We will email you when the file opens.';$('nEmail').value='';}
+      else setErr($('notifyErr'),r.message);
+    });
+  });
+
+  /* ---------- phase check (does not block the first screen) ---------- */
+  OC.api('phase',{}).then(function(r){
+    if(!r.success)return;
+    OC.showAnnouncement(r.data.announce);
+    var ph=r.data.phase;
+    if(ph==='tease'){closed('Registration opens at the Reveal: '+OC.fmtDate(r.data.reveal_at,true)+'. Leave your university email and we will tell you.');}
+    else if(ph!=='register'&&ph!=='drop'){closed('Registration is closed for this season. Registered agents can still log in.');$('fNotify').hidden=true;
+      var b=document.createElement('button');b.type='button';b.className='btn btn-primary';b.textContent='Log in';b.addEventListener('click',toLogin);$('s-closed').querySelector('.card').appendChild(b);}
+  });
+})();
+
+</script>
+</body>
+</html>

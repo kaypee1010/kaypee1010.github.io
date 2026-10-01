@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-base="1.2.0" data-persist="off" data-page="door" data-theme="dark">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b1220" id="themeColor">
+<meta name="description" content="Your school's door into The Neemgarh File: the format, what you produce, who judges, and the live count.">
+<title>Your door: One Case</title>
+<meta property="og:title" content="Your door: One Case">
+<meta property="og:description" content="Your school's door into The Neemgarh File: the format, what you produce, who judges, and the live count.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="One Case">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/torch.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<script>document.documentElement.className='js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap"></noscript>
+<style>
+/* ===== 1. TOKENS (names fixed by kp-html-base; values from brand/BRAND.md) ===== */
+:root{
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  --pad:clamp(16px,4vw,32px); --gap:clamp(12px,3vw,24px);
+  --r:14px; --r-lg:22px; --r-pill:999px;
+  --nav-h:64px;
+  --dur-1:140ms; --dur-2:260ms; --dur-3:460ms;
+  --ease-out:cubic-bezier(.22,.61,.36,1); --ease-in:cubic-bezier(.55,.06,.68,.19);
+  --step-0:clamp(1rem,.95rem + .25vw,1.12rem);
+  --step-1:clamp(1.18rem,1.08rem + .5vw,1.45rem);
+  --step-2:clamp(1.75rem,1.4rem + 1.6vw,2.7rem);
+  --step-3:clamp(2.3rem,1.7rem + 2.8vw,3.9rem);
+  --step-4:clamp(2.6rem,1.8rem + 4vw,5rem);
+  /* brand constants (theme independent: the night hero stays night in both themes) */
+  --night:#0b1220; --night-2:#121b2e; --night-3:#1b2740; --ground:#0e1729;
+  --paper:#e9e4d4; --paper-muted:#a9a28c; --amber:#ffb547; --amber-deep:#b86a0c;
+  --red:#c8302f; --red-light:#ff6b5e; --manila:#e8d7a9; --manila-deep:#cdb57c; --ink:#221d14; --silver:#9fb3c8;
+  --f-type:"Special Elite","Courier New",Courier,ui-monospace,monospace;
+  --f-head:"Oswald","Arial Narrow","Roboto Condensed","Helvetica Neue",Arial,sans-serif;
+  /* light palette: "daylight case file" */
+  --bg:#efe4c4; --card:#f8f1dc; --soft:#e5d6aa; --fg:#221d14; --muted:#5a4f3a;
+  --line:#a8956a; --accent:#8a4c05; --accent-fg:#fbf4e0; --accent-2:#a8231f; --accent-text:#8a4c05;
+  --stamp:#a8231f; --nav-bg:rgba(239,228,196,.9);
+  --board:#d9c491; --board-line:#b39b62; --leaf:#3b2f1c; --leaf-2:#4a3b24; --leaf-fg:#f3e6c2;
+  --bar:#b86a0c; --bar-track:#e0cf9e; --string:#a8231f;
+  --shadow:0 1px 0 rgba(34,29,20,.06),0 12px 30px -16px rgba(34,29,20,.55);
+}
+/* dark palette: "night" (layer 2, system preference unless the user forced light) */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+    --line:#34466b; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#ff6b5e; --accent-text:#ffb547;
+    --stamp:#c8302f; --nav-bg:rgba(11,18,32,.86);
+    --board:#0f1828; --board-line:#24324d; --leaf:#1b2740; --leaf-2:#22304d; --leaf-fg:#e9e4d4;
+    --bar:#ffb547; --bar-track:#1b2740; --string:#c8302f;
+    --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 34px -16px rgba(0,0,0,.8);
+  }
+}
+/* dark palette, layer 3 (explicit toggle; the brand default). KEEP IDENTICAL to layer 2. */
+:root[data-theme="dark"]{
+  --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+  --line:#34466b; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#ff6b5e; --accent-text:#ffb547;
+  --stamp:#c8302f; --nav-bg:rgba(11,18,32,.86);
+  --board:#0f1828; --board-line:#24324d; --leaf:#1b2740; --leaf-2:#22304d; --leaf-fg:#e9e4d4;
+  --bar:#ffb547; --bar-track:#1b2740; --string:#c8302f;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 34px -16px rgba(0,0,0,.8);
+}
+
+/* ===== 2. RESET / BASE (kp-html-base) ===== */
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%;text-size-adjust:100%;
+  scroll-padding-top:calc(var(--nav-h) + var(--sat) + 12px);scroll-behavior:smooth}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:400 var(--step-0)/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  overflow-x:clip;-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility;
+  padding-top:calc(var(--nav-h) + var(--sat) + var(--gap));
+  padding-bottom:calc(var(--sab) + var(--gap));
+  padding-left:calc(var(--sal) + var(--pad)); padding-right:calc(var(--sar) + var(--pad))}
+img,video,canvas,svg{max-width:100%;display:block;height:auto}
+h1{font-size:var(--step-3);line-height:1.08;margin:.2em 0 .4em;text-wrap:balance}
+h2{font-size:var(--step-2);line-height:1.15;margin:1.2em 0 .4em;text-wrap:balance}
+p{text-wrap:pretty}
+button,input,select,textarea{font:inherit;color:inherit}
+input:not([type=checkbox]):not([type=radio]),select,textarea{font-size:max(16px,1em);min-height:48px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);max-width:100%}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}
+.skip:focus{display:inline-flex;align-items:center;min-height:48px;left:12px;top:calc(var(--sat) + 8px);z-index:100;background:var(--card);color:var(--fg);padding:12px 16px;border-radius:10px;border:1px solid var(--line)}
+a{color:var(--accent-text);text-underline-offset:3px}
+[hidden]{display:none !important}
+
+/* ===== 3. NAV (kp-html-base structure; event-brand content, plan 14 section 6) ===== */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:8px;
+  padding:calc(var(--sat) + 8px) calc(var(--sar) + var(--pad)) 8px calc(var(--sal) + var(--pad));
+  background:var(--nav-bg);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.nav{background:var(--card)}}
+.nav-brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto;color:inherit;text-decoration:none;min-height:48px}
+.nav-brand>div{min-width:0}
+.nav-logo{width:40px;height:40px;flex:none;border-radius:50%;object-fit:contain;background:transparent}
+.nav-name{font:600 1.12rem/1.1 var(--f-head);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-sub{font-size:.72rem;line-height:1.25;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 16px;flex:none;
+  border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);
+  font:600 .9rem/1 var(--f-head);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
+  font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+@media (hover:hover){.theme-toggle:hover{background:var(--soft)}.nav-cta:hover{filter:brightness(1.08)}}
+.nav-roll{cursor:default;background:var(--soft);color:var(--fg);border:1px solid var(--line);font-variant-numeric:tabular-nums;max-width:44vw;overflow:hidden}
+@media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 12px;font-size:.8rem}.nav-roll-label{display:none}}
+@media (max-width:479px){.nav-roll-label{display:none}.nav-roll{padding:0 12px}}
+.announce{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:var(--soft);border:1px solid var(--line);font-size:.95rem}
+
+/* ===== 4. LAYOUT / COMPONENTS ===== */
+.wrap{max-width:72rem;margin-inline:auto}
+.bleed{margin-left:calc(-1 * (var(--pad) + var(--sal)));margin-right:calc(-1 * (var(--pad) + var(--sar)))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--gap)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;min-width:48px;padding:12px 22px;border-radius:var(--r-pill);cursor:pointer;
+  border:1px solid var(--line);background:var(--card);color:var(--fg);text-decoration:none;font-weight:600;
+  transition:transform var(--dur-1) var(--ease-out)}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--accent);color:var(--accent-fg);border-color:transparent}
+.btn-cta{font:600 1.08rem/1.1 var(--f-head);letter-spacing:.07em;text-transform:uppercase;padding:15px 26px;min-height:56px}
+.btn-ghost{background:transparent}
+.muted{color:var(--muted)}
+.tw-label,.label{font:400 .86rem/1.3 var(--f-type);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);margin:0 0 6px}
+.tw{min-height:1.3em}
+.tw.tw-on .tw-vis::after{content:"";display:inline-block;width:.62em;height:1.05em;margin-left:2px;vertical-align:-.16em;background:currentColor;animation:tw-blink 1s steps(1) 2}
+@keyframes tw-blink{50%{opacity:0}}
+.head{font-family:var(--f-head);font-weight:700;text-transform:uppercase;letter-spacing:.015em;line-height:1.02}
+.sec{padding-block:clamp(56px,11vw,112px) 0}
+/* below-the-fold sections skip layout and paint until they are near the screen (big win on mid-range phones) */
+.sec,.foot,.band{content-visibility:auto;contain-intrinsic-size:auto 1100px}
+.sec h2{font-family:var(--f-head);font-weight:700;text-transform:uppercase;letter-spacing:.015em;line-height:1.02;margin:.15em 0 .35em;font-size:var(--step-3)}
+.sec-intro{max-width:38rem;color:var(--muted);margin:0 0 28px}
+.chip{display:inline-flex;align-items:center;gap:7px;min-height:48px;padding:0 13px;border-radius:var(--r-pill);
+  border:1px solid rgba(233,228,212,.38);background:rgba(11,18,32,.55);color:var(--paper);cursor:pointer;
+  font:400 .76rem/1 var(--f-type);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.chip[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
+.chip svg{width:18px;height:18px;flex:none}
+@media (max-width:379px){.chip{padding:0 11px;gap:6px;font-size:.7rem}}
+@media (hover:hover){.chip:hover{border-color:var(--amber)}.btn:hover{filter:brightness(1.06)}}
+
+/* ===== STAMP (BRAND component 3) ===== */
+.stamp{display:inline-block;font:400 1.5rem/1 var(--f-type);letter-spacing:.14em;text-transform:uppercase;color:var(--stamp);
+  padding:.32em .5em .26em;border:3px double var(--stamp);border-radius:6px;transform:rotate(-8deg);
+  -webkit-mask:repeating-linear-gradient(115deg,#000 0 7px,rgba(0,0,0,.78) 7px 9px,#000 9px 15px);
+          mask:repeating-linear-gradient(115deg,#000 0 7px,rgba(0,0,0,.78) 7px 9px,#000 9px 15px);
+  box-shadow:inset 0 0 0 2px rgba(200,48,47,.0);pointer-events:none;user-select:none}
+@keyframes stamp-land{0%{opacity:0;transform:rotate(-8deg) scale(1.6)}60%{opacity:1;transform:rotate(-8deg) scale(.98)}
+  70%{transform:rotate(-8deg) scale(1) translate(2px,0)}80%{transform:rotate(-8deg) translate(-2px,1px)}90%{transform:rotate(-8deg) translate(1px,-1px)}100%{opacity:1;transform:rotate(-8deg)}}
+@keyframes stamp-lift{to{opacity:0;transform:rotate(-8deg) scale(1.18) translateY(-6px)}}
+
+/* ===== SPLIT-FLAP COUNTDOWN (BRAND component 7) ===== */
+.flap{display:flex;flex-wrap:wrap;gap:10px clamp(8px,2.4vw,16px);align-items:flex-start;margin:0}
+.flap-grp{display:flex;flex-direction:column;align-items:center;gap:6px}
+.flap-tiles{display:flex;gap:2px}
+.tile{position:relative;display:block;width:1.04em;height:1.5em;font:700 clamp(1.55rem,1.05rem + 2.7vw,2.6rem)/1.5em var(--f-head);text-align:center;
+  color:var(--amber);background:var(--night-2);border-radius:7px;overflow:hidden;perspective:320px;
+  box-shadow:inset 0 0 0 1px #24324d,0 6px 14px -8px rgba(0,0,0,.8);font-variant-numeric:tabular-nums}
+.tile::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.65);box-shadow:0 1px 0 rgba(255,255,255,.05);z-index:5}
+.tile .fl{position:absolute;inset:0;background:var(--night-2);color:var(--amber);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.tile .ft{-webkit-clip-path:inset(0 0 50% 0);clip-path:inset(0 0 50% 0);z-index:3;transform-origin:50% 50%;animation:flap-top 200ms var(--ease-in) forwards}
+.tile .ob{-webkit-clip-path:inset(50% 0 0 0);clip-path:inset(50% 0 0 0);z-index:1}
+.tile .fb{-webkit-clip-path:inset(50% 0 0 0);clip-path:inset(50% 0 0 0);z-index:4;transform:rotateX(90deg);transform-origin:50% 50%;animation:flap-bot 200ms 190ms var(--ease-out) forwards}
+@keyframes flap-top{to{transform:rotateX(-90deg)}}
+@keyframes flap-bot{to{transform:rotateX(0)}}
+.flap-lab{font:400 .72rem/1 var(--f-type);letter-spacing:.16em;text-transform:uppercase;color:var(--paper-muted)}
+.flap-sep{font:700 2rem/1 var(--f-head);color:var(--paper-muted);align-self:center}
+
+/* ===== FOOTER ===== */
+.foot{margin-top:clamp(64px,12vw,120px);padding:36px 0 8px;border-top:1px solid var(--line);font-size:.95rem}
+.foot-grid{display:grid;gap:22px}
+.foot-mark{display:flex;align-items:center;gap:12px}
+.foot-mark svg{width:44px;height:44px;flex:none}
+.foot-line{font:700 1.15rem/1.15 var(--f-head);text-transform:uppercase;letter-spacing:.03em;margin:0}
+.foot p{margin:.2em 0}
+.foot-about{display:flex;align-items:center;gap:12px}
+.foot-about img{width:44px;height:44px;border-radius:50%;object-fit:contain;background:transparent;flex:none}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;margin:0 0 8px;padding:0;list-style:none}
+.foot-links a{display:inline-flex;align-items:center;min-height:48px;padding:0 2px}
+.foot-links a:not([href]){color:var(--muted);text-decoration:none}
+.foot-small{font-size:.86rem;color:var(--muted)}
+@media (min-width:760px){.foot-grid{grid-template-columns:1.2fr 1fr 1fr;align-items:start}}
+
+/* ===== 5. MOTION ===== */
+[data-reveal]{opacity:0;transform:translate3d(0,20px,0);
+  transition:opacity var(--dur-3) var(--ease-out) var(--d,0ms),transform var(--dur-3) var(--ease-out) var(--d,0ms)}
+[data-reveal].is-in{opacity:1;transform:none}
+[data-motion="paused"] *,[data-motion="paused"] *::before,[data-motion="paused"] *::after{animation-play-state:paused !important}
+
+/* ===== DOOR PAGE (one template for all 20 doors, ?school=CODE) ===== */
+.dhero{position:relative;margin-top:calc(-1 * var(--gap));padding:28px var(--pad) 30px;padding-left:calc(var(--pad) + var(--sal));padding-right:calc(var(--pad) + var(--sar));
+  background:var(--night);color:var(--paper);overflow:hidden;text-align:center}
+.dhero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 50% at 50% 38%,rgba(255,181,71,.16),transparent 70%)}
+.dframe{position:relative;width:min(64vw,260px);aspect-ratio:3/4.1;margin:0 auto;border:5px solid #2b3a5a;border-bottom:0;border-radius:8px 8px 0 0;background:#060a13;perspective:1200px;overflow:hidden}
+.dinside{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  background:radial-gradient(70% 60% at 50% 45%,rgba(255,190,96,.42),rgba(255,181,71,.06) 60%,transparent 75%);color:var(--paper)}
+.dinside .no{font:700 4.4rem/1 var(--f-head);color:var(--amber);letter-spacing:.02em}
+.dinside .stamp{font-size:1rem;color:var(--red-light);border-color:var(--red-light)}
+.dleaf{position:absolute;inset:0;background:var(--night-3);transform-origin:0 50%;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:inset 0 0 0 1px rgba(233,228,212,.08)}
+.dleaf::before,.dleaf::after{content:"";position:absolute;left:14%;right:14%;border:2px solid rgba(233,228,212,.14);border-radius:4px}
+.dleaf::before{top:9%;height:34%}.dleaf::after{top:50%;bottom:9%}
+.dleaf .plate{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);padding:6px 12px 5px;background:var(--manila);color:var(--ink);border-radius:3px;font:400 .95rem/1 var(--f-type);letter-spacing:.12em;white-space:nowrap}
+.dleaf .knob{position:absolute;right:11%;top:56%;width:14px;height:14px;border-radius:50%;background:var(--amber)}
+.dhero.is-open .dleaf{transform:rotateY(80deg)}
+.js .dhero.play .dleaf{transition:transform 900ms cubic-bezier(.3,.7,.2,1) 250ms}
+.dhero .label{color:var(--amber);margin-top:22px}
+.dhero h1{font:700 var(--step-4)/.95 var(--f-head);text-transform:uppercase;margin:6px auto 0;max-width:14ch}
+.dhero .school{margin:10px auto 0;color:var(--paper-muted);max-width:32rem}
+.pitch{position:relative;margin:26px auto 0;max-width:36rem;padding:20px 18px;background:var(--manila);color:var(--ink);border-radius:4px;transform:rotate(-.6deg);
+  font:400 1.06rem/1.5 var(--f-type);text-align:left;box-shadow:0 18px 30px -18px rgba(0,0,0,.9)}
+.pitch::before{content:"";position:absolute;left:50%;top:-8px;width:60px;height:16px;margin-left:-30px;background:rgba(233,228,212,.6);transform:rotate(-2deg)}
+.reg{margin:24px auto 0;max-width:36rem;display:grid;gap:12px}
+.reg .btn-cta{background:var(--amber);color:var(--night);width:100%}
+.count{margin:0;color:var(--paper);font-size:1rem}
+.count b{font:700 1.5rem/1 var(--f-head);color:var(--amber);font-variant-numeric:tabular-nums}
+.facts{display:grid;gap:14px;margin-top:8px}
+@media (min-width:760px){.facts{grid-template-columns:1fr 1fr}}
+.fact{padding:20px 18px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+.fact h2{font:700 1.3rem/1.1 var(--f-head);text-transform:uppercase;margin:4px 0 8px}
+.fact p,.fact li{color:var(--fg)}
+.fact p{margin:0 0 8px}
+.fact ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.qs{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.qs li{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--soft);font-size:.92rem}
+.qs b{font-family:var(--f-head);color:var(--accent-text);margin-right:4px}
+.share{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
+.share input{flex:1 1 100%;font-size:16px}
+.msg{min-height:1.4em;margin:6px 0 0;font-size:.92rem;color:var(--accent-text)}
+.dtiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:640px){.dtiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:980px){.dtiles{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.dtile{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;min-height:132px;padding:40px 14px 14px;border-radius:8px 8px 3px 3px;
+  background:var(--leaf);color:var(--leaf-fg);text-decoration:none;border:1px solid var(--board-line)}
+.dtile .dt-no{position:absolute;left:14px;top:12px;padding:3px 8px 2px;border-radius:3px;background:var(--manila);color:var(--ink);font:400 .85rem/1 var(--f-type);letter-spacing:.1em}
+.dtile .dt-s{font:600 1.02rem/1.1 var(--f-head);text-transform:uppercase;letter-spacing:.04em;overflow-wrap:anywhere}
+.dtile .dt-d{font-size:.86rem;color:var(--leaf-fg);opacity:.86}
+.dtile.is-current{outline:2px solid var(--accent);outline-offset:2px}
+@media (hover:hover){.dtile:hover{border-color:var(--accent)}}
+.chooser-head h1,.chooser-head h2{font:700 var(--step-3)/1 var(--f-head);text-transform:uppercase;margin:.1em 0 .3em}
+/* ===== LOW-PERFORMANCE FALLBACKS (perf guard sets data-perf="low") ===== */
+[data-perf="low"] .torch{display:none !important}
+[data-perf="low"] .frag{visibility:visible !important;opacity:1 !important;animation:none !important}
+[data-perf="low"] .frag-dot{opacity:1 !important}
+[data-perf="low"] .tile .fl{display:none}
+[data-perf="low"] .nav{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--card)}
+
+/* ===== 6. REDUCED MOTION (always last) ===== */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    animation-delay:0ms !important;transition-duration:.001ms !important;transition-delay:0ms !important;scroll-behavior:auto !important}
+  [data-reveal]{opacity:1 !important;transform:none !important}
+  .torch{display:none !important}
+  .js .frag{visibility:visible !important;opacity:1 !important}
+  .frag-dot{opacity:1 !important}
+  .tile .fl{display:none !important}
+  .tw.tw-on .tw-vis::after{display:none}
+  .hero-hint{display:none}
+}
+
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Main"><a class="nav-brand" href="index.html"><svg class="nav-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="tmN" x1=".1" y1=".9" x2=".9" y2=".1"><stop offset="0" stop-color="#ffb547" stop-opacity=".95"/><stop offset="1" stop-color="#ffb547" stop-opacity=".06"/></linearGradient></defs><circle cx="32" cy="32" r="32" fill="#0b1220"/><path d="M21.4 35.5 41.8 3.8Q55 7 60.2 22.2L28.5 42.6Z" fill="url(#tmN)"/><g transform="rotate(-45 20 44)"><rect x="7" y="40.5" width="15" height="7" rx="2" fill="#e9e4d4"/><path d="M22 39h5v10h-5z" fill="#ffb547"/></g></svg><div><div class="nav-name">One Case</div><div class="nav-sub">R&amp;D Cell × Center of AI</div></div></a><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">☀️</button><span class="nav-cta nav-roll" hidden></span><a class="nav-cta" id="navCta" href="register.html" data-src-link>Register</a></nav>
+<div id="doorView" hidden>
+  <header class="dhero bleed" id="dhero">
+    <div class="dframe" aria-hidden="true">
+      <div class="dinside"><span class="no" id="dNo">00</span><span class="stamp">Open</span></div>
+      <div class="dleaf"><span class="plate" id="dPlate">DOOR 00</span><span class="knob"></span></div>
+    </div>
+    <p class="label tw" id="dLabel">Door</p>
+    <div id="dTitle"></div>
+    <p class="school" id="dSchool"></p>
+    <blockquote class="pitch" id="dPitch"></blockquote>
+    <div class="reg">
+      <a class="btn btn-cta" id="dReg" href="register.html">Register for this door</a>
+      <p class="count" id="dCount" aria-live="polite"></p>
+    </div>
+  </header>
+</div>
+<main id="main" class="wrap" tabindex="-1">
+  <p class="announce" id="announce" role="status" hidden></p>
+  <div id="doorFacts" hidden>
+    <section class="sec" aria-labelledby="f-h" style="padding-top:40px">
+      <p class="tw-label">Inside this door</p>
+      <div class="facts">
+        <div class="fact"><p class="label">The format</p><h2 id="f-h">How your door runs</h2><p id="fFormat"></p><p class="muted">Half a day, 3 hours at most, inside your own school, between 13 and 19 Jan.</p></div>
+        <div class="fact"><p class="label">What you produce</p><h2>Three things</h2>
+          <ul><li>A 1-page written brief, 450 words or fewer, answering all four case questions.</li>
+            <li>A 3-minute spoken argument, then 2 minutes of jury questions. All three of you speak.</li>
+            <li>Your door's own piece: <span id="fArt"></span></li></ul></div>
+        <div class="fact"><p class="label">Your lens</p><h2>Where you go deepest</h2><ul class="qs" id="fQs"></ul><p class="muted" style="margin-top:10px">Every team answers all four questions. Your door goes deepest on these.</p></div>
+        <div class="fact"><p class="label">The jury</p><h2>Who judges you</h2><p id="fJury"></p><p class="muted">Scored on your written report, your spoken argument and Domain Accuracy. Top 3 teams from your school go on to Find the Crack.</p></div>
+      </div>
+      <div class="fact" style="margin-top:14px">
+        <p class="label">Pass it on</p><h2>Share this door</h2>
+        <p>Send it to the two people you want on your team. Teams are 3, all from the same school.</p>
+        <div class="share">
+          <button class="btn btn-primary" type="button" id="shareBtn">Share this door</button>
+          <a class="btn" id="waBtn" href="#" rel="noopener">Send on WhatsApp</a>
+          <label class="sr-only" for="shareUrl">Link to this door</label>
+          <input id="shareUrl" type="text" readonly hidden>
+        </div>
+        <p class="msg" id="shareMsg" role="status"></p>
+      </div>
+    </section>
+  </div>
+
+  <section class="sec" id="chooser" aria-labelledby="ch-h">
+    <div class="chooser-head"><p class="tw-label">20 doors / one case</p><h1 id="ch-h">Choose your door</h1>
+      <p class="sec-intro">Every school investigates The Neemgarh File the way its own discipline works. Find yours.</p></div>
+    <ul class="dtiles"><li><a class="dtile" href="door.html?school=MED" data-src-link><span class="dt-no">01</span><span class="dt-s">Medicine</span><span class="dt-d">Grand Round</span></a></li><li><a class="dtile" href="door.html?school=DEN" data-src-link><span class="dt-no">02</span><span class="dt-s">Dental</span><span class="dt-d">Chairside Conference</span></a></li><li><a class="dtile" href="door.html?school=NUR" data-src-link><span class="dt-no">03</span><span class="dt-s">Nursing</span><span class="dt-d">Care Conference</span></a></li><li><a class="dtile" href="door.html?school=AHS" data-src-link><span class="dt-no">04</span><span class="dt-s">Allied Health</span><span class="dt-d">Bench Report</span></a></li><li><a class="dtile" href="door.html?school=PHY" data-src-link><span class="dt-no">05</span><span class="dt-s">Physiotherapy</span><span class="dt-d">Clinical Reasoning Round</span></a></li><li><a class="dtile" href="door.html?school=PHA" data-src-link><span class="dt-no">06</span><span class="dt-s">Pharmacy</span><span class="dt-d">Pharmacovigilance Round</span></a></li><li><a class="dtile" href="door.html?school=AYU" data-src-link><span class="dt-no">07</span><span class="dt-s">Ayurveda</span><span class="dt-d">Nidan Sabha</span></a></li><li><a class="dtile" href="door.html?school=NYS" data-src-link><span class="dt-no">08</span><span class="dt-s">Naturopathy & Yoga</span><span class="dt-d">Swasthya Shivir</span></a></li><li><a class="dtile" href="door.html?school=AGR" data-src-link><span class="dt-no">09</span><span class="dt-s">Agriculture</span><span class="dt-d">Kisan Goshthi</span></a></li><li><a class="dtile" href="door.html?school=ENG" data-src-link><span class="dt-no">10</span><span class="dt-s">Engineering</span><span class="dt-d">Hackathon</span></a></li><li><a class="dtile" href="door.html?school=SCI" data-src-link><span class="dt-no">11</span><span class="dt-s">Basic & Applied Sciences</span><span class="dt-d">Journal Club</span></a></li><li><a class="dtile" href="door.html?school=LAW" data-src-link><span class="dt-no">12</span><span class="dt-s">Law</span><span class="dt-d">Moot Court</span></a></li><li><a class="dtile" href="door.html?school=COM" data-src-link><span class="dt-no">13</span><span class="dt-s">Commerce & Management</span><span class="dt-d">Case Method Boardroom</span></a></li><li><a class="dtile" href="door.html?school=GBS" data-src-link><span class="dt-no">14</span><span class="dt-s">Global Business School</span><span class="dt-d">Crisis Boardroom</span></a></li><li><a class="dtile" href="door.html?school=DES" data-src-link><span class="dt-no">15</span><span class="dt-s">Design</span><span class="dt-d">Design Charrette</span></a></li><li><a class="dtile" href="door.html?school=MEF" data-src-link><span class="dt-no">16</span><span class="dt-s">Media & Film</span><span class="dt-d">Editorial Room</span></a></li><li><a class="dtile" href="door.html?school=HSS" data-src-link><span class="dt-no">17</span><span class="dt-s">Humanities & Social Sciences</span><span class="dt-d">Field Notes</span></a></li><li><a class="dtile" href="door.html?school=BEH" data-src-link><span class="dt-no">18</span><span class="dt-s">Behavioural Sciences</span><span class="dt-d">Rumour Lab</span></a></li><li><a class="dtile" href="door.html?school=EDU" data-src-link><span class="dt-no">19</span><span class="dt-s">Education</span><span class="dt-d">Staff Room</span></a></li><li><a class="dtile" href="door.html?school=HTM" data-src-link><span class="dt-no">20</span><span class="dt-s">Hotel & Tourism</span><span class="dt-d">Kitchen Audit</span></a></li></ul>
+    <p style="margin-top:22px"><a class="btn" href="index.html#doors">See the doors on the case page</a></p>
+  </section>
+</main>
+<footer class="foot wrap" id="footer">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-mark"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="tmF" x1=".1" y1=".9" x2=".9" y2=".1"><stop offset="0" stop-color="#ffb547" stop-opacity=".95"/><stop offset="1" stop-color="#ffb547" stop-opacity=".06"/></linearGradient></defs><circle cx="32" cy="32" r="32" fill="#0b1220"/><path d="M21.4 35.5 41.8 3.8Q55 7 60.2 22.2L28.5 42.6Z" fill="url(#tmF)"/><g transform="rotate(-45 20 44)"><rect x="7" y="40.5" width="15" height="7" rx="2" fill="#e9e4d4"/><path d="M22 39h5v10h-5z" fill="#ffb547"/></g></svg><p class="foot-line">One Case.<br>Your School. Your Rules.</p></div>
+      <p class="foot-small" style="margin-top:12px">The Neemgarh File. Everything in the case is fictional: the village, the company, the people.</p>
+    </div>
+    <div>
+      <p><b>Organised by</b><br>R&amp;D Cell × Center of AI, SGT University</p>
+      <div class="foot-about"><img src="icons/KP_Singh.png" alt="K.P. Singh, Convenor" width="44" height="44" loading="lazy">
+        <p>Convenor: K.P. Singh, <a href="https://kpsingh.in" rel="noopener">kpsingh.in</a></p></div>
+    </div>
+    <div>
+      <ul class="foot-links">
+        <li><a href="#" data-cfg-link="rules_url">Rulebook</a></li><li><a href="#" data-cfg-link="privacy_url">Consent and privacy</a></li><li><a href="door.html">All 20 doors</a></li><li><a href="index.html#faq-data">Delete my data</a></li>
+      </ul>
+      <p class="foot-small">Nothing about you is stored on your phone. Rulebook and consent form links go live at Reveal.</p>
+    </div>
+  </div>
+</footer>
+<script>
+/* ===== KP BASE JS (kp-html-base 1.2.0, event profile: memory-only store, no browser storage) ===== */
+(function(){
+  'use strict';
+  var root=document.documentElement;
+  var KP=window.KP=window.KP||{};
+  var RM=matchMedia('(prefers-reduced-motion: reduce)');
+  KP.reduced=function(){return RM.matches;};
+  KP.lowPerf=function(){return root.dataset.perf==='low';};
+  KP.motionOK=function(){return !RM.matches&&root.dataset.perf!=='low'&&root.dataset.motion!=='paused';};
+  KP.$=function(s,c){return (c||document).querySelector(s);};
+  KP.$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s));};
+  KP.ready=function(f){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',f);else f();};
+
+  /* -- MODULE: STORE (memory only; the ONLY option on event pages) -- */
+  var mem={};
+  KP.store={
+    get:function(k){return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;},
+    set:function(k,v){mem[k]=String(v);},
+    remove:function(k){delete mem[k];}
+  };
+
+  /* -- MODULE: THEME TOGGLE (three-layer pattern; icon-only). Night is the brand default: <html data-theme="dark">. -- */
+  var btn=document.getElementById('themeToggle');
+  var mq=matchMedia('(prefers-color-scheme: dark)');
+  function isDark(){return root.dataset.theme?root.dataset.theme==='dark':mq.matches;}
+  function paintToggle(){
+    var d=isDark();
+    if(btn){btn.textContent=d?'☀️':'🌙';btn.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme');}
+    var m=document.getElementById('themeColor'),bg=getComputedStyle(root).getPropertyValue('--bg').trim();
+    if(m&&bg)m.setAttribute('content',bg);
+  }
+  var saved=KP.store.get('theme');
+  if(saved==='light'||saved==='dark')root.dataset.theme=saved;
+  if(btn)btn.addEventListener('click',function(){
+    var next=isDark()?'light':'dark';root.dataset.theme=next;KP.store.set('theme',next);paintToggle();
+  });
+  if(mq.addEventListener)mq.addEventListener('change',paintToggle);
+  paintToggle();
+
+  /* -- MODULE: REVEAL (scroll-in, IntersectionObserver, capped stagger) -- */
+  KP.ready(function(){
+  var items=KP.$$('[data-reveal]');
+  if(RM.matches||!('IntersectionObserver' in window)){
+    items.forEach(function(el){el.classList.add('is-in');});
+  }else{
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;e.target.classList.add('is-in');io.unobserve(e.target);
+    });},{rootMargin:'0px 0px -10% 0px',threshold:0.15});
+    items.forEach(function(el,i){el.style.setProperty('--d',Math.min(i%6,5)*70+'ms');io.observe(el);});
+  }
+  });
+
+  /* -- MODULE: PERF GUARD (weak phones: flag so heavy effects can switch off) -- */
+  (function(){
+    try{
+      var c=navigator.connection||{};
+      if(c.saveData||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=2)||(navigator.deviceMemory&&navigator.deviceMemory<=1))root.dataset.perf='low';
+    }catch(e){}
+    /* sampling starts after the page has loaded: frames are always slow while a phone parses and lays out the page,
+       so sampling during load would switch good phones to the fallback */
+    function sample(){
+      var last=performance.now(),slow=0,n=0;
+      (function tick(t){
+        var dt=t-last;last=t;
+        if(dt>34&&++slow>12)root.dataset.perf='low';
+        if(++n<240&&!root.dataset.perf)requestAnimationFrame(tick);   // sample ~4s, then stop
+      })(last);
+    }
+    function later(){var f=function(){setTimeout(sample,300);};try{if(document.fonts&&document.fonts.ready){document.fonts.ready.then(f,f);return;}}catch(e){}f();}
+    if(document.readyState==='complete')later();else addEventListener('load',later);
+    if('MutationObserver' in window)new MutationObserver(function(){
+      document.dispatchEvent(new CustomEvent('kp:perf'));
+    }).observe(root,{attributes:true,attributeFilter:['data-perf','data-motion']});
+  })();
+
+  /* ===== KIT (event pages) ===== */
+  KP.swap=function(render){
+    if(!document.startViewTransition||KP.reduced()){render();return;}
+    try{document.startViewTransition(render);}catch(e){render();}
+  };
+  /* COUNT-UP: from o.from (default 0) to N. Put the final value in a .sr-only sibling for screen readers. */
+  KP.countUp=function(el,to,o){
+    o=o||{};var ms=o.ms||900,from=o.from||0;
+    var fmt=o.fmt||function(v){return Math.round(v).toLocaleString('en-IN');};
+    if(!KP.motionOK()||from===to){el.textContent=fmt(to);return;}
+    var t0=performance.now();
+    (function step(now){
+      var p=Math.min((now-t0)/ms,1),e=1-Math.pow(1-p,3);
+      el.textContent=fmt(from+(to-from)*e);
+      if(p<1)requestAnimationFrame(step);
+    })(t0);
+    setTimeout(function(){el.textContent=fmt(to);},ms+80);
+  };
+  /* PAUSE MOTION: <button data-pause-motion aria-pressed="false"> */
+  KP.ready(function(){KP.$$('[data-pause-motion]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var paused=root.dataset.motion==='paused';
+      if(paused)delete root.dataset.motion;else root.dataset.motion='paused';
+      KP.$$('[data-pause-motion]').forEach(function(x){
+        x.setAttribute('aria-pressed',String(!paused));
+        var t=x.querySelector('.pm-t');if(t)t.textContent=paused?'Pause motion':'Play motion';
+      });
+    });
+  });});
+  /* NAV AGENT BADGE (kit KP.setRoll): once an agent number is known, the Register pill becomes a non-clickable badge.
+     textContent only, never innerHTML. */
+  KP.setRoll=function(roll){
+    var nav=document.querySelector('nav.nav');if(!nav)return;
+    var b=nav.querySelector('.nav-roll'),cta=nav.querySelector('a.nav-cta');
+    if(!b){b=document.createElement('span');b.className='nav-cta nav-roll';nav.appendChild(b);}
+    b.textContent='';
+    var lab=document.createElement('span');lab.className='nav-roll-label';lab.textContent='Agent ';
+    b.appendChild(lab);b.appendChild(document.createTextNode(String(roll)));b.hidden=false;
+    if(cta)cta.remove();
+  };
+})();
+/* ===== EVENT CONFIG + API (site/API.md). Built-in mock when api_url is empty or ?mock=1. ===== */
+(function(){
+  'use strict';
+  var KP=window.KP;
+  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"email_domains":["sgtuniversity.org","sgtuniversity.ac.in"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"The Drop opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
+  var SCHOOLS=KP.SCHOOLS=[{"code":"MED","short":"Medicine","door":"Grand Round","n":1,"name":"Faculty of Medicine & Health Sciences","pitch":"Twenty-three sick children, a rash that does not fit, and no stool culture. Present the case like a consultant would.","one":"Present the outbreak to a panel of consultants, grand round style.","format":"Your team is the medical team. Build a person, place and time picture of the outbreak, draw an epidemic curve, weigh the differential and choose the one investigation you would order first. You present it the way a grand round runs: history, findings, differential, diagnosis, plan.","artefact":"An epidemic curve or a line-list table, on A4 or one slide.","jury":"A professor of Community Medicine or Paediatrics, an assistant professor of Medicine, and a practising medical officer.","q":["Q1"]},{"code":"DEN","short":"Dental","door":"Chairside Conference","n":2,"name":"Faculty of Dental Sciences","pitch":"Mouth ulcers in buffaloes, cracked hands on farmers, a water supply nobody tested. Public health dentistry starts with the water.","one":"A public health dentistry case conference that starts with the water.","format":"Your team is the dental outreach unit. Assess the village's two water sources as a community dentist would, read the oral and mucosal signs in the file, and plan a camp-based response. Findings, community diagnosis, plan.","artefact":"A one-page water and oral health advisory for the anganwadi, in Hindi and English.","jury":"A professor of Public Health Dentistry, an assistant professor of Oral Medicine or Oral Pathology, and a dentist who runs community camps.","q":["Q1","Q4"]},{"code":"NUR","short":"Nursing","door":"Care Conference","n":3,"name":"Faculty of Nursing","pitch":"One nursing student posted the right advice on 12 September. Nobody listened for eight days. Make sure it never happens again.","one":"A community health nursing conference that opens with an SBAR handover.","format":"Your team is the PHC nursing team. Build a household-level picture, write a nursing assessment of the community and plan the health education. Every presentation opens with a 30-second SBAR handover.","artefact":"An SBAR handover sheet or a set of three health-education flip cards.","jury":"A professor of Community Health Nursing, a nursing tutor, and a staff or public health nurse.","q":["Q1","Q4"]},{"code":"AHS","short":"Allied Health","door":"Bench Report","n":4,"name":"School of Allied Health Sciences","pitch":"The lab said \"results awaited\". You are the lab. Decide what to test, how, and what the numbers already tell you.","one":"You are the district lab. Decide what to test and what the numbers say.","format":"Your team is the lab's technical team. Read the partial results against their reference values, flag problems in the sampling, and write the testing plan for the next round. You present it as a lab report to a clinical and environmental panel.","artefact":"A completed lab request form and a sampling plan for the next round.","jury":"A professor of Medical Laboratory Technology or Environmental Health, an assistant professor, and a working lab technologist or quality officer.","q":["Q1","Q2"]},{"code":"PHY","short":"Physiotherapy","door":"Clinical Reasoning Round","n":5,"name":"School of Physiotherapy","pitch":"Six people with burning hands, thirty-four workers on night shifts, twenty-three children recovering. Assess the people, not just the water.","one":"Assess the people, not just the water: a clinical reasoning round.","format":"Your team is the community rehabilitation and occupational health unit. Assess the affected groups, trace exposure through activity and posture, and plan return to work and prevention. Presentation, hypotheses, tests, plan.","artefact":"A one-page worker safety and skin-protection protocol.","jury":"A professor of Physiotherapy in community or occupational health, an assistant professor, and a practising physiotherapist.","q":["Q1","Q4"]},{"code":"PHA","short":"Pharmacy","door":"Pharmacovigilance Round","n":6,"name":"Pharmacy (SGT College of Pharmacy + Dept of Pharmaceutical Sciences & Research)","pitch":"Chlorpyrifos, caustic soda, an industrial degreaser, ORS and zinc. Someone must know what each one does to a body and a buffalo.","one":"A toxicology and drug information round on every chemical in the file.","format":"One door for the College of Pharmacy and the Department of Pharmaceutical Sciences and Research. Your team is the drug information unit: profile each chemical named in the case, check the treatment given against standard protocols and audit what the PHC pharmacy needs for the next 30 days.","artefact":"A treatment protocol card for the PHC, or a 30-day essential stock indent.","jury":"A professor of Pharmacology or Pharmacy Practice, an assistant professor of Pharmaceutical Analysis or Toxicology, and a working pharmacist.","q":["Q1","Q2"]},{"code":"AYU","short":"Ayurveda","door":"Nidan Sabha","n":7,"name":"Indian Medical System (Ayurveda)","pitch":"Hetu, samprapti, upashaya. The village is your rogi. Examine it the classical way and say what the SDM should do.","one":"Treat the village as the rogi and examine it the classical way.","format":"A nidan sabha. Apply the nidan panchaka to the children, the rash cases and the cattle, examine jala as a hetu with classical and modern criteria, and plan community care that works alongside the PHC.","artefact":"A nidan case sheet for one affected group, or a jala-shuddhi advisory in Hindi.","jury":"A professor of Roga Nidan or Swasthavritta, an assistant professor of Kayachikitsa or Kaumarbhritya, and a practising Ayurvedic physician.","q":["Q1","Q4"]},{"code":"NYS","short":"Naturopathy & Yoga","door":"Swasthya Shivir","n":8,"name":"School of Naturopathy & Yogic Sciences","pitch":"The cases are falling. Now stop them coming back. Plan the village health camp.","one":"Plan the village wellness camp that stops the cases coming back.","format":"Your team is the camp team invited by the panchayat. Set the camp's aims from the evidence, design the daily programme, decide what the camp will and will not treat, and write the referral rules to the PHC.","artefact":"A one-page camp programme: day plan, staffing, materials and cost.","jury":"A professor of Naturopathy or Yoga Therapy, an assistant professor, and a practitioner who runs community camps.","q":["Q4"]},{"code":"AGR","short":"Agriculture","door":"Kisan Goshthi","n":9,"name":"Faculty of Agricultural Sciences","pitch":"Forty-two acres burnt at the inlets, a white crust on the soil, and everyone blaming the spray. Diagnose the field like an agronomist.","one":"Diagnose the burnt fields like an agronomist, then face the farmers.","format":"Your team is the Krishi Vigyan Kendra team. Read the leaf symptoms, soil results and damage pattern as a field diagnosis, check the irrigation water, estimate the loss per acre and give the goshthi your advice.","artefact":"A one-page kisan salah in Hindi with remediation steps and cost per acre.","jury":"A professor of Soil Science or Agronomy, an assistant professor of Plant Pathology or Extension, and a KVK specialist or progressive farmer.","q":["Q2"]},{"code":"ENG","short":"Engineering","door":"Hackathon","n":10,"name":"School of Engineering & Technology","pitch":"A pit that overflows, a canal at 60 percent flow, a 38-metre well 9 metres from a soak pit. Model it, then design the fix.","one":"A 3-hour build: model the pathways, then engineer the fix.","format":"Pick a track. Water and environment: mass balance, overflow and groundwater estimates with an engineered fix. Systems and data: a working incident map with source tracing and alerts. A calculation or a working demo, not just slides.","artefact":"A calculation sheet, a working prototype or an engineering sketch, demonstrated live.","jury":"A professor of Civil or Environmental Engineering, an assistant professor of Computer Science or Electronics, and a practising engineer.","q":["Q2","Q4"]},{"code":"SCI","short":"Basic & Applied Sciences","door":"Journal Club","n":11,"name":"School of Basic and Applied Sciences","pitch":"pH 9.1. EC 2,900. E. coli present in one well only. Chlorpyrifos not detected anywhere. Which hypotheses survive the data?","one":"Which hypotheses survive the data? A journal club turned hypothesis test.","format":"List every competing hypothesis in the case, build a hypothesis-by-evidence matrix with exhibit references, and name the one or two experiments that would settle what is still open. Question, data, interpretation, limitations, next experiment.","artefact":"The hypothesis-by-evidence matrix, on one page.","jury":"A professor of Chemistry or Environmental Science, an assistant professor of Microbiology, and a working analytical scientist.","q":["Q1","Q2"]},{"code":"LAW","short":"Law","door":"Moot Court","n":12,"name":"School of Law","pitch":"The panchayat wants the unit shut. The unit blames the farmers. Somebody sited a well next to a soak pit. Who is liable, for what, and on what evidence?","one":"Argue before a bench of three: for the panchayat, the unit, or as amicus.","format":"A moot. Teams are assigned by lot to argue for the panchayat, for the unit, or as amicus advising the SDM. Prepare submissions on the facts, the law, the standard of proof and remedies, then face the bench.","artefact":"A corrected plaint, a written statement in defence, or an amicus note.","jury":"A professor of Environmental or Constitutional Law, an assistant professor who coaches moots, and a practising advocate or retired judicial officer.","q":["Q3"]},{"code":"COM","short":"Commerce & Management","door":"Case Method Boardroom","n":13,"name":"School of Commerce & Management","pitch":"₹18,000 an acre, ₹90,000 a buffalo, 34 jobs, one 30-day window. Give the SDM a plan with owners, costs and dates.","one":"A case discussion, then a consulting pitch with owners, costs and dates.","format":"Your team is the consultants engaged by the district. After a facilitated case discussion, build a 30-day action plan: actions, owners, costs, dates, dependencies and how success is measured, plus a stakeholder map.","artefact":"A 30-day Gantt chart or action table with owners and costs.","jury":"A professor of Strategy or Operations, an assistant professor of Finance or Public Policy, and a practising manager or consultant.","q":["Q4","Q3"]},{"code":"GBS","short":"Global Business School","door":"Crisis Boardroom","n":14,"name":"SGT Global Business School","pitch":"You are on the board of Sunhara Agro Foods. The press says you poisoned a village. Decide what is true, what you owe, and what you say tomorrow.","one":"A crisis board meeting: what is true, what you owe, what you say.","format":"Your team is an independent committee of the unit's board. Run the internal fact-finding from the pack, assess legal, financial and reputational exposure, and draft a board resolution and a public statement.","artefact":"A half-page board resolution and a 150-word public statement.","jury":"A professor of Corporate Governance or Business Ethics, an assistant professor of Marketing or Communications, and an industry executive or company secretary.","q":["Q3","Q4"]},{"code":"DES","short":"Design","door":"Design Charrette","n":15,"name":"School of Design","pitch":"Good advice was posted on 12 September and ignored. Design the message, the sign, or the object that would have made it land.","one":"A fast design sprint for the message that should have landed.","format":"A design charrette. Your team is the studio engaged by the district: discover, define the one behaviour to change first, ideate and prototype, then test it in a peer critique. You pin it up and argue every design decision.","artefact":"A prototype: a poster, sign, object, information map or storyboard.","jury":"A professor of Communication or Product Design, an assistant professor of Interaction or Graphic Design, and a practising designer.","q":["Q4"]},{"code":"MEF","short":"Media & Film","door":"Editorial Room","n":16,"name":"School of Emerging Media, Communication and Film Studies","pitch":"\"Factory poisons village. 40 children hospitalised.\" Five were. Rebuild the story from the evidence and publish what is actually true.","one":"A newsroom on deadline: fact-check the story, publish what is true.","format":"Your team is the editorial desk. Fact-check every claim in the news report against the record, decide what the verified story is, and produce it as a short explainer, a fact-check or a data graphic.","artefact":"A 60-second video, a 600-word fact-check or a data graphic.","jury":"A professor of Journalism, an assistant professor of Film or Digital Media, and a working journalist or editor.","q":["Q3","Q1","Q2"]},{"code":"HSS","short":"Humanities & Social Sciences","door":"Field Notes","n":17,"name":"School of Humanities, Social Sciences & Liberal Arts","pitch":"Why did the whole village believe one story? Read the people, the power and the panchayat, then tell the SDM what a fair outcome looks like.","one":"A rapid social assessment of the people, the power and the panchayat.","format":"Code the interviews and WhatsApp extracts for actors, claims, interests and trust. Map who benefits from each version of the story, trace who was left out of the panchayat's decisions, and weigh the livelihoods on every side.","artefact":"A stakeholder and interest map, on one page.","jury":"A professor of Sociology, Political Science or Economics, an assistant professor of History, English or Philosophy, and a field researcher.","q":["Q3","Q4"]},{"code":"BEH","short":"Behavioural Sciences","door":"Rumour Lab","n":18,"name":"School of Behavioural Sciences","pitch":"A tower, an oil, a factory, a well. Four explanations, one accepted instantly, one ignored for eight days. Explain the mind of the village and change it.","one":"Explain why one story spread, then design what changes behaviour.","format":"Your team is the behavioural insights unit. Formulate why some explanations spread and protective advice did not, then design a small, testable intervention that changes one health behaviour in 30 days.","artefact":"Three behaviour-change messages, each with its messenger and channel.","jury":"A professor of Psychology, an assistant professor of Clinical or Social Psychology, and a counsellor or public health communicator.","q":["Q4"]},{"code":"EDU","short":"Education","door":"Staff Room","n":19,"name":"Faculty of Education","pitch":"Only two of Mr. Yadav's students fell sick, and both live on the east side. The school saw the pattern first. Teach the village what it means.","one":"A staff-room case conference, then a 60-second microteaching sample.","format":"Your team is the school's teaching staff. Read the school's attendance and health data as a teacher would, decide what a school can observe and report, and plan a 10-minute lesson on safe water with a task for parents.","artefact":"A one-page, 10-minute lesson plan with objective, activity, assessment and parent task.","jury":"A professor of Education, an assistant professor of Pedagogy or Educational Psychology, and a serving teacher or headteacher.","q":["Q4","Q1"]},{"code":"HTM","short":"Hotel & Tourism","door":"Kitchen Audit","n":20,"name":"School of Hotel & Tourism Management","pitch":"A pickling unit that cleans its tanks with something, an anganwadi kitchen that cooks with untested water, a meal supplier everyone blames. Audit them like a food safety officer.","one":"Audit two kitchens on paper, like a food safety officer.","format":"Your team is the food safety audit team. Find the hazards and critical control points in the anganwadi kitchen and in the unit, score them against food safety requirements, and test whether the meal supplier change can explain the illness.","artefact":"A one-page HACCP plan, or an audit non-conformance report.","jury":"A professor of Food Production or Food Safety, an assistant professor of Hospitality Operations, and a food safety officer or executive chef.","q":["Q1","Q3"]}];
+  var q=new URLSearchParams(location.search);
+  KP.q=q;
+  /* source tag: short, lowercase, no personal data (API.md) */
+  var s=(q.get('s')||'').toLowerCase();
+  KP.src=/^[a-z0-9-]{1,40}$/.test(s)?s:'';
+  KP.via=q.get('via')==='go';
+  KP.school=function(code){
+    code=String(code||'').toUpperCase();
+    for(var i=0;i<SCHOOLS.length;i++)if(SCHOOLS[i].code===code)return SCHOOLS[i];
+    return null;
+  };
+  /* keep the source tag on onward links, for attribution only */
+  KP.withSrc=function(url){
+    if(!KP.src)return url;
+    var h='',i=url.indexOf('#');if(i>=0){h=url.slice(i);url=url.slice(0,i);}
+    return url+(url.indexOf('?')>=0?'&':'?')+'s='+encodeURIComponent(KP.src)+h;
+  };
+  KP.ms=function(v){return typeof v==='number'?v:Date.parse(v);};
+
+  var MOCK=!CFG.api_url||q.get('mock')==='1';
+  KP.mock=MOCK;
+
+  /* ---- mock backend: same shapes as API.md ---- */
+  var mockStats=null;
+  function seedStats(){
+    if(mockStats)return mockStats;
+    var base={MED:118,DEN:64,NUR:92,AHS:51,PHY:37,PHA:73,AYU:29,NYS:18,AGR:44,ENG:171,SCI:39,LAW:88,COM:96,GBS:57,DES:34,MEF:49,HSS:41,BEH:31,EDU:22,HTM:26};
+    mockStats=SCHOOLS.map(function(x){return {code:x.code,count:base[x.code]||10};});
+    return mockStats;
+  }
+  function growStats(){
+    var st=seedStats();
+    var n=1+Math.floor(Math.random()*4);
+    for(var i=0;i<n;i++){var k=Math.floor(Math.random()*st.length);st[k].count+=1+Math.floor(Math.random()*3);}
+  }
+  function total(){return seedStats().reduce(function(a,b){return a+b.count;},0);}
+  function copyStats(){return seedStats().map(function(x){return {code:x.code,count:x.count};});}
+  function mockPhase(){
+    var now=Date.now(),p='tease';
+    var forced=(q.get('phase')||'').toLowerCase();
+    if(CFG.phases&&CFG.phases.indexOf(forced)>=0)p=forced;
+    else if(now>=KP.ms(CFG.finale_at)+86400000)p='after';
+    else if(now>=KP.ms(CFG.finale_at)-6*3600000)p='finale';
+    else if(now>KP.ms(CFG.drop_to))p='episodes';
+    else if(now>=KP.ms(CFG.drop_from))p='drop';
+    else if(now>=KP.ms(CFG.reveal_at))p='register';
+    return p;
+  }
+  var mock={
+    phase:function(){
+      return {phase:mockPhase(),serverNow:Date.now(),reveal_at:CFG.reveal_at,drop_from:CFG.drop_from,drop_to:CFG.drop_to,
+        finale_at:CFG.finale_at,total:total(),bySchool:copyStats(),exhibits_found:7,exhibits_total:12,announce:''};
+    },
+    stats:function(){growStats();return {total:total(),bySchool:copyStats(),updatedAt:Date.now()};},
+    notify:function(b){
+      if(!KP.okEmail(b.email))throw {code:'BAD_EMAIL_DOMAIN',message:'Use your SGT University email address.'};
+      return {ok:true};
+    }
+  };
+  KP.okEmail=function(e){
+    e=String(e||'').trim().toLowerCase();
+    var m=/^[^\s@]+@([^\s@]+)$/.exec(e);if(!m)return false;
+    return (CFG.email_domains||[]).indexOf(m[1])>=0;
+  };
+
+  function withTimeout(p,ms){
+    return new Promise(function(res,rej){
+      var t=setTimeout(function(){rej({code:'SERVER_BUSY',message:'The case file server is slow right now. Try again in a minute.'});},ms);
+      p.then(function(v){clearTimeout(t);res(v);},function(e){clearTimeout(t);rej(e);});
+    });
+  }
+  function unwrap(j){
+    if(j&&j.success)return j.data;
+    throw {code:(j&&j.code)||'SERVER_BUSY',message:(j&&j.message)||'Something went wrong. Try again in a minute.'};
+  }
+  function delay(ms,v){return new Promise(function(r){setTimeout(function(){r(v);},ms);});}
+  KP.api={
+    get:function(action,params,ms){
+      if(MOCK){return delay(action==='phase'?120:260).then(function(){return mock[action](params||{});});}
+      var u=CFG.api_url+'?action='+encodeURIComponent(action);
+      params=params||{};
+      Object.keys(params).forEach(function(k){if(params[k])u+='&'+encodeURIComponent(k)+'='+encodeURIComponent(params[k]);});
+      return withTimeout(fetch(u,{cache:'no-store',credentials:'omit'}).then(function(r){return r.json();}),ms||7000).then(unwrap);
+    },
+    post:function(action,body,ms){
+      if(MOCK){return delay(650).then(function(){return mock[action](body||{});});}
+      var b=Object.assign({action:action},body||{});
+      return withTimeout(fetch(CFG.api_url,{method:'POST',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(b)})
+        .then(function(r){return r.json();}),ms||12000).then(unwrap);
+    }
+  };
+  /* phase once per page; the scan is logged only on a direct open with ?s= (go.html already logged it) */
+  var phaseP=null;
+  KP.phase=function(){
+    if(!phaseP)phaseP=KP.api.get('phase',(KP.src&&!KP.via)?{s:KP.src}:{}).then(function(d){
+      d.offset=(typeof d.serverNow==='number'?d.serverNow:Date.now())-Date.now();
+      return d;
+    });
+    return phaseP;
+  };
+  KP.applyPhase=function(d){
+    var r=document.documentElement;r.dataset.phase=d.phase;
+    var sub=document.querySelector('.nav-sub');if(sub)sub.hidden=d.phase==='tease';
+    if(d.announce){var a=document.getElementById('announce');if(a){a.textContent=String(d.announce);a.hidden=false;}}
+  };
+
+  /* service worker: static shell only (sw.js never caches API calls). Optional, never load-bearing. */
+  try{
+    if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+      addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
+    }
+  }catch(e){}
+})();
+/* ===== FX: sound (WebAudio, synthesised, off by default), typewriter labels, split-flap countdown ===== */
+(function(){
+  'use strict';
+  var KP=window.KP;
+
+  /* -- SOUND: three tiny synthesised effects, no audio files. Off until the student turns it on. -- */
+  KP.sound=(function(){
+    var on=false,ac=null;
+    function ctx(){
+      try{
+        if(!ac){var A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ac=new A();}
+        if(ac.state==='suspended')ac.resume();
+        return ac;
+      }catch(e){return null;}
+    }
+    function noise(c,dur){
+      var b=c.createBuffer(1,Math.max(1,Math.floor(c.sampleRate*dur)),c.sampleRate),d=b.getChannelData(0);
+      for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+      var s=c.createBufferSource();s.buffer=b;return s;
+    }
+    function chain(nodes){for(var i=0;i<nodes.length-1;i++)nodes[i].connect(nodes[i+1]);}
+    function thud(){
+      if(!on)return;var c=ctx();if(!c)return;
+      try{
+        var t=c.currentTime,o=c.createOscillator(),g=c.createGain();
+        o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.18);
+        g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.8,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+        chain([o,g,c.destination]);o.start(t);o.stop(t+.32);
+        var n=noise(c,.09),f=c.createBiquadFilter(),ng=c.createGain();
+        f.type='lowpass';f.frequency.value=1100;ng.gain.setValueAtTime(.45,t);ng.gain.exponentialRampToValueAtTime(.0001,t+.09);
+        chain([n,f,ng,c.destination]);n.start(t);
+      }catch(e){}
+    }
+    function slide(){
+      if(!on)return;var c=ctx();if(!c)return;
+      try{
+        var t=c.currentTime,n=noise(c,.42),f=c.createBiquadFilter(),g=c.createGain();
+        f.type='bandpass';f.Q.value=.7;f.frequency.setValueAtTime(500,t);f.frequency.exponentialRampToValueAtTime(2600,t+.38);
+        g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.22,t+.07);g.gain.exponentialRampToValueAtTime(.0001,t+.42);
+        chain([n,f,g,c.destination]);n.start(t);
+      }catch(e){}
+    }
+    function tick(){
+      if(!on)return;var c=ctx();if(!c)return;
+      try{
+        var t=c.currentTime,n=noise(c,.025),f=c.createBiquadFilter(),g=c.createGain();
+        f.type='highpass';f.frequency.value=1800;g.gain.setValueAtTime(.16,t);g.gain.exponentialRampToValueAtTime(.0001,t+.025);
+        chain([n,f,g,c.destination]);n.start(t);
+      }catch(e){}
+    }
+    return {
+      isOn:function(){return on;},
+      set:function(v){on=!!v;if(on){ctx();thud();}},
+      thud:thud,slide:slide,tick:tick
+    };
+  })();
+  KP.ready(function(){KP.$$('[data-sound]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var next=!KP.sound.isOn();KP.sound.set(next);
+      KP.$$('[data-sound]').forEach(function(x){
+        x.setAttribute('aria-pressed',String(next));
+        var t=x.querySelector('.snd-t');if(t)t.textContent=next?'Sound on':'Sound';
+        x.setAttribute('aria-label',next?'Sound effects on. Turn off':'Sound effects off. Turn on');
+      });
+    });
+  });});
+
+  /* -- TYPEWRITER (BRAND component 5): types once at ~28 ms per character, block cursor stops after 2 s -- */
+  KP.type=function(el){
+    if(!el||el.dataset.typed)return;el.dataset.typed='1';
+    var txt=el.getAttribute('data-tw')||el.textContent.trim();
+    el.textContent='';
+    var sr=document.createElement('span');sr.className='sr-only';sr.textContent=txt;
+    var vis=document.createElement('span');vis.className='tw-vis';vis.setAttribute('aria-hidden','true');
+    el.appendChild(sr);el.appendChild(vis);
+    if(!KP.motionOK()){vis.textContent=txt;return;}
+    el.classList.add('tw-on');
+    var i=0;
+    (function step(){
+      i++;vis.textContent=txt.slice(0,i);
+      if(i%3===0)KP.sound.tick();
+      if(i<txt.length)setTimeout(step,28);
+      else setTimeout(function(){el.classList.remove('tw-on');},2000);
+    })();
+  };
+  KP.typeOnView=function(sel){
+    var els=KP.$$(sel);
+    if(!('IntersectionObserver' in window)){els.forEach(KP.type);return;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);KP.type(e.target);}});},{threshold:.6});
+    els.forEach(function(e){io.observe(e);});
+  };
+
+  /* -- SPLIT-FLAP COUNTDOWN (BRAND component 7), wall-clock based. offsetMs = serverNow - Date.now() so a wrong phone clock cannot open anything early. -- */
+  KP.flipClock=function(el,target,o){
+    o=o||{};var off=o.offsetMs||0,done=false,timer;
+    var units=[['d','Days'],['h','Hrs'],['m','Min'],['s','Sec']],tiles={};
+    el.textContent='';
+    var sr=document.createElement('span');sr.className='sr-only';el.appendChild(sr);
+    units.forEach(function(u){
+      var g=document.createElement('span');g.className='flap-grp';g.setAttribute('aria-hidden','true');
+      var t=document.createElement('span');t.className='flap-tiles';
+      var l=document.createElement('span');l.className='flap-lab';l.textContent=u[1];
+      g.appendChild(t);g.appendChild(l);el.appendChild(g);tiles[u[0]]={box:t,cells:[]};
+    });
+    function setDigits(key,str){
+      var tb=tiles[key];
+      while(tb.cells.length<str.length){
+        var c=document.createElement('span');c.className='tile';var d=document.createElement('span');d.className='d';d.textContent='0';
+        c.appendChild(d);tb.box.appendChild(c);tb.cells.push({el:c,d:d,v:'0'});
+      }
+      while(tb.cells.length>str.length){var x=tb.cells.shift();x.el.remove();}
+      for(var i=0;i<str.length;i++){
+        var cell=tb.cells[i],nv=str.charAt(i);
+        if(cell.v!==nv){flip(cell,cell.v,nv);cell.v=nv;}
+      }
+    }
+    function flip(cell,ov,nv){
+      cell.d.textContent=nv;
+      if(!KP.motionOK()||document.hidden||!o.animate)return;
+      var mk=function(cls,txt){var s=document.createElement('span');s.className='fl '+cls;s.textContent=txt;cell.el.appendChild(s);return s;};
+      var a=mk('ob',ov),b=mk('ft',ov),c=mk('fb',nv);
+      setTimeout(function(){a.remove();b.remove();c.remove();},460);
+    }
+    var pad=function(n){return n<10?'0'+n:''+n;};
+    var lastMin=-1;
+    function paint(){
+      var left=Math.max(0,target-(Date.now()+off)),s=Math.ceil(left/1000);
+      var d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),sec=s%60;
+      setDigits('d',pad(d));setDigits('h',pad(h));setDigits('m',pad(m));setDigits('s',pad(sec));
+      if(m!==lastMin){lastMin=m;sr.textContent=(o.label||'Time left')+': '+d+' days, '+h+' hours, '+m+' minutes.';}
+      if(o.onTick)o.onTick(left);
+      if(left<=0&&!done){done=true;clearInterval(timer);if(o.onDone)o.onDone();}
+    }
+    paint();o.animate=true;
+    timer=setInterval(paint,250);
+    document.addEventListener('visibilitychange',paint);
+    return function(){clearInterval(timer);document.removeEventListener('visibilitychange',paint);};
+  };
+})();
+
+/* ===== DOOR PAGE ===== */
+(function(){
+  'use strict';
+  var KP=window.KP,$=KP.$,$$=KP.$$,CFG=KP.CFG;
+  var QN={Q1:"The children's illness",Q2:'Crop damage and cattle deaths',Q3:'Who is responsible',Q4:'The next 30 days'};
+  $$('[data-src-link]').forEach(function(a){a.setAttribute('href',KP.withSrc(a.getAttribute('href')));});
+  $$('[data-cfg-link]').forEach(function(a){var u=CFG[a.getAttribute('data-cfg-link')];if(u)a.href=u;else{a.removeAttribute('href');a.textContent+=' (at Reveal)';}});
+  var s=KP.school(KP.q.get('school'));
+  if(!s){KP.phase().then(KP.applyPhase).catch(function(){});return;}
+
+  /* render this school's door. Text via textContent only. */
+  var nn=(s.n<10?'0':'')+s.n;
+  document.title=s.door+': door '+nn+' / One Case';
+  $('#dNo').textContent=nn;$('#dPlate').textContent='DOOR '+nn;
+  $('#dLabel').setAttribute('data-tw','Door '+nn+' / '+s.short);$('#dLabel').textContent='Door '+nn+' / '+s.short;
+  /* the single <h1> becomes the door name; the chooser heading drops to <h2> */
+  var oldH=$('#ch-h'),h2=document.createElement('h2');h2.id='ch-h';h2.textContent='All 20 doors';oldH.replaceWith(h2);
+  var h1=document.createElement('h1');h1.textContent=s.door;$('#dTitle').replaceWith(h1);
+  $('#dSchool').textContent=s.name;
+  $('#dPitch').textContent=s.pitch;
+  $('#fFormat').textContent=s.format;$('#fArt').textContent=s.artefact.charAt(0).toLowerCase()+s.artefact.slice(1);
+  $('#fJury').textContent=s.jury;
+  var qs=$('#fQs');
+  s.q.forEach(function(q){var li=document.createElement('li');var b=document.createElement('b');b.textContent=q;li.appendChild(b);li.appendChild(document.createTextNode(QN[q]));qs.appendChild(li);});
+  var reg=$('#dReg');reg.setAttribute('href',KP.withSrc('register.html?school='+s.code));
+  var nav=$('#navCta');if(nav)nav.setAttribute('href',KP.withSrc('register.html?school='+s.code));
+  $$('.dtile').forEach(function(t){if(t.getAttribute('href').indexOf('school='+s.code)>=0){t.classList.add('is-current');t.setAttribute('aria-current','page');}});
+  $('#doorView').hidden=false;$('#doorFacts').hidden=false;
+  var meta=document.querySelector('meta[name="description"]');if(meta)meta.setAttribute('content',s.door+': '+s.pitch);
+
+  /* the door swings open */
+  var hero=$('#dhero');
+  if(KP.motionOK()){hero.classList.add('play');requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('is-open');setTimeout(function(){KP.sound.thud();},700);});});}
+  else hero.classList.add('is-open');
+  KP.type($('#dLabel'));
+
+  /* live count and rank */
+  var last=null;
+  function paint(d){
+    var list=(d.bySchool||[]).slice().sort(function(a,b){return b.count-a.count;});
+    var me=list.filter(function(x){return x.code===s.code;})[0],rank=list.indexOf(me)+1,n=me?me.count:0;
+    var el=$('#dCount');
+    if(!me||!n){el.textContent='Be the first from '+s.short+'.';return;}
+    if(last===null){
+      el.textContent='';var b=document.createElement('b');b.textContent='0';el.appendChild(b);
+      el.appendChild(document.createTextNode(' from '+s.short+' so far. Rank '+rank+' of 20.'));
+      KP.countUp(b,n,{ms:1100});
+    }else{
+      var bb=el.querySelector('b');if(bb)KP.countUp(bb,n,{from:last,ms:700});
+      el.lastChild.textContent=' from '+s.short+' so far. Rank '+rank+' of 20.';
+    }
+    last=n;
+  }
+  KP.phase().then(function(d){
+    KP.applyPhase(d);
+    if(d.phase==='tease'){reg.textContent='Opens 21 Dec, 11:00';$('#dCount').textContent='Registration opens on 21 December.';}
+    else paint(d);
+  }).catch(function(){});
+  setInterval(function(){if(document.hidden||document.documentElement.dataset.phase==='tease')return;KP.api.get('stats').then(paint).catch(function(){});},15000);
+
+  /* share (ambassadors): Web Share where it exists, else copy, else show the link */
+  var url=location.href.split('#')[0].replace(/([?&])(mock|phase|via)=[^&]*&?/g,'$1').replace(/[?&]$/,'');
+  var text=s.door+'. '+s.pitch+' Your school has a door:';
+  $('#waBtn').setAttribute('href','https://wa.me/?text='+encodeURIComponent(text+' '+url));
+  $('#shareBtn').addEventListener('click',function(){
+    var m=$('#shareMsg');
+    if(navigator.share){navigator.share({title:s.door+' / One Case',text:text,url:url}).catch(function(){});return;}
+    var done=function(){m.textContent='Link copied. Paste it in your group.';};
+    var show=function(){var i=$('#shareUrl');i.hidden=false;i.value=url;i.focus();i.select();m.textContent='Copy this link and share it.';};
+    try{if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(url).then(done,show);else show();}catch(e){show();}
+  });
+})();
+
+</script>
+
+</body>
+</html>

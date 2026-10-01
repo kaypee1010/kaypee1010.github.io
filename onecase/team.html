@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en" data-base="1.2.0" data-persist="off" data-page="onecase-team" data-theme="dark">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b1220" id="themeColor">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
+<meta name="description" content="Create or join your team of three for One Case, The Neemgarh File, using your agent login and a 6-character team code.">
+<title>Team room | One Case</title>
+<style>
+/* ===== 1. TOKENS (kp-html-base names; One Case brand values from brand/BRAND.md) ===== */
+:root{
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  --pad:clamp(16px,4vw,32px); --gap:clamp(12px,3vw,24px);
+  --r:14px; --r-lg:20px; --r-pill:999px;
+  --nav-h:64px;
+  --dur-1:140ms; --dur-2:260ms; --dur-3:460ms;
+  --ease-out:cubic-bezier(.22,.61,.36,1); --ease-in:cubic-bezier(.55,.06,.68,.19);
+  --step-0:clamp(1rem,.95rem + .25vw,1.12rem);
+  --step-2:clamp(1.5rem,1.25rem + 1.3vw,2.2rem);
+  --step-3:clamp(2rem,1.5rem + 2.6vw,3.2rem);
+  --font-type:"Special Elite","Courier New",ui-monospace,monospace;
+  --font-head:"Oswald","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+  --manila:#e8d7a9; --manila-deep:#cdb57c; --ink:#221d14; --ink-muted:#5a4f3a; --stamp:#c8302f; --paper:#e9e4d4; --night:#0b1220;
+  /* light = "daylight case file" */
+  --bg:#efe4c4; --card:#f8f1dc; --soft:#e6d8b3; --fg:#221d14; --muted:#5a4f3a;
+  --line:#b9a47a; --accent:#221d14; --accent-fg:#ffb547; --accent-2:#a8231f;
+  --hl:#221d14; --red-text:#a8231f; --field:#fbf6e6; --shade:rgba(34,29,20,.18);
+  --nav-bg:rgba(239,228,196,.88);
+}
+/* dark = "night", layer 2 (system preference unless the user forced light) */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+    --line:#33456a; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#c8302f;
+    --hl:#ffb547; --red-text:#ff6b5e; --field:#0e1729; --shade:rgba(0,0,0,.5);
+    --nav-bg:rgba(11,18,32,.86);
+  }
+}
+/* dark, layer 3 (explicit toggle; night is the brand default). KEEP IDENTICAL to layer 2. */
+:root[data-theme="dark"]{
+  --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+  --line:#33456a; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#c8302f;
+  --hl:#ffb547; --red-text:#ff6b5e; --field:#0e1729; --shade:rgba(0,0,0,.5);
+  --nav-bg:rgba(11,18,32,.86);
+}
+
+/* ===== 2. RESET / BASE ===== */
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%;text-size-adjust:100%;
+  scroll-padding-top:calc(var(--nav-h) + var(--sat) + 12px);scroll-behavior:smooth}
+:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);min-height:100dvh;
+  font:400 var(--step-0)/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  overflow-x:clip;-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility;
+  padding-top:calc(var(--nav-h) + var(--sat) + var(--gap));
+  padding-bottom:calc(var(--sab) + var(--gap));
+  padding-left:calc(var(--sal) + var(--pad)); padding-right:calc(var(--sar) + var(--pad));
+  display:flex;flex-direction:column}
+img,video,canvas,svg{max-width:100%;display:block;height:auto}
+h1,h2,h3{font-family:var(--font-head);font-weight:600;text-transform:uppercase;letter-spacing:.01em}
+h1{font-size:var(--step-3);line-height:1.02;margin:.15em 0 .3em;text-wrap:balance}
+h2{font-size:var(--step-2);line-height:1.1;margin:.2em 0 .35em;text-wrap:balance}
+h3{font-size:1.15rem;line-height:1.2;margin:0 0 .3em}
+p{text-wrap:pretty;margin:0 0 .8em}
+a{color:inherit;text-underline-offset:3px}
+button,input,select,textarea{font:inherit;color:inherit}
+input:not([type=checkbox]):not([type=radio]),select,textarea{font-size:max(16px,1em);min-height:48px;padding:10px 14px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--field);max-width:100%;width:100%}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--red-text)}
+:focus-visible{outline:2px solid var(--hl);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}
+.skip:focus{display:inline-flex;align-items:center;min-height:48px;left:12px;top:calc(var(--sat) + 8px);z-index:100;background:var(--card);color:var(--fg);padding:12px 16px;border-radius:10px;border:1px solid var(--line)}
+[hidden]{display:none !important}
+
+/* ===== 3. NAV (kp-html-base class names; event brand per the approved deviation) ===== */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:8px;
+  padding:calc(var(--sat) + 8px) calc(var(--sar) + var(--pad)) 8px calc(var(--sal) + var(--pad));
+  background:var(--nav-bg);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.nav{background:var(--card)}}
+.nav-brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto;text-decoration:none;color:inherit}
+.nav-brand>div{min-width:0}
+.nav-logo{width:40px;height:40px;flex:none;border-radius:50%;object-fit:contain;background:transparent}
+.nav-name{font-family:var(--font-head);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-sub{font-size:.75rem;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;flex:none;
+  border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);
+  font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
+  font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+@media (hover:hover){.theme-toggle:hover{background:var(--soft)}}
+.nav-roll{cursor:default;background:var(--soft);color:var(--fg);border:1px solid var(--line);font-variant-numeric:tabular-nums;max-width:44vw;overflow:hidden;
+  font-family:var(--font-type);font-weight:400;letter-spacing:.04em}
+@media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 10px;font-size:.78rem}.nav-roll-label{display:none}}
+@media (max-width:479px){.nav-roll-label{display:none}.nav-roll{padding:0 12px}}
+
+/* ===== 4. LAYOUT / COMPONENTS ===== */
+.wrap{max-width:46rem;margin-inline:auto;width:100%;flex:1 0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--gap)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;min-width:48px;padding:12px 20px;border-radius:var(--r-pill);cursor:pointer;
+  border:1.5px solid var(--line);background:var(--card);color:var(--fg);font-weight:600;text-decoration:none;text-align:center;line-height:1.2;
+  transition:transform var(--dur-1) var(--ease-out),opacity var(--dur-1)}
+.btn:active{transform:scale(.96)}
+.btn[disabled],.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
+.btn-primary{background:var(--accent);color:var(--accent-fg);border-color:transparent;font-family:var(--font-head);text-transform:uppercase;letter-spacing:.05em;font-size:1.05rem}
+.btn-block{width:100%}
+.btn-quiet{background:transparent}
+.linkbtn{background:none;border:0;padding:0 4px;min-height:48px;color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.meter{height:6px;border-radius:var(--r-pill);background:var(--soft);overflow:hidden}
+.meter>span{display:block;height:100%;border-radius:inherit;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform var(--dur-3) var(--ease-out)}
+.muted{color:var(--muted)}
+.tw{font-family:var(--font-type);letter-spacing:.06em}
+.kicker{font-family:var(--font-type);font-size:.9rem;letter-spacing:.1em;color:var(--muted);margin:0}
+.lede{color:var(--muted);margin:0 0 1rem}
+.mock-banner{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0 0 14px;padding:8px 12px;border:1.5px dashed var(--red-text);border-radius:10px;
+  font-family:var(--font-type);font-size:.85rem;color:var(--fg);background:var(--card)}
+.mock-banner b{color:var(--red-text);font-weight:400}
+.mock-banner details{font-family:system-ui,sans-serif;font-size:.85rem;width:100%;margin-top:-8px}
+.mock-banner summary{cursor:pointer;min-height:48px;display:flex;align-items:center}
+.mock-banner ul{margin:0;padding-left:1.1em}
+.notice{border-left:4px solid var(--hl);background:var(--card);border-radius:8px;padding:10px 14px;margin:0 0 14px}
+.field{display:grid;gap:6px;margin:0 0 16px}
+.field>label,.lab{font-weight:600}
+.hint{font-size:.9rem;color:var(--muted);margin:0}
+.field-err,.form-err{color:var(--red-text);font-weight:600;font-size:.95rem;margin:0}
+.field-err:empty,.form-err:empty{display:none}
+.form-err{padding:10px 14px;border:1.5px solid var(--red-text);border-radius:12px;background:var(--card);margin:0 0 14px}
+.form-ok{padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);margin:0 0 14px;font-weight:600}
+.form-ok:empty{display:none}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.screen>h2:focus{outline:none}
+.row-between{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+
+/* ===== typewriter label (types once, cursor stops after 2 s) ===== */
+.type-once{display:inline-block;white-space:nowrap;overflow:hidden;max-width:100%;
+  clip-path:inset(0 100% 0 0);animation:oc-type var(--type-ms,900ms) steps(var(--type-steps,30),end) .15s forwards}
+.type-once::after{content:"";display:inline-block;width:.55em;height:1em;margin-left:2px;vertical-align:-2px;background:currentColor;animation:oc-blink .7s steps(1) 3 forwards}
+@keyframes oc-type{to{clip-path:inset(0 0 0 0)}}
+@keyframes oc-blink{50%{opacity:0}100%{opacity:0}}
+
+/* ===== One-time code input ===== */
+.otp{font-family:var(--font-type) !important;font-size:2rem !important;letter-spacing:.45em;text-align:center;padding-left:.45em !important;min-height:64px !important;
+  font-variant-numeric:tabular-nums;max-width:20rem !important;margin-inline:auto}
+
+/* ===== Stamp ===== */
+.stamp{position:absolute;display:inline-block;padding:4px 12px;font:400 30px/1 var(--font-type);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stamp);border:4px double var(--stamp);border-radius:6px;transform:rotate(-8deg);pointer-events:none;filter:url(#stampRough);opacity:.9}
+
+/* ===== Agent card ===== */
+.agent-card{position:relative;background:var(--manila);color:var(--ink);border:1px solid var(--manila-deep);border-radius:10px;padding:12px 14px 10px;
+  box-shadow:0 14px 30px var(--shade),0 2px 0 rgba(255,255,255,.35) inset}
+.ac-head{display:flex;justify-content:space-between;gap:8px;font:400 .72rem/1.2 var(--font-type);letter-spacing:.1em;color:var(--ink-muted);
+  border-bottom:2px solid var(--stamp);padding-bottom:6px;margin-bottom:10px}
+.ac-body{display:flex;gap:12px;align-items:center}
+.ac-photo{flex:none;width:64px;height:78px;border-radius:4px;background:var(--night);display:grid;place-items:center;position:relative;overflow:hidden;
+  border:2px solid var(--manila-deep)}
+.ac-photo svg{position:absolute;inset:0;width:100%;height:100%}
+.ac-init{position:relative;font:600 1.35rem/1 var(--font-head);color:var(--paper);letter-spacing:.04em}
+.ac-main{min-width:0}
+.ac-lab{margin:0;font:400 .72rem/1 var(--font-type);letter-spacing:.14em;color:var(--ink-muted)}
+.ac-num{margin:2px 0 2px;font:700 clamp(1.9rem,9vw,2.6rem)/1 var(--font-head);letter-spacing:.02em;color:var(--ink);white-space:nowrap}
+.ac-name{margin:0;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.ac-meta{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:10px 0 6px;padding:0}
+.ac-meta div{min-width:0}
+.ac-meta dt{font:400 .68rem/1.2 var(--font-type);letter-spacing:.12em;color:var(--ink-muted);text-transform:uppercase}
+.ac-meta dd{margin:0;font-weight:600;font-size:.92rem;line-height:1.25;overflow-wrap:anywhere}
+.ac-foot{margin:6px 0 0;font:400 .62rem/1.3 var(--font-type);letter-spacing:.1em;color:var(--ink-muted);border-top:1px dashed var(--manila-deep);padding-top:6px}
+.agent-card .stamp{right:10px;top:-6px;font-size:26px;padding:3px 10px;background:transparent}
+
+/* ===== Footer ===== */
+.foot{max-width:46rem;margin:40px auto 0;width:100%;padding-top:18px;border-top:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;font-size:.9rem;color:var(--muted)}
+.foot img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--line)}
+.foot p{margin:0 0 4px}
+.foot a{color:var(--fg);display:inline-flex;align-items:center;min-height:48px}
+.foot .tw{color:var(--fg)}
+
+/* ===== KIT (quiz / event pages) ===== */
+body.has-dock{padding-bottom:calc(var(--dock-h,80px) + var(--sab) + var(--gap))}
+.dock{position:fixed;inset:auto 0 0 0;z-index:40;display:flex;gap:12px;align-items:center;
+  padding:12px calc(var(--sar) + var(--pad)) calc(var(--sab) + 12px) calc(var(--sal) + var(--pad));
+  background:var(--nav-bg);border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.dock{background:var(--card)}}
+.dock .btn{flex:1}
+.countdown,.countup{font-variant-numeric:tabular-nums}
+::view-transition-old(root){animation:kp-out var(--dur-2) var(--ease-in) both}
+::view-transition-new(root){animation:kp-in var(--dur-2) var(--ease-out) both}
+@keyframes kp-out{to{opacity:0;transform:translateX(-12px)}}
+@keyframes kp-in{from{opacity:0;transform:translateX(12px)}}
+[data-motion="paused"] *,[data-motion="paused"] *::before,[data-motion="paused"] *::after{animation-play-state:paused !important}
+
+dialog{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);color:var(--fg);padding:0;width:min(40rem,calc(100vw - 24px));max-height:calc(100dvh - 48px)}
+dialog::backdrop{background:rgba(5,8,15,.7)}
+.dlg-body{padding:20px;overflow:auto;max-height:calc(100dvh - 140px)}
+.dlg-foot{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;padding:12px 20px calc(12px + var(--sab));border-top:1px solid var(--line)}
+
+/* ===== TEAM ROOM ===== */
+.page-head{margin:0 0 12px}
+.small{font-size:.92rem}
+.alt{margin:14px 0 0;text-align:center;color:var(--muted)}
+.alt a{color:var(--fg);font-weight:600}
+.screen>h2,.screen h2{margin-top:0}
+.code-box{text-align:center}
+.masked{font-family:var(--font-type);color:var(--fg);overflow-wrap:anywhere}
+.code-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:14px}
+.rules-h{font-size:1.2rem;margin:28px 0 10px}
+.rules{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:8px}
+@media (min-width:640px){.rules{grid-template-columns:repeat(3,1fr)}}
+.rules li{display:flex;gap:12px;align-items:center;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--card);font-size:.95rem;line-height:1.35}
+.rule-big{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--soft);font:700 1.3rem/1 var(--font-head);color:var(--hl)}
+.rule-lock svg{display:block}
+.who{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:6px 6px 6px 14px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.who-line{margin:0;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;min-width:0}
+.who-line .tw{font-size:.8rem;letter-spacing:.14em;color:var(--muted)}
+.who-line strong{font:600 1.15rem/1 var(--font-head);letter-spacing:.03em;color:var(--hl)}
+.choose{display:grid;gap:4px}
+@media (min-width:640px){.choose{grid-template-columns:1fr auto 1fr;align-items:stretch;gap:14px}}
+.choose .card h3{margin-bottom:2px}
+.or{display:flex;align-items:center;gap:10px;margin:6px 0;font:400 .85rem/1 var(--font-type);letter-spacing:.2em;color:var(--muted)}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+@media (min-width:640px){.or{flex-direction:column;margin:0}.or::before,.or::after{width:1px;height:auto}}
+.code-in{font-family:var(--font-type) !important;letter-spacing:.3em;text-transform:uppercase;font-size:1.4rem !important;text-align:center}
+.hint.bad{color:var(--red-text);font-weight:600}
+
+/* team file */
+.team-status{font-weight:600;margin:0 0 6px}
+.team-status.done{color:var(--hl)}
+.board{position:relative;margin:8px 0 18px;padding:26px 10px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.string{position:absolute;left:10px;right:10px;top:12px;width:calc(100% - 20px);height:34px;z-index:2;pointer-events:none;overflow:visible}
+.string path{fill:none;stroke:var(--stamp);stroke-width:2.2;vector-effect:non-scaling-stroke;stroke-dasharray:100;stroke-dashoffset:0}
+.board.draw .string path{animation:oc-string 900ms var(--ease-out) both}
+@keyframes oc-string{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.slots{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.slot{position:relative;padding:8px 8px 10px;border-radius:3px;background:var(--paper);color:var(--ink);box-shadow:0 8px 18px var(--shade);transform:rotate(-2.5deg);min-width:0}
+.slot:nth-child(2){transform:rotate(2deg) translateY(6px)}
+.slot:nth-child(3){transform:rotate(-1deg)}
+.pin{position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--stamp);box-shadow:0 2px 3px rgba(0,0,0,.4),inset -2px -2px 0 rgba(0,0,0,.2);z-index:3}
+.photo{aspect-ratio:1/1;border-radius:2px;background:var(--night);display:grid;place-items:center;position:relative;overflow:hidden}
+.photo svg{position:absolute;inset:0;width:100%;height:100%}
+.snum{position:relative;font:600 clamp(.85rem,4vw,1.15rem)/1 var(--font-head);letter-spacing:.03em;color:#ffb547;white-space:nowrap}
+.q{font:600 2rem/1 var(--font-head);color:#a9a28c}
+.scap{margin:7px 0 0;font-size:.8rem;line-height:1.25;font-weight:600;min-height:2.5em;overflow-wrap:anywhere}
+.sname{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap-badge{display:inline-block;margin-top:3px;padding:2px 5px;font:400 .66rem/1 var(--font-type);letter-spacing:.1em;color:#a8231f;border:1.5px double #a8231f;border-radius:3px;transform:rotate(-4deg)}
+.slot.empty{background:transparent;color:var(--muted);box-shadow:none;border:1.5px dashed var(--line)}
+.slot.empty .photo{background:var(--soft)}
+.slot.empty .q{color:var(--muted)}
+.slot.empty .scap{color:var(--muted);font-weight:400}
+.slot.new{animation:oc-pinup 520ms cubic-bezier(.3,1.3,.5,1) both}
+@keyframes oc-pinup{from{opacity:0;transform:translateY(-26px) rotate(-8deg) scale(1.08)}}
+.codetag{position:relative;margin:0 0 16px;padding:16px;border-radius:4px 12px 12px 12px;background:var(--manila);color:var(--ink);border:1px solid var(--manila-deep);text-align:center}
+.codetag-lab{margin:0;font-size:.8rem;letter-spacing:.2em;color:var(--ink-muted)}
+.codetag-code{margin:4px 0 12px;font:400 clamp(2rem,10vw,2.6rem)/1.1 var(--font-type);letter-spacing:.22em;padding-left:.22em;color:var(--ink)}
+.codetag-actions{display:grid;gap:10px}
+@media (min-width:480px){.codetag-actions{grid-template-columns:1fr 1fr}}
+.codetag .btn{background:var(--field);color:var(--fg);border-color:var(--manila-deep)}
+.codetag .btn-primary{background:var(--ink);color:#ffb547;border-color:transparent}
+.codetag .hint{color:var(--ink-muted);margin-top:8px}
+.codetag .hint:empty{display:none}
+.team-actions{justify-content:space-between}
+
+/* ===== REDUCED MOTION (always last) ===== */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important}
+  [data-reveal]{opacity:1 !important;transform:none !important}
+  .type-once{clip-path:none !important;animation:none !important}
+  .type-once::after{display:none}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="beamGrad" cx="0.2" cy="0.85" r="1">
+      <stop offset="0" stop-color="#ffb547" stop-opacity="1"/>
+      <stop offset="1" stop-color="#ffb547" stop-opacity="0.15"/>
+    </radialGradient>
+    <filter id="stampRough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/>
+    </filter>
+  </defs>
+  <symbol id="torch" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19" fill="#0b1220" stroke="#ffb547" stroke-width="1.5"/>
+    <path d="M14.5 25.5 L28 8.5 A14 14 0 0 1 34.5 19 Z" fill="url(#beamGrad)"/>
+    <path d="M9 31 L15 25" stroke="#e9e4d4" stroke-width="4.5" stroke-linecap="round"/>
+    <circle cx="15.2" cy="24.8" r="2.4" fill="#ffb547"/>
+  </symbol>
+</svg>
+<nav class="nav" aria-label="One Case"><div class="nav-brand"><svg class="nav-logo" role="img" aria-label="One Case torch mark"><use href="#torch"/></svg><div><div class="nav-name">One Case</div><div class="nav-sub">R&amp;D Cell &times; Center of AI</div></div></div><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">&#9728;&#65039;</button><a class="nav-cta" href="https://kpsingh.in/onecase/">Case home</a></nav>
+
+<main id="main" class="wrap" tabindex="-1">
+  <div class="mock-banner" id="mockBanner" hidden><b>MOCK MODE, code: 123456</b> <span>Nothing is sent or saved.</span>
+    <details><summary>Test inputs for this mock</summary><ul>
+      <li>law.asha@sgtuniversity.org logs in as a Law agent; eng.kiran@ as Engineering (any 3-letter school code works)</li>
+      <li>new.someone@sgtuniversity.org: no case file yet</li>
+      <li>team code FULLQ3: a full Law team; MEDQ7K: a Medicine team</li>
+      <li>add ?locked=1 to the address: teams locked</li></ul></details></div>
+  <p class="notice" id="announcement" role="status" hidden></p>
+
+  <header class="page-head">
+    <p class="kicker"><span class="type-once" style="--type-steps:24;--type-ms:700ms">TEAM ROOM &middot; CASE FILE 0</span></p>
+    <h1>Build your team of three</h1>
+    <p class="lede">Three agents. One school. One door.</p>
+  </header>
+
+  <p class="sr-only" aria-live="polite" id="live"></p>
+
+  <!-- LOGIN -->
+  <section class="screen card" id="s-login" aria-labelledby="h-login">
+    <h2 id="h-login" tabindex="-1">Log in, Agent</h2>
+    <p class="muted">Your team room opens with your university email. We send a 6-digit code; nothing is kept on this phone.</p>
+    <form id="fLogin" novalidate>
+      <p class="form-err" id="loginErr" role="alert"></p>
+      <div class="field">
+        <label for="lEmail">University email</label>
+        <input id="lEmail" data-qa="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send">
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="loginBtn" data-qa="start">Send me a code</button>
+    </form>
+    <p class="alt">No case file yet? <a href="register.html">Open one in 60 seconds</a></p>
+  </section>
+
+  <!-- CODE -->
+  <section class="screen card code-box" id="s-code" aria-labelledby="h-code" hidden>
+    <h2 id="h-code" tabindex="-1">Check your inbox</h2>
+    <p class="lede">We sent a 6-digit code to <span class="masked" id="maskedEmail">your email</span>. It works for 10 minutes.</p>
+    <form id="fCode" novalidate>
+      <p class="form-err" id="codeErr" role="alert"></p>
+      <p class="form-ok" id="codeOk" role="status"></p>
+      <div class="field">
+        <label for="otp" class="sr-only">6-digit code</label>
+        <input id="otp" class="otp" data-qa="otp" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" enterkeyhint="done" placeholder="&middot;&middot;&middot;&middot;&middot;&middot;">
+      </div>
+      <button class="btn btn-primary btn-block" type="submit" id="verifyBtn" data-qa="verify">Open the team room</button>
+    </form>
+    <div class="code-actions">
+      <button class="btn" type="button" id="resendBtn" data-qa="resend">Resend code</button>
+      <button class="btn btn-quiet" type="button" id="changeEmail">Change email</button>
+    </div>
+  </section>
+
+  <!-- ROOM -->
+  <section class="screen" id="s-room" aria-labelledby="h-room" hidden>
+    <div class="who">
+      <p class="who-line"><span class="tw">AGENT</span> <strong id="whoAgent">LAW-000</strong> <span class="muted" id="whoSchool">Law, Moot Court</span></p>
+      <button class="btn btn-quiet" type="button" id="logoutBtn" data-qa="logout">Log out</button>
+    </div>
+    <p class="form-err" id="roomErr" role="alert"></p>
+
+    <div id="noTeam">
+      <h2 id="h-room" tabindex="-1">Start or join a team</h2>
+      <div class="choose">
+        <form class="card" id="fCreate" novalidate>
+          <h3>Start a team</h3>
+          <p class="muted small">You become the captain and get a code to share.</p>
+          <p class="form-err" id="createErr" role="alert"></p>
+          <div class="field">
+            <label for="teamName">Team name</label>
+            <input id="teamName" data-qa="team-name" type="text" maxlength="30" autocomplete="off" autocapitalize="words" enterkeyhint="done" aria-describedby="nameHint">
+            <p class="hint" id="nameHint" aria-live="polite">Public on the leaderboard. 3 to 30 characters.</p>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" id="createBtn" data-qa="team-create">Create team</button>
+        </form>
+        <p class="or" aria-hidden="true"><span>OR</span></p>
+        <form class="card" id="fJoin" novalidate>
+          <h3>Join a team</h3>
+          <p class="muted small">Your captain shares a 6-character code.</p>
+          <p class="form-err" id="joinErr" role="alert"></p>
+          <div class="field">
+            <label for="joinCode">Team code</label>
+            <input id="joinCode" class="code-in" data-qa="team-code" type="text" maxlength="7" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="go" placeholder="K7M2QX">
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" id="joinBtn" data-qa="team-join">Join team</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="hasTeam" hidden>
+      <p class="kicker">TEAM FILE &middot; <span id="teamSchool">LAW</span></p>
+      <h2 id="h-team" tabindex="-1" data-qa="team-title">Team</h2>
+      <p class="team-status" id="teamStatus" data-qa="team-status" role="status">1 of 3 agents</p>
+      <div class="board" id="board">
+        <svg class="string" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path id="stringPath" d="M50 12 Q100 34 150 12 Q200 34 250 12" pathLength="100"/></svg>
+        <ol class="slots" id="slots" aria-label="Team members"></ol>
+      </div>
+      <div class="codetag">
+        <p class="tw codetag-lab">TEAM CODE</p>
+        <p class="codetag-code" id="teamCode" data-qa="team-code-show">------</p>
+        <div class="codetag-actions">
+          <button class="btn" type="button" id="copyBtn" data-qa="copy-code">Copy team code</button>
+          <a class="btn btn-primary" id="waShare" data-qa="wa-share" href="https://wa.me/" target="_blank" rel="noopener">Share on WhatsApp</a>
+        </div>
+        <p class="hint" id="copyMsg" role="status"></p>
+      </div>
+      <div class="actions team-actions">
+        <button class="btn" type="button" id="refreshBtn" data-qa="refresh">Check for new members</button>
+        <button class="btn btn-quiet" type="button" id="leaveBtn" data-qa="leave">Leave team</button>
+      </div>
+    </div>
+  </section>
+  <h2 class="rules-h">Team rules</h2>
+  <ul class="rules" aria-label="Team rules">
+    <li><span class="rule-big">3</span><span><strong>Exactly 3 agents.</strong> No pairs, no fours.</span></li>
+    <li><span class="rule-big">1</span><span><strong>Same school.</strong> You enter through your school's door.</span></li>
+    <li><span class="rule-big rule-lock" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><rect x="5" y="10" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span><strong>Teams lock <span id="lockDate">Tue 12 Jan, 12:00</span>.</strong> After that, no changes.</span></li>
+  </ul>
+</main>
+
+<dialog id="leaveDlg" aria-labelledby="leaveTitle">
+  <div class="dlg-body">
+    <h2 id="leaveTitle">Leave this team?</h2>
+    <p id="leaveText">Your place opens for someone else. If you are the captain, the next agent becomes captain.</p>
+  </div>
+  <div class="dlg-foot"><button class="btn" type="button" id="leaveNo">Stay</button><button class="btn btn-primary" type="button" id="leaveYes" data-qa="leave-confirm">Leave team</button></div>
+</dialog>
+
+<footer class="foot">
+  <img src="icons/KP_Singh.png" alt="K.P. Singh, Convenor" width="40" height="40">
+  <div>
+    <p><span class="tw">One Case. Your School. Your Rules.</span> The Neemgarh File is a fictional case.</p>
+    <p>R&amp;D Cell &times; Center of AI, SGT University. Convenor: K.P. Singh, <a href="https://kpsingh.in" target="_blank" rel="noopener">kpsingh.in</a></p>
+    <p>Your data: we keep only what registration needs, never in your browser. To see, correct or delete it, follow Part 5 of the <a href="register.html#consent-full">consent form</a>.</p>
+  </div>
+</footer>
+<script>
+/* ===== KP BASE JS 1.2.0 (event profile: memory-only store, no browser storage of any kind) ===== */
+(function(){
+  'use strict';
+  var root=document.documentElement;
+  var KP=window.KP=window.KP||{};
+  var RM=matchMedia('(prefers-reduced-motion: reduce)');
+  KP.reduced=function(){return RM.matches;};
+
+  /* -- MODULE: STORE (memory only; the ONLY option for quiz and event pages) -- */
+  var mem={};
+  KP.store={
+    get:function(k){return Object.prototype.hasOwnProperty.call(mem,k)?mem[k]:null;},
+    set:function(k,v){mem[k]=String(v);},
+    remove:function(k){delete mem[k];}
+  };
+
+  /* -- MODULE: THEME TOGGLE (three-layer pattern; icon-only; night is the brand default via data-theme on <html>) -- */
+  var btn=document.getElementById('themeToggle');
+  var mq=matchMedia('(prefers-color-scheme: dark)');
+  function isDark(){return root.dataset.theme?root.dataset.theme==='dark':mq.matches;}
+  function paintToggle(){
+    var d=isDark();
+    if(btn){btn.textContent=d?'☀️':'🌙';btn.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme');}
+    var m=document.getElementById('themeColor'),bg=getComputedStyle(root).getPropertyValue('--bg').trim();
+    if(m&&bg)m.setAttribute('content',bg);
+  }
+  var saved=KP.store.get('theme');
+  if(saved==='light'||saved==='dark')root.dataset.theme=saved;
+  if(btn)btn.addEventListener('click',function(){
+    var next=isDark()?'light':'dark';root.dataset.theme=next;KP.store.set('theme',next);paintToggle();
+  });
+  if(mq.addEventListener)mq.addEventListener('change',paintToggle);
+  paintToggle();
+  KP.paintToggle=paintToggle;
+
+  /* -- MODULE: PERF GUARD (weak phones: flag so heavy effects can switch off) -- */
+  (function(){
+    var last=performance.now(),slow=0,n=0;
+    (function tick(t){
+      var dt=t-last;last=t;
+      if(dt>34&&++slow>12)root.dataset.perf='low';
+      if(++n<240&&!root.dataset.perf)requestAnimationFrame(tick);
+    })(last);
+  })();
+
+  /* -- KIT: SWAP (animated screen change; instant when unsupported or reduced motion) -- */
+  var vt=null;
+  KP.swap=function(render){
+    if(!document.startViewTransition||KP.reduced()){render();return;}
+    try{if(vt)vt.skipTransition();}catch(e){}           /* never stack transitions (fast taps, WebKit) */
+    try{
+      var t=vt=document.startViewTransition(render);
+      t.finished.then(function(){if(vt===t)vt=null;},function(){if(vt===t)vt=null;});
+    }catch(e){vt=null;render();}
+  };
+  KP.inTransition=function(){return !!vt;};
+
+  /* -- KIT: COUNT-UP (0 to N; put the final value in a .sr-only sibling) -- */
+  KP.countUp=function(el,to,o){
+    o=o||{};var ms=o.ms||900,from=o.from||0,fmt=o.format||function(v){return String(Math.round(v));};
+    if(KP.reduced()){el.textContent=fmt(to);return;}
+    var t0=performance.now();
+    (function step(now){
+      var p=Math.min((now-t0)/ms,1),e=1-Math.pow(1-p,3);
+      el.textContent=fmt(from+(to-from)*e);
+      if(p<1)requestAnimationFrame(step);
+    })(t0);
+    setTimeout(function(){el.textContent=fmt(to);},ms+80);
+  };
+
+  /* -- KIT: CONFETTI (one shot, at most 90 pieces, about 1.6 s; silent under reduced motion, low perf or paused) -- */
+  KP.confetti=function(o){
+    o=o||{};
+    if(KP.reduced()||root.dataset.perf==='low'||root.dataset.motion==='paused')return;
+    try{
+      var n=Math.min(o.count||80,90),W=innerWidth,H=innerHeight,dpr=Math.min(devicePixelRatio||1,2);
+      var cv=document.createElement('canvas');
+      cv.setAttribute('aria-hidden','true');
+      cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90';
+      cv.width=W*dpr;cv.height=H*dpr;document.body.appendChild(cv);
+      var cx=cv.getContext('2d');cx.scale(dpr,dpr);
+      var cols=o.colors||['#ffb547','#c8302f','#e8d7a9','#e9e4d4','#9fb3c8'];
+      var ox=o.x!=null?o.x:W/2,oy=o.y!=null?o.y:H*.35;
+      var ps=[];for(var i=0;i<n;i++)ps.push({x:ox+(Math.random()-.5)*W*.25,y:oy,vx:(Math.random()-.5)*10,vy:-Math.random()*10-3,
+        s:4+Math.random()*5,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[(Math.random()*cols.length)|0]});
+      var f=0,max=o.frames||100,raf;
+      var end=function(){cancelAnimationFrame(raf);cv.remove();removeEventListener('pagehide',end);};
+      (function loop(){
+        if(document.hidden){end();return;}
+        cx.clearRect(0,0,W,H);
+        ps.forEach(function(p){p.vy+=.28;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;
+          cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();});
+        if(++f<max)raf=requestAnimationFrame(loop);else end();
+      })();
+      addEventListener('pagehide',end);
+    }catch(e){}
+  };
+
+  /* -- KIT: NAV ROLL (event variant: shows the AGENT NUMBER). Replaces the nav CTA link with a NON-clickable badge.
+        textContent only, never innerHTML. -- */
+  KP.setRoll=function(roll,label){
+    var cta=document.querySelector('.nav .nav-cta');if(!cta)return;
+    var s=cta.tagName==='SPAN'?cta:document.createElement('span');
+    s.className='nav-cta nav-roll';s.textContent='';
+    var lab=document.createElement('span');lab.className='nav-roll-label';lab.textContent=(label||'Agent')+' ';
+    s.appendChild(lab);s.appendChild(document.createTextNode(String(roll)));
+    s.setAttribute('aria-label',(label||'Agent')+' '+roll);
+    if(cta!==s)cta.replaceWith(s);
+  };
+  /* Put the original link back (log out). */
+  KP.clearRoll=function(html){
+    var cta=document.querySelector('.nav .nav-roll');if(!cta)return;
+    var a=document.createElement('a');a.className='nav-cta';a.href=html.href;a.textContent=html.text;cta.replaceWith(a);
+  };
+})();
+
+/* ===== ONE CASE CLIENT (config, API client per site/API.md, validators, mock server). Memory only. ===== */
+var OC=(function(){
+  'use strict';
+  /* Defaults mirror site/config/event.json. Over http(s) the page reads config/event.json at start, so the
+     convenor only edits that file (api_url) after deploying. Opened as a local file, these defaults apply. */
+  var cfg={
+    base_url:'https://kpsingh.in/onecase', api_url:'',
+    reveal_at:'2026-12-21T11:00:00+05:30', drop_from:'2027-01-04T09:00:00+05:30', drop_to:'2027-01-08T23:59:00+05:30',
+    finale_at:'2027-01-29T17:30:00+05:30', team_lock_at:'2027-01-12T12:00:00+05:30',
+    allowed_domains:['sgtuniversity.org','sgtuniversity.ac.in']
+  };
+  var SCHOOLS=[
+    {code:'MED',name:'Faculty of Medicine & Health Sciences',short:'Medicine',door:'Grand Round'},
+    {code:'DEN',name:'Faculty of Dental Sciences',short:'Dental',door:'Chairside Conference'},
+    {code:'NUR',name:'Faculty of Nursing',short:'Nursing',door:'Care Conference'},
+    {code:'AHS',name:'School of Allied Health Sciences',short:'Allied Health',door:'Bench Report'},
+    {code:'PHY',name:'School of Physiotherapy',short:'Physiotherapy',door:'Clinical Reasoning Round'},
+    {code:'PHA',name:'Pharmacy (SGT College of Pharmacy + Dept of Pharmaceutical Sciences & Research)',short:'Pharmacy',door:'Pharmacovigilance Round'},
+    {code:'AYU',name:'Indian Medical System (Ayurveda)',short:'Ayurveda',door:'Nidan Sabha'},
+    {code:'NYS',name:'School of Naturopathy & Yogic Sciences',short:'Naturopathy & Yoga',door:'Swasthya Shivir'},
+    {code:'AGR',name:'Faculty of Agricultural Sciences',short:'Agriculture',door:'Kisan Goshthi'},
+    {code:'ENG',name:'School of Engineering & Technology',short:'Engineering',door:'Hackathon'},
+    {code:'SCI',name:'School of Basic and Applied Sciences',short:'Basic & Applied Sciences',door:'Journal Club'},
+    {code:'LAW',name:'School of Law',short:'Law',door:'Moot Court'},
+    {code:'COM',name:'School of Commerce & Management',short:'Commerce & Management',door:'Case Method Boardroom'},
+    {code:'GBS',name:'SGT Global Business School',short:'Global Business School',door:'Crisis Boardroom'},
+    {code:'DES',name:'School of Design',short:'Design',door:'Design Charrette'},
+    {code:'MEF',name:'School of Emerging Media, Communication and Film Studies',short:'Media & Film',door:'Editorial Room'},
+    {code:'HSS',name:'School of Humanities, Social Sciences & Liberal Arts',short:'Humanities & Social Sciences',door:'Field Notes'},
+    {code:'BEH',name:'School of Behavioural Sciences',short:'Behavioural Sciences',door:'Rumour Lab'},
+    {code:'EDU',name:'Faculty of Education',short:'Education',door:'Staff Room'},
+    {code:'HTM',name:'School of Hotel & Tourism Management',short:'Hotel & Tourism',door:'Kitchen Audit'}
+  ];
+  var YEARS=['1st year','2nd year','3rd year','4th year','5th year','PG 1st year','PG 2nd year'];
+  var GET_ACTIONS={phase:1,stats:1,verify_cert:1};
+  var MSG={
+    BAD_EMAIL_DOMAIN:'Please use your SGT University email address. Personal email addresses cannot be used.',
+    ALREADY_REGISTERED:'This email or enrolment number already has a case file. Use "Log in" instead.',
+    BAD_OTP:'That code does not match. Check the latest email and try again.',
+    OTP_EXPIRED:'That code has expired. Ask for a new one and use it within 10 minutes.',
+    TOO_MANY_TRIES:'Too many wrong codes. Ask for a new code and try again.',
+    RATE_LIMITED:'Too many requests for now. Wait a little while, then try again.',
+    TEAM_FULL:'That team already has 3 agents. Ask your friends to check the code, or start your own team.',
+    TEAM_OTHER_SCHOOL:'That team belongs to a different school. All 3 members must be from the same school.',
+    TEAM_NOT_FOUND:'We could not find a team with that code. Check the 6 characters and try again.',
+    TEAM_LOCKED:'Teams are locked now, so changes are closed. Contact the organisers if something is wrong.',
+    NOT_LOGGED_IN:'Your session has ended. Please log in again.',
+    PHASE_CLOSED:'This is not open right now. Check the home page for the dates.',
+    SERVER_BUSY:'The case server is busy. Please try again in a moment.',
+    BAD_INPUT:'Something in the form needs a second look. Please check and try again.',
+    NETWORK:'We could not reach the case server. Check your internet connection and try again.'
+  };
+
+  var qs=new URLSearchParams(location.search);
+  var forceMock=qs.get('mock')==='1';
+  var ready=(location.protocol==='file:'?Promise.resolve():
+    fetch('config/event.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(!j)return;
+      ['base_url','api_url','reveal_at','drop_from','drop_to','finale_at','team_lock_at'].forEach(function(k){if(typeof j[k]==='string')cfg[k]=j[k];});
+    }).catch(function(){}));
+  function isMock(){return forceMock||!cfg.api_url;}
+  function base(){return String(cfg.base_url).replace(/\/+$/,'');}
+
+  /* ---------- API client ---------- */
+  function norm(j){
+    if(!j||typeof j!=='object')return {success:false,code:'SERVER_BUSY',message:MSG.SERVER_BUSY};
+    if(j.success)return j;
+    return {success:false,code:j.code||'SERVER_BUSY',message:j.message||MSG[j.code]||MSG.SERVER_BUSY};
+  }
+  function real(action,body){
+    var ctl='AbortController' in window?new AbortController():null,timer=ctl?setTimeout(function(){ctl.abort();},20000):0;
+    var p;
+    if(GET_ACTIONS[action]){
+      var q='?action='+encodeURIComponent(action);
+      Object.keys(body||{}).forEach(function(k){q+='&'+encodeURIComponent(k)+'='+encodeURIComponent(body[k]);});
+      p=fetch(cfg.api_url+q,{method:'GET',signal:ctl&&ctl.signal});
+    }else{
+      var b={action:action};Object.keys(body||{}).forEach(function(k){b[k]=body[k];});
+      p=fetch(cfg.api_url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(b),signal:ctl&&ctl.signal});
+    }
+    return p.then(function(r){return r.json();}).then(norm,function(){return {success:false,code:'NETWORK',message:MSG.NETWORK};})
+      .then(function(x){clearTimeout(timer);return x;});
+  }
+  function api(action,body){
+    return ready.then(function(){
+      if(isMock())return new Promise(function(res){setTimeout(function(){res(norm(mock(action,body||{})));},MOCK_DELAY);});
+      return real(action,body||{});
+    });
+  }
+
+  /* ---------- validators (the server is the authority; these only save a round trip) ---------- */
+  function cleanName(v){return String(v||'').replace(/\s+/g,' ').trim();}
+  function checkName(v){v=cleanName(v);
+    if(!v)return 'Type your name.';
+    if(v.length<2||v.length>60||!/^[\p{L}\p{M} .'-]+$/u.test(v)||!/\p{L}/u.test(v))return 'Use letters only, as on your ID card (2 to 60 characters).';
+    return '';}
+  function cleanEnrol(v){return String(v||'').toUpperCase().replace(/\s+/g,'');}
+  function checkEnrol(v){v=cleanEnrol(v);if(!v)return 'Type your enrolment number.';
+    return /^[A-Z0-9/-]{4,20}$/.test(v)?'':'Check your enrolment number. It has 4 to 20 letters or digits.';}
+  function cleanEmail(v){return String(v||'').trim().toLowerCase();}
+  function checkEmail(v){v=cleanEmail(v);
+    if(!v)return {code:'BAD_INPUT',msg:'Type your university email.'};
+    if(v.length>120||!/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(v))return {code:'BAD_INPUT',msg:'That email looks incomplete. It should look like name@'+cfg.allowed_domains[0]+'.'};
+    if(cfg.allowed_domains.indexOf(v.split('@')[1])<0)return {code:'BAD_EMAIL_DOMAIN',msg:'Use your university email (ending @'+cfg.allowed_domains.join(' or @')+'). Personal email addresses cannot be used.'};
+    return null;}
+  var BLOCK_SUBSTR=['fuck','shit','bitch','porn','cunt','whore','slut','nigg','chutiya','chutia','madarchod','bhenchod','behenchod','bhosd','harami','kamina',
+    'google','microsoft','amazon','tesla','adidas','samsung','cocacola','pepsi','facebook','instagram','whatsapp','youtube','netflix','openai','chatgpt',
+    'reliance','adani','ambani','infosys','flipkart','zomato','swiggy','paytm','patanjali','sdmoffice','districtlab','police','government','ministry',
+    'collector','pollutionboard','municipal','kejriwal','trump','shahrukh','salmankhan','kohli','dhoni','elonmusk'];
+  var BLOCK_WORDS=['ass','sex','rape','dick','randi','gandu','lund','apple','nike','meta','tata','jio','airtel','modi','gandhi','musk','virat','srk','cbi','sdm','dm','govt','nazi','hitler','isis'];
+  function teamNameProblem(raw){
+    var name=String(raw||'').replace(/\s+/g,' ').trim();
+    if(!name)return 'Give your team a name.';
+    if(name.length<3)return 'Team names need at least 3 characters.';
+    if(name.length>30)return 'Team names can have at most 30 characters.';
+    if(!/^[\p{L}\p{M}\p{N}][\p{L}\p{M}\p{N} '&.-]*$/u.test(name)||!/\p{L}/u.test(name))return 'Use letters, numbers, spaces and simple punctuation.';
+    var leet={'0':'o','1':'i','3':'e','4':'a','5':'s','7':'t','@':'a','$':'s','!':'i'};
+    var low=name.toLowerCase().replace(/[013457@$!]/g,function(c){return leet[c];});
+    var sq=low.replace(/[^a-z]/g,''),words=low.split(/[^a-z]+/).filter(String),i;
+    for(i=0;i<BLOCK_SUBSTR.length;i++)if(sq.indexOf(BLOCK_SUBSTR[i])>=0)return 'That name cannot be used. No real people, brands, official bodies or rude words.';
+    for(i=0;i<words.length;i++)if(BLOCK_WORDS.indexOf(words[i])>=0)return 'That name cannot be used. No real people, brands, official bodies or rude words.';
+    return '';
+  }
+  function maskEmail(email){
+    var at=String(email).indexOf('@');if(at<1)return '***';
+    var local=email.slice(0,at),keep=local.length>3?2:1;
+    return local.slice(0,keep)+new Array(Math.max(3,Math.min(local.length-keep,10))+1).join('*')+email.slice(at);
+  }
+  function school(code){for(var i=0;i<SCHOOLS.length;i++)if(SCHOOLS[i].code===code)return SCHOOLS[i];return null;}
+  function fmtDate(iso,withTime){
+    var d=new Date(iso);if(isNaN(d))return '';
+    var o={timeZone:'Asia/Kolkata',weekday:'short',day:'numeric',month:'short'};
+    if(withTime){o.hour='2-digit';o.minute='2-digit';o.hourCycle='h23';}
+    try{return new Intl.DateTimeFormat('en-GB',o).format(d).replace(/,/g,'').replace(/\s*(\d{2}:\d{2})$/,', $1');}catch(e){return d.toDateString();}
+  }
+  function initials(name){var p=cleanName(name).split(' ').filter(String);return ((p[0]||'?').charAt(0)+(p.length>1?p[p.length-1].charAt(0):'')).toUpperCase();}
+  function cleanSource(s){s=String(s||'').trim().toLowerCase();return /^[a-z0-9_-]{1,32}$/.test(s)?s:'';}
+
+  /* ---------- OTP input: digits only, paste-friendly ---------- */
+  function wireOtp(input,onFull){
+    function clean(){var d=input.value.replace(/\D/g,'').slice(0,6);if(input.value!==d)input.value=d;if(d.length===6&&onFull)onFull(d);}
+    input.addEventListener('input',clean);
+    input.addEventListener('paste',function(e){
+      var t=(e.clipboardData||window.clipboardData);if(!t)return;
+      var d=String(t.getData('text')||'').replace(/\D/g,'').slice(0,6);
+      if(d){e.preventDefault();input.value=d;clean();}
+    });
+  }
+  /* A resend button that counts down (no looping animation; plain text tick). */
+  function resendTimer(btn,seconds,label){
+    var left=seconds,t;
+    btn.disabled=true;
+    function paint(){btn.textContent=left>0?label+' in '+left+' s':label;btn.disabled=left>0;}
+    paint();clearInterval(btn._t);
+    t=btn._t=setInterval(function(){left--;paint();if(left<=0)clearInterval(t);},1000);
+  }
+
+  /* ================= MOCK SERVER (same shapes and rules as Code.gs; memory only) ================= */
+  var MOCK_DELAY=qs.get('mockdelay')?Math.min(+qs.get('mockdelay')||0,3000):260;
+  var MOCK_CODE='123456',MOCK_ADMIN_KEY='mock-key',MOCK_ADMINS=['convenor@sgtuniversity.org'];
+  var M=null;
+  function db(){
+    if(M)return M;
+    var baseCounts={MED:142,DEN:58,NUR:77,AHS:64,PHY:41,PHA:83,AYU:36,NYS:22,AGR:49,ENG:131,SCI:55,LAW:96,COM:88,GBS:61,DES:47,MEF:52,HSS:44,BEH:33,EDU:28,HTM:39};
+    M={phase:/^(tease|register|drop|episodes|finale|after)$/.test(qs.get('phase')||'')?qs.get('phase'):'register',announce:'',
+      base:baseCounts,extra:{},regs:{},byAgent:{},seq:{},pend:{},sends:{},tokens:{},teams:{},scans:[],notify:{},
+      sources:{'p1-canteen':[61,212],'ig-bio':[48,130],'wa':[33,0],'door-law':[21,64],'direct':[0,0]},byDay:[]};
+    SCHOOLS.forEach(function(s){M.seq[s.code]=baseCounts[s.code];M.extra[s.code]=0;});
+    var d0=Date.parse('2026-12-21T12:00:00+05:30');
+    [212,164,121,98,133,141,118].forEach(function(n,i){M.byDay.push({day:new Date(d0+i*864e5).toISOString().slice(0,10),count:n});});
+    function seed(email,name,code,agent){var r={email:email,name:name,enrol:'SEED'+agent.replace('-',''),year:'2nd year',school:code,agent:agent,seed:true};M.regs[email]=r;M.byAgent[agent]=r;}
+    seed('riya.k@sgtuniversity.org','Riya Kapoor','LAW','LAW-011');seed('aman.s@sgtuniversity.org','Aman Sethi','LAW','LAW-012');
+    seed('kabir.m@sgtuniversity.org','Kabir Malik','LAW','LAW-013');seed('neha.d@sgtuniversity.org','Neha Dutt','MED','MED-021');
+    M.teams.FULLQ3={code:'FULLQ3',name:'Moot Point',school:'LAW',members:['LAW-011','LAW-012','LAW-013'],captain:'LAW-011'};
+    M.teams.MEDQ7K={code:'MEDQ7K',name:'Night Rounds',school:'MED',members:['MED-021'],captain:'MED-021'};
+    return M;
+  }
+  function ok(d){return {success:true,data:d};}
+  function no(code,msg){return {success:false,code:code,message:msg||MSG[code]};}
+  function rid(){var s='',h='0123456789abcdef';for(var i=0;i<32;i++)s+=h.charAt((Math.random()*16)|0);return s.slice(0,8)+'-'+s.slice(8,12)+'-4'+s.slice(13,16)+'-a'+s.slice(17,20)+'-'+s.slice(20,32);}
+  function stats(){var d=db(),t=0,by=SCHOOLS.map(function(s){var c=d.base[s.code]+d.extra[s.code];t+=c;return {code:s.code,count:c};});return {total:t,bySchool:by,updatedAt:Date.now()};}
+  function teamOut(t){return {team_code:t.code,team_name:t.name,school:t.school,invite_url:base()+'/team.html',
+    members:t.members.map(function(a){var r=db().byAgent[a];return {agent:a,name:r?r.name:'Agent',captain:a===t.captain};}),lock_at:cfg.team_lock_at};}
+  function teamOf(agent){var T=db().teams;for(var k in T)if(T[k].members.indexOf(agent)>=0)return T[k];return null;}
+  function locked(){return qs.get('locked')==='1'||Date.now()>=Date.parse(cfg.team_lock_at);}
+  function who(tok){var e=db().tokens[tok];return e?db().regs[e]||(MOCK_ADMINS.indexOf(e)>=0?{admin:true,email:e}:null):null;}
+  function send(email){var d=db();d.sends[email]=(d.sends[email]||0)+1;return d.sends[email]<=3;}
+  function checkOtp(b,kind){
+    var d=db(),p=d.pend[b.pending_id];
+    if(!p)return no('OTP_EXPIRED','That code has expired. Ask for a new one.');
+    if(p.kind!==kind)return no('BAD_INPUT');
+    var otp=String(b.otp||'').replace(/\D/g,'');
+    if(!/^\d{6}$/.test(otp))return no('BAD_INPUT','Enter the 6-digit code from the email.');
+    if(p.tries>=5)return no('TOO_MANY_TRIES');
+    if(otp==='000000')return no('OTP_EXPIRED');
+    if(otp!==MOCK_CODE){p.tries++;if(p.tries>=5)return no('TOO_MANY_TRIES');var left=5-p.tries;return no('BAD_OTP',MSG.BAD_OTP+' '+left+(left===1?' try':' tries')+' left.');}
+    return null;
+  }
+  function mock(action,b){
+    var d=db(),e,r,t,me,err;
+    switch(action){
+    case 'phase':
+      if(cleanSource(b.s))d.scans.push(cleanSource(b.s));
+      var s=stats();
+      return ok({phase:d.phase,serverNow:Date.now(),reveal_at:cfg.reveal_at,drop_from:cfg.drop_from,drop_to:cfg.drop_to,finale_at:cfg.finale_at,total:s.total,bySchool:s.bySchool,announce:d.announce});
+    case 'stats':return ok(stats());
+    case 'verify_cert':return ok({valid:false});
+    case 'notify':
+      if(String(b.hp||'').trim())return ok({ok:true});
+      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?err.msg:null);
+      d.notify[cleanEmail(b.email)]=1;return ok({ok:true});
+    case 'register_start':
+      if(String(b.hp||'').trim())return ok({pending_id:rid(),email_masked:maskEmail(cleanEmail(b.email)||'agent@sgtuniversity.org')});
+      if(d.phase!=='register'&&d.phase!=='drop')return no('PHASE_CLOSED',d.phase==='tease'?'Registration opens at the Reveal. Check the home page for the date.':'Registration is closed now.');
+      if(checkName(b.name))return no('BAD_INPUT','Please type your name as it appears on your ID, in letters only.');
+      if(checkEnrol(b.enrol))return no('BAD_INPUT','Please check your enrolment number. It has 4 to 20 letters or digits.');
+      if(YEARS.indexOf(b.year)<0)return no('BAD_INPUT','Please choose your year of study.');
+      if(!school(b.school))return no('BAD_INPUT','Please choose your school.');
+      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      e=cleanEmail(b.email);
+      if(/^busy@/.test(e))return no('RATE_LIMITED');
+      if(/^down@/.test(e))return no('SERVER_BUSY');
+      if(/^taken@/.test(e)||d.regs[e])return no('ALREADY_REGISTERED');
+      for(var k in d.regs)if(d.regs[k].enrol===cleanEnrol(b.enrol))return no('ALREADY_REGISTERED');
+      if(!send(e))return no('RATE_LIMITED');
+      r=rid();d.pend[r]={kind:'reg',tries:0,data:{name:cleanName(b.name),enrol:cleanEnrol(b.enrol),year:b.year,school:b.school,email:e,source:cleanSource(b.source)||'direct'}};
+      return ok({pending_id:r,email_masked:maskEmail(e)});
+    case 'register_verify':
+      var c=b.consents||{};
+      if(c.A!==true||c.B!==true)return no('BAD_INPUT','Tick boxes A and B to take part. Boxes C and D are your choice.');
+      err=checkOtp(b,'reg');if(err)return err;
+      var p=d.pend[b.pending_id].data;delete d.pend[b.pending_id];
+      if(d.regs[p.email])return no('ALREADY_REGISTERED');
+      d.seq[p.school]++;var n=String(d.seq[p.school]);while(n.length<3)n='0'+n;
+      p.agent=p.school+'-'+n;p.consents=c;d.regs[p.email]=p;d.byAgent[p.agent]=p;d.extra[p.school]++;
+      t=rid();d.tokens[t]=p.email;
+      var st=stats(),mine=0;st.bySchool.forEach(function(x){if(x.code===p.school)mine=x.count;});
+      return ok({token:t,agent:p.agent,name:p.name,school:p.school,total:st.total,schoolCount:mine,rank:1+st.bySchool.filter(function(x){return x.count>mine;}).length});
+    case 'resend_code':
+      var pr=d.pend[b.pending_id];if(!pr)return no('OTP_EXPIRED','That sign-in has expired. Go back and start again.');
+      e=pr.kind==='reg'?pr.data.email:pr.email;
+      if(!send(e))return no('RATE_LIMITED');
+      pr.tries=0;return ok({email_masked:maskEmail(e)});
+    case 'login_start':
+      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      e=cleanEmail(b.email);
+      if(/^busy@/.test(e))return no('RATE_LIMITED');
+      if(/^new\./.test(e))return no('BAD_INPUT','We could not find a case file for that email. Register first, it takes a minute.');
+      if(!d.regs[e]&&MOCK_ADMINS.indexOf(e)<0){   // mock convenience: any other university email logs in as a registered agent
+        var pre=(e.split('.')[0]||'').toUpperCase(),sc=school(pre)?pre:'LAW';
+        d.seq[sc]++;var nn=String(d.seq[sc]);while(nn.length<3)nn='0'+nn;
+        var local=e.split('@')[0].replace(/^[a-z]{3}\./,'').replace(/[^a-z]+/g,' ').trim()||'agent';
+        var nm=local.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
+        var rr={email:e,name:nm,enrol:'MOCK'+sc+nn,year:'2nd year',school:sc,agent:sc+'-'+nn};d.regs[e]=rr;d.byAgent[rr.agent]=rr;d.extra[sc]++;
+      }
+      if(!send(e))return no('RATE_LIMITED');
+      r=rid();d.pend[r]={kind:'login',tries:0,email:e};
+      return ok({pending_id:r,email_masked:maskEmail(e)});
+    case 'login_verify':
+      err=checkOtp(b,'login');if(err)return err;
+      e=d.pend[b.pending_id].email;delete d.pend[b.pending_id];
+      t=rid();d.tokens[t]=e;
+      if(!d.regs[e])return ok({token:t,agent:null,name:'Organiser',school:null,team:null,admin:true});
+      r=d.regs[e];var tm=teamOf(r.agent);
+      var out={token:t,agent:r.agent,name:r.name,school:r.school,team:tm?teamOut(tm):null};
+      if(MOCK_ADMINS.indexOf(e)>=0)out.admin=true;
+      return ok(out);
+    case 'team_create':case 'team_join':case 'team_status':case 'team_leave':
+      me=who(b.token);if(!me||me.admin&&!me.agent)return no('NOT_LOGGED_IN');
+      if(action==='team_status'){t=teamOf(me.agent);return ok(t?teamOut(t):{team:null,lock_at:cfg.team_lock_at});}
+      if(locked())return no('TEAM_LOCKED');
+      if(action==='team_leave'){
+        t=teamOf(me.agent);
+        if(t){t.members=t.members.filter(function(a){return a!==me.agent;});
+          if(!t.members.length)delete d.teams[t.code];else if(t.captain===me.agent)t.captain=t.members[0];}
+        return ok({team:null,lock_at:cfg.team_lock_at});
+      }
+      if(action==='team_create'){
+        var nmx=String(b.team_name||'').replace(/\s+/g,' ').trim(),pb=teamNameProblem(nmx);
+        if(pb)return no('BAD_INPUT',pb);
+        t=teamOf(me.agent);if(t)return no('BAD_INPUT','You are already in team "'+t.name+'". Leave it first to start a new one.');
+        for(var k2 in d.teams)if(d.teams[k2].name.toLowerCase()===nmx.toLowerCase())return no('BAD_INPUT','Another team already uses that name. Try a different one.');
+        var A='ABCDFGHJKLMNPQRSTUVWXYZ',B2=A+'23456789',code;
+        do{code=A.charAt((Math.random()*A.length)|0);for(var i=0;i<5;i++)code+=B2.charAt((Math.random()*B2.length)|0);}while(d.teams[code]);
+        t=d.teams[code]={code:code,name:nmx,school:me.school,members:[me.agent],captain:me.agent};
+        return ok(teamOut(t));
+      }
+      var jc=String(b.team_code||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+      if(!/^[A-Z0-9]{6}$/.test(jc))return no('TEAM_NOT_FOUND','Team codes have 6 letters and numbers. Check it and try again.');
+      t=d.teams[jc];if(!t)return no('TEAM_NOT_FOUND');
+      if(t.members.indexOf(me.agent)>=0)return ok(teamOut(t));
+      var mine2=teamOf(me.agent);if(mine2)return no('BAD_INPUT','You are already in team "'+mine2.name+'". Leave it first to join another.');
+      if(t.school!==me.school)return no('TEAM_OTHER_SCHOOL');
+      if(t.members.length>=3)return no('TEAM_FULL');
+      t.members.push(me.agent);return ok(teamOut(t));
+    case 'admin_set_phase':case 'admin_summary':case 'admin_export':case 'admin_announce':
+      me=who(b.token);
+      if(b.admin_key!==MOCK_ADMIN_KEY||!me||MOCK_ADMINS.indexOf(me.email)<0)return no('NOT_LOGGED_IN','Admin access only. Check the admin key and log in with an organiser email.');
+      if(action==='admin_set_phase'){if(!/^(tease|register|drop|episodes|finale|after)$/.test(b.phase))return no('BAD_INPUT','Unknown phase.');d.phase=b.phase;return ok({phase:d.phase});}
+      if(action==='admin_announce'){var tx=String(b.text||'').replace(/\s+/g,' ').trim();if(tx.length>280)return no('BAD_INPUT','Keep the announcement under 280 characters.');d.announce=tx;return ok({announce:tx});}
+      if(action==='admin_export')return ok({name:'onecase_registrations_mock.csv',url:'https://drive.google.com/',rows:stats().total});
+      var s2=stats(),src=Object.keys(d.sources).map(function(k){return {source:k,registrations:d.sources[k][0],scans:d.sources[k][1]};});
+      d.scans.forEach(function(x){var f=src.filter(function(y){return y.source===x;})[0];if(f)f.scans++;else src.push({source:x,registrations:0,scans:1});});
+      var tc=0,tf=0;for(var k3 in d.teams){tc++;if(d.teams[k3].members.length===3)tf++;}
+      return ok({phase:d.phase,phases:['tease','register','drop','episodes','finale','after'],announce:d.announce,total:s2.total,bySchool:s2.bySchool,
+        bySource:src.sort(function(a,b3){return b3.registrations-a.registrations;}),byDay:d.byDay,teams:{total:tc+180,complete:tf+122},notify:412+Object.keys(d.notify).length,
+        pending:Object.keys(d.pend).length,mailQuota:1312,updatedAt:Date.now()});
+    }
+    return no('BAD_INPUT','Unknown action.');
+  }
+
+  /* ---------- shared page bits ---------- */
+  function showMockBanner(extra){
+    ready.then(function(){
+      var b=document.getElementById('mockBanner');if(!b||!isMock())return;
+      b.hidden=false;
+      if(extra){var x=document.getElementById('mockExtra');if(x)x.textContent=extra;}
+    });
+  }
+  function showAnnouncement(text){
+    var a=document.getElementById('announcement');if(!a)return;
+    a.textContent=text||'';a.hidden=!text;
+  }
+
+  return {cfg:cfg,SCHOOLS:SCHOOLS,YEARS:YEARS,MSG:MSG,qs:qs,ready:ready,isMock:isMock,base:base,api:api,
+    checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkEmail:checkEmail,cleanEmail:cleanEmail,
+    teamNameProblem:teamNameProblem,maskEmail:maskEmail,school:school,fmtDate:fmtDate,initials:initials,cleanSource:cleanSource,
+    wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
+})();
+
+/* ===== TEAM ROOM: login (email + code), create or join, evidence-board team view. Memory only. ===== */
+(function(){
+  'use strict';
+  var $=function(id){return document.getElementById(id);};
+  var HOME={href:'https://kpsingh.in/onecase/',text:'Case home'};
+  var st={token:'',me:null,team:null,pending:'',masked:'',busy:false,poll:0,seen:{}};
+  OC.showMockBanner();
+  OC.ready.then(function(){$('lockDate').textContent=OC.fmtDate(OC.cfg.team_lock_at,true);});
+
+  function show(id){
+    KP.swap(function(){['s-login','s-code','s-room'].forEach(function(s){$(s).hidden=s!==id;});window.scrollTo(0,0);});
+    $('live').textContent={'s-login':'Log in','s-code':'Enter your code','s-room':'Team room'}[id];
+  }
+  function focusLater(el){setTimeout(function(){try{el.focus({preventScroll:true});}catch(e){}},60);}
+  function busy(btn,on,text){
+    st.busy=on;btn.disabled=on;
+    if(on){btn.dataset.label=btn.textContent;btn.textContent=text||'Working…';btn.setAttribute('aria-busy','true');}
+    else{if(btn.dataset.label)btn.textContent=btn.dataset.label;btn.removeAttribute('aria-busy');}
+  }
+  function err(el,msg){el.textContent=msg||'';}
+
+  /* ---------- login ---------- */
+  $('fLogin').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var e=OC.checkEmail($('lEmail').value);err($('loginErr'),e?e.msg:'');if(e){$('lEmail').focus();return;}
+    var btn=$('loginBtn');busy(btn,true,'Sending your code…');
+    OC.api('login_start',{email:OC.cleanEmail($('lEmail').value)}).then(function(r){
+      busy(btn,false);
+      if(!r.success){err($('loginErr'),r.message);return;}
+      st.pending=r.data.pending_id;st.masked=r.data.email_masked;
+      $('maskedEmail').textContent=st.masked;$('otp').value='';err($('codeErr'),'');err($('codeOk'),'');
+      show('s-code');OC.resendTimer($('resendBtn'),30,'Resend code');focusLater($('otp'));
+    });
+  });
+  OC.wireOtp($('otp'),function(){err($('codeErr'),'');});
+  $('fCode').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var code=$('otp').value.replace(/\D/g,'');
+    if(code.length!==6){err($('codeErr'),'Enter all 6 digits of the code from the email.');$('otp').focus();return;}
+    var btn=$('verifyBtn');busy(btn,true,'Checking…');
+    OC.api('login_verify',{pending_id:st.pending,otp:code}).then(function(r){
+      busy(btn,false);
+      if(!r.success){
+        err($('codeOk'),'');err($('codeErr'),r.message);$('otp').value='';
+        if(r.code==='OTP_EXPIRED'||r.code==='TOO_MANY_TRIES'){clearInterval($('resendBtn')._t);$('resendBtn').disabled=false;$('resendBtn').textContent='Send a new code';}
+        focusLater($('otp'));return;
+      }
+      if(!r.data.agent){err($('codeErr'),'This email belongs to an organiser without a case file. Use the admin page instead.');return;}
+      enter(r.data);
+    });
+  });
+  $('resendBtn').addEventListener('click',function(){
+    var btn=this;if(st.busy)return;busy(btn,true,'Sending…');
+    OC.api('resend_code',{pending_id:st.pending}).then(function(r){
+      busy(btn,false);
+      if(r.success){err($('codeErr'),'');$('codeOk').textContent='A new code is on its way to '+r.data.email_masked+'.';OC.resendTimer(btn,30,'Resend code');}
+      else{err($('codeOk'),'');err($('codeErr'),r.message);}
+    });
+  });
+  $('changeEmail').addEventListener('click',function(){show('s-login');focusLater($('lEmail'));});
+
+  function enter(d){
+    st.token=d.token;st.me={agent:d.agent,name:d.name,school:d.school};st.seen={};
+    var s=OC.school(d.school)||{short:d.school,door:''};
+    $('whoAgent').textContent=d.agent;$('whoSchool').textContent=s.short+', '+s.door;
+    KP.setRoll(d.agent,'Agent');
+    render(d.team,true);
+    show('s-room');
+    setTimeout(function(){var h=st.team?$('h-team'):$('h-room');try{h.focus({preventScroll:true});}catch(e){}},60);
+  }
+  function logout(msg){
+    clearInterval(st.poll);st.token='';st.me=null;st.team=null;st.seen={};
+    KP.clearRoll(HOME);
+    ['teamName','joinCode','otp','lEmail'].forEach(function(id){$(id).value='';});
+    ['roomErr','createErr','joinErr','codeErr','copyMsg'].forEach(function(id){err($(id),'');});
+    err($('loginErr'),msg||'');
+    show('s-login');focusLater($('lEmail'));
+  }
+  $('logoutBtn').addEventListener('click',function(){logout('');});
+  function sessionGone(r){if(r.code==='NOT_LOGGED_IN'){logout(r.message);return true;}return false;}
+
+  /* ---------- no team: create / join ---------- */
+  $('teamName').addEventListener('input',function(){
+    var v=this.value,p=v.trim()?OC.teamNameProblem(v):'';
+    var h=$('nameHint');h.textContent=p||(v.trim()?'Looks good. Names are public on the leaderboard.':'Public on the leaderboard. 3 to 30 characters.');
+    h.classList.toggle('bad',!!p);
+  });
+  $('fCreate').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var name=$('teamName').value.replace(/\s+/g,' ').trim(),p=OC.teamNameProblem(name);
+    err($('createErr'),p);if(p){$('teamName').focus();return;}
+    var btn=$('createBtn');busy(btn,true,'Creating…');
+    OC.api('team_create',{token:st.token,team_name:name}).then(function(r){
+      busy(btn,false);
+      if(r.success){render(r.data);focusLater($('h-team'));return;}
+      if(!sessionGone(r))err($('createErr'),r.message);
+    });
+  });
+  $('joinCode').addEventListener('input',function(){var v=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,6);if(this.value!==v)this.value=v;err($('joinErr'),'');});
+  $('fJoin').addEventListener('submit',function(ev){
+    ev.preventDefault();if(st.busy)return;
+    var code=$('joinCode').value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+    if(code.length!==6){err($('joinErr'),'Team codes have 6 letters and numbers. Check it and try again.');$('joinCode').focus();return;}
+    var btn=$('joinBtn');busy(btn,true,'Joining…');
+    OC.api('team_join',{token:st.token,team_code:code}).then(function(r){
+      busy(btn,false);
+      if(r.success){render(r.data);focusLater($('h-team'));return;}
+      if(!sessionGone(r))err($('joinErr'),r.message);
+    });
+  });
+
+  /* ---------- team view ---------- */
+  function render(t,first){
+    if(t&&t.team===null)t=null;
+    st.team=t;err($('roomErr'),'');
+    if(t&&t.lock_at)$('lockDate').textContent=OC.fmtDate(t.lock_at,true);
+    $('noTeam').hidden=!!t;$('hasTeam').hidden=!t;
+    clearInterval(st.poll);
+    if(!t)return;
+    $('h-team').textContent=t.team_name;$('teamSchool').textContent=((OC.school(t.school)||{}).short||t.school).toUpperCase();
+    $('teamCode').textContent=t.team_code;
+    var n=t.members.length,stEl=$('teamStatus');
+    stEl.textContent=n>=3?'Team complete: 3 of 3 agents. You are ready for Episode 1.':n+' of 3 agents. '+(3-n===1?'One more to go.':'Two more to go.')+' Share the code below.';
+    stEl.classList.toggle('done',n>=3);
+    var ol=$('slots');ol.textContent='';
+    for(var i=0;i<3;i++){
+      var m=t.members[i],li=document.createElement('li');li.setAttribute('data-qa','team-slot');
+      var pin=document.createElement('span');pin.className='pin';pin.setAttribute('aria-hidden','true');li.appendChild(pin);
+      var ph=document.createElement('div');ph.className='photo';
+      var cap=document.createElement('p');cap.className='scap';
+      if(m){
+        li.className='slot filled';
+        if(!first&&!st.seen[m.agent]&&!KP.reduced())li.classList.add('new');
+        var sv=document.createElementNS('http://www.w3.org/2000/svg','svg');sv.setAttribute('viewBox','0 0 40 40');sv.setAttribute('aria-hidden','true');
+        var pa=document.createElementNS('http://www.w3.org/2000/svg','path');pa.setAttribute('d','M4 40 L24 0 L40 0 L40 24 Z');pa.setAttribute('fill','#ffb547');pa.setAttribute('opacity','.18');sv.appendChild(pa);ph.appendChild(sv);
+        var num=document.createElement('span');num.className='snum';num.textContent=m.agent;ph.appendChild(num);
+        var nm=document.createElement('span');nm.className='sname';nm.textContent=m.name+(st.me&&m.agent===st.me.agent?' (you)':'');cap.appendChild(nm);
+        if(m.captain){var b=document.createElement('span');b.className='cap-badge';b.textContent='CAPTAIN';cap.appendChild(b);}
+        li.setAttribute('aria-label','Agent '+m.agent+', '+m.name+(m.captain?', captain':''));
+      }else{
+        li.className='slot empty';
+        var q=document.createElement('span');q.className='q';q.setAttribute('aria-hidden','true');q.textContent='?';ph.appendChild(q);
+        cap.textContent='Waiting for agent '+(i+1);
+      }
+      li.appendChild(ph);li.appendChild(cap);ol.appendChild(li);
+    }
+    var fresh=t.members.some(function(m){return !st.seen[m.agent];});
+    t.members.forEach(function(m){st.seen[m.agent]=1;});
+    var board=$('board');
+    if(fresh&&!KP.reduced()){board.classList.remove('draw');void board.offsetWidth;board.classList.add('draw');}
+    var msg='Join my team "'+t.team_name+'" on One Case (The Neemgarh File). Team code: '+t.team_code+'\nJoin my team: '+OC.base()+'/team.html';
+    $('waShare').href='https://wa.me/?text='+encodeURIComponent(msg);
+    $('leaveBtn').hidden=false;
+    if(n<3)st.poll=setInterval(function(){if(!document.hidden)refresh(true);},20000);
+  }
+  function refresh(quiet){
+    if(!st.token)return;
+    var btn=$('refreshBtn');if(!quiet)busy(btn,true,'Checking…');
+    OC.api('team_status',{token:st.token}).then(function(r){
+      if(!quiet)busy(btn,false);
+      if(r.success){render(r.data.team_code?r.data:null);if(!quiet)$('copyMsg').textContent='Up to date.';return;}
+      if(!sessionGone(r)&&!quiet)err($('roomErr'),r.message);
+    });
+  }
+  $('refreshBtn').addEventListener('click',function(){refresh(false);});
+  $('copyBtn').addEventListener('click',function(){
+    var code=$('teamCode').textContent,btn=this;
+    function okMsg(){btn.textContent='Copied';$('copyMsg').textContent='Code '+code+' copied. Paste it to your teammates.';setTimeout(function(){btn.textContent='Copy team code';},2200);}
+    function fail(){$('copyMsg').textContent='Copy is blocked here. Your code is '+code+'.';}
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(code).then(okMsg,fail);else fail();}catch(e){fail();}
+  });
+  var dlg=$('leaveDlg');
+  $('leaveBtn').addEventListener('click',function(){try{dlg.showModal();}catch(e){dlg.setAttribute('open','');}});
+  $('leaveNo').addEventListener('click',function(){dlg.close();});
+  $('leaveYes').addEventListener('click',function(){
+    dlg.close();var btn=$('leaveBtn');busy(btn,true,'Leaving…');
+    OC.api('team_leave',{token:st.token}).then(function(r){
+      busy(btn,false);
+      if(r.success){st.seen={};render(null);focusLater($('h-room'));return;}
+      if(!sessionGone(r))err($('roomErr'),r.message);
+    });
+  });
+
+  OC.api('phase',{}).then(function(r){if(r.success)OC.showAnnouncement(r.data.announce);});
+})();
+
+</script>
+</body>
+</html>
