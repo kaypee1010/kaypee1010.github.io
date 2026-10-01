@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
-<meta name="description" content="Open your case file for One Case, The Neemgarh File: choose your school's door, verify your university email and get your agent number.">
+<meta name="description" content="Open your case file for One Case, The Neemgarh File: choose your school, verify your email with a 6-digit code and get your agent number.">
 <title>Register | One Case</title>
 <style>
 /* © 2026 Kamal Preet Singh. All rights reserved. */
@@ -215,41 +215,57 @@ dialog::backdrop{background:rgba(5,8,15,.7)}
 .progress-name{font-weight:600;text-align:right}
 .screen>h2{margin-top:0}
 
-/* doors */
-.doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px;margin:14px 0 0;padding:0;border:0;min-width:0}
-@media (min-width:620px){.doors{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.door{position:relative;display:flex;flex-direction:column;gap:3px;min-height:88px;padding:26px 12px 12px;border-radius:4px 10px 10px 10px;
-  background:var(--card);border:1.5px solid var(--line);cursor:pointer;
-  transition:transform var(--dur-1) var(--ease-out),border-color var(--dur-1) var(--ease-out),background-color var(--dur-1)}
-.door input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
-.door-code{position:absolute;top:-1px;left:-1.5px;padding:3px 10px 4px;font:400 .8rem/1 var(--font-type);letter-spacing:.14em;
-  background:var(--soft);color:var(--fg);border:1.5px solid var(--line);border-top:0;border-radius:0 0 8px 0}
-.door-name{font:600 1.02rem/1.15 var(--font-head);text-transform:uppercase;letter-spacing:.02em;overflow-wrap:anywhere}
-.door-room{font-size:.86rem;line-height:1.25;color:var(--muted)}
-.door-tick{position:absolute;top:6px;right:8px;font:400 .72rem/1 var(--font-type);letter-spacing:.1em;color:var(--hl);opacity:0;transform:scale(.6);
-  transition:opacity var(--dur-2),transform var(--dur-2) var(--ease-out)}
-.door.is-on{border-color:var(--hl);background:var(--soft);box-shadow:0 0 0 1.5px var(--hl) inset}
-.door.is-on .door-code{background:var(--accent);color:var(--accent-fg);border-color:var(--hl)}
-.door.is-on .door-tick{opacity:1;transform:none}
-.door:has(input:focus-visible){outline:2px solid var(--hl);outline-offset:3px}
-.door:active{transform:scale(.98)}
-@media (hover:hover){.door:hover{border-color:var(--hl)}}
-.door.from-poster{margin-bottom:4px}
-.stickybar{position:sticky;bottom:0;z-index:5;margin:16px calc(-1 * var(--pad)) 0;padding:12px var(--pad) calc(12px + var(--sab));
-  background:var(--nav-bg);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.stickybar{background:var(--bg)}}
-.stickybar .form-err{margin-bottom:10px}
+/* details: an intake sheet in the case file */
 .alt{margin:14px 0 0;text-align:center;color:var(--muted)}
 .alt .linkbtn{color:var(--fg)}
+.intake{position:relative;margin:40px 0 0;padding:26px 16px 16px;background:var(--card);border:1.5px solid var(--line);border-radius:2px 14px 14px 14px;
+  box-shadow:0 14px 30px -18px var(--shade)}
+@media (min-width:480px){.intake{padding:28px 22px 18px}}
+.intake::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0 31px,color-mix(in srgb,var(--line) 22%,transparent) 31px 32px);opacity:.55}
+.intake>*{position:relative}
+.intake-tab{position:absolute;top:-31px;left:-1.5px;margin:0;height:31px;padding:8px 14px 0;background:var(--card);
+  border:1.5px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;white-space:nowrap}
+.intake-tab::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:var(--card)}
+.intake-tab .tw{font-size:.8rem;letter-spacing:.16em;color:var(--hl)}
+.intake-stamp{position:absolute;top:-18px;right:10px;padding:3px 8px;font:400 .82rem/1 var(--font-type);letter-spacing:.14em;color:var(--red-text);
+  border:3px double var(--red-text);border-radius:5px;transform:rotate(-7deg);background:var(--card);filter:url(#stampRough);opacity:.92;pointer-events:none}
+.intake .field>label{display:flex;align-items:baseline;gap:8px}
+.fno{font:400 .78rem/1 var(--font-type);letter-spacing:.08em;color:var(--hl);padding:3px 5px;border:1px solid var(--line);border-radius:4px;flex:none;transform:translateY(-1px)}
+.intake .hint{font-size:.88rem}
+.intake input:not([type=checkbox]):not([type=radio]),.intake select{background:var(--field)}
+.intake input:focus,.intake select:focus{border-color:var(--hl);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--hl) 28%,transparent)}
+.intake #fEnrol{font-family:var(--font-type);letter-spacing:.08em;text-transform:uppercase}
+.intake #fEnrol::placeholder{text-transform:none}
+.intake .btn-block{margin-top:6px}
+.intake input[aria-invalid="true"],.intake select[aria-invalid="true"],.tel:has(input[aria-invalid="true"]) .tel-cc{border-color:var(--red-text)}
+.intake-foot{margin:12px 0 0;font-size:.84rem;color:var(--muted);text-align:center}
 
-/* details */
-.two{display:grid;gap:0 14px}
-@media (min-width:560px){.two{grid-template-columns:1fr 1fr}}
+/* the door line under the school dropdown keeps the door idea alive */
+.door-line{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin:2px 0 0;padding:9px 12px;min-height:44px;
+  border:1px dashed var(--line);border-radius:10px;background:var(--soft);font-size:.92rem;color:var(--muted)}
+.door-line .door-ico{width:16px;height:20px;flex:none;color:var(--muted)}
+.door-lab{font-family:var(--font-type);letter-spacing:.08em}
+.door-line strong{font-weight:400;font-style:italic;overflow-wrap:anywhere}
+.door-line.is-on{border-style:solid;border-color:color-mix(in srgb,var(--hl) 55%,var(--line));color:var(--fg)}
+.door-line.is-on .door-ico{color:var(--hl)}
+.door-line.is-on strong{font:600 1.05rem/1.15 var(--font-head);font-style:normal;text-transform:uppercase;letter-spacing:.03em;color:var(--hl)}
+.door-line.flip strong{animation:oc-door 460ms var(--ease-out) both}
+@keyframes oc-door{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* +91 prefix on the mobile field */
+.tel{display:flex;align-items:stretch;min-width:0}
+.tel-cc{display:flex;align-items:center;padding:0 12px;font:400 1rem/1 var(--font-type);letter-spacing:.06em;color:var(--fg);
+  background:var(--soft);border:1.5px solid var(--line);border-right:0;border-radius:12px 0 0 12px;flex:none}
+.tel input{border-radius:0 12px 12px 0 !important;min-width:0;flex:1 1 auto;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
 select{appearance:none;-webkit-appearance:none;background-image:none;padding-right:40px}
 .sel{position:relative}
 .sel::after{content:"";position:absolute;right:16px;top:50%;width:9px;height:9px;border-right:2px solid var(--fg);border-bottom:2px solid var(--fg);transform:translateY(-70%) rotate(45deg);pointer-events:none}
-.chosen{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--card)}
-.chosen .tw{color:var(--hl)}
+
+/* code: the spam hint gets its own line */
+.spam-note{margin:2px 0 14px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--soft);font-size:.92rem;text-align:left}
+.spam-note .tw{display:block;font-size:.76rem;letter-spacing:.14em;color:var(--hl);margin-bottom:2px}
 
 /* code */
 .code-box{text-align:center}
@@ -381,8 +397,9 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
 <main id="main" class="wrap" tabindex="-1">
   <div class="mock-banner" id="mockBanner" hidden><b>MOCK MODE, code: 123456</b> <span>Nothing is sent or saved.</span>
     <details><summary>Test inputs for this mock</summary><ul>
-      <li>taken@sgtuniversity.org: already registered</li><li>busy@sgtuniversity.org: too many requests</li>
-      <li>down@sgtuniversity.org: server busy</li><li>any @gmail.com: wrong domain</li>
+      <li>taken@...: already registered (any domain)</li><li>busy@...: too many requests</li>
+      <li>down@...: server busy</li><li>a@b (no dot): email not valid</li>
+      <li>mobile 0000000000: mobile not valid</li><li>registration number BAD000: registration number not valid</li>
       <li>code 000000: expired; any other code: wrong</li><li>add ?phase=tease to the address: registration closed</li></ul></details></div>
   <p class="notice" id="announcement" role="status" hidden></p>
 
@@ -393,66 +410,68 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
   </header>
 
   <div class="progress" id="progress">
-    <div class="progress-row"><span class="tw" id="stepLabel">STEP 1 OF 5</span><span class="progress-name" id="stepName">Choose your door</span></div>
-    <div class="meter" role="progressbar" aria-label="Registration progress" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="meter"><span id="meterBar" style="--p:.2"></span></div>
+    <div class="progress-row"><span class="tw" id="stepLabel">STEP 1 OF 4</span><span class="progress-name" id="stepName">Your details</span></div>
+    <div class="meter" role="progressbar" aria-label="Registration progress" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-valuetext="Step 1 of 4: Your details" id="meter"><span id="meterBar" style="--p:.25"></span></div>
   </div>
   <p class="sr-only" aria-live="polite" id="live"></p>
 
-  <!-- STEP 1: door -->
-  <section class="screen" id="s-door" aria-labelledby="h-door">
-    <h2 id="h-door" tabindex="-1">Choose your door</h2>
-    <p class="muted" id="doorIntro">One case, twenty doors. Pick your school; your team enters through the same door.</p>
-    <fieldset class="doors" id="doors"><legend class="sr-only">Your school</legend></fieldset>
-    <div class="stickybar">
-      <p class="form-err" id="doorErr" role="alert"></p>
-      <button class="btn btn-primary btn-block" type="button" id="doorNext" data-qa="door-next">Continue</button>
-    </div>
-    <p class="alt">Already registered? <button class="linkbtn" type="button" id="toLogin" data-qa="to-login">Log in</button></p>
-  </section>
-
-  <!-- STEP 2: details -->
-  <section class="screen" id="s-details" aria-labelledby="h-details" hidden>
+  <!-- STEP 1: details (school dropdown + agent details) -->
+  <section class="screen" id="s-details" aria-labelledby="h-details">
     <h2 id="h-details" tabindex="-1">Who is the agent?</h2>
-    <p class="chosen"><span class="tw">DOOR</span> <strong id="chosenDoor">School</strong> <button class="linkbtn" type="button" id="changeDoor">Change</button></p>
-    <form id="fDetails" novalidate>
+    <p class="muted" id="detailsIntro">One case, twenty doors. Your school decides your door; your team comes in through the same one.</p>
+    <form id="fDetails" class="intake" novalidate>
+      <p class="intake-tab" aria-hidden="true"><span class="tw">INTAKE &middot; FORM 0</span></p>
+      <span class="intake-stamp" aria-hidden="true">NEW AGENT</span>
       <p class="form-err" id="detailsErr" role="alert"></p>
       <div class="field">
-        <label for="fName">Full name</label>
+        <label for="fSchool"><span class="fno" aria-hidden="true">01</span>School</label>
+        <div class="sel"><select id="fSchool" name="school" data-qa="school" aria-describedby="doorLine eSchool" required><option value="">Choose your school</option></select></div>
+        <p class="door-line" id="doorLine" data-qa="door-line" aria-live="polite"><svg class="door-ico" viewBox="0 0 20 24" aria-hidden="true"><path d="M3 23V2.5L15 1v22M15 3h2.5v20M1 23h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="1.3" fill="currentColor"/></svg><span class="door-lab">Your door:</span> <strong id="doorName">pick a school to see it</strong></p>
+        <p class="field-err" id="eSchool"></p>
+      </div>
+      <div class="field">
+        <label for="fName"><span class="fno" aria-hidden="true">02</span>Full name</label>
         <input id="fName" name="name" data-qa="name" type="text" autocomplete="name" autocapitalize="words" maxlength="60" enterkeyhint="next" aria-describedby="eName" required>
         <p class="field-err" id="eName"></p>
       </div>
-      <div class="two">
-        <div class="field">
-          <label for="fEnrol">Enrolment number</label>
-          <input id="fEnrol" name="enrol" data-qa="enrol" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" enterkeyhint="next" aria-describedby="eEnrol" required>
-          <p class="field-err" id="eEnrol"></p>
-        </div>
-        <div class="field">
-          <label for="fYear">Year of study</label>
-          <div class="sel"><select id="fYear" name="year" data-qa="year" aria-describedby="eYear" required><option value="">Choose your year</option></select></div>
-          <p class="field-err" id="eYear"></p>
-        </div>
+      <div class="field">
+        <label for="fEnrol"><span class="fno" aria-hidden="true">03</span>Registration number</label>
+        <input id="fEnrol" name="enrol" data-qa="enrol" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="24" enterkeyhint="next" aria-describedby="hEnrol eEnrol" required>
+        <p class="hint" id="hEnrol">As on your university ID card.</p>
+        <p class="field-err" id="eEnrol"></p>
       </div>
       <div class="field">
-        <label for="fEmail">University email</label>
-        <input id="fEmail" name="email" data-qa="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send" aria-describedby="hEmail eEmail" required>
-        <p class="hint" id="hEmail">We send a 6-digit code here. It must end with @sgtuniversity.org or @sgtuniversity.ac.in.</p>
+        <label for="fPhone"><span class="fno" aria-hidden="true">04</span>Mobile number<span class="sr-only">, India, +91 is added for you</span></label>
+        <div class="tel"><span class="tel-cc" aria-hidden="true">+91</span><input id="fPhone" name="phone" data-qa="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="16" enterkeyhint="next" aria-describedby="hPhone ePhone" required></div>
+        <p class="hint" id="hPhone">We use it only to reach you about the event.</p>
+        <p class="field-err" id="ePhone"></p>
+      </div>
+      <div class="field">
+        <label for="fEmail"><span class="fno" aria-hidden="true">05</span>Email</label>
+        <input id="fEmail" name="email" data-qa="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="next" aria-describedby="hEmail eEmail" required>
+        <p class="hint" id="hEmail">Any email you check on this phone. We send a 6-digit code to it.</p>
         <p class="field-err" id="eEmail"></p>
+      </div>
+      <div class="field">
+        <label for="fYear"><span class="fno" aria-hidden="true">06</span>Year of study</label>
+        <div class="sel"><select id="fYear" name="year" data-qa="year" aria-describedby="eYear" required><option value="">Choose your year</option></select></div>
+        <p class="field-err" id="eYear"></p>
       </div>
       <div class="hp" aria-hidden="true"><label for="fWebsite">Leave this empty</label><input id="fWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <button class="btn btn-primary btn-block" type="submit" id="startBtn" data-qa="start">Send my code</button>
+      <p class="intake-foot">Your mobile number is never shown on any page, leaderboard or team list.</p>
     </form>
-    <p class="alt">Already registered? <button class="linkbtn" type="button" id="toLogin2">Log in</button></p>
+    <p class="alt">Already registered? <button class="linkbtn" type="button" id="toLogin" data-qa="to-login">Log in</button></p>
   </section>
 
   <!-- LOGIN (returning students) -->
   <section class="screen" id="s-login" aria-labelledby="h-login" hidden>
     <h2 id="h-login" tabindex="-1">Welcome back, Agent</h2>
-    <p class="muted">Type the university email you registered with. We send you a fresh code.</p>
+    <p class="muted">Type the email you registered with. We send you a fresh code.</p>
     <form id="fLogin" novalidate>
       <p class="form-err" id="loginErr" role="alert"></p>
       <div class="field">
-        <label for="lEmail">University email</label>
+        <label for="lEmail">Email</label>
         <input id="lEmail" data-qa="login-email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send" required>
       </div>
       <button class="btn btn-primary btn-block" type="submit" id="loginBtn" data-qa="login-start">Send me a code</button>
@@ -460,7 +479,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     <p class="alt">New here? <button class="linkbtn" type="button" id="toRegister">Open a case file</button></p>
   </section>
 
-  <!-- STEP 3: code -->
+  <!-- STEP 2: code -->
   <section class="screen code-box" id="s-code" aria-labelledby="h-code" hidden>
     <h2 id="h-code" tabindex="-1">Check your inbox</h2>
     <p class="lede">We sent a 6-digit code to <span class="masked" id="maskedEmail">your email</span>. It works for 10 minutes.</p>
@@ -470,8 +489,9 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
       <div class="field">
         <label for="otp" class="sr-only">6-digit code</label>
         <input id="otp" class="otp" data-qa="otp" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" enterkeyhint="done" placeholder="&middot;&middot;&middot;&middot;&middot;&middot;" aria-describedby="codeHint">
-        <p class="hint" id="codeHint">Paste or type the code. Not there? Check Spam or Promotions.</p>
+        <p class="hint" id="codeHint">Paste or type the code from the email.</p>
       </div>
+      <p class="spam-note" id="spamNote" data-qa="spam-note"><span class="tw">NO EMAIL?</span> Didn't get it? Check Spam/Promotions. Codes from One Case can land there, especially in Gmail.</p>
       <button class="btn btn-primary btn-block" type="submit" id="verifyBtn" data-qa="verify">Verify code</button>
     </form>
     <div class="code-actions">
@@ -480,7 +500,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     </div>
   </section>
 
-  <!-- STEP 4: consent -->
+  <!-- STEP 3: consent -->
   <section class="screen" id="s-consent" aria-labelledby="h-consent" hidden>
     <h2 id="h-consent" tabindex="-1">Your choices</h2>
     <p class="muted">Ticks A and B are needed to compete. C and D are your choice; they never change your scores.</p>
@@ -489,7 +509,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
       <label class="consent"><input type="checkbox" id="cA" data-qa="consent-a"><span class="consent-title">A. Recording for scoring <span class="tag tag-req">REQUIRED</span></span>
         <span class="consent-text">My Drop voice note, spoken arguments and finale pitch may be recorded, transcribed and rated by software and jurors, to score me and review appeals. Recordings with my name are deleted 12 months after the finale.</span></label>
       <label class="consent"><input type="checkbox" id="cB" data-qa="consent-b"><span class="consent-title">B. My written work <span class="tag tag-req">REQUIRED</span></span>
-        <span class="consent-text">My written answers, notes, reports, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as the championship record for 12 months, then deleted or anonymised.</span></label>
+        <span class="consent-text">My written answers, notes, reports, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as the championship record for 12 months, then deleted or anonymised. My mobile number and registration number are stored only to contact me about the event and check I am an eligible SGT student, and are kept for the same 12 months.</span></label>
       <label class="consent"><input type="checkbox" id="cC" data-qa="consent-c"><span class="consent-title">C. Research use <span class="tag tag-opt">OPTIONAL</span></span>
         <span class="consent-text">My voice note, transcript and writing may be used as anonymised samples in the convenor's research on English fluency. Kept up to 5 years. No published result will identify me.</span></label>
       <label class="consent"><input type="checkbox" id="cD" data-qa="consent-d"><span class="consent-title">D. Photos and video <span class="tag tag-opt">OPTIONAL</span></span>
@@ -499,7 +519,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     <button class="btn btn-primary btn-block" type="button" id="finishBtn" data-qa="finish">Open my case file</button>
   </section>
 
-  <!-- STEP 5: success -->
+  <!-- STEP 4: success -->
   <section class="screen" id="s-done" aria-labelledby="h-done" hidden>
     <div class="done-head">
       <p class="kicker" id="doneKicker">FILE OPENED</p>
@@ -553,7 +573,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
       <ol>
         <li>Find two teammates from your school. Teams are exactly 3.</li>
         <li>The Drop opens <strong id="dropDate">Mon 4 Jan</strong>: a 12-minute phone qualifier.</li>
-        <li>Watch your university inbox. Codes and reminders come from One Case.</li>
+        <li>Watch your inbox, and Spam/Promotions too. Codes and reminders come from One Case.</li>
       </ol>
     </div>
   </section>
@@ -569,7 +589,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
         <p class="form-ok" id="notifyOk" role="status"></p>
         <div class="field">
           <label for="nEmail">Tell me when it opens</label>
-          <input id="nEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="name@sgtuniversity.org">
+          <input id="nEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="Your email">
         </div>
         <div class="hp" aria-hidden="true"><label for="nWebsite">Leave this empty</label><input id="nWebsite" type="text" tabindex="-1" autocomplete="off"></div>
         <button class="btn btn-primary btn-block" type="submit" id="notifyBtn">Notify me</button>
@@ -587,7 +607,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     <p>One Case. Your School. Your Rules. is a student championship built on a fictional case, The Neemgarh File. You take a 12-minute phone qualifier (The Drop), then compete in teams through four episodes, ending in a stage finale. Some of this is recorded. This sheet is about those recordings and your written work.</p>
     <h3>2. What we collect and why</h3>
     <ul>
-      <li><strong>Registration details</strong> (name, university email, school, enrolment number, year): to register you, form teams, contact you and issue certificates. Needed.</li>
+      <li><strong>Registration details</strong> (name, university registration number, mobile number, email (university or personal), school, year): to register you, check you are a current SGT student, form teams, contact you about the event and issue certificates. Your mobile number is never shown publicly, on leaderboards or to other teams. Needed.</li>
       <li><strong>Your Drop answers and 120-word note</strong>: to score The Drop. Needed.</li>
       <li><strong>Your 60-second voice note</strong>: to score speaking. It is transcribed and rated by software; a human checks a sample. Needed.</li>
       <li><strong>Audio and video of spoken arguments, cross-examinations and the finale pitch</strong>: to score you, review appeals and give feedback. Needed.</li>
@@ -606,12 +626,12 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     </ul>
     <h3>4. Your choices</h3>
     <p><strong>Box A, recording for scoring (required).</strong> Your voice note, spoken arguments, cross-examinations and finale pitch may be recorded (audio and video), transcribed and rated by software and by human jurors, to score you and review any appeal. Identifiable recordings are deleted 12 months after the finale, unless you renew consent.</p>
-    <p><strong>Box B, written submissions (required).</strong> Your written answers, notes, reports, flaw lists, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as a record of the championship. Kept with your name for 12 months after the finale, then deleted or anonymised.</p>
+    <p><strong>Box B, written submissions (required).</strong> Your written answers, notes, reports, flaw lists, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as a record of the championship. Kept with your name for 12 months after the finale, then deleted or anonymised. Your mobile number and registration number are stored only to contact you about the event and to check you are an eligible SGT student, and follow the same 12 months.</p>
     <p><strong>Box C, research use (optional).</strong> The convenor is researching English fluency in university students under university ethics approval. If you agree, your voice note, its transcript, your 120-word note and your written submissions may be used as anonymised samples: your name, email, phone, team name and any identifying words are removed first. Results may be published; none will identify you. Kept up to 5 years. Your participation and scores are not affected by your choice.</p>
     <p><strong>Box D, photos and video (optional).</strong> Photos and video of you at venues and on stage may be used on SGT University's website, social media, newsletters, posters and highlight reel for this and future editions. You can ask for any photo or clip to be taken down at any time. Without box D we avoid featuring you, though wide shots of a public stage cannot fully exclude you.</p>
     <h3>5. Your rights</h3>
     <ul>
-      <li>See or correct your data: email the privacy helpdesk with your registered university email; reply within 15 working days.</li>
+      <li>See or correct your data: email the privacy helpdesk from the email address you registered with; reply within 15 working days.</li>
       <li>Withdraw box C: any time. Samples are anonymised 90 days after the finale; withdraw before then and nothing of yours enters the research set.</li>
       <li>Withdraw box D: name the photo, clip or post; taken down within 15 working days.</li>
       <li>Delete identifiable recordings and submissions (A and B): after the appeal period closes; deletion within 30 days. Scores and certificates stay as records.</li>
@@ -762,9 +782,8 @@ var OC=(function(){
   var cfg={
     base_url:'https://kpsingh.in/onecase', api_url:'',
     reveal_at:'2026-12-21T11:00:00+05:30', drop_from:'2027-01-04T09:00:00+05:30', drop_to:'2027-01-08T23:59:00+05:30',
-    finale_at:'2027-01-29T17:30:00+05:30', team_lock_at:'2027-01-12T12:00:00+05:30',
-    allowed_domains:['sgtuniversity.org','sgtuniversity.ac.in']
-  };
+    finale_at:'2027-01-29T17:30:00+05:30', team_lock_at:'2027-01-12T12:00:00+05:30'
+  };   /* Any email domain is accepted (API.md, 1 Oct 2026). The emailed code proves the student owns the address. */
   var SCHOOLS=[
     {code:'MED',name:'Faculty of Medicine & Health Sciences',short:'Medicine',door:'Grand Round'},
     {code:'DEN',name:'Faculty of Dental Sciences',short:'Dental',door:'Chairside Conference'},
@@ -790,8 +809,10 @@ var OC=(function(){
   var YEARS=['1st year','2nd year','3rd year','4th year','5th year','PG 1st year','PG 2nd year'];
   var GET_ACTIONS={phase:1,stats:1,verify_cert:1};
   var MSG={
-    BAD_EMAIL_DOMAIN:'Please use your SGT University email address. Personal email addresses cannot be used.',
-    ALREADY_REGISTERED:'This email or enrolment number already has a case file. Use "Log in" instead.',
+    BAD_EMAIL:'That email address does not look right. Check it and try again.',
+    BAD_PHONE:'Check your mobile number. It needs 10 digits and starts with 6, 7, 8 or 9.',
+    BAD_ENROL:'Check your registration number. It has 6 to 20 letters or digits, as on your university ID card.',
+    ALREADY_REGISTERED:'This email or registration number already has a case file. Use "Log in" instead.',
     BAD_OTP:'That code does not match. Check the latest email and try again.',
     OTP_EXPIRED:'That code has expired. Ask for a new one and use it within 10 minutes.',
     TOO_MANY_TRIES:'Too many wrong codes. Ask for a new code and try again.',
@@ -850,14 +871,26 @@ var OC=(function(){
     if(!v)return 'Type your name.';
     if(v.length<2||v.length>60||!/^[\p{L}\p{M} .'-]+$/u.test(v)||!/\p{L}/u.test(v))return 'Use letters only, as on your ID card (2 to 60 characters).';
     return '';}
-  function cleanEnrol(v){return String(v||'').toUpperCase().replace(/\s+/g,'');}
-  function checkEnrol(v){v=cleanEnrol(v);if(!v)return 'Type your enrolment number.';
-    return /^[A-Z0-9/-]{4,20}$/.test(v)?'':'Check your enrolment number. It has 4 to 20 letters or digits.';}
+  /* Registration number: 6 to 20 letters or digits, stored uppercase without spaces (dashes are dropped too). */
+  function cleanEnrol(v){return String(v||'').toUpperCase().replace(/[\s-]+/g,'');}
+  function checkEnrol(v){v=cleanEnrol(v);if(!v)return 'Type your registration number.';
+    return /^[A-Z0-9]{6,20}$/.test(v)?'':'Check your registration number. It has 6 to 20 letters or digits, as on your ID card.';}
+  /* Indian mobile: +91, 91 or 0 prefix allowed, spaces and dashes ignored. Returns +91XXXXXXXXXX, or '' when invalid. Same rule as Code.gs. */
+  function cleanPhone(v){
+    var s=String(v||'').trim();
+    if(!s||!/^\+?[\d\s().-]+$/.test(s))return '';
+    if(s.charAt(0)==='+'&&!/^\+\s*91/.test(s))return '';
+    var d=s.replace(/\D/g,'');
+    if(d.length===12&&d.slice(0,2)==='91')d=d.slice(2);else if(d.length===11&&d.charAt(0)==='0')d=d.slice(1);
+    return /^[6-9]\d{9}$/.test(d)?'+91'+d:'';
+  }
+  function checkPhone(v){if(!String(v||'').trim())return 'Type your mobile number.';
+    return cleanPhone(v)?'':'Check your mobile number. It needs 10 digits and starts with 6, 7, 8 or 9.';}
   function cleanEmail(v){return String(v||'').trim().toLowerCase();}
   function checkEmail(v){v=cleanEmail(v);
-    if(!v)return {code:'BAD_INPUT',msg:'Type your university email.'};
-    if(v.length>120||!/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(v))return {code:'BAD_INPUT',msg:'That email looks incomplete. It should look like name@'+cfg.allowed_domains[0]+'.'};
-    if(cfg.allowed_domains.indexOf(v.split('@')[1])<0)return {code:'BAD_EMAIL_DOMAIN',msg:'Use your university email (ending @'+cfg.allowed_domains.join(' or @')+'). Personal email addresses cannot be used.'};
+    if(!v)return {code:'BAD_EMAIL',msg:'Type your email address.'};
+    if(v.indexOf('@')<0)return {code:'BAD_EMAIL',msg:'Add the full address, with @ and the part after it.'};
+    if(v.length>120||!/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(v))return {code:'BAD_EMAIL',msg:'That email looks incomplete. It should look like name@gmail.com.'};
     return null;}
   var BLOCK_SUBSTR=['fuck','shit','bitch','porn','cunt','whore','slut','nigg','chutiya','chutia','madarchod','bhenchod','behenchod','bhosd','harami','kamina',
     'google','microsoft','amazon','tesla','adidas','samsung','cocacola','pepsi','facebook','instagram','whatsapp','youtube','netflix','openai','chatgpt',
@@ -924,7 +957,7 @@ var OC=(function(){
     SCHOOLS.forEach(function(s){M.seq[s.code]=baseCounts[s.code];M.extra[s.code]=0;});
     var d0=Date.parse('2026-12-21T12:00:00+05:30');
     [212,164,121,98,133,141,118].forEach(function(n,i){M.byDay.push({day:new Date(d0+i*864e5).toISOString().slice(0,10),count:n});});
-    function seed(email,name,code,agent){var r={email:email,name:name,enrol:'SEED'+agent.replace('-',''),year:'2nd year',school:code,agent:agent,seed:true};M.regs[email]=r;M.byAgent[agent]=r;}
+    function seed(email,name,code,agent){var r={email:email,name:name,enrol:'SEED'+agent.replace('-',''),phone:'+919800000000',year:'2nd year',school:code,agent:agent,seed:true};M.regs[email]=r;M.byAgent[agent]=r;}
     seed('riya.k@sgtuniversity.org','Riya Kapoor','LAW','LAW-011');seed('aman.s@sgtuniversity.org','Aman Sethi','LAW','LAW-012');
     seed('kabir.m@sgtuniversity.org','Kabir Malik','LAW','LAW-013');seed('neha.d@sgtuniversity.org','Neha Dutt','MED','MED-021');
     M.teams.FULLQ3={code:'FULLQ3',name:'Moot Point',school:'LAW',members:['LAW-011','LAW-012','LAW-013'],captain:'LAW-011'};
@@ -932,6 +965,8 @@ var OC=(function(){
     return M;
   }
   function ok(d){return {success:true,data:d};}
+  /* Same rule as Code.gs: a registration number looks unusual when fewer than half of its characters are digits. */
+  function enrolUnusual(v){v=String(v||'');var n=v.replace(/\D/g,'').length;return n*2<v.length;}
   function no(code,msg){return {success:false,code:code,message:msg||MSG[code]};}
   function rid(){var s='',h='0123456789abcdef';for(var i=0;i<32;i++)s+=h.charAt((Math.random()*16)|0);return s.slice(0,8)+'-'+s.slice(8,12)+'-4'+s.slice(13,16)+'-a'+s.slice(17,20)+'-'+s.slice(20,32);}
   function stats(){var d=db(),t=0,by=SCHOOLS.map(function(s){var c=d.base[s.code]+d.extra[s.code];t+=c;return {code:s.code,count:c};});return {total:t,bySchool:by,updatedAt:Date.now()};}
@@ -963,23 +998,24 @@ var OC=(function(){
     case 'verify_cert':return ok({valid:false});
     case 'notify':
       if(String(b.hp||'').trim())return ok({ok:true});
-      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?err.msg:null);
+      if(checkEmail(b.email))return no('BAD_EMAIL');
       d.notify[cleanEmail(b.email)]=1;return ok({ok:true});
     case 'register_start':
-      if(String(b.hp||'').trim())return ok({pending_id:rid(),email_masked:maskEmail(cleanEmail(b.email)||'agent@sgtuniversity.org')});
+      if(String(b.hp||'').trim())return ok({pending_id:rid(),email_masked:maskEmail(cleanEmail(b.email))});
       if(d.phase!=='register'&&d.phase!=='drop')return no('PHASE_CLOSED',d.phase==='tease'?'Registration opens at the Reveal. Check the home page for the date.':'Registration is closed now.');
       if(checkName(b.name))return no('BAD_INPUT','Please type your name as it appears on your ID, in letters only.');
-      if(checkEnrol(b.enrol))return no('BAD_INPUT','Please check your enrolment number. It has 4 to 20 letters or digits.');
+      if(checkEnrol(b.enrol)||cleanEnrol(b.enrol)==='BAD000')return no('BAD_ENROL');   /* QA trigger: BAD000 */
+      if(!cleanPhone(b.phone)||String(b.phone).replace(/\D/g,'')==='0000000000')return no('BAD_PHONE');   /* QA trigger: 0000000000 */
       if(YEARS.indexOf(b.year)<0)return no('BAD_INPUT','Please choose your year of study.');
       if(!school(b.school))return no('BAD_INPUT','Please choose your school.');
-      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      if(checkEmail(b.email))return no('BAD_EMAIL');   /* QA trigger: a@b (no dot) */
       e=cleanEmail(b.email);
       if(/^busy@/.test(e))return no('RATE_LIMITED');
       if(/^down@/.test(e))return no('SERVER_BUSY');
       if(/^taken@/.test(e)||d.regs[e])return no('ALREADY_REGISTERED');
       for(var k in d.regs)if(d.regs[k].enrol===cleanEnrol(b.enrol))return no('ALREADY_REGISTERED');
       if(!send(e))return no('RATE_LIMITED');
-      r=rid();d.pend[r]={kind:'reg',tries:0,data:{name:cleanName(b.name),enrol:cleanEnrol(b.enrol),year:b.year,school:b.school,email:e,source:cleanSource(b.source)||'direct'}};
+      r=rid();d.pend[r]={kind:'reg',tries:0,data:{name:cleanName(b.name),enrol:cleanEnrol(b.enrol),phone:cleanPhone(b.phone),year:b.year,school:b.school,email:e,source:cleanSource(b.source)||'direct'}};
       return ok({pending_id:r,email_masked:maskEmail(e)});
     case 'register_verify':
       var c=b.consents||{};
@@ -998,16 +1034,16 @@ var OC=(function(){
       if(!send(e))return no('RATE_LIMITED');
       pr.tries=0;return ok({email_masked:maskEmail(e)});
     case 'login_start':
-      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      if(checkEmail(b.email))return no('BAD_EMAIL');
       e=cleanEmail(b.email);
       if(/^busy@/.test(e))return no('RATE_LIMITED');
       if(/^new\./.test(e))return no('BAD_INPUT','We could not find a case file for that email. Register first, it takes a minute.');
-      if(!d.regs[e]&&MOCK_ADMINS.indexOf(e)<0){   // mock convenience: any other university email logs in as a registered agent
+      if(!d.regs[e]&&MOCK_ADMINS.indexOf(e)<0){   // mock convenience: any other email logs in as a registered agent
         var pre=(e.split('.')[0]||'').toUpperCase(),sc=school(pre)?pre:'LAW';
         d.seq[sc]++;var nn=String(d.seq[sc]);while(nn.length<3)nn='0'+nn;
         var local=e.split('@')[0].replace(/^[a-z]{3}\./,'').replace(/[^a-z]+/g,' ').trim()||'agent';
         var nm=local.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
-        var rr={email:e,name:nm,enrol:'MOCK'+sc+nn,year:'2nd year',school:sc,agent:sc+'-'+nn};d.regs[e]=rr;d.byAgent[rr.agent]=rr;d.extra[sc]++;
+        var rr={email:e,name:nm,enrol:'MOCK'+sc+nn,phone:'+919800000000',year:'2nd year',school:sc,agent:sc+'-'+nn};d.regs[e]=rr;d.byAgent[rr.agent]=rr;d.extra[sc]++;
       }
       if(!send(e))return no('RATE_LIMITED');
       r=rid();d.pend[r]={kind:'login',tries:0,email:e};
@@ -1060,7 +1096,7 @@ var OC=(function(){
       var tc=0,tf=0;for(var k3 in d.teams){tc++;if(d.teams[k3].members.length===3)tf++;}
       return ok({phase:d.phase,phases:['tease','register','drop','episodes','finale','after'],announce:d.announce,total:s2.total,bySchool:s2.bySchool,
         bySource:src.sort(function(a,b3){return b3.registrations-a.registrations;}),byDay:d.byDay,teams:{total:tc+180,complete:tf+122},notify:412+Object.keys(d.notify).length,
-        pending:Object.keys(d.pend).length,mailQuota:1312,updatedAt:Date.now()});
+        pending:Object.keys(d.pend).length,mailQuota:1312,enrol_unusual:3+Object.keys(d.regs).filter(function(k){return enrolUnusual(d.regs[k].enrol);}).length,updatedAt:Date.now()});
     }
     return no('BAD_INPUT','Unknown action.');
   }
@@ -1079,18 +1115,19 @@ var OC=(function(){
   }
 
   return {cfg:cfg,SCHOOLS:SCHOOLS,YEARS:YEARS,MSG:MSG,qs:qs,ready:ready,isMock:isMock,base:base,api:api,
-    checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkEmail:checkEmail,cleanEmail:cleanEmail,
+    checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkPhone:checkPhone,cleanPhone:cleanPhone,checkEmail:checkEmail,cleanEmail:cleanEmail,
     teamNameProblem:teamNameProblem,maskEmail:maskEmail,school:school,fmtDate:fmtDate,initials:initials,cleanSource:cleanSource,
     wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
 })();
 
 // © 2026 Kamal Preet Singh. All rights reserved.
-/* ===== REGISTER: 5-step flow (door, details, code, consent, success) + returning-student login ===== */
+/* ===== REGISTER: 4-step flow (details incl. school dropdown, code, consent, success) + returning-student login ===== */
 (function(){
   'use strict';
   var $=function(id){return document.getElementById(id);};
-  var STEPS={'s-door':[1,'Choose your door'],'s-details':[2,'Your details'],'s-code':[3,'Check your inbox'],'s-consent':[4,'Your choices'],'s-done':[5,'Case file open']};
-  var st={school:'',source:OC.cleanSource(OC.qs.get('s')),pending:'',masked:'',mode:'reg',otp:'',busy:false,installEvt:null};
+  var N=4;
+  var STEPS={'s-details':[1,'Your details'],'s-code':[2,'Check your email'],'s-consent':[3,'Consent'],'s-done':[4,'Case file open']};
+  var st={source:OC.cleanSource(OC.qs.get('s')),pending:'',masked:'',mode:'reg',otp:'',busy:false,installEvt:null};
   var preset=(OC.qs.get('school')||'').toUpperCase();
   if(!OC.school(preset))preset='';
 
@@ -1099,19 +1136,20 @@ var OC=(function(){
   /* ---------- screens ---------- */
   function show(id,focus){
     KP.swap(function(){
-      ['s-door','s-details','s-login','s-code','s-consent','s-done','s-closed'].forEach(function(s){$(s).hidden=s!==id;});
+      ['s-details','s-login','s-code','s-consent','s-done','s-closed'].forEach(function(s){$(s).hidden=s!==id;});
       var step=STEPS[id];
       var done=id==='s-done';
       var head=document.querySelector('.page-head');if(head)head.hidden=done;   /* payoff: the agent card is the hero */
-      $('progress').hidden=done||!step||(st.mode==='login'&&id!=='s-door');
+      $('progress').hidden=done||!step||st.mode==='login';
       if(step){
-        $('stepLabel').textContent='STEP '+step[0]+' OF 5';$('stepName').textContent=step[1];
-        $('meter').setAttribute('aria-valuenow',step[0]);$('meterBar').style.setProperty('--p',step[0]/5);
+        $('stepLabel').textContent='STEP '+step[0]+' OF '+N;$('stepName').textContent=step[1];
+        $('meter').setAttribute('aria-valuenow',step[0]);$('meter').setAttribute('aria-valuetext','Step '+step[0]+' of '+N+': '+step[1]);
+        $('meterBar').style.setProperty('--p',step[0]/N);
       }
       window.scrollTo(0,0);
     });
     setTimeout(function(){var h=$(id).querySelector('h2');if(h&&focus!==false)try{h.focus({preventScroll:true});}catch(e){}},30);
-    $('live').textContent=STEPS[id]?'Step '+STEPS[id][0]+' of 5: '+STEPS[id][1]:'';
+    $('live').textContent=STEPS[id]&&!(st.mode==='login')?'Step '+STEPS[id][0]+' of '+N+': '+STEPS[id][1]:'';
   }
   function busy(btn,on,text){
     st.busy=on;btn.disabled=on;
@@ -1120,68 +1158,67 @@ var OC=(function(){
   }
   function setErr(el,msg){el.textContent=msg||'';}
 
-  /* ---------- step 1: doors ---------- */
-  var list=OC.SCHOOLS.slice();
-  if(preset){list.sort(function(a,b){return (b.code===preset)-(a.code===preset);});}
-  var doors=$('doors');
-  list.forEach(function(s){
-    var l=document.createElement('label');l.className='door';l.setAttribute('data-qa','school-card');l.dataset.code=s.code;
-    var i=document.createElement('input');i.type='radio';i.name='school';i.value=s.code;
-    i.setAttribute('aria-label',s.short+', '+s.door);
-    var c=document.createElement('span');c.className='door-code';c.textContent=s.code;
-    var n=document.createElement('span');n.className='door-name';n.textContent=s.short;
-    var r=document.createElement('span');r.className='door-room';r.textContent=s.door;
-    var t=document.createElement('span');t.className='door-tick';t.setAttribute('aria-hidden','true');t.textContent='YOUR DOOR';
-    l.appendChild(i);l.appendChild(c);l.appendChild(n);l.appendChild(r);l.appendChild(t);
-    i.addEventListener('change',function(){pick(s.code);});
-    doors.appendChild(l);
+  /* ---------- step 1: details ---------- */
+  var F={school:$('fSchool'),name:$('fName'),enrol:$('fEnrol'),phone:$('fPhone'),email:$('fEmail'),year:$('fYear')};
+  var E={school:$('eSchool'),name:$('eName'),enrol:$('eEnrol'),phone:$('ePhone'),email:$('eEmail'),year:$('eYear')};
+  var ORDER=['school','name','enrol','phone','email','year'];
+  /* School dropdown: all 20 schools by short name (A to Z), value = school code. */
+  OC.SCHOOLS.slice().sort(function(a,b){return a.short.localeCompare(b.short,'en');}).forEach(function(s){
+    var o=document.createElement('option');o.value=s.code;o.textContent=s.short;F.school.appendChild(o);
   });
-  function pick(code){
-    st.school=code;var s=OC.school(code);
-    [].forEach.call(doors.querySelectorAll('.door'),function(d){var on=d.dataset.code===code;d.classList.toggle('is-on',on);d.querySelector('input').checked=on;});
-    $('doorNext').textContent='Continue: '+s.door;
-    setErr($('doorErr'),'');
+  OC.YEARS.forEach(function(y){var o=document.createElement('option');o.value=y;o.textContent=y;F.year.appendChild(o);});
+  function paintDoor(){
+    var s=OC.school(F.school.value),line=$('doorLine');
+    $('doorName').textContent=s?s.door:'pick a school to see it';
+    line.classList.toggle('is-on',!!s);
+    if(s){line.classList.remove('flip');void line.offsetWidth;line.classList.add('flip');}
   }
   if(preset){
-    pick(preset);
-    $('doorIntro').textContent='Your poster pointed to '+OC.school(preset).short+'. Not your school? Pick another door.';
+    F.school.value=preset;
+    $('detailsIntro').textContent='Your poster pointed to '+OC.school(preset).short+'. Not your school? Choose yours below.';
   }
-  $('doorNext').addEventListener('click',function(){
-    if(!st.school){setErr($('doorErr'),'Choose your school\'s door to continue.');return;}
-    var s=OC.school(st.school);$('chosenDoor').textContent=s.short+' · '+s.door;
-    st.mode='reg';show('s-details');
-  });
-  $('changeDoor').addEventListener('click',function(){show('s-door');});
+  paintDoor();
+  F.school.addEventListener('change',paintDoor);
 
-  /* ---------- step 2: details ---------- */
-  OC.YEARS.forEach(function(y){var o=document.createElement('option');o.value=y;o.textContent=y;$('fYear').appendChild(o);});
-  var F={name:$('fName'),enrol:$('fEnrol'),year:$('fYear'),email:$('fEmail')};
-  var E={name:$('eName'),enrol:$('eEnrol'),year:$('eYear'),email:$('eEmail')};
   function fieldErr(k,msg){setErr(E[k],msg);if(msg)F[k].setAttribute('aria-invalid','true');else F[k].removeAttribute('aria-invalid');}
-  F.email.addEventListener('blur',function(){
-    var v=F.email.value.trim();
-    if(v&&v.indexOf('@')<0)F.email.value=v+'@'+OC.cfg.allowed_domains[0];
-    if(F.email.value.trim()){var e=OC.checkEmail(F.email.value);if(e)fieldErr('email',e.msg);}
+  function check(k){
+    switch(k){
+      case 'school':return F.school.value?'':'Choose your school.';
+      case 'name':return OC.checkName(F.name.value);
+      case 'enrol':return OC.checkEnrol(F.enrol.value);
+      case 'phone':return OC.checkPhone(F.phone.value);
+      case 'email':return (OC.checkEmail(F.email.value)||{}).msg||'';
+      case 'year':return F.year.value?'':'Choose your year.';
+    }
+    return '';
+  }
+  /* Errors appear on blur (only for fields with something typed) but clear while typing, so a tap on the button never lands on a moving target. */
+  ORDER.forEach(function(k){
+    var sel=k==='school'||k==='year';
+    F[k].addEventListener(sel?'change':'input',function(){if(E[k].textContent)fieldErr(k,'');setErr($('detailsErr'),'');});
+    if(!sel)F[k].addEventListener('blur',function(){
+      if(k==='enrol'&&F.enrol.value)F.enrol.value=OC.cleanEnrol(F.enrol.value);
+      if(pressing)return;   /* the submit button is being pressed: submit validates everything, so do not move it now */
+      if(F[k].value.trim()){var m=check(k);if(m)fieldErr(k,m);}
+    });
   });
-  /* Errors appear on blur but only clear while typing, so a tap on the button never lands on a moving target. */
-  ['name','enrol','year','email'].forEach(function(k){F[k].addEventListener(k==='year'?'change':'input',function(){if(E[k].textContent)fieldErr(k,'');setErr($('detailsErr'),'');});});
-  ['name','enrol'].forEach(function(k){F[k].addEventListener('blur',function(){
-    var m=k==='name'?OC.checkName(F.name.value):OC.checkEnrol(F.enrol.value);
-    if(F[k].value&&m)fieldErr(k,m);});});
+  /* pointerdown comes before blur: remember a press on the submit button so a blur error cannot shift it mid-tap. */
+  var pressing=false;
+  $('startBtn').addEventListener('pointerdown',function(){pressing=true;setTimeout(function(){pressing=false;},700);});
+  var SERVER_FIELD={BAD_EMAIL:'email',BAD_PHONE:'phone',BAD_ENROL:'enrol'};
   $('fDetails').addEventListener('submit',function(ev){
     ev.preventDefault();if(st.busy)return;
     setErr($('detailsErr'),'');
-    var v=F.email.value.trim();if(v&&v.indexOf('@')<0)F.email.value=v+'@'+OC.cfg.allowed_domains[0];
-    var errs={name:OC.checkName(F.name.value),enrol:OC.checkEnrol(F.enrol.value),year:F.year.value?'':'Choose your year.',email:(OC.checkEmail(F.email.value)||{}).msg||''};
     var first=null;
-    Object.keys(errs).forEach(function(k){fieldErr(k,errs[k]);if(errs[k]&&!first)first=F[k];});
+    ORDER.forEach(function(k){var m=check(k);fieldErr(k,m);if(m&&!first)first=F[k];});
     if(first){first.focus();return;}
     var btn=$('startBtn');busy(btn,true,'Sending your code…');
-    OC.api('register_start',{name:OC.cleanName(F.name.value),enrol:OC.cleanEnrol(F.enrol.value),year:F.year.value,school:st.school,
-      email:OC.cleanEmail(F.email.value),source:st.source,hp:$('fWebsite').value}).then(function(r){
+    OC.api('register_start',{name:OC.cleanName(F.name.value),enrol:OC.cleanEnrol(F.enrol.value),phone:OC.cleanPhone(F.phone.value),
+      year:F.year.value,school:F.school.value,email:OC.cleanEmail(F.email.value),source:st.source,hp:$('fWebsite').value}).then(function(r){
       busy(btn,false);
       if(r.success){st.pending=r.data.pending_id;st.masked=r.data.email_masked;st.mode='reg';toCode();return;}
-      if(r.code==='BAD_EMAIL_DOMAIN'){fieldErr('email',r.message);F.email.focus();return;}
+      var k=SERVER_FIELD[r.code];
+      if(k){fieldErr(k,r.message);F[k].focus();return;}
       if(r.code==='PHASE_CLOSED'){closed(r.message);return;}
       setErr($('detailsErr'),r.message);
       if(r.code==='ALREADY_REGISTERED')$('detailsErr').appendChild(loginLink(OC.cleanEmail(F.email.value)));
@@ -1195,8 +1232,8 @@ var OC=(function(){
 
   /* ---------- login ---------- */
   function toLogin(){st.mode='login';if(F.email.value&&!$('lEmail').value)$('lEmail').value=F.email.value.trim();show('s-login');}
-  $('toLogin').addEventListener('click',toLogin);$('toLogin2').addEventListener('click',toLogin);
-  $('toRegister').addEventListener('click',function(){st.mode='reg';show('s-door');});
+  $('toLogin').addEventListener('click',toLogin);
+  $('toRegister').addEventListener('click',function(){st.mode='reg';show('s-details');});
   $('fLogin').addEventListener('submit',function(ev){
     ev.preventDefault();if(st.busy)return;
     var e=OC.checkEmail($('lEmail').value);setErr($('loginErr'),e?e.msg:'');if(e){$('lEmail').focus();return;}
@@ -1208,7 +1245,7 @@ var OC=(function(){
     });
   });
 
-  /* ---------- step 3: code ---------- */
+  /* ---------- step 2: code ---------- */
   function toCode(){
     $('maskedEmail').textContent=st.masked;$('otp').value='';setErr($('codeErr'),'');setErr($('codeOk'),'');
     $('verifyBtn').textContent=st.mode==='login'?'Log in':'Verify code';
@@ -1250,7 +1287,7 @@ var OC=(function(){
   });
   $('changeEmail').addEventListener('click',function(){show(st.mode==='login'?'s-login':'s-details');setTimeout(function(){(st.mode==='login'?$('lEmail'):F.email).focus();},60);});
 
-  /* ---------- step 4: consent ---------- */
+  /* ---------- step 3: consent ---------- */
   ['cA','cB'].forEach(function(id){$(id).addEventListener('change',function(){if($('cA').checked&&$('cB').checked)setErr($('consentErr'),'');});});
   $('finishBtn').addEventListener('click',function(){
     if(st.busy)return;
@@ -1271,7 +1308,7 @@ var OC=(function(){
   dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
   if(location.hash==='#consent-full')setTimeout(openConsent,300);
 
-  /* ---------- step 5: success ---------- */
+  /* ---------- step 4: success (no phone number anywhere on this screen) ---------- */
   function done(d,returning){
     var s=OC.school(d.school)||{short:d.school,door:'',name:d.school};
     $('acNum').textContent=d.agent;$('acName').textContent=d.name;$('acInit').textContent=OC.initials(d.name);
@@ -1359,7 +1396,7 @@ var OC=(function(){
     if(!r.success)return;
     OC.showAnnouncement(r.data.announce);
     var ph=r.data.phase;
-    if(ph==='tease'){closed('Registration opens at the Reveal: '+OC.fmtDate(r.data.reveal_at,true)+'. Leave your university email and we will tell you.');}
+    if(ph==='tease'){closed('Registration opens at the Reveal: '+OC.fmtDate(r.data.reveal_at,true)+'. Leave your email and we will tell you.');}
     else if(ph!=='register'&&ph!=='drop'){closed('Registration is closed for this season. Registered agents can still log in.');$('fNotify').hidden=true;
       var b=document.createElement('button');b.type='button';b.className='btn btn-primary';b.textContent='Log in';b.addEventListener('click',toLogin);$('s-closed').querySelector('.card').appendChild(b);}
   });

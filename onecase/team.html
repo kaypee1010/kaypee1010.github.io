@@ -271,6 +271,8 @@ dialog::backdrop{background:rgba(5,8,15,.7)}
 .codetag .hint{color:var(--ink-muted);margin-top:8px}
 .codetag .hint:empty{display:none}
 .team-actions{justify-content:space-between}
+.spam-note{margin:2px 0 14px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;background:var(--soft);font-size:.92rem;text-align:left}
+.spam-note .tw{display:block;font-size:.76rem;letter-spacing:.14em;color:var(--hl);margin-bottom:2px}
 /* © 2026 Kamal Preet Singh. All rights reserved. */
 
 /* ===== REDUCED MOTION (always last) ===== */
@@ -312,8 +314,8 @@ dialog::backdrop{background:rgba(5,8,15,.7)}
 <main id="main" class="wrap" tabindex="-1">
   <div class="mock-banner" id="mockBanner" hidden><b>MOCK MODE, code: 123456</b> <span>Nothing is sent or saved.</span>
     <details><summary>Test inputs for this mock</summary><ul>
-      <li>law.asha@sgtuniversity.org logs in as a Law agent; eng.kiran@ as Engineering (any 3-letter school code works)</li>
-      <li>new.someone@sgtuniversity.org: no case file yet</li>
+      <li>Any email domain works. law.asha@... logs in as a Law agent; eng.kiran@... as Engineering (any 3-letter school code works)</li>
+      <li>new.someone@...: no case file yet; a@b (no dot): email not valid</li>
       <li>team code FULLQ3: a full Law team; MEDQ7K: a Medicine team</li>
       <li>add ?locked=1 to the address: teams locked</li></ul></details></div>
   <p class="notice" id="announcement" role="status" hidden></p>
@@ -329,11 +331,11 @@ dialog::backdrop{background:rgba(5,8,15,.7)}
   <!-- LOGIN -->
   <section class="screen card" id="s-login" aria-labelledby="h-login">
     <h2 id="h-login" tabindex="-1">Log in, Agent</h2>
-    <p class="muted">Your team room opens with your university email. We send a 6-digit code; nothing is kept on this phone.</p>
+    <p class="muted">Your team room opens with the email you registered with. We send a 6-digit code; nothing is kept on this phone.</p>
     <form id="fLogin" novalidate>
       <p class="form-err" id="loginErr" role="alert"></p>
       <div class="field">
-        <label for="lEmail">University email</label>
+        <label for="lEmail">Email</label>
         <input id="lEmail" data-qa="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" enterkeyhint="send">
       </div>
       <button class="btn btn-primary btn-block" type="submit" id="loginBtn" data-qa="start">Send me a code</button>
@@ -352,6 +354,7 @@ dialog::backdrop{background:rgba(5,8,15,.7)}
         <label for="otp" class="sr-only">6-digit code</label>
         <input id="otp" class="otp" data-qa="otp" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" enterkeyhint="done" placeholder="&middot;&middot;&middot;&middot;&middot;&middot;">
       </div>
+      <p class="spam-note" data-qa="spam-note"><span class="tw">NO EMAIL?</span> Didn't get it? Check Spam/Promotions. Codes from One Case can land there, especially in Gmail.</p>
       <button class="btn btn-primary btn-block" type="submit" id="verifyBtn" data-qa="verify">Open the team room</button>
     </form>
     <div class="code-actions">
@@ -570,9 +573,8 @@ var OC=(function(){
   var cfg={
     base_url:'https://kpsingh.in/onecase', api_url:'',
     reveal_at:'2026-12-21T11:00:00+05:30', drop_from:'2027-01-04T09:00:00+05:30', drop_to:'2027-01-08T23:59:00+05:30',
-    finale_at:'2027-01-29T17:30:00+05:30', team_lock_at:'2027-01-12T12:00:00+05:30',
-    allowed_domains:['sgtuniversity.org','sgtuniversity.ac.in']
-  };
+    finale_at:'2027-01-29T17:30:00+05:30', team_lock_at:'2027-01-12T12:00:00+05:30'
+  };   /* Any email domain is accepted (API.md, 1 Oct 2026). The emailed code proves the student owns the address. */
   var SCHOOLS=[
     {code:'MED',name:'Faculty of Medicine & Health Sciences',short:'Medicine',door:'Grand Round'},
     {code:'DEN',name:'Faculty of Dental Sciences',short:'Dental',door:'Chairside Conference'},
@@ -598,8 +600,10 @@ var OC=(function(){
   var YEARS=['1st year','2nd year','3rd year','4th year','5th year','PG 1st year','PG 2nd year'];
   var GET_ACTIONS={phase:1,stats:1,verify_cert:1};
   var MSG={
-    BAD_EMAIL_DOMAIN:'Please use your SGT University email address. Personal email addresses cannot be used.',
-    ALREADY_REGISTERED:'This email or enrolment number already has a case file. Use "Log in" instead.',
+    BAD_EMAIL:'That email address does not look right. Check it and try again.',
+    BAD_PHONE:'Check your mobile number. It needs 10 digits and starts with 6, 7, 8 or 9.',
+    BAD_ENROL:'Check your registration number. It has 6 to 20 letters or digits, as on your university ID card.',
+    ALREADY_REGISTERED:'This email or registration number already has a case file. Use "Log in" instead.',
     BAD_OTP:'That code does not match. Check the latest email and try again.',
     OTP_EXPIRED:'That code has expired. Ask for a new one and use it within 10 minutes.',
     TOO_MANY_TRIES:'Too many wrong codes. Ask for a new code and try again.',
@@ -658,14 +662,26 @@ var OC=(function(){
     if(!v)return 'Type your name.';
     if(v.length<2||v.length>60||!/^[\p{L}\p{M} .'-]+$/u.test(v)||!/\p{L}/u.test(v))return 'Use letters only, as on your ID card (2 to 60 characters).';
     return '';}
-  function cleanEnrol(v){return String(v||'').toUpperCase().replace(/\s+/g,'');}
-  function checkEnrol(v){v=cleanEnrol(v);if(!v)return 'Type your enrolment number.';
-    return /^[A-Z0-9/-]{4,20}$/.test(v)?'':'Check your enrolment number. It has 4 to 20 letters or digits.';}
+  /* Registration number: 6 to 20 letters or digits, stored uppercase without spaces (dashes are dropped too). */
+  function cleanEnrol(v){return String(v||'').toUpperCase().replace(/[\s-]+/g,'');}
+  function checkEnrol(v){v=cleanEnrol(v);if(!v)return 'Type your registration number.';
+    return /^[A-Z0-9]{6,20}$/.test(v)?'':'Check your registration number. It has 6 to 20 letters or digits, as on your ID card.';}
+  /* Indian mobile: +91, 91 or 0 prefix allowed, spaces and dashes ignored. Returns +91XXXXXXXXXX, or '' when invalid. Same rule as Code.gs. */
+  function cleanPhone(v){
+    var s=String(v||'').trim();
+    if(!s||!/^\+?[\d\s().-]+$/.test(s))return '';
+    if(s.charAt(0)==='+'&&!/^\+\s*91/.test(s))return '';
+    var d=s.replace(/\D/g,'');
+    if(d.length===12&&d.slice(0,2)==='91')d=d.slice(2);else if(d.length===11&&d.charAt(0)==='0')d=d.slice(1);
+    return /^[6-9]\d{9}$/.test(d)?'+91'+d:'';
+  }
+  function checkPhone(v){if(!String(v||'').trim())return 'Type your mobile number.';
+    return cleanPhone(v)?'':'Check your mobile number. It needs 10 digits and starts with 6, 7, 8 or 9.';}
   function cleanEmail(v){return String(v||'').trim().toLowerCase();}
   function checkEmail(v){v=cleanEmail(v);
-    if(!v)return {code:'BAD_INPUT',msg:'Type your university email.'};
-    if(v.length>120||!/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(v))return {code:'BAD_INPUT',msg:'That email looks incomplete. It should look like name@'+cfg.allowed_domains[0]+'.'};
-    if(cfg.allowed_domains.indexOf(v.split('@')[1])<0)return {code:'BAD_EMAIL_DOMAIN',msg:'Use your university email (ending @'+cfg.allowed_domains.join(' or @')+'). Personal email addresses cannot be used.'};
+    if(!v)return {code:'BAD_EMAIL',msg:'Type your email address.'};
+    if(v.indexOf('@')<0)return {code:'BAD_EMAIL',msg:'Add the full address, with @ and the part after it.'};
+    if(v.length>120||!/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(v))return {code:'BAD_EMAIL',msg:'That email looks incomplete. It should look like name@gmail.com.'};
     return null;}
   var BLOCK_SUBSTR=['fuck','shit','bitch','porn','cunt','whore','slut','nigg','chutiya','chutia','madarchod','bhenchod','behenchod','bhosd','harami','kamina',
     'google','microsoft','amazon','tesla','adidas','samsung','cocacola','pepsi','facebook','instagram','whatsapp','youtube','netflix','openai','chatgpt',
@@ -732,7 +748,7 @@ var OC=(function(){
     SCHOOLS.forEach(function(s){M.seq[s.code]=baseCounts[s.code];M.extra[s.code]=0;});
     var d0=Date.parse('2026-12-21T12:00:00+05:30');
     [212,164,121,98,133,141,118].forEach(function(n,i){M.byDay.push({day:new Date(d0+i*864e5).toISOString().slice(0,10),count:n});});
-    function seed(email,name,code,agent){var r={email:email,name:name,enrol:'SEED'+agent.replace('-',''),year:'2nd year',school:code,agent:agent,seed:true};M.regs[email]=r;M.byAgent[agent]=r;}
+    function seed(email,name,code,agent){var r={email:email,name:name,enrol:'SEED'+agent.replace('-',''),phone:'+919800000000',year:'2nd year',school:code,agent:agent,seed:true};M.regs[email]=r;M.byAgent[agent]=r;}
     seed('riya.k@sgtuniversity.org','Riya Kapoor','LAW','LAW-011');seed('aman.s@sgtuniversity.org','Aman Sethi','LAW','LAW-012');
     seed('kabir.m@sgtuniversity.org','Kabir Malik','LAW','LAW-013');seed('neha.d@sgtuniversity.org','Neha Dutt','MED','MED-021');
     M.teams.FULLQ3={code:'FULLQ3',name:'Moot Point',school:'LAW',members:['LAW-011','LAW-012','LAW-013'],captain:'LAW-011'};
@@ -740,6 +756,8 @@ var OC=(function(){
     return M;
   }
   function ok(d){return {success:true,data:d};}
+  /* Same rule as Code.gs: a registration number looks unusual when fewer than half of its characters are digits. */
+  function enrolUnusual(v){v=String(v||'');var n=v.replace(/\D/g,'').length;return n*2<v.length;}
   function no(code,msg){return {success:false,code:code,message:msg||MSG[code]};}
   function rid(){var s='',h='0123456789abcdef';for(var i=0;i<32;i++)s+=h.charAt((Math.random()*16)|0);return s.slice(0,8)+'-'+s.slice(8,12)+'-4'+s.slice(13,16)+'-a'+s.slice(17,20)+'-'+s.slice(20,32);}
   function stats(){var d=db(),t=0,by=SCHOOLS.map(function(s){var c=d.base[s.code]+d.extra[s.code];t+=c;return {code:s.code,count:c};});return {total:t,bySchool:by,updatedAt:Date.now()};}
@@ -771,23 +789,24 @@ var OC=(function(){
     case 'verify_cert':return ok({valid:false});
     case 'notify':
       if(String(b.hp||'').trim())return ok({ok:true});
-      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?err.msg:null);
+      if(checkEmail(b.email))return no('BAD_EMAIL');
       d.notify[cleanEmail(b.email)]=1;return ok({ok:true});
     case 'register_start':
-      if(String(b.hp||'').trim())return ok({pending_id:rid(),email_masked:maskEmail(cleanEmail(b.email)||'agent@sgtuniversity.org')});
+      if(String(b.hp||'').trim())return ok({pending_id:rid(),email_masked:maskEmail(cleanEmail(b.email))});
       if(d.phase!=='register'&&d.phase!=='drop')return no('PHASE_CLOSED',d.phase==='tease'?'Registration opens at the Reveal. Check the home page for the date.':'Registration is closed now.');
       if(checkName(b.name))return no('BAD_INPUT','Please type your name as it appears on your ID, in letters only.');
-      if(checkEnrol(b.enrol))return no('BAD_INPUT','Please check your enrolment number. It has 4 to 20 letters or digits.');
+      if(checkEnrol(b.enrol)||cleanEnrol(b.enrol)==='BAD000')return no('BAD_ENROL');   /* QA trigger: BAD000 */
+      if(!cleanPhone(b.phone)||String(b.phone).replace(/\D/g,'')==='0000000000')return no('BAD_PHONE');   /* QA trigger: 0000000000 */
       if(YEARS.indexOf(b.year)<0)return no('BAD_INPUT','Please choose your year of study.');
       if(!school(b.school))return no('BAD_INPUT','Please choose your school.');
-      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      if(checkEmail(b.email))return no('BAD_EMAIL');   /* QA trigger: a@b (no dot) */
       e=cleanEmail(b.email);
       if(/^busy@/.test(e))return no('RATE_LIMITED');
       if(/^down@/.test(e))return no('SERVER_BUSY');
       if(/^taken@/.test(e)||d.regs[e])return no('ALREADY_REGISTERED');
       for(var k in d.regs)if(d.regs[k].enrol===cleanEnrol(b.enrol))return no('ALREADY_REGISTERED');
       if(!send(e))return no('RATE_LIMITED');
-      r=rid();d.pend[r]={kind:'reg',tries:0,data:{name:cleanName(b.name),enrol:cleanEnrol(b.enrol),year:b.year,school:b.school,email:e,source:cleanSource(b.source)||'direct'}};
+      r=rid();d.pend[r]={kind:'reg',tries:0,data:{name:cleanName(b.name),enrol:cleanEnrol(b.enrol),phone:cleanPhone(b.phone),year:b.year,school:b.school,email:e,source:cleanSource(b.source)||'direct'}};
       return ok({pending_id:r,email_masked:maskEmail(e)});
     case 'register_verify':
       var c=b.consents||{};
@@ -806,16 +825,16 @@ var OC=(function(){
       if(!send(e))return no('RATE_LIMITED');
       pr.tries=0;return ok({email_masked:maskEmail(e)});
     case 'login_start':
-      err=checkEmail(b.email);if(err)return no(err.code,err.code==='BAD_INPUT'?'Please check your email address. It looks incomplete.':null);
+      if(checkEmail(b.email))return no('BAD_EMAIL');
       e=cleanEmail(b.email);
       if(/^busy@/.test(e))return no('RATE_LIMITED');
       if(/^new\./.test(e))return no('BAD_INPUT','We could not find a case file for that email. Register first, it takes a minute.');
-      if(!d.regs[e]&&MOCK_ADMINS.indexOf(e)<0){   // mock convenience: any other university email logs in as a registered agent
+      if(!d.regs[e]&&MOCK_ADMINS.indexOf(e)<0){   // mock convenience: any other email logs in as a registered agent
         var pre=(e.split('.')[0]||'').toUpperCase(),sc=school(pre)?pre:'LAW';
         d.seq[sc]++;var nn=String(d.seq[sc]);while(nn.length<3)nn='0'+nn;
         var local=e.split('@')[0].replace(/^[a-z]{3}\./,'').replace(/[^a-z]+/g,' ').trim()||'agent';
         var nm=local.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
-        var rr={email:e,name:nm,enrol:'MOCK'+sc+nn,year:'2nd year',school:sc,agent:sc+'-'+nn};d.regs[e]=rr;d.byAgent[rr.agent]=rr;d.extra[sc]++;
+        var rr={email:e,name:nm,enrol:'MOCK'+sc+nn,phone:'+919800000000',year:'2nd year',school:sc,agent:sc+'-'+nn};d.regs[e]=rr;d.byAgent[rr.agent]=rr;d.extra[sc]++;
       }
       if(!send(e))return no('RATE_LIMITED');
       r=rid();d.pend[r]={kind:'login',tries:0,email:e};
@@ -868,7 +887,7 @@ var OC=(function(){
       var tc=0,tf=0;for(var k3 in d.teams){tc++;if(d.teams[k3].members.length===3)tf++;}
       return ok({phase:d.phase,phases:['tease','register','drop','episodes','finale','after'],announce:d.announce,total:s2.total,bySchool:s2.bySchool,
         bySource:src.sort(function(a,b3){return b3.registrations-a.registrations;}),byDay:d.byDay,teams:{total:tc+180,complete:tf+122},notify:412+Object.keys(d.notify).length,
-        pending:Object.keys(d.pend).length,mailQuota:1312,updatedAt:Date.now()});
+        pending:Object.keys(d.pend).length,mailQuota:1312,enrol_unusual:3+Object.keys(d.regs).filter(function(k){return enrolUnusual(d.regs[k].enrol);}).length,updatedAt:Date.now()});
     }
     return no('BAD_INPUT','Unknown action.');
   }
@@ -887,7 +906,7 @@ var OC=(function(){
   }
 
   return {cfg:cfg,SCHOOLS:SCHOOLS,YEARS:YEARS,MSG:MSG,qs:qs,ready:ready,isMock:isMock,base:base,api:api,
-    checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkEmail:checkEmail,cleanEmail:cleanEmail,
+    checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkPhone:checkPhone,cleanPhone:cleanPhone,checkEmail:checkEmail,cleanEmail:cleanEmail,
     teamNameProblem:teamNameProblem,maskEmail:maskEmail,school:school,fmtDate:fmtDate,initials:initials,cleanSource:cleanSource,
     wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
 })();

@@ -636,7 +636,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
 (function(){
   'use strict';
   var KP=window.KP;
-  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"email_domains":["sgtuniversity.org","sgtuniversity.ac.in"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"The Drop opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
+  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"The Drop opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
   var SCHOOLS=KP.SCHOOLS=[{"code":"MED","short":"Medicine","door":"Grand Round","n":1},{"code":"DEN","short":"Dental","door":"Chairside Conference","n":2},{"code":"NUR","short":"Nursing","door":"Care Conference","n":3},{"code":"AHS","short":"Allied Health","door":"Bench Report","n":4},{"code":"PHY","short":"Physiotherapy","door":"Clinical Reasoning Round","n":5},{"code":"PHA","short":"Pharmacy","door":"Pharmacovigilance Round","n":6},{"code":"AYU","short":"Ayurveda","door":"Nidan Sabha","n":7},{"code":"NYS","short":"Naturopathy & Yoga","door":"Swasthya Shivir","n":8},{"code":"AGR","short":"Agriculture","door":"Kisan Goshthi","n":9},{"code":"ENG","short":"Engineering","door":"Hackathon","n":10},{"code":"SCI","short":"Basic & Applied Sciences","door":"Journal Club","n":11},{"code":"LAW","short":"Law","door":"Moot Court","n":12},{"code":"COM","short":"Commerce & Management","door":"Case Method Boardroom","n":13},{"code":"GBS","short":"Global Business School","door":"Crisis Boardroom","n":14},{"code":"DES","short":"Design","door":"Design Charrette","n":15},{"code":"MEF","short":"Media & Film","door":"Editorial Room","n":16},{"code":"HSS","short":"Humanities & Social Sciences","door":"Field Notes","n":17},{"code":"BEH","short":"Behavioural Sciences","door":"Rumour Lab","n":18},{"code":"EDU","short":"Education","door":"Staff Room","n":19},{"code":"HTM","short":"Hotel & Tourism","door":"Kitchen Audit","n":20}];
   var q=new URLSearchParams(location.search);
   KP.q=q;
@@ -693,14 +693,14 @@ a{color:var(--accent-text);text-underline-offset:3px}
     },
     stats:function(){growStats();return {total:total(),bySchool:copyStats(),updatedAt:Date.now()};},
     notify:function(b){
-      if(!KP.okEmail(b.email))throw {code:'BAD_EMAIL_DOMAIN',message:'Use your SGT University email address.'};
+      if(!KP.okEmail(b.email))throw {code:'BAD_EMAIL',message:'That email address does not look right. Check it and try again.'};
       return {ok:true};
     }
   };
   KP.okEmail=function(e){
     e=String(e||'').trim().toLowerCase();
-    var m=/^[^\s@]+@([^\s@]+)$/.exec(e);if(!m)return false;
-    return (CFG.email_domains||[]).indexOf(m[1])>=0;
+    /* any domain (API.md, 1 Oct 2026); same pattern as the register page and Code.gs */
+    return e.length<=120&&/^[a-z0-9._%+-]{1,64}@([a-z0-9-]+\.)+[a-z]{2,}$/.test(e);
   };
 
   function withTimeout(p,ms){
@@ -1511,7 +1511,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
         </div>
       </div>
       <ol class="timeline" id="timeline">
-        <li data-k="reveal"><time>Mon 21 Dec, 11:00</time><b>Reveal. Registration opens</b><span>60 seconds, on your phone, with your university email.</span></li>
+        <li data-k="reveal"><time>Mon 21 Dec, 11:00</time><b>Reveal. Registration opens</b><span>60 seconds, on your phone, with any email you check.</span></li>
         <li data-k="drop"><time>Mon 4 to Fri 8 Jan</time><b>Episode 0: The Drop</b><span>12 minutes, solo, any time in the window.</span></li>
         <li data-k="teams"><time>Sat 9 to Tue 12 Jan</time><b>Form your team of 3</b><span>Same school. Invite your two by link.</span></li>
         <li data-k="ep1"><time>Wed 13 to Tue 19 Jan</time><b>Episode 1: Know Your Ground</b><span>Inside your school's door.</span></li>
@@ -1533,8 +1533,8 @@ a{color:var(--accent-text);text-underline-offset:3px}
       <details><summary>What is The Drop?</summary><p>A 12-minute qualifier on your phone: 5 reasoning questions, a 120-word note and a 60-second voice note. Take it any time from 4 to 8 January. You need it to join a team.</p></details>
       <details><summary>Can I use AI tools?</summary><p>Yes, where the rules allow it, and you declare it in a prompt ledger. Episode 3 rewards honest, careful use of AI.</p></details>
       <details><summary>Is Neemgarh a real place?</summary><p>No. The village, the company and the people are fictional. Do not contact real officials or companies about the case.</p></details>
-      <details><summary>Which email do I use?</summary><p>Your SGT University email. We send a 6-digit code there to check it is you. Personal email addresses are not accepted.</p></details>
-      <details id="faq-data"><summary>What data do you keep, and can I delete it?</summary><p>Your name, enrolment number, school, year, university email, your consent choices and the poster code you scanned. Nothing is stored on your phone. You can ask the organisers to delete your data at any time; the consent form explains how.</p></details>
+      <details><summary>Which email do I use?</summary><p>Any email you check on your phone: your SGT University email or a personal one such as Gmail. We send a 6-digit code there to check it is you. No code after a minute? Look in Spam or Promotions. You also give your university registration number and mobile number, so we can check you are an SGT student and reach you about the event.</p></details>
+      <details id="faq-data"><summary>What data do you keep, and can I delete it?</summary><p>Your name, university registration number, mobile number, school, year, email, your consent choices and the poster code you scanned. Your mobile number is never shown on any page, leaderboard or team list. Nothing is stored on your phone. You can ask the organisers to delete your data at any time; the consent form explains how.</p></details>
     </div>
   </section>
 
