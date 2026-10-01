@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- © 2026 Kamal Preet Singh. All rights reserved. -->
 <html lang="en" data-base="1.2.0" data-persist="off" data-page="onecase-register" data-theme="dark">
 <head>
 <meta name="robots" content="noindex,nofollow">
@@ -12,6 +13,7 @@
 <meta name="description" content="Open your case file for One Case, The Neemgarh File: choose your school's door, verify your university email and get your agent number.">
 <title>Register | One Case</title>
 <style>
+/* © 2026 Kamal Preet Singh. All rights reserved. */
 /* ===== 1. TOKENS (kp-html-base names; One Case brand values from brand/BRAND.md) ===== */
 :root{
   --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
@@ -203,6 +205,7 @@ dialog{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--c
 dialog::backdrop{background:rgba(5,8,15,.7)}
 .dlg-body{padding:20px;overflow:auto;max-height:calc(100dvh - 140px)}
 .dlg-foot{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;padding:12px 20px calc(12px + var(--sab));border-top:1px solid var(--line)}
+/* © 2026 Kamal Preet Singh. All rights reserved. */
 
 /* ===== REGISTER PAGE ===== */
 .page-head{margin:0 0 14px}
@@ -337,6 +340,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
   background:radial-gradient(closest-side,rgba(255,181,71,.22),rgba(255,181,71,0) 70%);opacity:0}
 .stage.play::before{animation:oc-glow 900ms 600ms var(--ease-out) both}
 @keyframes oc-glow{from{opacity:0;transform:translate(-50%,-50%) scale(.6)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+/* © 2026 Kamal Preet Singh. All rights reserved. */
 
 /* ===== REDUCED MOTION (always last) ===== */
 @media (prefers-reduced-motion:reduce){
@@ -373,6 +377,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
 </svg>
 <nav class="nav" aria-label="One Case"><div class="nav-brand"><svg class="nav-logo" role="img" aria-label="One Case torch mark"><use href="#torch"/></svg><div><div class="nav-name">One Case</div><div class="nav-sub">R&amp;D Cell &times; Center of AI</div></div></div><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">&#9728;&#65039;</button><a class="nav-cta" href="https://kpsingh.in/onecase/">Case home</a></nav>
 
+<!-- © 2026 Kamal Preet Singh. All rights reserved. -->
 <main id="main" class="wrap" tabindex="-1">
   <div class="mock-banner" id="mockBanner" hidden><b>MOCK MODE, code: 123456</b> <span>Nothing is sent or saved.</span>
     <details><summary>Test inputs for this mock</summary><ul>
@@ -631,6 +636,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
   </div>
 </footer>
 <script>
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== KP BASE JS 1.2.0 (event profile: memory-only store, no browser storage of any kind) ===== */
 (function(){
   'use strict';
@@ -747,6 +753,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
   };
 })();
 
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== ONE CASE CLIENT (config, API client per site/API.md, validators, mock server). Memory only. ===== */
 var OC=(function(){
   'use strict';
@@ -1077,6 +1084,7 @@ var OC=(function(){
     wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
 })();
 
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== REGISTER: 5-step flow (door, details, code, consent, success) + returning-student login ===== */
 (function(){
   'use strict';

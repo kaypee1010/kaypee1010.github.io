@@ -1,3 +1,4 @@
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* One Case service worker: caches the static shell only (HTML pages, icons, web fonts).
    It NEVER caches API calls: anything with ?action=, any POST, and any Apps Script host go straight to the network. */
 'use strict';

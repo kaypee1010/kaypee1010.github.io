@@ -1,3 +1,4 @@
+<!-- © 2026 Kamal Preet Singh. All rights reserved. -->
 <!DOCTYPE html>
 <html lang="en" class="no-js" data-base="1.2.0" data-persist="off" data-page="index" data-theme="dark">
 <head>
@@ -24,6 +25,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap"></noscript>
 <style>
+/* © 2026 Kamal Preet Singh. All rights reserved. */
 /* ===== 1. TOKENS (names fixed by kp-html-base; values from brand/BRAND.md) ===== */
 :root{
   --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
@@ -197,6 +199,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
   transition:opacity var(--dur-3) var(--ease-out) var(--d,0ms),transform var(--dur-3) var(--ease-out) var(--d,0ms)}
 [data-reveal].is-in{opacity:1;transform:none}
 [data-motion="paused"] *,[data-motion="paused"] *::before,[data-motion="paused"] *::after{animation-play-state:paused !important}
+/* © 2026 Kamal Preet Singh. All rights reserved. */
 /* ===== TORCH HERO (BRAND component 1). The hero is night in both themes. ===== */
 .hero{position:relative;isolation:isolate;display:flex;flex-direction:column;
   min-height:calc(100vh - var(--nav-h) - var(--sat));min-height:calc(100dvh - var(--nav-h) - var(--sat));
@@ -457,6 +460,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
 .band .head{color:var(--paper)}
 .band .btn-cta{background:var(--amber);color:var(--night)}
 @media (min-width:900px){.sec-2col{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:start}}
+/* © 2026 Kamal Preet Singh. All rights reserved. */
 /* ===== LOW-PERFORMANCE FALLBACKS (perf guard sets data-perf="low") ===== */
 [data-perf="low"] .torch{display:none !important}
 [data-perf="low"] .frag{visibility:visible !important;opacity:1 !important;animation:none !important}
@@ -510,6 +514,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
   <p id="live" class="sr-only" aria-live="polite"></p>
 </header>
 <script>
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== KP BASE JS (kp-html-base 1.2.0, event profile: memory-only store, no browser storage) ===== */
 (function(){
   'use strict';
@@ -626,6 +631,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
     if(cta)cta.remove();
   };
 })();
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== EVENT CONFIG + API (site/API.md). Built-in mock when api_url is empty or ?mock=1. ===== */
 (function(){
   'use strict';
@@ -745,6 +751,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
     }
   }catch(e){}
 })();
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== FX: sound (WebAudio, synthesised, off by default), typewriter labels, split-flap countdown ===== */
 (function(){
   'use strict';
@@ -884,6 +891,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
     return function(){clearInterval(timer);document.removeEventListener('visibilitychange',paint);};
   };
 })();
+// © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== TORCH REVEAL (BRAND component 1): one canvas mask over the inline SVG map.
    Static, fully lit map with every fragment visible under reduced motion or on low-performance phones. ===== */
 (function(){
