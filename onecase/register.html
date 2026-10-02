@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#0b1220" id="themeColor">
+<link rel="icon" href="icons/mark.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Special+Elite&display=swap">
@@ -30,7 +33,7 @@
   --font-head:"Oswald","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
   --manila:#e8d7a9; --manila-deep:#cdb57c; --ink:#221d14; --ink-muted:#5a4f3a; --stamp:#c8302f; --paper:#e9e4d4; --night:#0b1220;
   /* light = "daylight case file" */
-  --bg:#efe4c4; --card:#f8f1dc; --soft:#e6d8b3; --fg:#221d14; --muted:#5a4f3a;
+  --mark-lines:#5a4f3a; --bg:#efe4c4; --card:#f8f1dc; --soft:#e6d8b3; --fg:#221d14; --muted:#5a4f3a;
   --line:#b9a47a; --accent:#221d14; --accent-fg:#ffb547; --accent-2:#a8231f;
   --hl:#221d14; --red-text:#a8231f; --field:#fbf6e6; --shade:rgba(34,29,20,.18);
   --nav-bg:rgba(239,228,196,.88);
@@ -38,7 +41,7 @@
 /* dark = "night", layer 2 (system preference unless the user forced light) */
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+    --mark-lines:#e8d7a9; --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
     --line:#33456a; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#c8302f;
     --hl:#ffb547; --red-text:#ff6b5e; --field:#0e1729; --shade:rgba(0,0,0,.5);
     --nav-bg:rgba(11,18,32,.86);
@@ -46,7 +49,7 @@
 }
 /* dark, layer 3 (explicit toggle; night is the brand default). KEEP IDENTICAL to layer 2. */
 :root[data-theme="dark"]{
-  --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+  --mark-lines:#e8d7a9; --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
   --line:#33456a; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#c8302f;
   --hl:#ffb547; --red-text:#ff6b5e; --field:#0e1729; --shade:rgba(0,0,0,.5);
   --nav-bg:rgba(11,18,32,.86);
@@ -54,6 +57,8 @@
 
 /* ===== 2. RESET / BASE ===== */
 *,*::before,*::after{box-sizing:border-box}
+/* overflow-y:scroll keeps the scrollbar from appearing/disappearing as screens swap (Windows WebKit crashed on that during a view transition) */
+html{overflow-y:scroll}
 html{color-scheme:light dark;-webkit-text-size-adjust:100%;text-size-adjust:100%;
   scroll-padding-top:calc(var(--nav-h) + var(--sat) + 12px);scroll-behavior:smooth}
 :root[data-theme="light"]{color-scheme:light}
@@ -97,9 +102,14 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--red-te
 .nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;flex:none;
   border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);
   font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap}
-.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
+.theme-toggle,.snd-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
   font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
-@media (hover:hover){.theme-toggle:hover{background:var(--soft)}}
+/* sound toggle: icon only, same look as the theme toggle; speaker when on, speaker with a slash when muted */
+.snd-toggle{color:var(--fg);padding:0}
+.snd-toggle svg{width:24px;height:24px;flex:none}
+.snd-toggle .snd-off,.snd-toggle[aria-pressed="true"] .snd-on{display:none}
+.snd-toggle[aria-pressed="true"] .snd-off{display:block}
+@media (hover:hover){.theme-toggle:hover,.snd-toggle:hover{background:var(--soft)}}
 .nav-roll{cursor:default;background:var(--soft);color:var(--fg);border:1px solid var(--line);font-variant-numeric:tabular-nums;max-width:44vw;overflow:hidden;
   font-family:var(--font-type);font-weight:400;letter-spacing:.04em}
 @media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 10px;font-size:.78rem}.nav-roll-label{display:none}}
@@ -123,6 +133,7 @@ input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--red-te
 .tw{font-family:var(--font-type);letter-spacing:.06em}
 .kicker{font-family:var(--font-type);font-size:.9rem;letter-spacing:.1em;color:var(--muted);margin:0}
 .lede{color:var(--muted);margin:0 0 1rem}
+.mock-hint{font-size:.85rem;color:var(--muted);text-align:center;margin:2px 0 0}
 .mock-banner{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0 0 14px;padding:8px 12px;border:1.5px dashed var(--red-text);border-radius:10px;
   font-family:var(--font-type);font-size:.85rem;color:var(--fg);background:var(--card)}
 .mock-banner b{color:var(--red-text);font-weight:400}
@@ -214,6 +225,11 @@ dialog::backdrop{background:rgba(5,8,15,.7)}
 .progress-row .tw{color:var(--hl);font-size:.85rem;letter-spacing:.12em}
 .progress-name{font-weight:600;text-align:right}
 .screen>h2{margin-top:0}
+.details-intro{margin:0 0 12px;padding:2px 0 2px 12px;border-left:4px solid var(--intro-edge);font-weight:600;color:var(--fg);line-height:1.4}
+#posterNote{margin:0 0 12px}
+:root{--intro-edge:#b86a0c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--intro-edge:#ffb547}}
+:root[data-theme="dark"]{--intro-edge:#ffb547}
 
 /* details: an intake sheet in the case file */
 .alt{margin:14px 0 0;text-align:center;color:var(--muted)}
@@ -384,29 +400,26 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
       <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/>
     </filter>
   </defs>
-  <symbol id="torch" viewBox="0 0 40 40">
-    <circle cx="20" cy="20" r="19" fill="#0b1220" stroke="#ffb547" stroke-width="1.5"/>
-    <path d="M14.5 25.5 L28 8.5 A14 14 0 0 1 34.5 19 Z" fill="url(#beamGrad)"/>
-    <path d="M9 31 L15 25" stroke="#e9e4d4" stroke-width="4.5" stroke-linecap="round"/>
-    <circle cx="15.2" cy="24.8" r="2.4" fill="#ffb547"/>
+  <symbol id="mark" viewBox="0 0 120 120">
+    <path d="M60 14 A40 40 0 0 0 60 94" fill="none" stroke="#ffb547" stroke-width="12" stroke-linecap="round"/>
+    <path d="M60 14 A40 40 0 0 1 60 94" fill="none" stroke="#9fb3c8" stroke-width="12" stroke-linecap="round"/>
+    <g style="stroke:var(--mark-lines,#e8d7a9)" stroke-width="3" stroke-linecap="round"><path d="M36 42h18M34 53h20M36 64h16"/></g>
+    <path d="M67 38 79 48 69 60 81 70" fill="none" stroke="#9fb3c8" stroke-width="2.4" stroke-linejoin="round"/>
+    <g fill="#9fb3c8"><circle cx="67" cy="38" r="3.8"/><circle cx="79" cy="48" r="3.8"/><circle cx="69" cy="60" r="3.8"/><circle cx="81" cy="70" r="3.8"/></g>
+    <path d="M60 22 V86" stroke="#c8302f" stroke-width="2" stroke-dasharray="3 4" opacity=".9"/>
+    <path d="M88 82 106 104" stroke="#ffb547" stroke-width="13" stroke-linecap="round"/>
   </symbol>
 </svg>
-<nav class="nav" aria-label="One Case"><div class="nav-brand"><svg class="nav-logo" role="img" aria-label="One Case torch mark"><use href="#torch"/></svg><div><div class="nav-name">One Case</div><div class="nav-sub">R&amp;D Cell &times; Center of AI</div></div></div><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">&#9728;&#65039;</button><a class="nav-cta" href="https://kpsingh.in/onecase/">Case home</a></nav>
+<nav class="nav" aria-label="One Case"><div class="nav-brand"><svg class="nav-logo" role="img" aria-label="One Case logo"><use href="#mark"/></svg><div><div class="nav-name">One Case</div><div class="nav-sub">R&amp;D Cell &times; Center of AI</div></div></div><button class="snd-toggle" type="button" data-sound aria-pressed="false" aria-label="Mute sound"><svg class="snd-on" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 9.5H7l4.5-4v13L7 14.5H3.5z" fill="currentColor"/><path d="M15 9a4 4 0 0 1 0 6M17.6 6.4a7.6 7.6 0 0 1 0 11.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><svg class="snd-off" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><defs><mask id="sndCut"><rect width="24" height="24" fill="#fff"/><path d="M3 3.5l17.5 17.5" stroke="#000" stroke-width="5" stroke-linecap="round"/></mask></defs><path d="M3.5 9.5H7l4.5-4v13L7 14.5H3.5z" fill="currentColor" mask="url(#sndCut)"/><path d="M3 3.5l17.5 17.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">&#9728;&#65039;</button><a class="nav-cta" href="https://kpsingh.in/onecase/">Case home</a></nav>
 
 <!-- © 2026 Kamal Preet Singh. All rights reserved. -->
 <main id="main" class="wrap" tabindex="-1">
-  <div class="mock-banner" id="mockBanner" hidden><b>MOCK MODE, code: 123456</b> <span>Nothing is sent or saved.</span>
-    <details><summary>Test inputs for this mock</summary><ul>
-      <li>taken@...: already registered (any domain)</li><li>busy@...: too many requests</li>
-      <li>down@...: server busy</li><li>a@b (no dot): email not valid</li>
-      <li>mobile 0000000000: mobile not valid</li><li>registration number BAD000: registration number not valid</li>
-      <li>code 000000: expired; any other code: wrong</li><li>add ?phase=tease to the address: registration closed</li></ul></details></div>
   <p class="notice" id="announcement" role="status" hidden></p>
 
   <header class="page-head">
     <p class="kicker"><span class="type-once" style="--type-steps:28;--type-ms:800ms">CASE FILE 0 &middot; THE NEEMGARH FILE</span></p>
     <h1>Open your case file</h1>
-    <p class="lede" id="pageLede">Sixty seconds. Phone only. Your school has a door.</p>
+    <p class="lede" id="pageLede">Sixty seconds. Phone only. Each school has a door.</p>
   </header>
 
   <div class="progress" id="progress">
@@ -417,8 +430,9 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
 
   <!-- STEP 1: details (school dropdown + agent details) -->
   <section class="screen" id="s-details" aria-labelledby="h-details">
-    <h2 id="h-details" tabindex="-1">Who is the agent?</h2>
-    <p class="muted" id="detailsIntro">One case, twenty doors. Your school decides your door; your team comes in through the same one.</p>
+    <h2 id="h-details" tabindex="-1">Tell us who you are.</h2>
+    <p class="details-intro" id="detailsIntro">Your team of three must be from your own school.</p>
+    <p class="muted" id="posterNote" hidden></p>
     <form id="fDetails" class="intake" novalidate>
       <p class="intake-tab" aria-hidden="true"><span class="tw">INTAKE &middot; FORM 0</span></p>
       <span class="intake-stamp" aria-hidden="true">NEW AGENT</span>
@@ -490,6 +504,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
         <label for="otp" class="sr-only">6-digit code</label>
         <input id="otp" class="otp" data-qa="otp" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" enterkeyhint="done" placeholder="&middot;&middot;&middot;&middot;&middot;&middot;" aria-describedby="codeHint">
         <p class="hint" id="codeHint">Paste or type the code from the email.</p>
+        <p class="mock-hint" id="mockHint" data-qa="mock-hint" hidden>Preview: use code 123456</p>
       </div>
       <p class="spam-note" id="spamNote" data-qa="spam-note"><span class="tw">NO EMAIL?</span> Didn't get it? Check Spam/Promotions. Codes from One Case can land there, especially in Gmail.</p>
       <button class="btn btn-primary btn-block" type="submit" id="verifyBtn" data-qa="verify">Verify code</button>
@@ -507,7 +522,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     <p class="form-err" id="consentErr" role="alert"></p>
     <fieldset style="border:0;margin:0;padding:0;min-width:0"><legend class="sr-only">Consent</legend>
       <label class="consent"><input type="checkbox" id="cA" data-qa="consent-a"><span class="consent-title">A. Recording for scoring <span class="tag tag-req">REQUIRED</span></span>
-        <span class="consent-text">My Drop voice note, spoken arguments and finale pitch may be recorded, transcribed and rated by software and jurors, to score me and review appeals. Recordings with my name are deleted 12 months after the finale.</span></label>
+        <span class="consent-text">My Episode 0 voice note, spoken arguments and finale pitch may be recorded, transcribed and rated by software and jurors, to score me and review appeals. Recordings with my name are deleted 12 months after the finale.</span></label>
       <label class="consent"><input type="checkbox" id="cB" data-qa="consent-b"><span class="consent-title">B. My written work <span class="tag tag-req">REQUIRED</span></span>
         <span class="consent-text">My written answers, notes, reports, slides and prompt ledgers may be read and scored, checked for plagiarism and AI disclosure, and kept as the championship record for 12 months, then deleted or anonymised. My mobile number and registration number are stored only to contact me about the event and check I am an eligible SGT student, and are kept for the same 12 months.</span></label>
       <label class="consent"><input type="checkbox" id="cC" data-qa="consent-c"><span class="consent-title">C. Research use <span class="tag tag-opt">OPTIONAL</span></span>
@@ -572,7 +587,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
       <h3>What happens next</h3>
       <ol>
         <li>Find two teammates from your school. Teams are exactly 3.</li>
-        <li>The Drop opens <strong id="dropDate">Mon 4 Jan</strong>: a 12-minute phone qualifier.</li>
+        <li>Episode 0: Open the File opens <strong id="dropDate">Mon 4 Jan</strong>: a 12-minute phone qualifier.</li>
         <li>Watch your inbox, and Spam/Promotions too. Codes and reminders come from One Case.</li>
       </ol>
     </div>
@@ -604,11 +619,11 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     <h2 id="cfTitle">Consent form and information sheet</h2>
     <p>Organised by the R&amp;D Cell and the Center of AI, SGT University, Gurugram. Convenor and data contact: Kamal Preet Singh. This sheet follows the principles of the Digital Personal Data Protection Act, 2023: we tell you the purpose, collect only what we need, keep it only as long as needed, you can withdraw, and you have a named person to contact.</p>
     <h3>1. What this championship is</h3>
-    <p>One Case. Your School. Your Rules. is a student championship built on a fictional case, The Neemgarh File. You take a 12-minute phone qualifier (The Drop), then compete in teams through four episodes, ending in a stage finale. Some of this is recorded. This sheet is about those recordings and your written work.</p>
+    <p>One Case. Your School. Your Rules. is a student championship built on a fictional case, The Neemgarh File. You take a 12-minute phone qualifier (Episode 0: Open the File), then compete in teams through four episodes, ending in a stage finale. Some of this is recorded. This sheet is about those recordings and your written work.</p>
     <h3>2. What we collect and why</h3>
     <ul>
       <li><strong>Registration details</strong> (name, university registration number, mobile number, email (university or personal), school, year): to register you, check you are a current SGT student, form teams, contact you about the event and issue certificates. Your mobile number is never shown publicly, on leaderboards or to other teams. Needed.</li>
-      <li><strong>Your Drop answers and 120-word note</strong>: to score The Drop. Needed.</li>
+      <li><strong>Your Episode 0 answers and 120-word note</strong>: to score Episode 0. Needed.</li>
       <li><strong>Your 60-second voice note</strong>: to score speaking. It is transcribed and rated by software; a human checks a sample. Needed.</li>
       <li><strong>Audio and video of spoken arguments, cross-examinations and the finale pitch</strong>: to score you, review appeals and give feedback. Needed.</li>
       <li><strong>Written submissions and prompt ledgers</strong>: to score you and check integrity. Needed.</li>
@@ -641,7 +656,7 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     <h3>6. Security</h3>
     <p>Data is stored on the event platform and university systems with access limited to named people. Recordings are named by participant ID and team code wherever possible. We do not sell or share your data with anyone not named above. If a breach affects you, we tell you and the university within 72 hours.</p>
     <h3>7. Students under 18</h3>
-    <p>Your parent or guardian must also sign the form. Email a photo of the signed form to the privacy helpdesk before The Drop opens. Your registration is held until we receive it.</p>
+    <p>Your parent or guardian must also sign the form. Email a photo of the signed form to the privacy helpdesk before Episode 0 opens. Your registration is held until we receive it.</p>
     <p class="hint">The privacy helpdesk address is published on the event home page.</p>
   </div>
   <div class="dlg-foot"><button class="btn btn-primary" type="button" id="closeConsent">Close</button></div>
@@ -652,7 +667,6 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
   <div>
     <p><span class="tw">One Case. Your School. Your Rules.</span> The Neemgarh File is a fictional case.</p>
     <p>R&amp;D Cell &times; Center of AI, SGT University. Convenor: K.P. Singh, <a href="https://kpsingh.in" target="_blank" rel="noopener">kpsingh.in</a></p>
-    <p>Your data: we keep only what registration needs, never in your browser. To see, correct or delete it, follow Part 5 of the <a href="register.html#consent-full">consent form</a>.</p>
   </div>
 </footer>
 <script>
@@ -771,6 +785,230 @@ select{appearance:none;-webkit-appearance:none;background-image:none;padding-rig
     var cta=document.querySelector('.nav .nav-roll');if(!cta)return;
     var a=document.createElement('a');a.className='nav-cta';a.href=html.href;a.textContent=html.text;cta.replaceWith(a);
   };
+})();
+
+// © 2026 Kamal Preet Singh. All rights reserved.
+/* ===== SOUND (WebAudio, synthesised live, no audio files). Shared by the public pages (site_src/build.py)
+   and by register/team (qa/tools/build_pages.py).
+   - On by default. Browsers only allow audio after a gesture, so the AudioContext is created/resumed on the
+     first pointerdown, touchend, keydown or click anywhere (scroll is not a gesture). No "tap to enable" prompt.
+   - <html data-ambient> pages (index, teaser, door) also get a quiet generative score: a low D1/A1 drone,
+     a soft 64 BPM heartbeat and faint air. It fades in over ~2 s after the first gesture.
+   - One icon-only toggle ([data-sound] in the nav) mutes/unmutes; it is also the pause control for the ambient.
+   - Mute carries across pages without storage: when muted, same-folder .html links get m=0, and ?m=0 starts muted.
+   - The ambient pauses while the tab is hidden. Every call is wrapped so audio can never break the page. ===== */
+(function(){
+  'use strict';
+  var KP=window.KP=window.KP||{};
+  var root=document.documentElement;
+  var AMBIENT=root.hasAttribute('data-ambient');
+  var on=true;
+  try{on=new URLSearchParams(location.search).get('m')!=='0';}catch(e){}
+  var ac=null,master=null,amb=null,started=false,beatTimer=0,nextBeat=0;
+  var AMB_LEVEL=0.5;   /* ambient bus; the parts below are already very quiet (about -30 dBFS overall) */
+
+  function make(){
+    if(ac)return ac;
+    var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+    try{ac=new C();}catch(e){ac=null;return null;}
+    master=ac.createGain();master.gain.value=on?1:0;master.connect(ac.destination);
+    ac.onstatechange=function(){try{onRunning();}catch(e){}};
+    return ac;
+  }
+  /* iOS: a silent one-sample buffer started inside the gesture unlocks output */
+  function unlockTick(){
+    try{var b=ac.createBuffer(1,1,ac.sampleRate),s=ac.createBufferSource();s.buffer=b;s.connect(ac.destination);s.start(0);}catch(e){}
+  }
+  function onRunning(){
+    if(!ac||ac.state!=='running'||!on)return;
+    if(!started){started=true;stopListening();}
+    if(AMBIENT&&!document.hidden)startAmbient();
+  }
+
+  /* ---------- first gesture anywhere starts sound ---------- */
+  var EV=['pointerdown','touchend','keydown','click'];
+  function gesture(e){
+    try{
+      if(e&&e.target&&e.target.closest&&e.target.closest('[data-sound]'))return;   /* the toggle handles itself */
+      if(!on||!make())return;
+      unlockTick();
+      if(ac.state!=='running'){var p=ac.resume();if(p&&p.then)p.then(onRunning,function(){});}
+      onRunning();
+    }catch(err){}
+  }
+  function stopListening(){EV.forEach(function(t){try{removeEventListener(t,gesture,true);}catch(e){}});}
+  EV.forEach(function(t){try{addEventListener(t,gesture,{capture:true,passive:true});}catch(e){}});
+
+  /* ---------- ambient score (generative: running oscillators, a scheduled heartbeat, long noise bed) ---------- */
+  function pan(c,v){
+    if(!c.createStereoPanner)return null;
+    var p=c.createStereoPanner();p.pan.value=v;return p;
+  }
+  function buildAmbient(c,dest){
+    var t=c.currentTime,bus=c.createGain(),nodes=[];
+    bus.gain.setValueAtTime(0,t);bus.gain.linearRampToValueAtTime(AMB_LEVEL,t+2.2);bus.connect(dest);
+    /* drone: detuned saws on D1, A1 and D2, low-passed so only a warm hum is left */
+    var lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=170;lp.Q.value=.6;
+    var dg=c.createGain();dg.gain.value=.045;lp.connect(dg);dg.connect(bus);
+    [-1,1].forEach(function(side){
+      var p=pan(c,side*.45),out=p||lp;if(p)p.connect(lp);
+      [[36.71,1],[55,.7],[73.42,.3]].forEach(function(v){
+        var o=c.createOscillator(),g=c.createGain();o.type='sawtooth';o.frequency.value=v[0];o.detune.value=side*(5+Math.random()*4);
+        g.gain.value=v[1];o.connect(g);g.connect(out);o.start(t);nodes.push(o);
+      });
+    });
+    var lfo=c.createOscillator(),lg=c.createGain();lfo.frequency.value=.031;lg.gain.value=55;lfo.connect(lg);lg.connect(lp.frequency);lfo.start(t);nodes.push(lfo);
+    /* air: 7 s of noise, looped, band-passed, slowly breathing and drifting side to side */
+    var len=Math.floor(c.sampleRate*7),buf=c.createBuffer(1,len,c.sampleRate),d=buf.getChannelData(0),b0=0,b1=0;
+    for(var i=0;i<len;i++){var w=Math.random()*2-1;b0=.97*b0+.03*w;b1=.6*b1+.4*w;d[i]=b0*2.2+b1*.25;}
+    var n=c.createBufferSource();n.buffer=buf;n.loop=true;
+    var bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=700;bp.Q.value=.55;
+    var ag=c.createGain();ag.gain.value=.010;
+    var al=c.createOscillator(),alg=c.createGain();al.frequency.value=.07;alg.gain.value=.006;al.connect(alg);alg.connect(ag.gain);al.start(t);nodes.push(al);
+    var ap=pan(c,0);n.connect(bp);bp.connect(ag);
+    if(ap){ag.connect(ap);ap.connect(bus);var pl=c.createOscillator(),plg=c.createGain();pl.frequency.value=.045;plg.gain.value=.5;pl.connect(plg);plg.connect(ap.pan);pl.start(t);nodes.push(pl);}
+    else ag.connect(bus);
+    n.start(t);nodes.push(n);
+    /* heartbeat bus */
+    var hl=c.createBiquadFilter();hl.type='lowpass';hl.frequency.value=230;
+    var hg=c.createGain();hg.gain.value=.16;hl.connect(hg);hg.connect(bus);
+    return {bus:bus,heart:hl,nodes:nodes};
+  }
+  function beat(c,dest,at,f0,f1,peak,tau){
+    var o=c.createOscillator(),g=c.createGain();o.type='sine';
+    o.frequency.setValueAtTime(f0,at);o.frequency.setTargetAtTime(f1,at,.03);
+    g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(peak,at+.014);g.gain.setTargetAtTime(0,at+.014,tau);
+    o.connect(g);g.connect(dest);o.start(at);o.stop(at+1.2);
+  }
+  /* lub-dub at about 64 BPM; strength swells and fades over long phrases so it never sounds like a loop */
+  function scheduleBeats(c,dest,from,until,state){
+    while(state.next<until){
+      var at=state.next,ph=at/53,amp=.55+.45*Math.sin(ph*6.2832)*Math.sin(at/131*6.2832+1.3);
+      amp=Math.max(.12,amp)*(.9+Math.random()*.1);
+      beat(c,dest,at,95,48,amp,.11);
+      beat(c,dest,at+.27+Math.random()*.012,85,46,amp*.6,.09);
+      state.next+=60/(63.2+Math.sin(at/71*6.2832)*1.2)+(Math.random()-.5)*.012;
+    }
+  }
+  function startAmbient(){
+    if(!AMBIENT||!ac||ac.state!=='running')return;
+    try{
+      if(!amb)amb=buildAmbient(ac,master);
+      var st={next:Math.max(nextBeat,ac.currentTime+.6)};
+      clearInterval(beatTimer);
+      beatTimer=setInterval(function(){
+        try{
+          if(!ac||ac.state!=='running'){clearInterval(beatTimer);return;}
+          if(st.next<ac.currentTime)st.next=ac.currentTime+.05;
+          scheduleBeats(ac,amb.heart,ac.currentTime,ac.currentTime+.5,st);nextBeat=st.next;
+        }catch(e){clearInterval(beatTimer);}
+      },150);
+    }catch(e){}
+  }
+  KP.buildAmbient=buildAmbient;   /* exposed for the offline level check in the QA script */
+  KP.scheduleBeats=scheduleBeats;
+
+  /* ---------- one-shot effects (stamp thud, paper slide, typewriter tick) ---------- */
+  function live(){return on&&ac&&ac.state==='running'?ac:null;}
+  function noise(c,dur){
+    var b=c.createBuffer(1,Math.max(1,Math.floor(c.sampleRate*dur)),c.sampleRate),d=b.getChannelData(0);
+    for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+    var s=c.createBufferSource();s.buffer=b;return s;
+  }
+  function chain(nodes){for(var i=0;i<nodes.length-1;i++)nodes[i].connect(nodes[i+1]);}
+  function thud(){
+    var c=live();if(!c)return;
+    try{
+      var t=c.currentTime,o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.18);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.8,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+      chain([o,g,master]);o.start(t);o.stop(t+.32);
+      var n=noise(c,.09),f=c.createBiquadFilter(),ng=c.createGain();
+      f.type='lowpass';f.frequency.value=1100;ng.gain.setValueAtTime(.45,t);ng.gain.exponentialRampToValueAtTime(.0001,t+.09);
+      chain([n,f,ng,master]);n.start(t);
+    }catch(e){}
+  }
+  function slide(){
+    var c=live();if(!c)return;
+    try{
+      var t=c.currentTime,n=noise(c,.42),f=c.createBiquadFilter(),g=c.createGain();
+      f.type='bandpass';f.Q.value=.7;f.frequency.setValueAtTime(500,t);f.frequency.exponentialRampToValueAtTime(2600,t+.38);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.22,t+.07);g.gain.exponentialRampToValueAtTime(.0001,t+.42);
+      chain([n,f,g,master]);n.start(t);
+    }catch(e){}
+  }
+  function tick(){
+    var c=live();if(!c)return;
+    try{
+      var t=c.currentTime,n=noise(c,.025),f=c.createBiquadFilter(),g=c.createGain();
+      f.type='highpass';f.frequency.value=1800;g.gain.setValueAtTime(.16,t);g.gain.exponentialRampToValueAtTime(.0001,t+.025);
+      chain([n,f,g,master]);n.start(t);
+    }catch(e){}
+  }
+
+  /* ---------- mute carries across pages: m=0 on same-folder .html links ---------- */
+  var INTERNAL=/^(?:\.\/)?[\w-]+\.html(?:[?#]|$)/i;
+  function withMute(href){
+    if(!href||!INTERNAL.test(href))return href;
+    var h='',i=href.indexOf('#');if(i>=0){h=href.slice(i);href=href.slice(0,i);}
+    var qi=href.indexOf('?'),path=qi>=0?href.slice(0,qi):href,qs=qi>=0?href.slice(qi+1):'';
+    var parts=qs?qs.split('&').filter(function(p){return p&&p.split('=')[0]!=='m';}):[];
+    if(!on)parts.push('m=0');
+    return path+(parts.length?'?'+parts.join('&'):'')+h;
+  }
+  function fixLink(a){try{var h=a.getAttribute('href'),n=withMute(h);if(n!==h)a.setAttribute('href',n);}catch(e){}}
+  function fixLinks(){try{[].forEach.call(document.querySelectorAll('a[href]'),fixLink);}catch(e){}}
+  ['pointerdown','click','auxclick','contextmenu'].forEach(function(t){
+    try{document.addEventListener(t,function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a)fixLink(a);},true);}catch(e){}
+  });
+  KP.withMute=withMute;
+
+  /* ---------- the nav toggle ---------- */
+  function paint(){
+    try{[].forEach.call(document.querySelectorAll('[data-sound]'),function(b){
+      b.setAttribute('aria-pressed',String(!on));b.setAttribute('aria-label',on?'Mute sound':'Turn sound on');
+    });}catch(e){}
+  }
+  function set(v){
+    on=!!v;
+    try{
+      if(on){
+        if(make()){
+          unlockTick();
+          var t=ac.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(1,t+.25);
+          if(ac.state!=='running'){var p=ac.resume();if(p&&p.then)p.then(onRunning,function(){});}
+          onRunning();
+        }
+      }else if(ac){
+        var t2=ac.currentTime;master.gain.cancelScheduledValues(t2);master.gain.setValueAtTime(master.gain.value,t2);master.gain.linearRampToValueAtTime(0,t2+.12);
+        setTimeout(function(){try{if(!on&&ac.state==='running'){ac.suspend();clearInterval(beatTimer);}}catch(e){}},180);
+      }
+    }catch(e){}
+    paint();fixLinks();
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest&&e.target.closest('[data-sound]');if(b)set(!on);
+  });
+
+  /* ---------- hidden tab: pause; visible again: resume (only if sound is on and had started) ---------- */
+  document.addEventListener('visibilitychange',function(){
+    try{
+      if(!ac)return;
+      if(document.hidden){clearInterval(beatTimer);if(ac.state==='running')ac.suspend();}
+      else if(on&&started){var p=ac.resume();if(p&&p.then)p.then(onRunning,function(){});}
+    }catch(e){}
+  });
+
+  KP.sound={
+    isOn:function(){return on;},
+    set:set,
+    context:function(){return ac;},
+    thud:thud,slide:slide,tick:tick
+  };
+  paint();
+  function ready(){paint();if(!on)fixLinks();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready();
+  addEventListener('load',function(){if(!on)fixLinks();});
 })();
 
 // © 2026 Kamal Preet Singh. All rights reserved.
@@ -944,7 +1182,19 @@ var OC=(function(){
     t=btn._t=setInterval(function(){left--;paint();if(left<=0)clearInterval(t);},1000);
   }
 
-  /* ================= MOCK SERVER (same shapes and rules as Code.gs; memory only) ================= */
+  /* ================= MOCK SERVER (same shapes and rules as Code.gs; memory only) =================
+     Mock mode runs when config/event.json has no api_url, or with ?mock=1. register/team only show one line on the
+     code screen ("Preview: use code 123456"); the test inputs that trigger each error path are listed here instead:
+       register:  taken@... already registered (any domain); busy@... too many requests; down@... server busy;
+                  a@b (no dot) email not valid; mobile 0000000000 mobile not valid;
+                  registration number BAD000 registration number not valid;
+                  code 000000 expired; any code other than 123456 is wrong (5 tries);
+                  ?phase=tease (or register, drop, episodes, finale, after) forces the phase.
+       team:      any email domain logs in; law.asha@... logs in as a Law agent, eng.kiran@... as Engineering
+                  (any 3-letter school code works); new.someone@... has no case file yet; a@b email not valid;
+                  team code FULLQ3 is a full Law team, MEDQ7K a Medicine team; ?locked=1 locks teams.
+       admin:     admin key mock-key, organiser email convenor@sgtuniversity.org.
+       ?mockdelay=ms sets the fake network delay (max 3000). */
   var MOCK_DELAY=qs.get('mockdelay')?Math.min(+qs.get('mockdelay')||0,3000):260;
   var MOCK_CODE='123456',MOCK_ADMIN_KEY='mock-key',MOCK_ADMINS=['convenor@sgtuniversity.org'];
   var M=null;
@@ -1109,6 +1359,10 @@ var OC=(function(){
       if(extra){var x=document.getElementById('mockExtra');if(x)x.textContent=extra;}
     });
   }
+  /* register/team: one small muted line on the code screen, in mock mode only */
+  function showMockHint(){
+    ready.then(function(){var h=document.getElementById('mockHint');if(h&&isMock())h.hidden=false;});
+  }
   function showAnnouncement(text){
     var a=document.getElementById('announcement');if(!a)return;
     a.textContent=text||'';a.hidden=!text;
@@ -1117,7 +1371,7 @@ var OC=(function(){
   return {cfg:cfg,SCHOOLS:SCHOOLS,YEARS:YEARS,MSG:MSG,qs:qs,ready:ready,isMock:isMock,base:base,api:api,
     checkName:checkName,cleanName:cleanName,checkEnrol:checkEnrol,cleanEnrol:cleanEnrol,checkPhone:checkPhone,cleanPhone:cleanPhone,checkEmail:checkEmail,cleanEmail:cleanEmail,
     teamNameProblem:teamNameProblem,maskEmail:maskEmail,school:school,fmtDate:fmtDate,initials:initials,cleanSource:cleanSource,
-    wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
+    wireOtp:wireOtp,resendTimer:resendTimer,showMockBanner:showMockBanner,showMockHint:showMockHint,showAnnouncement:showAnnouncement,MOCK_CODE:MOCK_CODE};
 })();
 
 // © 2026 Kamal Preet Singh. All rights reserved.
@@ -1131,7 +1385,7 @@ var OC=(function(){
   var preset=(OC.qs.get('school')||'').toUpperCase();
   if(!OC.school(preset))preset='';
 
-  OC.showMockBanner();
+  OC.showMockHint();
 
   /* ---------- screens ---------- */
   function show(id,focus){
@@ -1175,7 +1429,7 @@ var OC=(function(){
   }
   if(preset){
     F.school.value=preset;
-    $('detailsIntro').textContent='Your poster pointed to '+OC.school(preset).short+'. Not your school? Choose yours below.';
+    var pn=$('posterNote');pn.textContent='Your poster pointed to '+OC.school(preset).short+'. Not your school? Choose yours below.';pn.hidden=false;
   }
   paintDoor();
   F.school.addEventListener('change',paintDoor);
@@ -1325,6 +1579,8 @@ var OC=(function(){
     $('waInvite').href='https://wa.me/?text='+encodeURIComponent(msg);
     show('s-done');
     var stage=$('stage');stage.classList.remove('play');void stage.offsetWidth;stage.classList.add('play');
+    /* sound (on by default, the nav toggle mutes): the card slides out of the folder, then the OPEN stamp lands */
+    try{if(KP.sound){if(KP.reduced())KP.sound.thud();else{setTimeout(KP.sound.slide,200);setTimeout(KP.sound.thud,1120);}}}catch(e){}
     setTimeout(function(){
       var r=$('agentCard').getBoundingClientRect();
       if(!returning)KP.confetti({count:84,x:r.left+r.width*.8,y:r.top+70});

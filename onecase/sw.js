@@ -2,9 +2,9 @@
 /* One Case service worker: caches the static shell only (HTML pages, icons, web fonts).
    It NEVER caches API calls: anything with ?action=, any POST, and any Apps Script host go straight to the network. */
 'use strict';
-var VERSION = 'onecase-shell-v1';
+var VERSION = 'onecase-shell-v2';
 var SHELL = ['./', 'index.html', 'teaser.html', 'door.html', 'go.html', 'register.html', 'team.html',
-  'manifest.webmanifest', 'icons/torch.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'icons/KP_Singh.png'];
+  'manifest.webmanifest', 'icons/mark.svg', 'icons/icon-32.png', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/KP_Singh.png'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) {

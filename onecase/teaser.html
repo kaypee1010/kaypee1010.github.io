@@ -1,6 +1,6 @@
 <!-- © 2026 Kamal Preet Singh. All rights reserved. -->
 <!DOCTYPE html>
-<html lang="en" class="no-js" data-base="1.2.0" data-persist="off" data-page="teaser" data-theme="dark">
+<html lang="en" class="no-js" data-ambient data-base="1.2.0" data-persist="off" data-page="teaser" data-theme="dark">
 <head>
 <meta name="robots" content="noindex,nofollow">
 <meta charset="utf-8">
@@ -16,9 +16,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="One Case">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/torch.svg" type="image/svg+xml">
-<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/mark.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-48.png" sizes="48x48" type="image/png">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/icon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
 <script>document.documentElement.className='js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,32 +49,35 @@
   --f-type:"Special Elite","Courier New",Courier,ui-monospace,monospace;
   --f-head:"Oswald","Arial Narrow","Roboto Condensed","Helvetica Neue",Arial,sans-serif;
   /* light palette: "daylight case file" */
-  --bg:#efe4c4; --card:#f8f1dc; --soft:#e5d6aa; --fg:#221d14; --muted:#5a4f3a;
+  --mark-lines:#5a4f3a; --bg:#efe4c4; --card:#f8f1dc; --soft:#e5d6aa; --fg:#221d14; --muted:#5a4f3a;
   --line:#a8956a; --accent:#8a4c05; --accent-fg:#fbf4e0; --accent-2:#a8231f; --accent-text:#8a4c05;
   --stamp:#a8231f; --nav-bg:rgba(239,228,196,.9);
   --board:#d9c491; --board-line:#b39b62; --leaf:#3b2f1c; --leaf-2:#4a3b24; --leaf-fg:#f3e6c2;
   --bar:#b86a0c; --bar-track:#e0cf9e; --string:#a8231f;
   --shadow:0 1px 0 rgba(34,29,20,.06),0 12px 30px -16px rgba(34,29,20,.55);
+  --hint-fg:#8a4c05; --hint-line:#b86a0c; --hint-bg:rgba(184,106,12,.1);
 }
 /* dark palette: "night" (layer 2, system preference unless the user forced light) */
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+    --mark-lines:#e8d7a9; --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
     --line:#34466b; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#ff6b5e; --accent-text:#ffb547;
     --stamp:#c8302f; --nav-bg:rgba(11,18,32,.86);
     --board:#0f1828; --board-line:#24324d; --leaf:#1b2740; --leaf-2:#22304d; --leaf-fg:#e9e4d4;
     --bar:#ffb547; --bar-track:#1b2740; --string:#c8302f;
     --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 34px -16px rgba(0,0,0,.8);
+    --hint-fg:#ffb547; --hint-line:rgba(255,181,71,.75); --hint-bg:rgba(255,181,71,.1);
   }
 }
 /* dark palette, layer 3 (explicit toggle; the brand default). KEEP IDENTICAL to layer 2. */
 :root[data-theme="dark"]{
-  --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+  --mark-lines:#e8d7a9; --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
   --line:#34466b; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#ff6b5e; --accent-text:#ffb547;
   --stamp:#c8302f; --nav-bg:rgba(11,18,32,.86);
   --board:#0f1828; --board-line:#24324d; --leaf:#1b2740; --leaf-2:#22304d; --leaf-fg:#e9e4d4;
   --bar:#ffb547; --bar-track:#1b2740; --string:#c8302f;
   --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 34px -16px rgba(0,0,0,.8);
+  --hint-fg:#ffb547; --hint-line:rgba(255,181,71,.75); --hint-bg:rgba(255,181,71,.1);
 }
 
 /* ===== 2. RESET / BASE (kp-html-base) ===== */
@@ -114,9 +119,14 @@ a{color:var(--accent-text);text-underline-offset:3px}
 .nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 16px;flex:none;
   border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);
   font:600 .9rem/1 var(--f-head);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
-.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
+.theme-toggle,.snd-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
   font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
-@media (hover:hover){.theme-toggle:hover{background:var(--soft)}.nav-cta:hover{filter:brightness(1.08)}}
+/* sound toggle: icon only, same look as the theme toggle; speaker when on, speaker with a slash when muted */
+.snd-toggle{color:var(--fg);padding:0}
+.snd-toggle svg{width:24px;height:24px;flex:none}
+.snd-toggle .snd-off,.snd-toggle[aria-pressed="true"] .snd-on{display:none}
+.snd-toggle[aria-pressed="true"] .snd-off{display:block}
+@media (hover:hover){.theme-toggle:hover,.snd-toggle:hover{background:var(--soft)}.nav-cta:hover{filter:brightness(1.08)}}
 .nav-roll{cursor:default;background:var(--soft);color:var(--fg);border:1px solid var(--line);font-variant-numeric:tabular-nums;max-width:44vw;overflow:hidden}
 @media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 12px;font-size:.8rem}.nav-roll-label{display:none}}
 @media (max-width:479px){.nav-roll-label{display:none}.nav-roll{padding:0 12px}}
@@ -149,6 +159,11 @@ a{color:var(--accent-text);text-underline-offset:3px}
   font:400 .76rem/1 var(--f-type);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
 .chip[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
 .chip svg{width:18px;height:18px;flex:none}
+/* instruction hint (e.g. "Tap a door."): amber on night, amber-deep border with deeper amber text on daylight (contrast > 4.5:1) */
+.tap-hint{display:inline-flex;align-items:center;gap:9px;margin:0 0 22px;padding:7px 14px 7px 10px;border-radius:var(--r-pill);
+  border:1.5px solid var(--hint-line);background:var(--hint-bg);color:var(--hint-fg);
+  font:400 .84rem/1.2 var(--f-type);letter-spacing:.1em;text-transform:uppercase}
+.tap-hint svg{width:22px;height:22px;flex:none}
 @media (max-width:379px){.chip{padding:0 11px;gap:6px;font-size:.7rem}}
 @media (hover:hover){.chip:hover{border-color:var(--amber)}.btn:hover{filter:brightness(1.06)}}
 
@@ -228,6 +243,11 @@ a{color:var(--accent-text);text-underline-offset:3px}
 .hero-space{flex:none;width:100%;aspect-ratio:1/.8}
 .hero-cap{position:relative;z-index:5;margin:0;padding:0 var(--pad);font:400 .7rem/1.3 var(--f-type);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted)}
 .hero-tools{position:relative;z-index:5;display:flex;flex-wrap:wrap;gap:8px;padding:6px var(--pad) 0;padding-left:calc(var(--pad) + var(--sal))}
+/* "Show the whole map": visually hidden until a keyboard user reaches it */
+.map-skip.sr-only{left:-9999px}
+.map-skip.sr-only:focus-visible{left:calc(var(--pad) + var(--sal));bottom:8px;width:auto;height:auto;min-height:48px;overflow:visible;clip:auto;z-index:8;
+  display:inline-flex;align-items:center;padding:0 16px;border-radius:var(--r-pill);border:1px solid var(--amber);background:rgba(11,18,32,.92);color:var(--amber);
+  font:400 .8rem/1 var(--f-type);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
 .hero-hint{position:absolute;z-index:5;left:50%;top:58vw;transform:translate(-50%,-50%);
   font:400 .78rem/1 var(--f-type);letter-spacing:.14em;text-transform:uppercase;color:var(--paper);background:rgba(11,18,32,.7);
   padding:9px 12px;border-radius:999px;border:1px solid rgba(233,228,212,.25);pointer-events:none;white-space:nowrap;transition:opacity var(--dur-3)}
@@ -275,7 +295,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
   .torch-pad{left:40%;width:60%;top:0;height:100%}
   .folder{grid-column:1;grid-row:1 / span 3;margin:0 0 0 calc(var(--pad) + var(--sal));align-self:center}
   .hero-tools{grid-column:2;grid-row:3;align-self:end;padding-bottom:18px;justify-content:flex-end;padding-right:var(--pad)}
-  .hero-cap{grid-column:2;grid-row:2;align-self:end;text-align:right;padding-right:var(--pad)}
+  .hero-cap{grid-column:2;grid-row:1;align-self:start;text-align:right;padding-top:18px;padding-right:var(--pad)}   /* quiet strip above the map, clear of the fragments */
   .hero-hint{left:70%;top:50%}
 }
 
@@ -341,6 +361,8 @@ a{color:var(--accent-text);text-underline-offset:3px}
   .tile .fl{display:none !important}
   .tw.tw-on .tw-vis::after{display:none}
   .hero-hint{display:none}
+  .ev,.ev:hover,.ev:focus-within{transform:rotate(var(--rot,0deg)) !important}
+  .ev:has(:focus-visible){transform:rotate(var(--rot,0deg)) !important}   /* episode cards: shadow only, no lift */
 }
 
 </style>
@@ -348,16 +370,16 @@ a{color:var(--accent-text);text-underline-offset:3px}
 
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<nav class="nav" aria-label="Main"><a class="nav-brand" href="#top"><svg class="nav-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="tmN" x1=".1" y1=".9" x2=".9" y2=".1"><stop offset="0" stop-color="#ffb547" stop-opacity=".95"/><stop offset="1" stop-color="#ffb547" stop-opacity=".06"/></linearGradient></defs><circle cx="32" cy="32" r="32" fill="#0b1220"/><path d="M21.4 35.5 41.8 3.8Q55 7 60.2 22.2L28.5 42.6Z" fill="url(#tmN)"/><g transform="rotate(-45 20 44)"><rect x="7" y="40.5" width="15" height="7" rx="2" fill="#e9e4d4"/><path d="M22 39h5v10h-5z" fill="#ffb547"/></g></svg><div><div class="nav-name">One Case</div></div></a><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">☀️</button><span class="nav-cta nav-roll" hidden></span><a class="nav-cta" id="navCta" href="#notify" data-src-link>Notify me</a></nav>
+<nav class="nav" aria-label="Main"><a class="nav-brand" href="#top"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="nav-logo" aria-hidden="true" focusable="false"><g><path d="M60 14 A40 40 0 0 0 60 94" fill="none" stroke="#ffb547" stroke-width="12" stroke-linecap="round"/><path d="M60 14 A40 40 0 0 1 60 94" fill="none" stroke="#9fb3c8" stroke-width="12" stroke-linecap="round"/><g style="stroke:var(--mark-lines,#e8d7a9)" stroke-width="3" stroke-linecap="round"><path d="M36 42h18M34 53h20M36 64h16"/></g><path d="M67 38 79 48 69 60 81 70" fill="none" stroke="#9fb3c8" stroke-width="2.4" stroke-linejoin="round"/><g fill="#9fb3c8"><circle cx="67" cy="38" r="3.8"/><circle cx="79" cy="48" r="3.8"/><circle cx="69" cy="60" r="3.8"/><circle cx="81" cy="70" r="3.8"/></g><path d="M60 22 V86" stroke="#c8302f" stroke-width="2" stroke-dasharray="3 4" opacity=".9"/><path d="M88 82 106 104" stroke="#ffb547" stroke-width="13" stroke-linecap="round"/></g></svg><div><div class="nav-name">One Case</div></div></a><button class="snd-toggle" type="button" data-sound aria-pressed="false" aria-label="Mute sound"><svg class="snd-on" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 9.5H7l4.5-4v13L7 14.5H3.5z" fill="currentColor"/><path d="M15 9a4 4 0 0 1 0 6M17.6 6.4a7.6 7.6 0 0 1 0 11.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><svg class="snd-off" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><defs><mask id="sndCut"><rect width="24" height="24" fill="#fff"/><path d="M3 3.5l17.5 17.5" stroke="#000" stroke-width="5" stroke-linecap="round"/></mask></defs><path d="M3.5 9.5H7l4.5-4v13L7 14.5H3.5z" fill="currentColor" mask="url(#sndCut)"/><path d="M3 3.5l17.5 17.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">☀️</button><span class="nav-cta nav-roll" hidden></span><a class="nav-cta" id="navCta" href="#notify" data-src-link>Notify me</a></nav>
 <header class="hero bleed" id="top">
-  <div class="hero-map"><div class="map-tilt"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 110 1000 820" preserveAspectRatio="xMidYMid meet" focusable="false" role="img" aria-labelledby="mapTitle mapDesc"><title id="mapTitle">Neemgarh: schematic night map</title><desc id="mapDesc">Fictional village of Neemgarh. A canal runs west to east. Sunhara Agro Foods sits upstream on the west. Sector A fields lie between the unit and the village; Sector B fields lie east. In the village: borewell BW-2 beside the cattle shed, old borewell BW-1, the anganwadi and school.</desc><defs><pattern id="furrows" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><line x1="0" y1="0" x2="0" y2="14" stroke="#24375a" stroke-width="2"/></pattern><pattern id="furrows2" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(24)"><line x1="0" y1="0" x2="0" y2="12" stroke="#22324f" stroke-width="2"/></pattern><linearGradient id="canalGlow" x1="0" x2="1"><stop offset="0" stop-color="#9fb3c8"/><stop offset=".45" stop-color="#c9d7e6"/><stop offset="1" stop-color="#9fb3c8"/></linearGradient></defs><rect id="ground" width="1000" height="1400" fill="#0e1729"/><g id="fields" stroke="#0b1322" stroke-width="3"><polygon points="0,0 380,0 340,220 0,250" fill="#132038"/><polygon points="380,0 1000,0 1000,260 640,300 340,220" fill="#111c31"/><polygon points="0,250 340,220 300,330 0,340" fill="#15233d"/><polygon points="0,900 560,860 600,1400 0,1400" fill="#121e35"/><polygon points="560,860 1000,820 1000,1400 600,1400" fill="#14213a"/><polygon points="0,1100 300,1080 330,1400 0,1400" fill="url(#furrows2)" opacity=".7"/></g><g id="sectorA"><polygon points="170,440 540,470 560,820 150,860" fill="#172741"/><polygon points="170,440 540,470 560,820 150,860" fill="url(#furrows)"/><g stroke="#0b1322" stroke-width="4" fill="none"><path d="M300,452 L290,850"/><path d="M420,462 L425,835"/><path d="M160,640 L550,650"/></g><g id="channelsA" stroke="#6f86a3" stroke-width="2.5" stroke-dasharray="6 6" fill="none" opacity=".85"><path d="M235,420 L232,600"/><path d="M360,436 L356,640"/><path d="M480,452 L486,700"/></g><text x="250" y="760" class="lbl" font-family="'Special Elite',monospace" font-size="26" fill="#c9bfa3" letter-spacing="4">SECTOR A</text></g><g id="sectorB"><polygon points="820,560 1000,540 1000,860 830,880" fill="#16243d"/><polygon points="820,560 1000,540 1000,860 830,880" fill="url(#furrows2)"/><g stroke="#6f86a3" stroke-width="2.5" stroke-dasharray="6 6" fill="none" opacity=".7"><path d="M880,520 L885,700"/><path d="M960,525 L962,720"/></g><text x="850" y="820" font-family="'Special Elite',monospace" font-size="24" fill="#c9bfa3" letter-spacing="4">SECTOR B</text></g><g id="road"><path d="M-20,300 L250,302 C380,306 520,330 588,382 C616,404 624,440 624,500 L628,584" fill="none" stroke="#2a3650" stroke-width="11" stroke-linecap="round"/><path d="M-20,300 L250,302 C380,306 520,330 588,382 C616,404 624,440 624,500 L628,584" fill="none" stroke="#7d8aa3" stroke-width="1.6" stroke-dasharray="10 10"/><g stroke="#9aa6bd" stroke-width="2.5"><path d="M608,440 L608,474"/><path d="M640,442 L640,476"/></g><text x="14" y="332" font-family="'Special Elite',monospace" font-size="16" fill="#8e9ab2">&#8592; STATE HIGHWAY</text></g><g id="canal"><path d="M-20,370 C180,380 360,420 520,445 S820,505 1020,535" fill="none" stroke="#1d2b44" stroke-width="22" stroke-linecap="round"/><path id="canalLine" d="M-20,370 C180,380 360,420 520,445 S820,505 1020,535" fill="none" stroke="url(#canalGlow)" stroke-width="7" stroke-linecap="round"/><path d="M-20,370 C180,380 360,420 520,445 S820,505 1020,535" fill="none" stroke="#e9f1fa" stroke-width="1.5" stroke-dasharray="2 18" opacity=".8"/><g fill="#9fb3c8" opacity=".9"><path d="M612,466 l18,4 -6,-8 z"/><path d="M152,380 l18,2 -7,-7 z"/></g><text x="666" y="446" font-family="'Special Elite',monospace" font-size="20" fill="#a9bcd2" letter-spacing="2" transform="rotate(7 666 446)">MAHI MINOR (L) &#8594;</text></g><g id="factory"><rect x="70" y="190" width="170" height="92" fill="#1c2638" stroke="#4b5a75" stroke-width="2.5"/><rect x="86" y="206" width="56" height="36" fill="#151d2c" stroke="#4b5a75" stroke-width="1.5"/><rect x="152" y="206" width="72" height="60" fill="#151d2c" stroke="#4b5a75" stroke-width="1.5"/><rect x="206" y="150" width="14" height="44" fill="#1c2638" stroke="#4b5a75" stroke-width="2"/><circle id="pit" cx="262" cy="342" r="14" fill="#121a29" stroke="#4b5a75" stroke-width="2.5"/><path id="drain" d="M272,354 C282,366 290,378 298,394" fill="none" stroke="#4b5a75" stroke-width="3" stroke-dasharray="5 5"/><text x="70" y="176" font-family="'Special Elite',monospace" font-size="20" fill="#c9bfa3" letter-spacing="1">SUNHARA AGRO FOODS</text></g><g id="village" fill="#1e2a40" stroke="#56688a" stroke-width="1.6"><rect x="600" y="600" width="26" height="20"/><rect x="634" y="596" width="22" height="22"/><rect x="606" y="628" width="30" height="20"/><rect x="644" y="630" width="20" height="18"/><rect x="590" y="660" width="24" height="22"/><rect x="620" y="662" width="26" height="18"/><rect x="604" y="730" width="28" height="22"/><rect x="640" y="738" width="22" height="20"/><rect x="668" y="760" width="26" height="20"/><rect x="700" y="770" width="22" height="22"/><rect x="760" y="700" width="24" height="20"/><rect x="790" y="706" width="20" height="22"/><rect x="770" y="740" width="28" height="20"/><rect x="740" y="786" width="24" height="20"/></g><text x="600" y="586" font-family="'Special Elite',monospace" font-size="30" fill="#e8d7a9" letter-spacing="6">NEEMGARH</text><g id="cattleShed"><rect x="712" y="618" width="66" height="34" fill="#232f45" stroke="#7d8eaa" stroke-width="2"/><path d="M708,620 L745,600 L782,620" fill="none" stroke="#7d8eaa" stroke-width="2"/><circle id="soakPit" cx="744" cy="676" r="7" fill="none" stroke="#7d8eaa" stroke-width="2" stroke-dasharray="3 3"/><text x="790" y="642" font-family="'Special Elite',monospace" font-size="16" fill="#c9bfa3">CATTLE SHED</text></g><g id="bw2"><circle cx="696" cy="690" r="11" fill="none" stroke="#e8d7a9" stroke-width="3"/><circle cx="696" cy="690" r="3.5" fill="#e8d7a9"/><text x="664" y="716" font-family="'Special Elite',monospace" font-size="17" fill="#e8d7a9">BW-2</text></g><g id="bw1"><circle cx="590" cy="790" r="11" fill="none" stroke="#c9bfa3" stroke-width="3"/><circle cx="590" cy="790" r="3.5" fill="#c9bfa3"/><text x="556" y="818" font-family="'Special Elite',monospace" font-size="17" fill="#c9bfa3">BW-1</text></g><g id="anganwadi"><rect x="712" y="728" width="34" height="24" fill="#2a3550" stroke="#9aa9c2" stroke-width="2"/><path d="M729,728 L729,708 L744,713 L729,718" fill="#c8302f" stroke="none"/><text x="664" y="852" font-family="'Special Elite',monospace" font-size="16" fill="#c9bfa3">ANGANWADI + SCHOOL</text></g><g id="tower" stroke="#56688a" stroke-width="2" fill="none"><path d="M880,300 L866,380 M880,300 L894,380 M870,355 L890,355 M873,330 L887,330"/><circle cx="880" cy="296" r="4" fill="#56688a"/><text x="820" y="404" font-family="'Special Elite',monospace" font-size="15" fill="#8e9ab2" stroke="none">MOBILE TOWER</text></g></svg></div></div>
+  <div class="hero-map"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 110 1000 820" preserveAspectRatio="xMidYMid meet" focusable="false" role="img" aria-labelledby="mapTitle mapDesc"><title id="mapTitle">Neemgarh: schematic night map</title><desc id="mapDesc">Fictional village of Neemgarh. A canal runs west to east. Sunhara Agro Foods sits upstream on the west. Sector A fields lie between the unit and the village; Sector B fields lie east. In the village: borewell BW-2 beside the cattle shed, old borewell BW-1, the anganwadi and school.</desc><defs><pattern id="furrows" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><line x1="0" y1="0" x2="0" y2="14" stroke="#24375a" stroke-width="2"/></pattern><pattern id="furrows2" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(24)"><line x1="0" y1="0" x2="0" y2="12" stroke="#22324f" stroke-width="2"/></pattern><linearGradient id="canalGlow" x1="0" x2="1"><stop offset="0" stop-color="#9fb3c8"/><stop offset=".45" stop-color="#c9d7e6"/><stop offset="1" stop-color="#9fb3c8"/></linearGradient></defs><rect id="ground" width="1000" height="1400" fill="#0e1729"/><g id="fields" stroke="#0b1322" stroke-width="3"><polygon points="0,0 380,0 340,220 0,250" fill="#132038"/><polygon points="380,0 1000,0 1000,260 640,300 340,220" fill="#111c31"/><polygon points="0,250 340,220 300,330 0,340" fill="#15233d"/><polygon points="0,900 560,860 600,1400 0,1400" fill="#121e35"/><polygon points="560,860 1000,820 1000,1400 600,1400" fill="#14213a"/><polygon points="0,1100 300,1080 330,1400 0,1400" fill="url(#furrows2)" opacity=".7"/></g><g id="sectorA"><polygon points="170,440 540,470 560,820 150,860" fill="#172741"/><polygon points="170,440 540,470 560,820 150,860" fill="url(#furrows)"/><g stroke="#0b1322" stroke-width="4" fill="none"><path d="M300,452 L290,850"/><path d="M420,462 L425,835"/><path d="M160,640 L550,650"/></g><g id="channelsA" stroke="#6f86a3" stroke-width="2.5" stroke-dasharray="6 6" fill="none" opacity=".85"><path d="M235,420 L232,600"/><path d="M360,436 L356,640"/><path d="M480,452 L486,700"/></g><text x="250" y="760" class="lbl" font-family="'Special Elite',monospace" font-size="26" fill="#c9bfa3" letter-spacing="4">SECTOR A</text></g><g id="sectorB"><polygon points="820,560 1000,540 1000,860 830,880" fill="#16243d"/><polygon points="820,560 1000,540 1000,860 830,880" fill="url(#furrows2)"/><g stroke="#6f86a3" stroke-width="2.5" stroke-dasharray="6 6" fill="none" opacity=".7"><path d="M880,520 L885,700"/><path d="M960,525 L962,720"/></g><text x="850" y="820" font-family="'Special Elite',monospace" font-size="24" fill="#c9bfa3" letter-spacing="4">SECTOR B</text></g><g id="road"><path d="M-20,300 L250,302 C380,306 520,330 588,382 C616,404 624,440 624,500 L628,584" fill="none" stroke="#2a3650" stroke-width="11" stroke-linecap="round"/><path d="M-20,300 L250,302 C380,306 520,330 588,382 C616,404 624,440 624,500 L628,584" fill="none" stroke="#7d8aa3" stroke-width="1.6" stroke-dasharray="10 10"/><g stroke="#9aa6bd" stroke-width="2.5"><path d="M608,440 L608,474"/><path d="M640,442 L640,476"/></g><text x="14" y="332" font-family="'Special Elite',monospace" font-size="16" fill="#8e9ab2">&#8592; STATE HIGHWAY</text></g><g id="canal"><path d="M-20,370 C180,380 360,420 520,445 S820,505 1020,535" fill="none" stroke="#1d2b44" stroke-width="22" stroke-linecap="round"/><path id="canalLine" d="M-20,370 C180,380 360,420 520,445 S820,505 1020,535" fill="none" stroke="url(#canalGlow)" stroke-width="7" stroke-linecap="round"/><path d="M-20,370 C180,380 360,420 520,445 S820,505 1020,535" fill="none" stroke="#e9f1fa" stroke-width="1.5" stroke-dasharray="2 18" opacity=".8"/><g fill="#9fb3c8" opacity=".9"><path d="M612,466 l18,4 -6,-8 z"/><path d="M152,380 l18,2 -7,-7 z"/></g><text x="666" y="446" font-family="'Special Elite',monospace" font-size="20" fill="#a9bcd2" letter-spacing="2" transform="rotate(7 666 446)">MAHI MINOR (L) &#8594;</text></g><g id="factory"><rect x="70" y="190" width="170" height="92" fill="#1c2638" stroke="#4b5a75" stroke-width="2.5"/><rect x="86" y="206" width="56" height="36" fill="#151d2c" stroke="#4b5a75" stroke-width="1.5"/><rect x="152" y="206" width="72" height="60" fill="#151d2c" stroke="#4b5a75" stroke-width="1.5"/><rect x="206" y="150" width="14" height="44" fill="#1c2638" stroke="#4b5a75" stroke-width="2"/><circle id="pit" cx="262" cy="342" r="14" fill="#121a29" stroke="#4b5a75" stroke-width="2.5"/><path id="drain" d="M272,354 C282,366 290,378 298,394" fill="none" stroke="#4b5a75" stroke-width="3" stroke-dasharray="5 5"/><text x="70" y="176" font-family="'Special Elite',monospace" font-size="20" fill="#c9bfa3" letter-spacing="1">SUNHARA AGRO FOODS</text></g><g id="village" fill="#1e2a40" stroke="#56688a" stroke-width="1.6"><rect x="600" y="600" width="26" height="20"/><rect x="634" y="596" width="22" height="22"/><rect x="606" y="628" width="30" height="20"/><rect x="644" y="630" width="20" height="18"/><rect x="590" y="660" width="24" height="22"/><rect x="620" y="662" width="26" height="18"/><rect x="604" y="730" width="28" height="22"/><rect x="640" y="738" width="22" height="20"/><rect x="668" y="760" width="26" height="20"/><rect x="700" y="770" width="22" height="22"/><rect x="760" y="700" width="24" height="20"/><rect x="790" y="706" width="20" height="22"/><rect x="770" y="740" width="28" height="20"/><rect x="740" y="786" width="24" height="20"/></g><text x="600" y="586" font-family="'Special Elite',monospace" font-size="30" fill="#e8d7a9" letter-spacing="6">NEEMGARH</text><g id="cattleShed"><rect x="712" y="618" width="66" height="34" fill="#232f45" stroke="#7d8eaa" stroke-width="2"/><path d="M708,620 L745,600 L782,620" fill="none" stroke="#7d8eaa" stroke-width="2"/><circle id="soakPit" cx="744" cy="676" r="7" fill="none" stroke="#7d8eaa" stroke-width="2" stroke-dasharray="3 3"/><text x="790" y="642" font-family="'Special Elite',monospace" font-size="16" fill="#c9bfa3">CATTLE SHED</text></g><g id="bw2"><circle cx="696" cy="690" r="11" fill="none" stroke="#e8d7a9" stroke-width="3"/><circle cx="696" cy="690" r="3.5" fill="#e8d7a9"/><text x="664" y="716" font-family="'Special Elite',monospace" font-size="17" fill="#e8d7a9">BW-2</text></g><g id="bw1"><circle cx="590" cy="790" r="11" fill="none" stroke="#c9bfa3" stroke-width="3"/><circle cx="590" cy="790" r="3.5" fill="#c9bfa3"/><text x="556" y="818" font-family="'Special Elite',monospace" font-size="17" fill="#c9bfa3">BW-1</text></g><g id="anganwadi"><rect x="712" y="728" width="34" height="24" fill="#2a3550" stroke="#9aa9c2" stroke-width="2"/><path d="M729,728 L729,708 L744,713 L729,718" fill="#c8302f" stroke="none"/><text x="664" y="852" font-family="'Special Elite',monospace" font-size="16" fill="#c9bfa3">ANGANWADI + SCHOOL</text></g><g id="tower" stroke="#56688a" stroke-width="2" fill="none"><path d="M880,300 L866,380 M880,300 L894,380 M870,355 L890,355 M873,330 L887,330"/><circle cx="880" cy="296" r="4" fill="#56688a"/><text x="820" y="404" font-family="'Special Elite',monospace" font-size="15" fill="#8e9ab2" stroke="none">MOBILE TOWER</text></g></svg></div>
   <div class="frags" id="frags"><p class="frag" data-x="430" data-y="430" data-anchor="u" style="--rot:-2deg" data-demo>Mahi Minor<b>Flows west to east</b><span class="stamp found" aria-hidden="true">Found</span></p><p class="frag" data-x="160" data-y="236" data-anchor="r" style="--rot:2deg">Upstream<b>New unit. Opened July</b><span class="stamp found" aria-hidden="true">Found</span></p><p class="frag" data-x="350" data-y="655" data-anchor="u" style="--rot:-2.5deg">Sector A<b>Forty-two acres</b><span class="stamp found" aria-hidden="true">Found</span></p><p class="frag" data-x="745" data-y="630" data-anchor="u" style="--rot:2deg">Cattle shed<b>Forty cattle</b><span class="stamp found" aria-hidden="true">Found</span></p><p class="frag" data-x="729" data-y="745" data-anchor="l" style="--rot:-1.5deg">Anganwadi<b>New meal supplier, 8 Sep</b><span class="stamp found" aria-hidden="true">Found</span></p><span class="frag-dot" aria-hidden="true"></span><span class="frag-dot" aria-hidden="true"></span><span class="frag-dot" aria-hidden="true"></span><span class="frag-dot" aria-hidden="true"></span><span class="frag-dot" aria-hidden="true"></span></div>
   <canvas class="torch" aria-hidden="true"></canvas>
   <div class="torch-pad" aria-hidden="true"></div>
   <p class="hero-hint" aria-hidden="true">Drag to search the map</p>
   <p class="hero-cap">Exhibit 1. Fictional place.<span class="found-count" id="foundCount" aria-hidden="true"></span></p>
   <div class="hero-space" aria-hidden="true"></div>
-  <div class="hero-tools"><button class="chip" type="button" id="litBtn" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg><span class="lit-t">Full map</span></button><button class="chip" type="button" id="tiltBtn" aria-pressed="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="7" y="3" width="10" height="18" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8" transform="rotate(-14 12 12)"/><path d="M3 8c-1.5 2.5-1.5 5.5 0 8M21 8c1.5 2.5 1.5 5.5 0 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="tilt-t">Tilt</span></button><button class="chip" type="button" data-sound aria-pressed="false" aria-label="Sound effects off. Turn on"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="snd-t">Sound</span></button></div>
+  <div class="hero-tools"><button class="sr-only map-skip" type="button" id="mapSkip">Show the whole map</button></div>
   <div class="tease-copy">
     <h1>Something happened in <span class="hl">Neemgarh.</span></h1>
     <div id="clockWrap">
@@ -495,7 +517,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
 (function(){
   'use strict';
   var KP=window.KP;
-  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"The Drop opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
+  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"Episode 0 opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
   var SCHOOLS=KP.SCHOOLS=[{"code":"MED","short":"Medicine","door":"Grand Round","n":1},{"code":"DEN","short":"Dental","door":"Chairside Conference","n":2},{"code":"NUR","short":"Nursing","door":"Care Conference","n":3},{"code":"AHS","short":"Allied Health","door":"Bench Report","n":4},{"code":"PHY","short":"Physiotherapy","door":"Clinical Reasoning Round","n":5},{"code":"PHA","short":"Pharmacy","door":"Pharmacovigilance Round","n":6},{"code":"AYU","short":"Ayurveda","door":"Nidan Sabha","n":7},{"code":"NYS","short":"Naturopathy & Yoga","door":"Swasthya Shivir","n":8},{"code":"AGR","short":"Agriculture","door":"Kisan Goshthi","n":9},{"code":"ENG","short":"Engineering","door":"Hackathon","n":10},{"code":"SCI","short":"Basic & Applied Sciences","door":"Journal Club","n":11},{"code":"LAW","short":"Law","door":"Moot Court","n":12},{"code":"COM","short":"Commerce & Management","door":"Case Method Boardroom","n":13},{"code":"GBS","short":"Global Business School","door":"Crisis Boardroom","n":14},{"code":"DES","short":"Design","door":"Design Charrette","n":15},{"code":"MEF","short":"Media & Film","door":"Editorial Room","n":16},{"code":"HSS","short":"Humanities & Social Sciences","door":"Field Notes","n":17},{"code":"BEH","short":"Behavioural Sciences","door":"Rumour Lab","n":18},{"code":"EDU","short":"Education","door":"Staff Room","n":19},{"code":"HTM","short":"Hotel & Tourism","door":"Kitchen Audit","n":20}];
   var q=new URLSearchParams(location.search);
   KP.q=q;
@@ -611,72 +633,233 @@ a{color:var(--accent-text);text-underline-offset:3px}
   }catch(e){}
 })();
 // © 2026 Kamal Preet Singh. All rights reserved.
-/* ===== FX: sound (WebAudio, synthesised, off by default), typewriter labels, split-flap countdown ===== */
+/* ===== SOUND (WebAudio, synthesised live, no audio files). Shared by the public pages (site_src/build.py)
+   and by register/team (qa/tools/build_pages.py).
+   - On by default. Browsers only allow audio after a gesture, so the AudioContext is created/resumed on the
+     first pointerdown, touchend, keydown or click anywhere (scroll is not a gesture). No "tap to enable" prompt.
+   - <html data-ambient> pages (index, teaser, door) also get a quiet generative score: a low D1/A1 drone,
+     a soft 64 BPM heartbeat and faint air. It fades in over ~2 s after the first gesture.
+   - One icon-only toggle ([data-sound] in the nav) mutes/unmutes; it is also the pause control for the ambient.
+   - Mute carries across pages without storage: when muted, same-folder .html links get m=0, and ?m=0 starts muted.
+   - The ambient pauses while the tab is hidden. Every call is wrapped so audio can never break the page. ===== */
+(function(){
+  'use strict';
+  var KP=window.KP=window.KP||{};
+  var root=document.documentElement;
+  var AMBIENT=root.hasAttribute('data-ambient');
+  var on=true;
+  try{on=new URLSearchParams(location.search).get('m')!=='0';}catch(e){}
+  var ac=null,master=null,amb=null,started=false,beatTimer=0,nextBeat=0;
+  var AMB_LEVEL=0.5;   /* ambient bus; the parts below are already very quiet (about -30 dBFS overall) */
+
+  function make(){
+    if(ac)return ac;
+    var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+    try{ac=new C();}catch(e){ac=null;return null;}
+    master=ac.createGain();master.gain.value=on?1:0;master.connect(ac.destination);
+    ac.onstatechange=function(){try{onRunning();}catch(e){}};
+    return ac;
+  }
+  /* iOS: a silent one-sample buffer started inside the gesture unlocks output */
+  function unlockTick(){
+    try{var b=ac.createBuffer(1,1,ac.sampleRate),s=ac.createBufferSource();s.buffer=b;s.connect(ac.destination);s.start(0);}catch(e){}
+  }
+  function onRunning(){
+    if(!ac||ac.state!=='running'||!on)return;
+    if(!started){started=true;stopListening();}
+    if(AMBIENT&&!document.hidden)startAmbient();
+  }
+
+  /* ---------- first gesture anywhere starts sound ---------- */
+  var EV=['pointerdown','touchend','keydown','click'];
+  function gesture(e){
+    try{
+      if(e&&e.target&&e.target.closest&&e.target.closest('[data-sound]'))return;   /* the toggle handles itself */
+      if(!on||!make())return;
+      unlockTick();
+      if(ac.state!=='running'){var p=ac.resume();if(p&&p.then)p.then(onRunning,function(){});}
+      onRunning();
+    }catch(err){}
+  }
+  function stopListening(){EV.forEach(function(t){try{removeEventListener(t,gesture,true);}catch(e){}});}
+  EV.forEach(function(t){try{addEventListener(t,gesture,{capture:true,passive:true});}catch(e){}});
+
+  /* ---------- ambient score (generative: running oscillators, a scheduled heartbeat, long noise bed) ---------- */
+  function pan(c,v){
+    if(!c.createStereoPanner)return null;
+    var p=c.createStereoPanner();p.pan.value=v;return p;
+  }
+  function buildAmbient(c,dest){
+    var t=c.currentTime,bus=c.createGain(),nodes=[];
+    bus.gain.setValueAtTime(0,t);bus.gain.linearRampToValueAtTime(AMB_LEVEL,t+2.2);bus.connect(dest);
+    /* drone: detuned saws on D1, A1 and D2, low-passed so only a warm hum is left */
+    var lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=170;lp.Q.value=.6;
+    var dg=c.createGain();dg.gain.value=.045;lp.connect(dg);dg.connect(bus);
+    [-1,1].forEach(function(side){
+      var p=pan(c,side*.45),out=p||lp;if(p)p.connect(lp);
+      [[36.71,1],[55,.7],[73.42,.3]].forEach(function(v){
+        var o=c.createOscillator(),g=c.createGain();o.type='sawtooth';o.frequency.value=v[0];o.detune.value=side*(5+Math.random()*4);
+        g.gain.value=v[1];o.connect(g);g.connect(out);o.start(t);nodes.push(o);
+      });
+    });
+    var lfo=c.createOscillator(),lg=c.createGain();lfo.frequency.value=.031;lg.gain.value=55;lfo.connect(lg);lg.connect(lp.frequency);lfo.start(t);nodes.push(lfo);
+    /* air: 7 s of noise, looped, band-passed, slowly breathing and drifting side to side */
+    var len=Math.floor(c.sampleRate*7),buf=c.createBuffer(1,len,c.sampleRate),d=buf.getChannelData(0),b0=0,b1=0;
+    for(var i=0;i<len;i++){var w=Math.random()*2-1;b0=.97*b0+.03*w;b1=.6*b1+.4*w;d[i]=b0*2.2+b1*.25;}
+    var n=c.createBufferSource();n.buffer=buf;n.loop=true;
+    var bp=c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=700;bp.Q.value=.55;
+    var ag=c.createGain();ag.gain.value=.010;
+    var al=c.createOscillator(),alg=c.createGain();al.frequency.value=.07;alg.gain.value=.006;al.connect(alg);alg.connect(ag.gain);al.start(t);nodes.push(al);
+    var ap=pan(c,0);n.connect(bp);bp.connect(ag);
+    if(ap){ag.connect(ap);ap.connect(bus);var pl=c.createOscillator(),plg=c.createGain();pl.frequency.value=.045;plg.gain.value=.5;pl.connect(plg);plg.connect(ap.pan);pl.start(t);nodes.push(pl);}
+    else ag.connect(bus);
+    n.start(t);nodes.push(n);
+    /* heartbeat bus */
+    var hl=c.createBiquadFilter();hl.type='lowpass';hl.frequency.value=230;
+    var hg=c.createGain();hg.gain.value=.16;hl.connect(hg);hg.connect(bus);
+    return {bus:bus,heart:hl,nodes:nodes};
+  }
+  function beat(c,dest,at,f0,f1,peak,tau){
+    var o=c.createOscillator(),g=c.createGain();o.type='sine';
+    o.frequency.setValueAtTime(f0,at);o.frequency.setTargetAtTime(f1,at,.03);
+    g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(peak,at+.014);g.gain.setTargetAtTime(0,at+.014,tau);
+    o.connect(g);g.connect(dest);o.start(at);o.stop(at+1.2);
+  }
+  /* lub-dub at about 64 BPM; strength swells and fades over long phrases so it never sounds like a loop */
+  function scheduleBeats(c,dest,from,until,state){
+    while(state.next<until){
+      var at=state.next,ph=at/53,amp=.55+.45*Math.sin(ph*6.2832)*Math.sin(at/131*6.2832+1.3);
+      amp=Math.max(.12,amp)*(.9+Math.random()*.1);
+      beat(c,dest,at,95,48,amp,.11);
+      beat(c,dest,at+.27+Math.random()*.012,85,46,amp*.6,.09);
+      state.next+=60/(63.2+Math.sin(at/71*6.2832)*1.2)+(Math.random()-.5)*.012;
+    }
+  }
+  function startAmbient(){
+    if(!AMBIENT||!ac||ac.state!=='running')return;
+    try{
+      if(!amb)amb=buildAmbient(ac,master);
+      var st={next:Math.max(nextBeat,ac.currentTime+.6)};
+      clearInterval(beatTimer);
+      beatTimer=setInterval(function(){
+        try{
+          if(!ac||ac.state!=='running'){clearInterval(beatTimer);return;}
+          if(st.next<ac.currentTime)st.next=ac.currentTime+.05;
+          scheduleBeats(ac,amb.heart,ac.currentTime,ac.currentTime+.5,st);nextBeat=st.next;
+        }catch(e){clearInterval(beatTimer);}
+      },150);
+    }catch(e){}
+  }
+  KP.buildAmbient=buildAmbient;   /* exposed for the offline level check in the QA script */
+  KP.scheduleBeats=scheduleBeats;
+
+  /* ---------- one-shot effects (stamp thud, paper slide, typewriter tick) ---------- */
+  function live(){return on&&ac&&ac.state==='running'?ac:null;}
+  function noise(c,dur){
+    var b=c.createBuffer(1,Math.max(1,Math.floor(c.sampleRate*dur)),c.sampleRate),d=b.getChannelData(0);
+    for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+    var s=c.createBufferSource();s.buffer=b;return s;
+  }
+  function chain(nodes){for(var i=0;i<nodes.length-1;i++)nodes[i].connect(nodes[i+1]);}
+  function thud(){
+    var c=live();if(!c)return;
+    try{
+      var t=c.currentTime,o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.18);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.8,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+      chain([o,g,master]);o.start(t);o.stop(t+.32);
+      var n=noise(c,.09),f=c.createBiquadFilter(),ng=c.createGain();
+      f.type='lowpass';f.frequency.value=1100;ng.gain.setValueAtTime(.45,t);ng.gain.exponentialRampToValueAtTime(.0001,t+.09);
+      chain([n,f,ng,master]);n.start(t);
+    }catch(e){}
+  }
+  function slide(){
+    var c=live();if(!c)return;
+    try{
+      var t=c.currentTime,n=noise(c,.42),f=c.createBiquadFilter(),g=c.createGain();
+      f.type='bandpass';f.Q.value=.7;f.frequency.setValueAtTime(500,t);f.frequency.exponentialRampToValueAtTime(2600,t+.38);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.22,t+.07);g.gain.exponentialRampToValueAtTime(.0001,t+.42);
+      chain([n,f,g,master]);n.start(t);
+    }catch(e){}
+  }
+  function tick(){
+    var c=live();if(!c)return;
+    try{
+      var t=c.currentTime,n=noise(c,.025),f=c.createBiquadFilter(),g=c.createGain();
+      f.type='highpass';f.frequency.value=1800;g.gain.setValueAtTime(.16,t);g.gain.exponentialRampToValueAtTime(.0001,t+.025);
+      chain([n,f,g,master]);n.start(t);
+    }catch(e){}
+  }
+
+  /* ---------- mute carries across pages: m=0 on same-folder .html links ---------- */
+  var INTERNAL=/^(?:\.\/)?[\w-]+\.html(?:[?#]|$)/i;
+  function withMute(href){
+    if(!href||!INTERNAL.test(href))return href;
+    var h='',i=href.indexOf('#');if(i>=0){h=href.slice(i);href=href.slice(0,i);}
+    var qi=href.indexOf('?'),path=qi>=0?href.slice(0,qi):href,qs=qi>=0?href.slice(qi+1):'';
+    var parts=qs?qs.split('&').filter(function(p){return p&&p.split('=')[0]!=='m';}):[];
+    if(!on)parts.push('m=0');
+    return path+(parts.length?'?'+parts.join('&'):'')+h;
+  }
+  function fixLink(a){try{var h=a.getAttribute('href'),n=withMute(h);if(n!==h)a.setAttribute('href',n);}catch(e){}}
+  function fixLinks(){try{[].forEach.call(document.querySelectorAll('a[href]'),fixLink);}catch(e){}}
+  ['pointerdown','click','auxclick','contextmenu'].forEach(function(t){
+    try{document.addEventListener(t,function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a)fixLink(a);},true);}catch(e){}
+  });
+  KP.withMute=withMute;
+
+  /* ---------- the nav toggle ---------- */
+  function paint(){
+    try{[].forEach.call(document.querySelectorAll('[data-sound]'),function(b){
+      b.setAttribute('aria-pressed',String(!on));b.setAttribute('aria-label',on?'Mute sound':'Turn sound on');
+    });}catch(e){}
+  }
+  function set(v){
+    on=!!v;
+    try{
+      if(on){
+        if(make()){
+          unlockTick();
+          var t=ac.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(1,t+.25);
+          if(ac.state!=='running'){var p=ac.resume();if(p&&p.then)p.then(onRunning,function(){});}
+          onRunning();
+        }
+      }else if(ac){
+        var t2=ac.currentTime;master.gain.cancelScheduledValues(t2);master.gain.setValueAtTime(master.gain.value,t2);master.gain.linearRampToValueAtTime(0,t2+.12);
+        setTimeout(function(){try{if(!on&&ac.state==='running'){ac.suspend();clearInterval(beatTimer);}}catch(e){}},180);
+      }
+    }catch(e){}
+    paint();fixLinks();
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest&&e.target.closest('[data-sound]');if(b)set(!on);
+  });
+
+  /* ---------- hidden tab: pause; visible again: resume (only if sound is on and had started) ---------- */
+  document.addEventListener('visibilitychange',function(){
+    try{
+      if(!ac)return;
+      if(document.hidden){clearInterval(beatTimer);if(ac.state==='running')ac.suspend();}
+      else if(on&&started){var p=ac.resume();if(p&&p.then)p.then(onRunning,function(){});}
+    }catch(e){}
+  });
+
+  KP.sound={
+    isOn:function(){return on;},
+    set:set,
+    context:function(){return ac;},
+    thud:thud,slide:slide,tick:tick
+  };
+  paint();
+  function ready(){paint();if(!on)fixLinks();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready();
+  addEventListener('load',function(){if(!on)fixLinks();});
+})();
+// © 2026 Kamal Preet Singh. All rights reserved.
+/* ===== FX: typewriter labels, split-flap countdown (sound lives in sound.js) ===== */
 (function(){
   'use strict';
   var KP=window.KP;
-
-  /* -- SOUND: three tiny synthesised effects, no audio files. Off until the student turns it on. -- */
-  KP.sound=(function(){
-    var on=false,ac=null;
-    function ctx(){
-      try{
-        if(!ac){var A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ac=new A();}
-        if(ac.state==='suspended')ac.resume();
-        return ac;
-      }catch(e){return null;}
-    }
-    function noise(c,dur){
-      var b=c.createBuffer(1,Math.max(1,Math.floor(c.sampleRate*dur)),c.sampleRate),d=b.getChannelData(0);
-      for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
-      var s=c.createBufferSource();s.buffer=b;return s;
-    }
-    function chain(nodes){for(var i=0;i<nodes.length-1;i++)nodes[i].connect(nodes[i+1]);}
-    function thud(){
-      if(!on)return;var c=ctx();if(!c)return;
-      try{
-        var t=c.currentTime,o=c.createOscillator(),g=c.createGain();
-        o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.18);
-        g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.8,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.3);
-        chain([o,g,c.destination]);o.start(t);o.stop(t+.32);
-        var n=noise(c,.09),f=c.createBiquadFilter(),ng=c.createGain();
-        f.type='lowpass';f.frequency.value=1100;ng.gain.setValueAtTime(.45,t);ng.gain.exponentialRampToValueAtTime(.0001,t+.09);
-        chain([n,f,ng,c.destination]);n.start(t);
-      }catch(e){}
-    }
-    function slide(){
-      if(!on)return;var c=ctx();if(!c)return;
-      try{
-        var t=c.currentTime,n=noise(c,.42),f=c.createBiquadFilter(),g=c.createGain();
-        f.type='bandpass';f.Q.value=.7;f.frequency.setValueAtTime(500,t);f.frequency.exponentialRampToValueAtTime(2600,t+.38);
-        g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.22,t+.07);g.gain.exponentialRampToValueAtTime(.0001,t+.42);
-        chain([n,f,g,c.destination]);n.start(t);
-      }catch(e){}
-    }
-    function tick(){
-      if(!on)return;var c=ctx();if(!c)return;
-      try{
-        var t=c.currentTime,n=noise(c,.025),f=c.createBiquadFilter(),g=c.createGain();
-        f.type='highpass';f.frequency.value=1800;g.gain.setValueAtTime(.16,t);g.gain.exponentialRampToValueAtTime(.0001,t+.025);
-        chain([n,f,g,c.destination]);n.start(t);
-      }catch(e){}
-    }
-    return {
-      isOn:function(){return on;},
-      set:function(v){on=!!v;if(on){ctx();thud();}},
-      thud:thud,slide:slide,tick:tick
-    };
-  })();
-  KP.ready(function(){KP.$$('[data-sound]').forEach(function(b){
-    b.addEventListener('click',function(){
-      var next=!KP.sound.isOn();KP.sound.set(next);
-      KP.$$('[data-sound]').forEach(function(x){
-        x.setAttribute('aria-pressed',String(next));
-        var t=x.querySelector('.snd-t');if(t)t.textContent=next?'Sound on':'Sound';
-        x.setAttribute('aria-label',next?'Sound effects on. Turn off':'Sound effects off. Turn on');
-      });
-    });
-  });});
 
   /* -- TYPEWRITER (BRAND component 5): types once at ~28 ms per character, block cursor stops after 2 s -- */
   KP.type=function(el){
@@ -752,6 +935,9 @@ a{color:var(--accent-text);text-underline-offset:3px}
 })();
 // © 2026 Kamal Preet Singh. All rights reserved.
 /* ===== TORCH REVEAL (BRAND component 1): one canvas mask over the inline SVG map.
+   After the opening sweep, 8 s without a touch on the map (or every fragment found) widens the torch over about
+   1.2 s until the whole map is lit; fragments stay visible. A visually hidden "Show the whole map" button does the
+   same for keyboard and screen-reader users.
    Static, fully lit map with every fragment visible under reduced motion or on low-performance phones. ===== */
 (function(){
   'use strict';
@@ -760,10 +946,11 @@ a{color:var(--accent-text);text-underline-offset:3px}
     o=o||{};
     var cv=hero.querySelector('.torch'),pad=hero.querySelector('.torch-pad'),svg=hero.querySelector('.hero-map svg');
     var frags=KP.$$('.frag',hero),dots=KP.$$('.frag-dot',hero);
-    var countEl=o.countEl,liveEl=o.liveEl,litBtn=o.litBtn,hint=hero.querySelector('.hero-hint');
+    var countEl=o.countEl,liveEl=o.liveEl,skipBtn=o.skipBtn,hint=hero.querySelector('.hero-hint');
     if(!cv||!svg)return null;
     var ctx=cv.getContext('2d');
-    var box=null,W=0,H=0,R=100,pos={x:-200,y:-200},tgt={x:-200,y:-200},raf=0,sweeping=false,lit=false,staticMode=false,found=0,lastUser=0;
+    var box=null,W=0,H=0,R=100,RW=0,pos={x:-200,y:-200},tgt={x:-200,y:-200},raf=0,sweeping=false,lit=false,staticMode=false,found=0,widening=false,idleT=0;
+    var IDLE_MS=8000,WIDEN_MS=1200;
     var spots=frags.map(function(f,i){return {el:f,dot:dots[i],mx:+f.dataset.x,my:+f.dataset.y,ax:f.dataset.anchor||'r',x:0,y:0,found:false,demo:f.hasAttribute('data-demo')};});
 
     function toHero(mx,my){
@@ -812,11 +999,12 @@ a{color:var(--accent-text);text-underline-offset:3px}
       ctx.fillStyle='rgba(4,8,17,.94)';ctx.fillRect(0,0,W,H);
       ctx.globalCompositeOperation='destination-out';
       for(var i=0;i<spots.length;i++)if(spots[i].found)hole(spots[i].x,spots[i].y,R*.5,.42);
-      hole(pos.x,pos.y,R,1);
+      var r=RW||R;
+      hole(pos.x,pos.y,r,1);
       ctx.globalCompositeOperation='source-over';
-      var g=ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,R*.95);
+      var g=ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,r*.95);
       g.addColorStop(0,'rgba(255,190,96,.16)');g.addColorStop(1,'rgba(255,181,71,0)');
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(pos.x,pos.y,R*.95,0,6.2832);ctx.fill();
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(pos.x,pos.y,r*.95,0,6.2832);ctx.fill();
     }
     function reveal(s,quiet){
       if(s.found)return;s.found=true;found++;
@@ -824,6 +1012,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
       if(countEl)countEl.textContent='Fragments '+found+' / '+spots.length;
       if(!quiet){KP.sound.slide();if(liveEl)liveEl.textContent='Fragment found: '+s.el.textContent.replace(/\s+/g,' ').trim();}
       if(o.onFound)o.onFound(found,spots.length);
+      if(found===spots.length&&!lit&&!widening)setTimeout(widen,700);   /* every fragment found: light the whole map */
     }
     function hit(){
       for(var i=0;i<spots.length;i++){
@@ -838,11 +1027,30 @@ a{color:var(--accent-text);text-underline-offset:3px}
       draw();hit();
       if(sweeping||Math.abs(tgt.x-pos.x)>.5||Math.abs(tgt.y-pos.y)>.5)raf=requestAnimationFrame(loop);
     }
-    function kick(){if(!raf&&!staticMode&&!lit)raf=requestAnimationFrame(loop);}
+    function kick(){if(!raf&&!staticMode&&!lit&&!widening)raf=requestAnimationFrame(loop);}
+    /* no touch on the map for 8 s: widen */
+    function armIdle(){clearTimeout(idleT);if(!lit&&!staticMode&&!widening)idleT=setTimeout(widen,IDLE_MS);}
+    function widen(){
+      if(lit||staticMode||widening)return;
+      widening=true;sweeping=false;clearTimeout(idleT);
+      if(raf){cancelAnimationFrame(raf);raf=0;}
+      if(hint)hint.classList.add('is-gone');
+      var cx=pos.x,cy=pos.y,r0=R;
+      if(cx<0||cy<0||cx>W||cy>H){var c=toHero(560,520);pos.x=tgt.x=cx=c.x;pos.y=tgt.y=cy=c.y;}
+      var far=Math.max(Math.hypot(cx,cy),Math.hypot(W-cx,cy),Math.hypot(cx,H-cy),Math.hypot(W-cx,H-cy))*1.9;
+      var t0=performance.now();
+      (function step(now){
+        if(lit){widening=false;RW=0;return;}
+        var u=Math.min((now-t0)/WIDEN_MS,1),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+        RW=r0+(far-r0)*e;draw();
+        for(var i=0;i<spots.length;i++){var s=spots[i],dx=s.x-pos.x,dy=s.y-pos.y;if(!s.found&&dx*dx+dy*dy<(RW*.5)*(RW*.5))reveal(s,true);}
+        if(u<1)requestAnimationFrame(step);else{widening=false;setLit(true,true);RW=0;}
+      })(t0);
+    }
     function userAt(e){
-      if(staticMode||lit)return;
+      if(staticMode||lit||widening)return;
       var hr=hero.getBoundingClientRect();
-      tgt.x=e.clientX-hr.left;tgt.y=e.clientY-hr.top;lastUser=Date.now();
+      tgt.x=e.clientX-hr.left;tgt.y=e.clientY-hr.top;armIdle();
       if(sweeping){sweeping=false;}
       if(hint)hint.classList.add('is-gone');
       kick();
@@ -857,28 +1065,31 @@ a{color:var(--accent-text);text-underline-offset:3px}
       var dur=2300,t0=performance.now();sweeping=true;
       function cr(p0,p1,p2,p3,t){var t2=t*t,t3=t2*t;return .5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t2+(-p0+3*p1-3*p2+p3)*t3);}
       (function step(now){
-        if(!sweeping)return;
+        if(!sweeping){armIdle();return;}
         var u=Math.min((now-t0)/dur,1),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
         var seg=e*(pts.length-1),i=Math.min(Math.floor(seg),pts.length-2),t=seg-i;
         var p0=pts[Math.max(i-1,0)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(i+2,pts.length-1)];
         pos.x=tgt.x=cr(p0.x,p1.x,p2.x,p3.x,t);pos.y=tgt.y=cr(p0.y,p1.y,p2.y,p3.y,t);
         draw();hit();
-        if(u<1)requestAnimationFrame(step);else sweeping=false;
+        if(u<1)requestAnimationFrame(step);else{sweeping=false;armIdle();}
       })(t0);
     }
     function setLit(v,quiet){
       lit=v;hero.classList.toggle('is-lit',v);cv.classList.toggle('is-off',v);
-      if(v){sweeping=false;spots.forEach(function(s){reveal(s,true);});}
+      if(v){sweeping=false;clearTimeout(idleT);spots.forEach(function(s){reveal(s,true);});}
       else{draw();}
-      if(litBtn){litBtn.setAttribute('aria-pressed',String(v));var t=litBtn.querySelector('.lit-t');if(t)t.textContent=v?'Torch':'Full map';}
       if(hint&&v)hint.classList.add('is-gone');
-      if(!quiet&&liveEl)liveEl.textContent=v?'Full map shown. All fragments visible.':'Torch on. Drag on the map to search.';
+      if(!quiet&&liveEl)liveEl.textContent=v?'The whole map is lit. All fragments are visible.':'';
     }
-    if(litBtn)litBtn.addEventListener('click',function(){setLit(!lit);});
+    /* keyboard and screen-reader skip: light the whole map at once */
+    if(skipBtn)skipBtn.addEventListener('click',function(){
+      if(lit){if(liveEl)liveEl.textContent='The whole map is already lit.';return;}
+      widening=false;setLit(true);
+    });
     function goStatic(){
       if(staticMode)return;staticMode=true;sweeping=false;
       setLit(true,true);
-      if(litBtn)litBtn.hidden=true;if(hint)hint.hidden=true;
+      if(hint)hint.hidden=true;
     }
     document.addEventListener('kp:perf',function(){if(KP.lowPerf())goStatic();});
     var rt=0;
@@ -895,49 +1106,9 @@ a{color:var(--accent-text);text-underline-offset:3px}
     }
     if(countEl)countEl.textContent='Fragments '+found+' / '+spots.length;
 
-    return {
-      nudge:function(dx,dy){ /* tilt steers the torch when the finger is idle */
-        if(staticMode||lit||sweeping||Date.now()-lastUser<1500)return;
-        var c=toHero(560,520);tgt.x=c.x+dx*W*.45;tgt.y=c.y+dy*H*.22;kick();
-      },
-      layout:layout
-    };
+    return {layout:layout,widen:widen};
   };
 
-  /* -- TILT PARALLAX: off by default; only after a tap on "Tilt" (iPhone asks permission) -- */
-  KP.tilt=function(btn,layers,torch){
-    if(!btn)return;
-    var D=window.DeviceOrientationEvent;
-    if(!D||!matchMedia('(pointer:coarse)').matches||KP.reduced()){btn.hidden=true;return;}
-    btn.hidden=false;
-    var on=false,b0=null,g0=null,fx=0,fy=0,raf=0;
-    function apply(){
-      raf=0;
-      if(layers[0])layers[0].style.transform='translate3d('+(-fx*10).toFixed(1)+'px,'+(-fy*8).toFixed(1)+'px,0) scale(1.03)';
-      if(layers[1])layers[1].style.transform='translate3d('+(-fx*18).toFixed(1)+'px,'+(-fy*14).toFixed(1)+'px,0)';
-      if(torch)torch.nudge(fx,fy);
-    }
-    function onOri(e){
-      if(e.gamma==null)return;
-      if(g0===null){g0=e.gamma;b0=e.beta;}
-      fx=Math.max(-1,Math.min(1,(e.gamma-g0)/22));fy=Math.max(-1,Math.min(1,(e.beta-b0)/22));
-      if(!raf)raf=requestAnimationFrame(apply);
-    }
-    function set(v){
-      on=v;btn.setAttribute('aria-pressed',String(v));
-      var t=btn.querySelector('.tilt-t');if(t)t.textContent=v?'Tilt on':'Tilt';
-      if(v){g0=null;addEventListener('deviceorientation',onOri);}
-      else{removeEventListener('deviceorientation',onOri);fx=fy=0;apply();layers.forEach(function(l){if(l)l.style.transform='';});}
-    }
-    btn.addEventListener('click',function(){
-      if(on){set(false);return;}
-      try{
-        if(typeof D.requestPermission==='function'){
-          D.requestPermission().then(function(s){if(s==='granted')set(true);else btn.hidden=true;}).catch(function(){btn.hidden=true;});
-        }else set(true);
-      }catch(e){btn.hidden=true;}
-    });
-  };
 })();
 
 /* ===== TEASER HERO (runs right after the hero is parsed) ===== */
@@ -945,8 +1116,7 @@ a{color:var(--accent-text);text-underline-offset:3px}
   'use strict';
   var KP=window.KP,$=KP.$;
   try{
-    var torch=KP.torch($('#top'),{countEl:$('#foundCount'),liveEl:$('#live'),litBtn:$('#litBtn'),sweepDelay:420});
-    KP.tilt($('#tiltBtn'),[$('.map-tilt'),$('#frags')],torch);
+    KP.torch($('#top'),{countEl:$('#foundCount'),liveEl:$('#live'),skipBtn:$('#mapSkip'),sweepDelay:420});
     setTimeout(function(){var h=$('.hero-hint');if(h)h.classList.add('is-gone');},5200);
   }catch(e){if(window.console)console.warn(e);}
 })();

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="One Case"><style>@media (prefers-color-scheme:light){.l{stroke:#5a4f3a}}</style><!-- © 2026 Kamal Preet Singh. All rights reserved. --><g><path d="M60 14 A40 40 0 0 0 60 94" fill="none" stroke="#ffb547" stroke-width="12" stroke-linecap="round"/>
+  <path d="M60 14 A40 40 0 0 1 60 94" fill="none" stroke="#9fb3c8" stroke-width="12" stroke-linecap="round"/>
+  <g class="l" stroke="#e8d7a9" stroke-width="3" stroke-linecap="round"><path d="M36 42h18M34 53h20M36 64h16"/></g>
+  <path d="M67 38 79 48 69 60 81 70" fill="none" stroke="#9fb3c8" stroke-width="2.4" stroke-linejoin="round"/>
+  <g fill="#9fb3c8"><circle cx="67" cy="38" r="3.8"/><circle cx="79" cy="48" r="3.8"/><circle cx="69" cy="60" r="3.8"/><circle cx="81" cy="70" r="3.8"/></g>
+  <path d="M60 22 V86" stroke="#c8302f" stroke-width="2" stroke-dasharray="3 4" opacity=".9"/>
+  <path d="M88 82 106 104" stroke="#ffb547" stroke-width="13" stroke-linecap="round"/></g></svg>

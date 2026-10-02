@@ -16,9 +16,11 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="One Case">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/torch.svg" type="image/svg+xml">
-<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/mark.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-48.png" sizes="48x48" type="image/png">
+<link rel="icon" href="icons/icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/icon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
 <script>document.documentElement.className='js';</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,32 +49,35 @@
   --f-type:"Special Elite","Courier New",Courier,ui-monospace,monospace;
   --f-head:"Oswald","Arial Narrow","Roboto Condensed","Helvetica Neue",Arial,sans-serif;
   /* light palette: "daylight case file" */
-  --bg:#efe4c4; --card:#f8f1dc; --soft:#e5d6aa; --fg:#221d14; --muted:#5a4f3a;
+  --mark-lines:#5a4f3a; --bg:#efe4c4; --card:#f8f1dc; --soft:#e5d6aa; --fg:#221d14; --muted:#5a4f3a;
   --line:#a8956a; --accent:#8a4c05; --accent-fg:#fbf4e0; --accent-2:#a8231f; --accent-text:#8a4c05;
   --stamp:#a8231f; --nav-bg:rgba(239,228,196,.9);
   --board:#d9c491; --board-line:#b39b62; --leaf:#3b2f1c; --leaf-2:#4a3b24; --leaf-fg:#f3e6c2;
   --bar:#b86a0c; --bar-track:#e0cf9e; --string:#a8231f;
   --shadow:0 1px 0 rgba(34,29,20,.06),0 12px 30px -16px rgba(34,29,20,.55);
+  --hint-fg:#8a4c05; --hint-line:#b86a0c; --hint-bg:rgba(184,106,12,.1);
 }
 /* dark palette: "night" (layer 2, system preference unless the user forced light) */
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+    --mark-lines:#e8d7a9; --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
     --line:#34466b; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#ff6b5e; --accent-text:#ffb547;
     --stamp:#c8302f; --nav-bg:rgba(11,18,32,.86);
     --board:#0f1828; --board-line:#24324d; --leaf:#1b2740; --leaf-2:#22304d; --leaf-fg:#e9e4d4;
     --bar:#ffb547; --bar-track:#1b2740; --string:#c8302f;
     --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 34px -16px rgba(0,0,0,.8);
+    --hint-fg:#ffb547; --hint-line:rgba(255,181,71,.75); --hint-bg:rgba(255,181,71,.1);
   }
 }
 /* dark palette, layer 3 (explicit toggle; the brand default). KEEP IDENTICAL to layer 2. */
 :root[data-theme="dark"]{
-  --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
+  --mark-lines:#e8d7a9; --bg:#0b1220; --card:#121b2e; --soft:#1b2740; --fg:#e9e4d4; --muted:#a9a28c;
   --line:#34466b; --accent:#ffb547; --accent-fg:#0b1220; --accent-2:#ff6b5e; --accent-text:#ffb547;
   --stamp:#c8302f; --nav-bg:rgba(11,18,32,.86);
   --board:#0f1828; --board-line:#24324d; --leaf:#1b2740; --leaf-2:#22304d; --leaf-fg:#e9e4d4;
   --bar:#ffb547; --bar-track:#1b2740; --string:#c8302f;
   --shadow:0 1px 0 rgba(0,0,0,.3),0 14px 34px -16px rgba(0,0,0,.8);
+  --hint-fg:#ffb547; --hint-line:rgba(255,181,71,.75); --hint-bg:rgba(255,181,71,.1);
 }
 
 /* ===== 2. RESET / BASE (kp-html-base) ===== */
@@ -114,9 +119,14 @@ a{color:var(--accent-text);text-underline-offset:3px}
 .nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 16px;flex:none;
   border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);
   font:600 .9rem/1 var(--f-head);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
-.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
+.theme-toggle,.snd-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;
   font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
-@media (hover:hover){.theme-toggle:hover{background:var(--soft)}.nav-cta:hover{filter:brightness(1.08)}}
+/* sound toggle: icon only, same look as the theme toggle; speaker when on, speaker with a slash when muted */
+.snd-toggle{color:var(--fg);padding:0}
+.snd-toggle svg{width:24px;height:24px;flex:none}
+.snd-toggle .snd-off,.snd-toggle[aria-pressed="true"] .snd-on{display:none}
+.snd-toggle[aria-pressed="true"] .snd-off{display:block}
+@media (hover:hover){.theme-toggle:hover,.snd-toggle:hover{background:var(--soft)}.nav-cta:hover{filter:brightness(1.08)}}
 .nav-roll{cursor:default;background:var(--soft);color:var(--fg);border:1px solid var(--line);font-variant-numeric:tabular-nums;max-width:44vw;overflow:hidden}
 @media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 12px;font-size:.8rem}.nav-roll-label{display:none}}
 @media (max-width:479px){.nav-roll-label{display:none}.nav-roll{padding:0 12px}}
@@ -149,6 +159,11 @@ a{color:var(--accent-text);text-underline-offset:3px}
   font:400 .76rem/1 var(--f-type);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
 .chip[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
 .chip svg{width:18px;height:18px;flex:none}
+/* instruction hint (e.g. "Tap a door."): amber on night, amber-deep border with deeper amber text on daylight (contrast > 4.5:1) */
+.tap-hint{display:inline-flex;align-items:center;gap:9px;margin:0 0 22px;padding:7px 14px 7px 10px;border-radius:var(--r-pill);
+  border:1.5px solid var(--hint-line);background:var(--hint-bg);color:var(--hint-fg);
+  font:400 .84rem/1.2 var(--f-type);letter-spacing:.1em;text-transform:uppercase}
+.tap-hint svg{width:22px;height:22px;flex:none}
 @media (max-width:379px){.chip{padding:0 11px;gap:6px;font-size:.7rem}}
 @media (hover:hover){.chip:hover{border-color:var(--amber)}.btn:hover{filter:brightness(1.06)}}
 
@@ -244,6 +259,8 @@ body.go{background:var(--bg);min-height:100vh;min-height:100dvh}
   .tile .fl{display:none !important}
   .tw.tw-on .tw-vis::after{display:none}
   .hero-hint{display:none}
+  .ev,.ev:hover,.ev:focus-within{transform:rotate(var(--rot,0deg)) !important}
+  .ev:has(:focus-visible){transform:rotate(var(--rot,0deg)) !important}   /* episode cards: shadow only, no lift */
 }
 
 </style>
@@ -251,11 +268,11 @@ body.go{background:var(--bg);min-height:100vh;min-height:100dvh}
 
 <body class="go">
 <a class="skip" href="#main">Skip to content</a>
-<nav class="nav" aria-label="Main"><a class="nav-brand" href="index.html"><svg class="nav-logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="tmN" x1=".1" y1=".9" x2=".9" y2=".1"><stop offset="0" stop-color="#ffb547" stop-opacity=".95"/><stop offset="1" stop-color="#ffb547" stop-opacity=".06"/></linearGradient></defs><circle cx="32" cy="32" r="32" fill="#0b1220"/><path d="M21.4 35.5 41.8 3.8Q55 7 60.2 22.2L28.5 42.6Z" fill="url(#tmN)"/><g transform="rotate(-45 20 44)"><rect x="7" y="40.5" width="15" height="7" rx="2" fill="#e9e4d4"/><path d="M22 39h5v10h-5z" fill="#ffb547"/></g></svg><div><div class="nav-name">One Case</div><div class="nav-sub" hidden>R&amp;D Cell × Center of AI</div></div></a><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">☀️</button><span class="nav-cta nav-roll" hidden></span><a class="nav-cta" id="navCta" href="register.html" data-src-link>Register</a></nav>
+<nav class="nav" aria-label="Main"><a class="nav-brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="nav-logo" aria-hidden="true" focusable="false"><g><path d="M60 14 A40 40 0 0 0 60 94" fill="none" stroke="#ffb547" stroke-width="12" stroke-linecap="round"/><path d="M60 14 A40 40 0 0 1 60 94" fill="none" stroke="#9fb3c8" stroke-width="12" stroke-linecap="round"/><g style="stroke:var(--mark-lines,#e8d7a9)" stroke-width="3" stroke-linecap="round"><path d="M36 42h18M34 53h20M36 64h16"/></g><path d="M67 38 79 48 69 60 81 70" fill="none" stroke="#9fb3c8" stroke-width="2.4" stroke-linejoin="round"/><g fill="#9fb3c8"><circle cx="67" cy="38" r="3.8"/><circle cx="79" cy="48" r="3.8"/><circle cx="69" cy="60" r="3.8"/><circle cx="81" cy="70" r="3.8"/></g><path d="M60 22 V86" stroke="#c8302f" stroke-width="2" stroke-dasharray="3 4" opacity=".9"/><path d="M88 82 106 104" stroke="#ffb547" stroke-width="13" stroke-linecap="round"/></g></svg><div><div class="nav-name">One Case</div><div class="nav-sub" hidden>R&amp;D Cell × Center of AI</div></div></a><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">☀️</button><span class="nav-cta nav-roll" hidden></span><a class="nav-cta" id="navCta" href="register.html" data-src-link>Register</a></nav>
 <main id="main" class="go-main" tabindex="-1">
   <div class="gof" id="gof" aria-hidden="true">
     <span class="folder-tab">Case file 0</span>
-    <div class="gof-sheet"><svg class="go-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="tmB" x1=".1" y1=".9" x2=".9" y2=".1"><stop offset="0" stop-color="#ffb547" stop-opacity=".95"/><stop offset="1" stop-color="#ffb547" stop-opacity=".06"/></linearGradient></defs><circle cx="32" cy="32" r="32" fill="#0b1220"/><path d="M21.4 35.5 41.8 3.8Q55 7 60.2 22.2L28.5 42.6Z" fill="url(#tmB)"/><g transform="rotate(-45 20 44)"><rect x="7" y="40.5" width="15" height="7" rx="2" fill="#e9e4d4"/><path d="M22 39h5v10h-5z" fill="#ffb547"/></g></svg><p>The Neemgarh File</p><span class="stamp">Open</span></div>
+    <div class="gof-sheet"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="go-mark" aria-hidden="true" focusable="false"><g><path d="M60 14 A40 40 0 0 0 60 94" fill="none" stroke="#ffb547" stroke-width="12" stroke-linecap="round"/><path d="M60 14 A40 40 0 0 1 60 94" fill="none" stroke="#9fb3c8" stroke-width="12" stroke-linecap="round"/><g style="stroke:#5a4f3a" stroke-width="3" stroke-linecap="round"><path d="M36 42h18M34 53h20M36 64h16"/></g><path d="M67 38 79 48 69 60 81 70" fill="none" stroke="#9fb3c8" stroke-width="2.4" stroke-linejoin="round"/><g fill="#9fb3c8"><circle cx="67" cy="38" r="3.8"/><circle cx="79" cy="48" r="3.8"/><circle cx="69" cy="60" r="3.8"/><circle cx="81" cy="70" r="3.8"/></g><path d="M60 22 V86" stroke="#c8302f" stroke-width="2" stroke-dasharray="3 4" opacity=".9"/><path d="M88 82 106 104" stroke="#ffb547" stroke-width="13" stroke-linecap="round"/></g></svg><p>The Neemgarh File</p><span class="stamp">Open</span></div>
     <div class="gof-cover"></div>
   </div>
   <h1>Opening the file</h1>
@@ -398,7 +415,7 @@ body.go{background:var(--bg);min-height:100vh;min-height:100dvh}
 (function(){
   'use strict';
   var KP=window.KP;
-  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"The Drop opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
+  var CFG=KP.CFG={"base_url":"https://kpsingh.in/onecase","go_path":"/go","api_url":"","tease_from":"2026-12-16T00:00:00+05:30","reveal_at":"2026-12-21T11:00:00+05:30","drop_from":"2027-01-04T09:00:00+05:30","drop_to":"2027-01-08T23:59:00+05:30","finale_at":"2027-01-29T17:30:00+05:30","finale_venue":"[Auditorium]","phases":["tease","register","drop","episodes","finale","after"],"rules_url":"","privacy_url":"","milestones":[{"k":"reveal","at":"2026-12-21T11:00:00+05:30","name":"Reveal. Registration opens"},{"k":"drop","at":"2027-01-04T09:00:00+05:30","name":"Episode 0 opens"},{"k":"teams","at":"2027-01-09T12:00:00+05:30","name":"Team formation opens"},{"k":"ep1","at":"2027-01-13T09:30:00+05:30","name":"Episode 1 doors open"},{"k":"ep2","at":"2027-01-22T13:30:00+05:30","name":"Episode 2: Find the Crack"},{"k":"ep3","at":"2027-01-27T14:00:00+05:30","name":"Episode 3: Join the Dots"},{"k":"finale","at":"2027-01-29T17:30:00+05:30","name":"The finale: Make the Call"}]};
   var SCHOOLS=KP.SCHOOLS=[{"code":"MED","short":"Medicine","door":"Grand Round","n":1},{"code":"DEN","short":"Dental","door":"Chairside Conference","n":2},{"code":"NUR","short":"Nursing","door":"Care Conference","n":3},{"code":"AHS","short":"Allied Health","door":"Bench Report","n":4},{"code":"PHY","short":"Physiotherapy","door":"Clinical Reasoning Round","n":5},{"code":"PHA","short":"Pharmacy","door":"Pharmacovigilance Round","n":6},{"code":"AYU","short":"Ayurveda","door":"Nidan Sabha","n":7},{"code":"NYS","short":"Naturopathy & Yoga","door":"Swasthya Shivir","n":8},{"code":"AGR","short":"Agriculture","door":"Kisan Goshthi","n":9},{"code":"ENG","short":"Engineering","door":"Hackathon","n":10},{"code":"SCI","short":"Basic & Applied Sciences","door":"Journal Club","n":11},{"code":"LAW","short":"Law","door":"Moot Court","n":12},{"code":"COM","short":"Commerce & Management","door":"Case Method Boardroom","n":13},{"code":"GBS","short":"Global Business School","door":"Crisis Boardroom","n":14},{"code":"DES","short":"Design","door":"Design Charrette","n":15},{"code":"MEF","short":"Media & Film","door":"Editorial Room","n":16},{"code":"HSS","short":"Humanities & Social Sciences","door":"Field Notes","n":17},{"code":"BEH","short":"Behavioural Sciences","door":"Rumour Lab","n":18},{"code":"EDU","short":"Education","door":"Staff Room","n":19},{"code":"HTM","short":"Hotel & Tourism","door":"Kitchen Audit","n":20}];
   var q=new URLSearchParams(location.search);
   KP.q=q;
@@ -519,11 +536,15 @@ body.go{background:var(--bg);min-height:100vh;min-height:100dvh}
   'use strict';
   var KP=window.KP,$=KP.$,s=KP.src,t0=Date.now();
   var anim=KP.motionOK()?800:0;
+  /* sound muted on the page that sent us here: carry m=0 on (no other data in the URL) */
+  var muted=KP.q.get('m')==='0';
+  function mute(u){if(!muted)return u;var h='',i=u.indexOf('#');if(i>=0){h=u.slice(i);u=u.slice(0,i);}return u+(u.indexOf('?')>=0?'&':'?')+'m=0'+h;}
+  KP.$$('#goLinks a, .nav a[href$=".html"]').forEach(function(a){a.setAttribute('href',mute(a.getAttribute('href')));});
   if(anim)$('#gof').classList.add('play');
   var code='';
   if(/^door-[a-z]{3}$/.test(s)&&KP.school(s.slice(5)))code=s.slice(5).toUpperCase();
   function dest(phase){
-    var q=function(extra){var p=[];if(s)p.push('s='+encodeURIComponent(s));if(extra)p.push(extra);p.push('via=go');return '?'+p.join('&');};
+    var q=function(extra){var p=[];if(s)p.push('s='+encodeURIComponent(s));if(extra)p.push(extra);p.push('via=go');if(muted)p.push('m=0');return '?'+p.join('&');};
     switch(phase){
       case 'tease':return 'teaser.html'+q();
       case 'register':return 'register.html'+q(code?'school='+code:'');
