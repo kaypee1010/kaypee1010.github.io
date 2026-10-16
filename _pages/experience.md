@@ -8,15 +8,36 @@ author: "Kamal Preet Singh"
 
 ## Academic Experience
 
+### Overall In-charge / Coordinator, AI-SETU  
+🎓 **The SGT Centre for AI Excellence, SGT University, Gurugram, India**  
+*Oct 2026 – Present*
+
+- Leading **AI-SETU**, the university's Centre for AI Excellence, coordinating AI training, AI course development and AI adoption across schools and departments.
+- Designing a university-wide **AI Foundation course** and planning faculty development programmes on AI.
+- Coordinating AI-SETU initiatives with the AI Advisor's office and the Research & Development directorate.
+
+---
+
+### Assistant Professor, CSE (AI/ML)  
+🎓 **School of Engineering and Technology, SGT University, Gurugram, India**  
+*Jul 2026 – Present*
+
+- Teaching **AI & Machine Learning (B.Tech Sem 7)** and **MATLAB (B.Tech Sem 5)** with self-developed course material, quizzes and learning platforms.
+- Member of the university transformation team on behalf of the AI team, reviewing and improving institutional units such as the Incubation Centre.
+- Built the **Student Growth Intelligence Framework (SGIF)**, an institution-level platform for quizzes, competitive events and learner analytics dashboards.
+- Supporting the R&D Cell, including the rubric and records system for the Structured Faculty Mentoring Programme.
+
+---
+
 ### Assistant Professor  
 🎓 **Swami Rama Himalayan University (SRHU), Dehradun, India**  
-*Aug 2024 – Present*
+*Aug 2024 – Jul 2026*
 
-- Delivering advanced courses in **Artificial Intelligence, Machine Learning, Data Science, and Deep Learning**.
+- Delivered advanced courses in **Artificial Intelligence, Machine Learning, Data Science, and Deep Learning**.
 - Introduced industry-aligned modules including **Introduction to Data Science, AI & Robotics, and Applied Deep Learning**.
-- Leading curriculum modernization aligned with **NEP-2020 and Outcome-Based Education (OBE)**.
-- Supervising undergraduate and postgraduate research projects in **AI, IoT, and Cyber-Physical Systems**.
-- Actively engaged in interdisciplinary research, patent development, and academic mentoring.
+- Led curriculum modernization aligned with **NEP-2020 and Outcome-Based Education (OBE)**.
+- Supervised undergraduate and postgraduate research projects in **AI, IoT, and Cyber-Physical Systems**.
+- Engaged in interdisciplinary research, patent development, and academic mentoring.
 
 ---
 

@@ -1,8 +1,9 @@
 **Kamal Preet Singh**
-Assistant Professor — Artificial Intelligence & Data Science
-Swami Rama Himalayan University, Dehradun, India
+Overall In-charge / Coordinator, AI-SETU — The SGT Centre for AI Excellence
+Assistant Professor, CSE (AI/ML) — SGT University, Gurugram, India
 
-Email: [kamalpreetsingh@srhu.edu.in](mailto:kamalpreetsingh@srhu.edu.in)
+Email: [kamalpreet1010@gmail.com](mailto:kamalpreet1010@gmail.com)
+Website: https://kpsingh.in
 LinkedIn: https://www.linkedin.com/in/kaypee-singh/  
 GitHub: https://github.com/kaypee1010  
 Google Scholar: https://scholar.google.com/citations?user=vxEyeVMAAAAJ
@@ -12,11 +13,14 @@ ORCID: https://orcid.org/0000-0001-7949-0767
 
 ## RESEARCH INTERESTS
 
-Artificial Intelligence, Machine Learning, Data Analytics, Internet of Things (IoT), Cyber-Physical Systems, Smart Infrastructure, Intelligent Transportation Systems, Network Security.
+Confidence Calibration and Uncertainty-Aware Machine Learning, Learning Analytics, Artificial Intelligence, Machine Learning, Data Analytics, Internet of Things (IoT), Cyber-Physical Systems, Smart Infrastructure, Intelligent Transportation Systems, Network Security.
 
 ---
 
 ## EDUCATION
+
+Ph.D. (Part-time, Coursework Stage) — Panjab University, Chandigarh
+Thesis: A Confidence-Aware Learning Analytics Platform for Predictive Learner Modelling and Personalized Educational Intervention
 
 Master of Information Technology (Artificial Intelligence)
 University of Melbourne, Australia — 2021
@@ -31,8 +35,17 @@ Punjab Technical University — 2011
 
 ## ACADEMIC APPOINTMENTS
 
+Overall In-charge / Coordinator, AI-SETU — The SGT Centre for AI Excellence, SGT University, Gurugram
+Oct 2026 – Present
+
+Assistant Professor, CSE (AI/ML) — SGT University, Gurugram
+Jul 2026 – Present
+
 Assistant Professor — Swami Rama Himalayan University, Dehradun
-Aug 2024 – Present
+Aug 2024 – Jul 2026
+
+Assistant Professor — Maharishi Markandeshwar University, Mullana
+Aug 2023 – Aug 2024
 
 Assistant Professor — University of Petroleum & Energy Studies (UPES), Dehradun
 Jul 2015 – Feb 2020
@@ -63,6 +76,7 @@ Jul 2021 – Dec 2021
 Courses taught across undergraduate programs:
 
 * Artificial Intelligence and Machine Learning
+* MATLAB
 * Introduction to Data Science
 * Introduction to Deep Learning and NLP
 * AI and Robotics
@@ -81,6 +95,13 @@ Teaching methodology includes flipped classroom, case-based learning, and indust
 Google Scholar Citations: ~400 | h-index: 7 | i10-index: 7
 
 Publications include SCI journals, Springer proceedings, IEEE conferences, and interdisciplinary collaborations.
+
+Recent publications (2026):
+
+* K. P. Singh et al., "AISISF: An AI-Driven Sustainable Infrastructure and Sovereignty Framework for Emerging Economies," 5th IEEE CISCT, 2026. DOI: 10.1109/CISCT69589.2026.11726921
+* N. Rani, M. Arora, G. D. Makkar, K. P. Singh et al., "DC-AIRA: A Decision-Centric AI Reference Architecture for Knowledge Management," 5th IEEE CISCT, 2026. DOI: 10.1109/CISCT69589.2026.11726894
+* S. Preet et al., K. P. Singh, "Local Interpretability in Cardiac AI: Identifying Dominant Physiological Predictors Through LIME Methods," 5th IEEE CISCT, 2026, pp. 546–551. DOI: 10.1109/CISCT69589.2026.11726957
+* "CalibML," accepted at ICSTAIS 2026
 
 (Complete list available on Google Scholar)
 
@@ -143,6 +164,7 @@ Tools: Git, Jupyter, MATLAB
 
 ## ACADEMIC SERVICE
 
+Overall In-charge / Coordinator, AI-SETU (The SGT Centre for AI Excellence)
 Curriculum design aligned with Outcome-Based Education (OBE)
 Faculty Development Programs and workshops
 Student mentoring and project supervision

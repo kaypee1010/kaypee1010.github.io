@@ -1,7 +1,7 @@
 **Kamal Preet Singh**
 Data Scientist | Data Engineer | Data Analyst
 
-Email: [kamalpreetsingh@srhu.edu.in](mailto:kamalpreetsingh@srhu.edu.in)
+Email: [kamalpreet1010@gmail.com](mailto:kamalpreet1010@gmail.com)
 Linkedin: "https://www.linkedin.com/in/kaypee-singh/"
 GitHub: https://github.com/kaypee1010
 
@@ -58,11 +58,24 @@ Jul 2021 – Dec 2021
 
 ## ACADEMIC EXPERIENCE
 
-Assistant Professor — Swami Rama Himalayan University
-Aug 2024 – Present
+Overall In-charge / Coordinator, AI-SETU — The SGT Centre for AI Excellence, SGT University, Gurugram
+Oct 2026 – Present
 
-* Teaching Machine Learning, Data Science, and AI courses with industry applications.
-* Supervising AI and IoT student projects.
+* Leading university-wide AI training, AI course development and AI adoption.
+
+Assistant Professor, CSE (AI/ML) — SGT University, Gurugram
+Jul 2026 – Present
+
+* Teaching AI & Machine Learning and MATLAB; built SGIF, an institution-level learner analytics platform.
+
+Assistant Professor — Swami Rama Himalayan University
+Aug 2024 – Jul 2026
+
+* Taught Machine Learning, Data Science, and AI courses with industry applications.
+* Supervised AI and IoT student projects.
+
+Assistant Professor — Maharishi Markandeshwar University, Mullana
+Aug 2023 – Aug 2024
 
 Assistant Professor — UPES
 Jul 2015 – Feb 2020
