@@ -92,7 +92,7 @@ Teaching methodology includes flipped classroom, case-based learning, and indust
 
 ## PUBLICATIONS
 
-Google Scholar Citations: ~400 | h-index: 7 | i10-index: 7
+Google Scholar Citations: 500+ | h-index: 7 | i10-index: 7
 
 Publications include SCI journals, Springer proceedings, IEEE conferences, and interdisciplinary collaborations.
 
@@ -109,7 +109,7 @@ Recent publications (2026):
 
 ## PATENTS
 
-Six Indian Patent Applications — Published (2025–2026)
+9+ Patent and IP Filings, including six published Indian patent applications (2025–2026)
 
 Domains:
 

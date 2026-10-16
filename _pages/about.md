@@ -12,7 +12,7 @@ author_profile: true
 <div style="margin-top:6px; margin-bottom:8px;">
 
 <span style="background:#1f2937; padding:4px 10px; border-radius:6px; margin-right:6px; font-size:13px;">
-400+ Citations
+500+ Citations
 </span>
 
 <span style="background:#1f2937; padding:4px 10px; border-radius:6px; margin-right:6px; font-size:13px;">
@@ -24,7 +24,7 @@ h-index 7
 </span>
 
 <span style="background:#1f2937; padding:4px 10px; border-radius:6px; font-size:13px;">
-6 Patents
+9+ Patents & IP Filings
 </span>
 
 </div>
@@ -85,7 +85,7 @@ Intelligent infrastructure, smart systems, AI-driven safety frameworks.
 <div style="display:flex; flex-wrap:wrap; gap:36px; margin-top:18px; font-size:17px;">
 
 <div>
-<strong>400+</strong><br>Citations
+<strong>500+</strong><br>Citations
 </div>
 
 <div>
@@ -97,7 +97,7 @@ Intelligent infrastructure, smart systems, AI-driven safety frameworks.
 </div>
 
 <div>
-<strong>6+</strong><br>Patents
+<strong>9+</strong><br>Patents & IP Filings
 </div>
 
 <div>

@@ -114,7 +114,7 @@ Splunk Fundamentals
 
 ## PUBLICATIONS & PATENTS
 
-Research publications with ~400 citations and multiple patent filings in AI and IoT domains.
+Research publications with 500+ citations and 9+ patent and IP filings in AI and IoT domains.
 
 ---
 

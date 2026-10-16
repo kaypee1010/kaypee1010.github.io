@@ -7,7 +7,7 @@ author_profile: true
 
 ## Research Metrics
 
-- **Google Scholar Citations:** ~400+
+- **Google Scholar Citations:** 500+
 - **h-index:** 7
 - **i10-index:** 7
 
