@@ -93,6 +93,22 @@ Udemy, 2021
 
 <div class="publication-card">
 
+<b>Capacity Building Program on Artificial Intelligence (Foundations)</b>
+
+Malaviya Mission Teacher Training Programme (MMTTP), University Grants Commission (UGC)  
+Institution: IIT Ropar  
+Dates: 7 to 11 September 2026  
+Score: **80%**
+
+<div class="pub-buttons">
+<a class="btn btn--primary btn--small" href="/files/certifications/iit-ropar-mmttp-ai-foundations-2026.pdf">View Certificate</a>
+</div>
+
+</div>
+
+
+<div class="publication-card">
+
 <b>NPTEL-AICTE Faculty Development Programme</b>
 
 Course: *Joy of Computing Using Python*  
