@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-base="1.2.0" data-persist="off" data-page="aisetu-course-profile" data-version="1.1">
+<html lang="en" data-base="1.2.0" data-persist="off" data-page="aisetu-course-profile" data-version="1.2">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -473,7 +473,7 @@ $('submit').addEventListener('click',function(){
   if(busy)return;
   if(!check('A')){go(0);return;}
   if(!$('consent').checked){err('review','Please tick the confirmation to send.');return;}
-  busy=true;var b=$('submit');b.disabled=true;b.textContent='Sending…';err('review','');
+  busy=true;var b=$('submit');b.disabled=true;b.textContent='Sending…';err('review','');$('e-review').style.color='var(--muted)';$('e-review').textContent='Saving your answers. Please keep this page open.';
   var id=newId();
   readFile().then(function(file){
     var body={v:1,id:id,school:val('school'),code:pre?pre[0]:'',email:val('email'),answers:collect(),file:file,hp:''};
@@ -484,7 +484,7 @@ $('submit').addEventListener('click',function(){
     show('s-done');
     $('doneMsg').textContent=r.preview?'Preview mode: nothing was sent.':'AI-SETU has received the profile of '+val('course')+'. A copy has been emailed to '+val('email')+'.';
     $('doneRef').textContent='Reference '+(r.id||id);
-  }).catch(function(e){err('review','Could not send: '+e+'. Please try again, or write to aisetu@sgtuniversity.org.');})
+  }).catch(function(e){$('e-review').style.color='';err('review','Could not send: '+e+'. Please try again, or write to aisetu@sgtuniversity.org.');})
   .then(function(){busy=false;b.disabled=false;b.textContent='Send to AI-SETU ✦';});
 });
 })();
