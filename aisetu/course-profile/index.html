@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" data-base="1.2.0" data-persist="off" data-page="aisetu-course-profile" data-version="1.0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f6fb" id="themeColor">
+<meta name="robots" content="noindex">
+<meta name="description" content="AI-SETU, The SGT Centre for AI Excellence: AI course profile for the course review, filled by the Faculty before the meeting.">
+<title>AI-SETU · AI Course Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* DESIGN: the AI-SETU bridge. Each section is one span of the bridge; the gold arc fills as the Faculty moves across. Navy and gold, v8 glass cards. */
+:root{
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px); --sar:env(safe-area-inset-right,0px);
+  --pad:clamp(16px,4vw,32px); --gap:clamp(12px,3vw,24px);
+  --r:16px; --r-lg:24px; --r-pill:999px; --nav-h:64px;
+  --dur-1:140ms; --dur-2:260ms; --dur-3:460ms;
+  --ease-out:cubic-bezier(.22,.61,.36,1); --ease-in:cubic-bezier(.55,.06,.68,.19);
+  --step-0:clamp(1rem,.95rem + .25vw,1.12rem);
+  --step-2:clamp(1.45rem,1.2rem + 1.2vw,2.05rem);
+  --step-3:clamp(2rem,1.5rem + 2.6vw,3.3rem);
+  --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --bg:#f4f6fb; --card:#ffffff; --soft:#e8edf5; --fg:#0f2033; --muted:#46566b;
+  --line:#b9c5d6; --accent:#123a5c; --accent-fg:#ffffff; --accent-2:#8a5300;
+  --gold:#f2a93b; --sky:#8fc3e8;
+  --hero-a:#123a5c; --hero-b:#0a1d31; --hero-fg:#f5f8fc; --hero-muted:#c3d2e2;
+  --ok:#1f6b3a; --bad:#a3291c; --nav-bg:rgba(244,246,251,.92);
+  --glass:rgba(255,255,255,.6); --glass-line:rgba(18,58,92,.2); --glow:rgba(242,169,59,.55);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1622; --card:#112234; --soft:#1a2f45; --fg:#eaf1f8; --muted:#a9b9ca;
+    --line:#34506d; --accent:#f2a93b; --accent-fg:#0a1622; --accent-2:#f6c26f;
+    --hero-a:#13314f; --hero-b:#07131f; --ok:#7fd29b; --bad:#ff9a8c; --nav-bg:rgba(10,22,34,.92);
+    --glass:rgba(26,47,69,.5); --glass-line:rgba(143,195,232,.24); --glow:rgba(242,169,59,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1622; --card:#112234; --soft:#1a2f45; --fg:#eaf1f8; --muted:#a9b9ca;
+  --line:#34506d; --accent:#f2a93b; --accent-fg:#0a1622; --accent-2:#f6c26f;
+  --hero-a:#13314f; --hero-b:#07131f; --ok:#7fd29b; --bad:#ff9a8c; --nav-bg:rgba(10,22,34,.92);
+  --glass:rgba(26,47,69,.5); --glass-line:rgba(143,195,232,.24); --glow:rgba(242,169,59,.6);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:light dark;-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(var(--nav-h) + var(--sat) + 12px)}
+:root[data-theme="light"]{color-scheme:light} :root[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);min-height:100dvh;
+  font:400 var(--step-0)/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent;
+  padding:calc(var(--nav-h) + var(--sat) + var(--gap)) calc(var(--sar) + var(--pad)) calc(var(--sab) + var(--gap)) calc(var(--sal) + var(--pad))}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(40% 35% at 85% 20%,rgba(242,169,59,.14),transparent 70%),radial-gradient(45% 40% at 10% 85%,rgba(143,195,232,.18),transparent 70%)}
+img,svg{max-width:100%;display:block;height:auto}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.01em}
+h1{font-size:var(--step-3);line-height:1.06;margin:.15em 0 .35em;text-wrap:balance}
+h2{font-size:var(--step-2);line-height:1.15;margin:.15em 0 .4em;text-wrap:balance}
+h3{font-size:1.06rem;margin:0 0 10px;line-height:1.35}
+p{text-wrap:pretty;margin:.4em 0}
+button,input,select,textarea{font:inherit;color:inherit}
+input:not([type=checkbox]):not([type=radio]):not([type=file]),select,textarea{font-size:max(16px,1em);min-height:52px;width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);max-width:100%;transition:border-color var(--dur-1) var(--ease-out)}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none}
+[aria-invalid="true"]{border-color:var(--bad)!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:calc(var(--sat) + 8px);z-index:100;background:var(--card);padding:12px 16px;border-radius:10px;border:1px solid var(--line)}
+
+/* nav (AI-SETU profile) */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;gap:8px;
+  padding:calc(var(--sat) + 8px) calc(var(--sar) + var(--pad)) 8px calc(var(--sal) + var(--pad));
+  background:var(--bg);background:var(--nav-bg);border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+.nav-brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto}
+.nav-brand>div{min-width:0}
+.nav-logo{width:40px;height:40px;flex:none;border-radius:50%;object-fit:contain}
+.nav-name{font-family:var(--display);font-weight:700;line-height:1.15;white-space:nowrap}
+.nav-sub{font-size:.75rem;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 14px;flex:none;border-radius:var(--r-pill);background:var(--accent);color:var(--accent-fg);font-size:.85rem;font-weight:600;text-decoration:none;white-space:nowrap}
+.theme-toggle{flex:none;width:48px;height:48px;border:0;border-radius:50%;background:transparent;font-size:1.25rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+@media (hover:hover){.theme-toggle:hover{background:var(--soft)}}
+@media (max-width:379px){.nav-sub{display:none}.nav-cta{padding:0 10px;font-size:.78rem}}
+
+/* layout */
+.wrap{max-width:48rem;margin-inline:auto}
+.card{background:var(--card);background:color-mix(in srgb,var(--card) 86%,transparent);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(18px,4vw,32px);
+  -webkit-backdrop-filter:blur(12px) saturate(1.3);backdrop-filter:blur(12px) saturate(1.3)}
+.kicker{font:500 .78rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2)}
+.muted{color:var(--muted)}
+.btn{min-height:52px;min-width:48px;padding:12px 22px;border-radius:var(--r-pill);cursor:pointer;border:1.5px solid var(--line);background:var(--card);font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform var(--dur-1) var(--ease-out)}
+.btn:active{transform:scale(.96)} .btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn-primary{background:var(--accent);color:var(--accent-fg);border-color:transparent}
+.btn-gold{background:var(--gold);color:#0a1d31;border-color:transparent;box-shadow:0 0 0 1px rgba(242,169,59,.5),0 8px 26px -8px var(--glow)}
+.btn-ghost{background:transparent}
+@media (hover:hover){.btn:hover{transform:translateY(-2px)}}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:var(--r-lg);color:var(--hero-fg);background:var(--hero-b);
+  background:radial-gradient(120% 90% at 85% 0%,var(--hero-a) 0%,var(--hero-b) 72%);padding:clamp(22px,5vw,44px)}
+.hero .kicker{color:var(--gold)}
+.hero h1{color:var(--hero-fg)}
+.hero p{color:var(--hero-muted);max-width:44ch}
+.hero .glow{background:linear-gradient(90deg,var(--gold),var(--sky));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-bridge{position:absolute;right:-30px;bottom:-10px;width:min(62%,380px);opacity:.25;pointer-events:none}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:6px 14px;border-radius:var(--r-pill);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:var(--hero-fg);font-size:.95rem}
+.steps4{display:grid;gap:10px;margin:22px 0 6px;padding:0;list-style:none;counter-reset:f}
+@media (min-width:640px){.steps4{grid-template-columns:repeat(4,1fr)}}
+.steps4 li{counter-increment:f;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:var(--hero-muted);font-size:.9rem}
+.steps4 li b{display:block;color:var(--hero-fg);font-family:var(--display)}
+.steps4 li::before{content:counter(f);display:inline-grid;place-items:center;width:26px;height:26px;margin-bottom:6px;border-radius:50%;background:var(--gold);color:#0a1d31;font:700 .85rem var(--display)}
+.secmap{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0;list-style:none}
+.secmap li{font:500 .78rem var(--mono);letter-spacing:.06em;padding:6px 10px;border-radius:var(--r-pill);border:1px solid rgba(255,255,255,.22);color:var(--hero-muted)}
+
+/* progress bridge */
+.progress{margin:0 auto 14px;max-width:34rem}
+.pb-arc{fill:none;stroke:var(--line);stroke-width:4;stroke-linecap:round}
+.pb-fill{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset var(--dur-3) var(--ease-out)}
+.pb-node{fill:var(--card);stroke:var(--line);stroke-width:2.5}
+.pb-node.on{fill:var(--gold);stroke:var(--gold);filter:drop-shadow(0 0 4px var(--glow))}
+.pb-node.now{stroke:var(--accent);stroke-width:4}
+.pb-lbl{font:600 11px var(--mono);fill:var(--muted)}
+.pb-lbl.on{fill:var(--accent-2)}
+.progress p{margin:2px 0 0;text-align:center;font:500 .8rem var(--mono);color:var(--muted);letter-spacing:.06em}
+
+/* fields */
+.q{display:block;margin:0 0 22px;padding:0;border:0;min-width:0}
+.q>legend,.q>.lab{display:block;font-weight:650;margin:0 0 8px;padding:0;line-height:1.4}
+.q small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+.req{color:var(--accent-2);font-weight:700}
+.err{color:var(--bad);font-size:.92rem;min-height:1.3em;margin:4px 0 0}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:10px 16px;border-radius:var(--r-pill);
+  background:var(--soft);background:var(--glass);border:1.5px solid var(--glass-line);cursor:pointer;
+  transition:border-color var(--dur-1) var(--ease-out),transform var(--dur-1) var(--ease-out)}
+.pill input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.pill .tick{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:.75rem;line-height:1;color:transparent}
+.pill.multi .tick{border-radius:6px}
+.pill:has(input:checked){border-color:var(--gold);box-shadow:0 8px 22px -12px var(--glow)}
+.pill:has(input:checked) .tick{background:var(--gold);border-color:var(--gold);color:#0a1d31}
+.pill:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
+@media (hover:hover){.pill:hover{transform:translateY(-2px)}}
+.grid-q{display:grid;gap:10px}
+.grow{padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--card)}
+.grow>p{margin:0 0 8px;font-weight:600}
+.grow .pill{min-height:44px;padding:8px 12px;font-size:.92rem}
+.mini{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.mini label span{display:block;font-size:.85rem;color:var(--muted);margin-bottom:4px}
+.two{display:grid;gap:14px}
+@media (min-width:640px){.two{grid-template-columns:1fr 1fr}}
+.scale{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 14px;padding:10px 14px;border-radius:12px;background:var(--soft);font-size:.86rem;color:var(--muted)}
+.scale b{color:var(--fg)}
+.drop{display:grid;gap:8px;padding:18px;border-radius:var(--r);border:2px dashed var(--line);background:var(--soft);text-align:center}
+.drop input[type=file]{font-size:16px;max-width:100%;margin:0 auto}
+.count{font:500 .8rem var(--mono);color:var(--muted)}
+
+/* review */
+.rv{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.rv li{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px 16px;border-radius:var(--r);background:var(--soft);border:1px solid var(--line)}
+.rv b{font-family:var(--display)}
+.rv .done{color:var(--ok)}
+
+/* dock */
+body.has-dock{padding-bottom:calc(92px + var(--sab) + var(--gap))}
+.dock{position:fixed;inset:auto 0 0 0;z-index:40;display:flex;gap:12px;align-items:center;
+  padding:12px calc(var(--sar) + var(--pad)) calc(var(--sab) + 12px) calc(var(--sal) + var(--pad));
+  background:var(--bg);background:var(--nav-bg);border-top:1px solid var(--line);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+.dock .btn{flex:1;max-width:240px;white-space:nowrap;padding:12px 16px}
+.dock-status{flex:1;text-align:center;font:500 .85rem var(--mono);color:var(--muted)}
+@media (max-width:419px){.dock-status{display:none}.dock{justify-content:space-between}}
+
+/* done */
+.finish{text-align:center}
+.finish svg{max-width:420px;margin:6px auto}
+.ref{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:var(--r-pill);background:var(--soft);border:1px solid var(--line);font:500 .9rem var(--mono)}
+.enter{animation:slideIn var(--dur-3) var(--ease-out) both}
+@keyframes slideIn{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.5);opacity:.3}60%{transform:scale(1.2);opacity:1}100%{transform:scale(1)}}
+.pop{transform-box:fill-box;transform-origin:center;animation:pop 900ms var(--ease-out) both}
+
+/* reduced motion, always last */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav"><div class="nav-brand"><img class="nav-logo" src="https://sgtuniversity.ac.in/ai-setu/img/aisetu-logo.gif" alt="AI-SETU" onerror="this.hidden=true"/><div><div class="nav-name">AI-SETU</div><div class="nav-sub">SGT University · AI course review</div></div></div><button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to dark theme">🌙</button><a class="nav-cta" href="https://sgtuniversity.ac.in/ai-setu/" target="_blank" rel="noopener">AI-SETU ↗</a></nav>
+
+<main id="main" class="wrap" tabindex="-1">
+  <div class="progress" id="progress" hidden aria-hidden="true">
+    <svg viewBox="0 0 400 78"><path class="pb-arc" id="pbArc" d="M20 66 Q200 -14 380 66"/><path class="pb-fill" id="pbFill" d="M20 66 Q200 -14 380 66"/><g id="pbNodes"></g></svg>
+    <p id="pbText"></p>
+  </div>
+
+  <section class="hero" id="s-intro" aria-labelledby="h-intro">
+    <svg class="hero-bridge" viewBox="0 0 400 200" aria-hidden="true"><path d="M20 170 Q200 0 380 170" fill="none" stroke="#f2a93b" stroke-width="10" stroke-linecap="round"/><line x1="0" y1="170" x2="400" y2="170" stroke="#fff" stroke-width="10"/><g stroke="#fff" stroke-width="5"><line x1="110" y1="92" x2="110" y2="170"/><line x1="160" y1="66" x2="160" y2="170"/><line x1="200" y1="62" x2="200" y2="170"/><line x1="240" y1="66" x2="240" y2="170"/><line x1="290" y1="92" x2="290" y2="170"/></g><path d="M80 195 q30 -12 60 0 t60 0 t60 0 t60 0" fill="none" stroke="#8fc3e8" stroke-width="6" stroke-linecap="round"/></svg>
+    <p class="kicker">AI-SETU, The SGT Centre for AI Excellence</p>
+    <h1 id="h-intro">AI Course <span class="glow">Profile</span></h1>
+    <p>A short profile of your AI course, filled before the meeting with AI-SETU. It is about the course, and not an evaluation of any teacher.</p>
+    <div class="row" style="margin-top:14px"><span class="chip" id="schoolChip" hidden>For <b id="schoolName"></b></span></div>
+    <ol class="steps4">
+      <li><b>One profile</b>per course</li>
+      <li><b>Tap or type</b>most answers are a tap</li>
+      <li><b>Skip</b>anything that does not apply</li>
+      <li><b>Attach</b>the syllabus at the end</li>
+    </ol>
+    <ul class="secmap" aria-label="Sections"><li>A Course</li><li>B Running</li><li>C Topics</li><li>D Assessment</li><li>E Field</li><li>F Support</li><li>G Next version</li></ul>
+    <div class="row" style="margin-top:22px"><button class="btn btn-gold" type="button" id="begin">Begin →</button></div>
+    <p class="muted" id="modeNote" style="color:var(--hero-muted);font-size:.88rem;margin-top:12px"></p>
+  </section>
+
+  <div id="sections"></div>
+
+  <section class="card" id="s-review" hidden aria-labelledby="h-review">
+    <p class="kicker">Review</p>
+    <h2 id="h-review">One look before it goes to AI-SETU</h2>
+    <ul class="rv" id="rvList"></ul>
+    <label class="pill multi" style="margin-top:16px"><input type="checkbox" id="consent"><span class="tick" aria-hidden="true">✓</span><span>I confirm these details are correct to the best of my knowledge.</span></label>
+    <p class="err" id="e-review" role="alert"></p>
+  </section>
+
+  <section class="card finish" id="s-done" hidden aria-labelledby="h-done">
+    <p class="kicker">Received</p>
+    <h2 id="h-done">Thank you. Your course is on the AI-SETU bridge.</h2>
+    <svg viewBox="0 0 400 170" aria-hidden="true"><path d="M30 140 Q200 0 370 140" fill="none" stroke="var(--gold)" stroke-width="7" stroke-linecap="round"/><line x1="10" y1="140" x2="390" y2="140" stroke="var(--line)" stroke-width="7" stroke-linecap="round"/><circle class="pop" cx="200" cy="70" r="15" fill="var(--gold)"/><path d="M130 162 q25 -10 50 0 t50 0 t50 0" fill="none" stroke="var(--sky)" stroke-width="4" stroke-linecap="round"/></svg>
+    <p id="doneMsg"></p>
+    <span class="ref" id="doneRef"></span>
+  </section>
+</main>
+
+<div class="dock" id="dock" hidden>
+  <button class="btn" type="button" id="prev">← Back</button>
+  <span class="dock-status" id="prog" aria-live="polite"></span>
+  <button class="btn btn-primary" type="button" id="next">Next →</button>
+  <button class="btn btn-gold" type="button" id="submit" hidden>Send to AI-SETU ✦</button>
+</div>
+
+<noscript><p style="padding:16px">Please turn on JavaScript to fill this profile, or write to aisetu@sgtuniversity.org.</p></noscript>
+
+<script>
+(function(){
+'use strict';
+/* ====== SETTINGS ======
+   ENDPOINT: the Apps Script web app URL (Deploy → Manage deployments, ends in /exec).
+   Leave empty for preview mode: the page works but nothing is sent. */
+var ENDPOINT = '';
+var MAX_FILE_MB = 10;
+
+var root=document.documentElement, $=function(i){return document.getElementById(i);};
+var RM=matchMedia('(prefers-reduced-motion: reduce)');
+
+/* theme toggle (memory only) */
+var tbtn=$('themeToggle'), mq=matchMedia('(prefers-color-scheme: dark)');
+function isDark(){return root.dataset.theme?root.dataset.theme==='dark':mq.matches;}
+function paint(){var d=isDark();tbtn.textContent=d?'☀️':'🌙';tbtn.setAttribute('aria-label',d?'Switch to light theme':'Switch to dark theme');
+  var bg=getComputedStyle(root).getPropertyValue('--bg').trim();if(bg)$('themeColor').setAttribute('content',bg);}
+tbtn.addEventListener('click',function(){root.dataset.theme=isDark()?'light':'dark';paint();});
+if(mq.addEventListener)mq.addEventListener('change',paint);paint();
+
+var SCHOOLS=[['AGR','Faculty of Agricultural Sciences'],['BAS','School of Basic and Applied Sciences'],['BEH','School of Behavioural Sciences'],
+  ['COM','School of Commerce and Management'],['DES','School of Design'],['EMF','School of Emerging Media, Communication and Film Studies'],
+  ['HOT','School of Hotel and Tourism Management'],['LIB','Faculty of Humanities, Social Sciences and Liberal Arts'],['ENG','Faculty of Engineering and Technology'],['OTH','Other']];
+
+/* ====== THE QUESTIONS (same as the PDF profile v1) ====== */
+var LEVELS=['0 · Not covered','1 · Mentioned','2 · Taught','3 · Practised and assessed'];
+var S=[
+ {id:'A',title:'Course details',fields:[
+  {k:'school',t:'select',label:'School / Faculty',req:1,options:SCHOOLS.map(function(s){return s[1];})},
+  {k:'course',label:'Course name and code',req:1,ph:'e.g. AI for Everyone (11010109)'},
+  {k:'programme',label:'Programme, semester and year',req:1,ph:'e.g. BAJMC, Semester V, 2026–27'},
+  {k:'credits',label:'Credits (L–T–P)',ph:'e.g. 2–0–2',half:1},
+  {k:'students',label:'Students this semester',ph:'e.g. 60',half:1,mode:'numeric'},
+  {k:'type',t:'radio',label:'Course type',options:['Compulsory','Elective','Value Added Course']},
+  {k:'teachers',t:'area',label:'Faculty member(s) teaching it',help:'Name, official email and mobile, one per line'},
+  {k:'coordinator',label:'Faculty AI coordinator',help:'Name, official email and mobile'},
+  {k:'revised',label:'Syllabus last revised',ph:'e.g. July 2025',half:1},
+  {k:'filled_by',label:'Your name and designation',req:1,half:1},
+  {k:'email',t:'email',label:'Your official email',req:1,help:'A copy of your answers comes to this address',ph:'name@sgtuniversity.org'}
+ ]},
+ {id:'B',title:'How the course runs',intro:'Approximate figures are fine.',fields:[
+  {k:'hours',t:'hours',label:'B1 · Hours this semester',rows:['Lectures','Labs or practicals with AI tools','Projects or field work'],cols:['In syllabus','Actually run']},
+  {k:'tools',t:'grid',label:'B2 · AI tools in the course',help:'One answer per row',rows:['Chat assistants (for example ChatGPT, Gemini, Copilot)','Image, audio or video generation tools','No-code machine learning tools (for example Teachable Machine)','Python or notebooks (for example Google Colab)','AI features inside tools from our field'],options:['Students use it themselves','Teacher shows only','Not used']},
+  {k:'tools_other',label:'Other AI tools used, if any'},
+  {k:'handson',t:'radio',label:'B3 · How often do students use an AI tool hands-on in class?',options:['Never','Once or twice a semester','About once a month','About once a week','Almost every class']}
+ ]},
+ {id:'C',title:'Topics in the course',intro:'Choose the one level that fits each topic today. There is no right answer; this shows where support will help most.',scale:1,fields:[
+  {k:'topics',t:'grid',label:'',rows:['What AI is and how machines learn from data','Generative AI and writing good prompts','AI agents and automation of tasks','Uses of AI in our own field, with real cases','Working with data from our field','Checking AI output for errors and made-up facts','Bias and fairness in AI','Privacy and data protection','Academic integrity and citing AI help','Human review and when not to use AI','Designing a small AI-based solution or project'],options:LEVELS,short:['Not covered','Mentioned','Taught','Practised and assessed']}
+ ]},
+ {id:'D',title:'Assessment',fields:[
+  {k:'assess',t:'assess',label:'D1 · Assessment components',help:'Weight in per cent, and what students do in it',rows:['Assignments','Lab or practical record','Project','Mid-term exam','End-term exam','Other'],checks:['Students do something with AI','Students write about AI']},
+  {k:'ai_rule',t:'radio',label:'D2 · Current rule for students using AI in assignments',options:['Allowed','Allowed with disclosure','Not allowed','Not yet stated']},
+  {k:'rule_where',t:'check',label:'D3 · Where is the rule shared with students?',help:'Tick all that apply',options:['Course outline','First class','Assignment brief','Not shared yet']}
+ ]},
+ {id:'E',title:'Field examples and students',fields:[
+  {k:'field_share',t:'radio',label:'E1 · How much of the course uses examples from your own field?',options:['Almost none','Some','Most','All']},
+  {k:'example1',label:'E2 · Example or case from your field that students work on (1)'},
+  {k:'example2',label:'E2 · Example or case from your field (2)'},
+  {k:'hardest',label:'E3 · What do students find hardest?',half:1},
+  {k:'enjoy',label:'E3 · What do students enjoy most?',half:1},
+  {k:'pass_share',t:'radio',label:'E3 · Roughly what share pass with real understanding?',options:['Under 25%','25–50%','50–75%','Over 75%']}
+ ]},
+ {id:'F',title:'Support for the teacher',fields:[
+  {k:'training',t:'check',label:'F1 · AI training completed so far',help:'Tick all that apply',options:['None yet','Online course or certification','FDP or workshop','Self-learning']},
+  {k:'training_other',label:'Other training, if any'},
+  {k:'help',t:'check',max:3,label:'F2 · What would help most?',help:'Tick up to three',options:['Ready teaching content','Hands-on lab activities','Training on AI tools','Assessment design for the AI era','Cases from our field','A co-teacher for the first run']},
+  {k:'fdp_attend',t:'radio',label:'F3 · Would you attend the Faculty Development Programme planned by AI-SETU in December 2026?',options:['Yes','Maybe','No']},
+  {k:'fdp_lead',t:'radio',label:'F3 · Could you lead one session for your discipline?',options:['Yes','Maybe','No']}
+ ]},
+ {id:'G',title:'Your view on the next version',fields:[
+  {k:'keep',t:'area',label:'One part that works well and should stay'},
+  {k:'add',t:'area',label:'One thing you would add'},
+  {k:'drop',t:'area',label:'One thing you would drop or shorten'},
+  {k:'notes',t:'area',label:'Anything AI-SETU should know before the meeting'},
+  {k:'syllabus',t:'file',label:'Syllabus',help:'PDF or Word, up to '+MAX_FILE_MB+' MB'},
+  {k:'syllabus_link',t:'url',label:'Or a syllabus link',ph:'https://drive.google.com/…',help:'Make sure anyone at SGT can open it'},
+  {k:'will_email',t:'check',label:'I will email these to aisetu@sgtuniversity.org',options:['Syllabus','One sample assignment','One question paper','Lab list']}
+ ]}
+];
+
+/* ====== RENDER ====== */
+var box=$('sections'), uid=0;
+function el(t,a,txt){var e=document.createElement(t);if(a)for(var k in a){if(k==='class')e.className=a[k];else e.setAttribute(k,a[k]);}if(txt!=null)e.textContent=txt;return e;}
+function labelOf(f,host){var l=el(host||'div',{'class':'lab'});l.appendChild(document.createTextNode(f.label));if(f.req){l.appendChild(document.createTextNode(' '));l.appendChild(el('span',{'class':'req','aria-hidden':'true'},'*'));}
+  if(f.help)l.appendChild(el('small',null,f.help));return l;}
+function pill(name,val,multi,text){var lb=el('label',{'class':'pill'+(multi?' multi':'')});var i=el('input',{type:multi?'checkbox':'radio',name:name,value:val});
+  lb.appendChild(i);lb.appendChild(el('span',{'class':'tick','aria-hidden':'true'},'✓'));lb.appendChild(el('span',null,text||val));return lb;}
+S.forEach(function(sec){
+  var s=el('section',{'class':'card',id:'s-'+sec.id,hidden:'','aria-labelledby':'h-'+sec.id});
+  s.appendChild(el('p',{'class':'kicker'},'Section '+sec.id));
+  s.appendChild(el('h2',{id:'h-'+sec.id},sec.title));
+  if(sec.intro)s.appendChild(el('p',{'class':'muted'},sec.intro));
+  if(sec.scale){var sc=el('div',{'class':'scale'});LEVELS.forEach(function(L){var p=L.split(' · ');var sp=el('span');sp.appendChild(el('b',null,p[0]));sp.appendChild(document.createTextNode(' '+p[1]));sc.appendChild(sp);});s.appendChild(sc);}
+  var halfWrap=null;
+  sec.fields.forEach(function(f){
+    var w, id='f'+(++uid); f.id=id;
+    if(f.t==='radio'||f.t==='check'){
+      w=el('fieldset',{'class':'q'});w.appendChild(labelOf(f,'legend'));var ps=el('div',{'class':'pills'});
+      f.options.forEach(function(o){ps.appendChild(pill(f.k,o,f.t==='check'));});w.appendChild(ps);
+      if(f.max){ps.addEventListener('change',function(e){var on=ps.querySelectorAll('input:checked');if(on.length>f.max){e.target.checked=false;err(sec.id,'Please choose up to '+f.max+'.');}});}
+    } else if(f.t==='grid'){
+      w=el('div',{'class':'q'});if(f.label)w.appendChild(labelOf(f));var g=el('div',{'class':'grid-q'});
+      f.rows.forEach(function(r,ri){var row=el('fieldset',{'class':'grow'});var lg=el('legend',{'class':'sr-only'},r);row.appendChild(lg);row.appendChild(el('p',{'aria-hidden':'true'},r));
+        var ps=el('div',{'class':'pills'});f.options.forEach(function(o,oi){ps.appendChild(pill(f.k+'_'+ri,o,false,f.short?f.short[oi]:o));});row.appendChild(ps);g.appendChild(row);});
+      w.appendChild(g);
+    } else if(f.t==='hours'){
+      w=el('div',{'class':'q'});w.appendChild(labelOf(f));var g2=el('div',{'class':'grid-q'});
+      f.rows.forEach(function(r,ri){var row=el('div',{'class':'grow'});row.appendChild(el('p',null,r));var m=el('div',{'class':'mini'});
+        f.cols.forEach(function(c,ci){var lb=el('label');lb.appendChild(el('span',null,c+' (hours)'));lb.appendChild(el('input',{type:'text',inputmode:'numeric','data-k':f.k+'_'+ri+'_'+ci,'aria-label':r+': '+c+' hours'}));m.appendChild(lb);});
+        row.appendChild(m);g2.appendChild(row);});w.appendChild(g2);
+    } else if(f.t==='assess'){
+      w=el('div',{'class':'q'});w.appendChild(labelOf(f));var g3=el('div',{'class':'grid-q'});
+      f.rows.forEach(function(r,ri){var row=el('div',{'class':'grow'});row.appendChild(el('p',null,r));var m=el('div',{'class':'row'});
+        var lb=el('label',{style:'flex:0 0 140px'});lb.appendChild(el('input',{type:'text',inputmode:'numeric',placeholder:'Weight %','data-k':f.k+'_'+ri+'_w','aria-label':r+': weight in per cent'}));m.appendChild(lb);
+        f.checks.forEach(function(c,ci){m.appendChild(pill(f.k+'_'+ri+'_c'+ci,'Yes',true,c));});row.appendChild(m);g3.appendChild(row);});w.appendChild(g3);
+    } else if(f.t==='file'){
+      w=el('div',{'class':'q'});w.appendChild(labelOf(f));var d=el('div',{'class':'drop'});
+      var fi=el('input',{type:'file',id:id,accept:'.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document','aria-label':'Syllabus file'});
+      d.appendChild(fi);d.appendChild(el('span',{'class':'count',id:id+'n'},'No file chosen'));w.appendChild(d);
+      fi.addEventListener('change',function(){var x=fi.files[0];$(id+'n').textContent=x?(x.name+' · '+(x.size/1048576).toFixed(1)+' MB'):'No file chosen';
+        if(x&&x.size>MAX_FILE_MB*1048576){err(sec.id,'This file is larger than '+MAX_FILE_MB+' MB. Please share a link instead.');fi.value='';$(id+'n').textContent='No file chosen';}});
+    } else {
+      w=el('label',{'class':'q'});w.setAttribute('for',id);w.appendChild(labelOf(f));
+      var inp;
+      if(f.t==='select'){inp=el('select',{id:id,'data-k':f.k});inp.appendChild(el('option',{value:''},'Choose'));f.options.forEach(function(o){inp.appendChild(el('option',{value:o},o));});}
+      else if(f.t==='area'){inp=el('textarea',{id:id,'data-k':f.k,maxlength:'1500'});}
+      else{inp=el('input',{id:id,'data-k':f.k,type:f.t==='email'?'email':(f.t==='url'?'url':'text'),maxlength:'300'});if(f.t==='email')inp.setAttribute('inputmode','email');if(f.mode)inp.setAttribute('inputmode',f.mode);}
+      if(f.ph)inp.setAttribute('placeholder',f.ph);
+      w.appendChild(inp);
+    }
+    if(f.half){if(!halfWrap){halfWrap=el('div',{'class':'two'});s.appendChild(halfWrap);w.style.margin='0';halfWrap.appendChild(w);}else{w.style.margin='0';halfWrap.appendChild(w);halfWrap.style.marginBottom='22px';halfWrap=null;}}
+    else{halfWrap=null;s.appendChild(w);}
+  });
+  s.appendChild(el('p',{'class':'err',id:'e-'+sec.id,role:'alert'}));
+  box.appendChild(s);
+});
+function err(id,m){var e=$('e-'+id);if(e)e.textContent=m||'';}
+box.addEventListener('input',function(e){if(e.target.getAttribute('aria-invalid')==='true')e.target.setAttribute('aria-invalid','false');var s=e.target.closest('section');if(s)err(s.id.slice(2),'');});
+
+/* School from the link: ?s=EMF */
+var params={};try{new URLSearchParams(location.search).forEach(function(v,k){params[k]=v;});}catch(e){}
+var pre=SCHOOLS.filter(function(s){return s[0]===String(params.s||'').toUpperCase();})[0];
+var schoolSel=document.querySelector('[data-k=school]');
+if(pre){schoolSel.value=pre[1];$('schoolName').textContent=pre[1];$('schoolChip').hidden=false;}
+$('modeNote').textContent=ENDPOINT?'':'Preview mode: answers are not sent anywhere.';
+
+/* ====== COLLECT ====== */
+function val(k){var x=document.querySelector('[data-k="'+k+'"]');return x?x.value.trim():'';}
+function picked(name){return [].slice.call(document.querySelectorAll('input[name="'+name+'"]:checked')).map(function(i){return i.value;}).join('; ');}
+function collect(){
+  var A=[];  // ordered [key, label, value]
+  S.forEach(function(sec){sec.fields.forEach(function(f){
+    var tag=sec.id+' · ';
+    if(f.t==='radio'||f.t==='check')A.push([f.k,tag+f.label.replace(/^[A-G]\d · /,''),picked(f.k)]);
+    else if(f.t==='grid')f.rows.forEach(function(r,ri){A.push([f.k+'_'+(ri+1),tag+(f.k==='topics'?'Topic':'Tool')+' · '+r,picked(f.k+'_'+ri)]);});
+    else if(f.t==='hours')f.rows.forEach(function(r,ri){f.cols.forEach(function(c,ci){A.push([f.k+'_'+(ri+1)+'_'+(ci+1),tag+'Hours · '+r+' · '+c,val(f.k+'_'+ri+'_'+ci)]);});});
+    else if(f.t==='assess')f.rows.forEach(function(r,ri){A.push([f.k+'_'+(ri+1)+'_w',tag+'Weight % · '+r,val(f.k+'_'+ri+'_w')]);
+      f.checks.forEach(function(c,ci){A.push([f.k+'_'+(ri+1)+'_c'+(ci+1),tag+r+' · '+c,picked(f.k+'_'+ri+'_c'+ci)]);});});
+    else if(f.t==='file'){}
+    else A.push([f.k,tag+f.label,val(f.k)]);
+  });});
+  return A;
+}
+function answeredIn(sec){var n=0,t=0;var host=$('s-'+sec.id);
+  sec.fields.forEach(function(f){
+    if(f.t==='grid'){f.rows.forEach(function(r,ri){t++;if(picked(f.k+'_'+ri))n++;});}
+    else if(f.t==='radio'||f.t==='check'){t++;if(picked(f.k))n++;}
+    else if(f.t==='file'){t++;var fi=$(f.id);if(fi.files&&fi.files[0])n++;}
+    else if(f.t==='hours'||f.t==='assess'){t++;if([].slice.call(host.querySelectorAll('[data-k^="'+f.k+'_"]')).some(function(i){return i.value.trim();})||host.querySelector('input[name^="'+f.k+'_"]:checked'))n++;}
+    else{t++;if(val(f.k))n++;}
+  });return [n,t];}
+
+/* ====== VALIDATE ====== */
+var EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+function mark(k,bad){var x=document.querySelector('[data-k="'+k+'"]');if(x)x.setAttribute('aria-invalid',bad?'true':'false');return bad;}
+function check(id){
+  var m='';
+  if(id==='A'){
+    if(mark('school',!val('school')))m='Please choose your School / Faculty.';
+    else if(mark('course',!val('course')))m='Please add the course name and code.';
+    else if(mark('programme',!val('programme')))m='Please add the programme, semester and year.';
+    else if(mark('filled_by',val('filled_by').length<3))m='Please add your name and designation.';
+    else if(mark('email',!EMAIL.test(val('email'))||!/@sgtuniversity\.org$/i.test(val('email'))))m='Please use your official @sgtuniversity.org email.';
+  }
+  if(id==='G'){var u=val('syllabus_link');if(u&&!/^https?:\/\/\S+$/.test(u)){mark('syllabus_link',true);m='The syllabus link should start with https://';}else mark('syllabus_link',false);}
+  err(id,m);return !m;
+}
+
+/* ====== FLOW ====== */
+var FLOW=S.map(function(s){return 's-'+s.id;}).concat(['s-review']);
+var ALL=['s-intro'].concat(FLOW,['s-done']), step=0, busy=false;
+function progress(i){
+  var n=FLOW.length,arc=$('pbArc'),fill=$('pbFill'),L=arc.getTotalLength();fill.style.strokeDasharray=L;fill.style.strokeDashoffset=L*(1-i/(n-1));
+  var g=$('pbNodes');g.textContent='';
+  for(var k=0;k<n;k++){var pt=arc.getPointAtLength(L*k/(n-1)),NS='http://www.w3.org/2000/svg';
+    var c=document.createElementNS(NS,'circle');c.setAttribute('cx',pt.x);c.setAttribute('cy',pt.y);c.setAttribute('r',k===i?9:7);c.setAttribute('class','pb-node'+(k<=i?' on':'')+(k===i?' now':''));g.appendChild(c);
+    var t=document.createElementNS(NS,'text');t.setAttribute('x',pt.x);t.setAttribute('y',pt.y+(k===0||k===n-1?-14:-15));t.setAttribute('text-anchor','middle');t.setAttribute('class','pb-lbl'+(k<=i?' on':''));t.textContent=k<S.length?S[k].id:'✓';g.appendChild(t);}
+  $('pbText').textContent=i<S.length?('Section '+S[i].id+' of A to G · '+S[i].title):'Review';
+}
+function show(id){
+  ALL.forEach(function(s){$(s).hidden=s!==id;});
+  var inFlow=FLOW.indexOf(id)>=0;$('dock').hidden=!inFlow;document.body.classList.toggle('has-dock',inFlow);$('progress').hidden=!inFlow;
+  var e=$(id);e.classList.remove('enter');void e.offsetWidth;e.classList.add('enter');window.scrollTo(0,0);
+}
+function go(i){
+  step=Math.max(0,Math.min(i,FLOW.length-1));show(FLOW[step]);progress(step);
+  $('prog').textContent=(step+1)+' / '+FLOW.length;var last=step===FLOW.length-1;$('next').hidden=last;$('submit').hidden=!last;
+  if(FLOW[step]==='s-review')review();
+}
+function review(){
+  var ul=$('rvList');ul.textContent='';
+  S.forEach(function(sec,i){var a=answeredIn(sec),li=el('li');var d=el('div');d.appendChild(el('b',null,sec.id+' · '+sec.title));
+    d.appendChild(el('div',{'class':a[0]===a[1]?'done':'muted'},a[0]+' of '+a[1]+' answered'+(sec.id==='A'?' · '+val('course'):'')));
+    var b=el('button',{type:'button','class':'btn btn-ghost','aria-label':'Edit section '+sec.id},'Edit');b.addEventListener('click',function(){go(i);});
+    li.appendChild(d);li.appendChild(b);ul.appendChild(li);});
+}
+$('begin').addEventListener('click',function(){go(0);});
+$('next').addEventListener('click',function(){var id=FLOW[step].slice(2);if(S.some(function(s){return s.id===id;})&&!check(id))return;go(step+1);});
+$('prev').addEventListener('click',function(){if(step===0){show('s-intro');return;}go(step-1);});
+
+/* ====== SEND ====== */
+function readFile(){return new Promise(function(res,rej){var fi=document.querySelector('input[type=file]'),x=fi&&fi.files[0];if(!x){res(null);return;}
+  var r=new FileReader();r.onload=function(){res({name:x.name,type:x.type||'application/octet-stream',data:String(r.result).split(',')[1]});};r.onerror=function(){rej('the file could not be read');};r.readAsDataURL(x);});}
+function newId(){var d=new Date(),p=function(n){return ('0'+n).slice(-2);};return 'CP-'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+Math.random().toString(36).slice(2,6).toUpperCase();}
+$('submit').addEventListener('click',function(){
+  if(busy)return;
+  if(!check('A')){go(0);return;}
+  if(!$('consent').checked){err('review','Please tick the confirmation to send.');return;}
+  busy=true;var b=$('submit');b.disabled=true;b.textContent='Sending…';err('review','');
+  var id=newId();
+  readFile().then(function(file){
+    var body={v:1,id:id,school:val('school'),code:pre?pre[0]:'',email:val('email'),answers:collect(),file:file,hp:''};
+    if(!ENDPOINT)return new Promise(function(r){setTimeout(function(){r({ok:true,id:id,preview:true});},500);});
+    return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(function(r){return r.json();});
+  }).then(function(r){
+    if(!r||!r.ok)throw (r&&r.error)||'the server did not accept it';
+    show('s-done');
+    $('doneMsg').textContent=r.preview?'Preview mode: nothing was sent.':'AI-SETU has received the profile of '+val('course')+'. A copy has been emailed to '+val('email')+'.';
+    $('doneRef').textContent='Reference '+(r.id||id);
+  }).catch(function(e){err('review','Could not send: '+e+'. Please try again, or write to aisetu@sgtuniversity.org.');})
+  .then(function(){busy=false;b.disabled=false;b.textContent='Send to AI-SETU ✦';});
+});
+})();
+</script>
+</body>
+</html>
