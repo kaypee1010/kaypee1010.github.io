@@ -105,7 +105,8 @@ li small { color: var(--muted); font-size: 13px; }
   padding: 14px 28px; font-size: 12.5px; display: flex; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap;
 }
 .foot b { color: var(--gold-hi); font-weight: 500; }
-@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+.more > summary { display: none; }
+@media (prefers-reduced-motion: reduce) { .btn, .more > summary::after { transition: none; } }
 @media (max-width: 520px) {
   .cols { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(2, 1fr); }
@@ -117,19 +118,36 @@ li small { color: var(--muted); font-size: 13px; }
 @media (max-width: 560px) {
   body { padding-block: 0; padding-left: 0; padding-right: 0; background: var(--card); }
   .card { border: 0; border-radius: 0; box-shadow: none; max-width: none; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
-  .contact { flex: 1; align-content: start; }
-  .band { flex-direction: column; text-align: center; padding: 32px 20px 26px; gap: 16px;
-    padding-top: calc(32px + env(safe-area-inset-top, 0px)); }
-  .band .who { flex: none; width: 100%; }
-  .avatar { width: 136px; height: 136px; }
-  h1 { font-size: 32px; }
-  .role { font-size: 14px; }
+  .contact { flex: 1; align-content: start; padding-top: 16px; padding-bottom: 16px; gap: 10px; }
+  .contact h2 { margin: 0; }
+  .band { flex-direction: row; flex-wrap: nowrap; text-align: left; padding: 20px 20px 18px; gap: 16px;
+    padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+  .band .who { flex: 1 1 0; }
+  .avatar { width: 76px; height: 76px; outline-offset: 3px; }
+  .eyebrow { font-size: 10px; letter-spacing: .18em; margin-bottom: 4px; }
+  h1 { font-size: 26px; margin-bottom: 6px; }
+  .role { font-size: 12.5px; line-height: 1.4; }
   .body, .contact, .foot { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
-  .lede { font-size: 16px; }
-  .btns { flex-direction: column; }
-  .btn { flex: none; width: 100%; padding: 14px; font-size: 15.5px; }
-  .foot { flex-direction: column; align-items: center; text-align: center; gap: 2px;
-    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .body { padding-top: 16px; padding-bottom: 0; gap: 14px; }
+  .lede { font-size: 15px; line-height: 1.5; }
+  .stats { grid-template-columns: repeat(4, 1fr); }
+  .stat { padding: 10px 2px; }
+  .stat:nth-child(3) { border-left: 1px solid var(--line); }
+  .stat:nth-child(n+3) { border-top: 0; }
+  .stat b { font-size: 20px; }
+  .stat span { font-size: 10px; }
+  .more > summary { display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none;
+    padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-ink); font-weight: 600; }
+  .more > summary::-webkit-details-marker { display: none; }
+  .more > summary::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid var(--gold-ink); border-bottom: 1.5px solid var(--gold-ink); transform: rotate(45deg); margin: -4px 4px 0 0; transition: transform .2s; }
+  .more[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
+  .more > summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .more .cols { gap: 18px; padding: 16px 0 8px; }
+  .btns { flex-direction: row; flex-wrap: nowrap; gap: 8px; }
+  .btn { flex: 1 1 0; min-width: 0; padding: 11px 4px; font-size: 14px; }
+  .number { padding: 8px 12px; font-size: 13px; }
+  .foot { flex-direction: column; align-items: center; text-align: center; gap: 0; padding-top: 10px; font-size: 11.5px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
 }
 </style>
 </head>
@@ -154,6 +172,8 @@ li small { color: var(--muted); font-size: 13px; }
       <div class="stat"><b>9+</b><span>patents and IP filings</span></div>
     </div>
 
+    <details class="more" id="more" open>
+    <summary>Qualifications and experience</summary>
     <div class="cols">
       <section>
         <h2>Qualifications</h2>
@@ -175,6 +195,7 @@ li small { color: var(--muted); font-size: 13px; }
         </ul>
       </section>
     </div>
+    </details>
   </div>
 
   <section class="contact" aria-label="Contact">
@@ -197,6 +218,10 @@ li small { color: var(--muted); font-size: 13px; }
 </main>
 
 <script>
+(function () {
+  var more = document.getElementById("more");
+  if (more && window.matchMedia && window.matchMedia("(max-width: 560px)").matches) more.removeAttribute("open");
+})();
 (function () {
   var btn = document.getElementById("copy");
   var num = document.getElementById("num");
