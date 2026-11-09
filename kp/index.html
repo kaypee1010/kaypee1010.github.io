@@ -1,4 +1,8 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>KP Singh</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>KP Singh</title>
 <meta name="description" content="AI Advisor and Consultant · Coordinator, AI-SETU, The SGT Centre of AI Excellence, SGT University">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="KP Singh">
@@ -8,13 +12,16 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f3d33">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600&display=swap">
 <style>
-/* Layout: one centred card. Deep emerald identity band (photo, name, role), ivory body for credentials and contact, emerald footer. Antique gold only for hairlines, name and small accents. */
+html { -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; }
+
+/* Layout: one centred card (full-width on phones). Deep emerald identity band (photo, name, role), ivory body for credentials and contact, emerald footer. Antique gold only for hairlines, name and small accents. */
 :root {
   --page: #e3ded2;
   --card: #f2efe7;
@@ -106,6 +113,24 @@ li small { color: var(--muted); font-size: 13px; }
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
   .band, .body, .contact, .foot { padding-inline: 20px; }
 }
+
+@media (max-width: 560px) {
+  body { padding-block: 0; padding-left: 0; padding-right: 0; background: var(--card); }
+  .card { border: 0; border-radius: 0; box-shadow: none; max-width: none; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+  .contact { flex: 1; align-content: start; }
+  .band { flex-direction: column; text-align: center; padding: 32px 20px 26px; gap: 16px;
+    padding-top: calc(32px + env(safe-area-inset-top, 0px)); }
+  .band .who { flex: none; width: 100%; }
+  .avatar { width: 136px; height: 136px; }
+  h1 { font-size: 32px; }
+  .role { font-size: 14px; }
+  .body, .contact, .foot { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+  .lede { font-size: 16px; }
+  .btns { flex-direction: column; }
+  .btn { flex: none; width: 100%; padding: 14px; font-size: 15.5px; }
+  .foot { flex-direction: column; align-items: center; text-align: center; gap: 2px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+}
 </style>
 </head>
 <body>
@@ -188,5 +213,5 @@ li small { color: var(--muted); font-size: 13px; }
   });
 })();
 </script>
-
-</body></html>
+</body>
+</html>
