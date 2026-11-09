@@ -222,10 +222,6 @@ li small { color: var(--muted); font-size: 13px; }
 
 <script>
 (function () {
-  var more = document.getElementById("more");
-  if (more && window.matchMedia && window.matchMedia("(max-width: 560px)").matches) more.removeAttribute("open");
-})();
-(function () {
   var btn = document.getElementById("copy");
   var num = document.getElementById("num");
   btn.addEventListener("click", function () {
