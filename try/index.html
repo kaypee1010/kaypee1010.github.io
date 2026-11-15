@@ -36,7 +36,8 @@ p{margin:0 0 18px;color:var(--muted)}
 .stall{display:inline-block;background:var(--tint);color:var(--ink);font-weight:700;border-radius:8px;padding:1px 8px}
 [hidden]{display:none!important}
 footer{padding:16px;padding-bottom:max(16px,env(safe-area-inset-bottom));text-align:center;font-size:13px;color:var(--muted)}
-footer a{color:inherit}
+footer{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 24px}
+@media (min-width:640px){footer{justify-content:space-between}}
 </style>
 </head>
 <body>
@@ -80,7 +81,7 @@ footer a{color:inherit}
   </div>
 </main>
 
-<footer>Designed and developed by <a href="https://kpsingh.in">K.P. Singh</a></footer>
+<footer><span>Student Growth Intelligence Framework (SGIF), SOET</span><span>Mentored by Kamal Preet Singh, SOET</span></footer>
 
 <script>
 // ---------------------------------------------------------------------------------------------
