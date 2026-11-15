@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>SGIF Live Demo</title>
+<meta name="description" content="Try SGIF, the Student Growth Intelligence Framework of SGT University, on your phone.">
+<meta name="theme-color" content="#2A3B63">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%23fff'/%3E%3Ccircle cx='32' cy='32' r='29' fill='none' stroke='%232A3B63' stroke-width='3'/%3E%3Cpath d='M20 34l8 8 16-17' fill='none' stroke='%23E3B04B' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#F5F7FB;--card:#FFFFFF;--ink:#26324D;--muted:#5F6B85;--line:#E1E6EF;--primary:#3A5BB0;--on-primary:#FFFFFF;--cover:#2A3B63;--accent:#E3B04B;--on-accent:#2A2414;--tint:#E8EEF7;--link:#3A5BB0;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141A29;--card:#1B2336;--ink:#DCE2EE;--muted:#9AA5BD;--line:#2B3550;--primary:#4F6FBF;--cover:#3A4C78;--tint:#1E2840;--link:#8EA6D8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141A29;--card:#1B2336;--ink:#DCE2EE;--muted:#9AA5BD;--line:#2B3550;--primary:#4F6FBF;--cover:#3A4C78;--tint:#1E2840;--link:#8EA6D8;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-text-size-adjust:100%}
+.bar{display:flex;align-items:center;gap:12px;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));border-bottom:1px solid var(--line);background:var(--card)}
+.bar-text{flex:1;min-width:0}
+.bar-name{font-weight:700;font-size:15px;line-height:1.25}
+.bar-sub{font-size:12.5px;color:var(--muted);line-height:1.3}
+.toggle{flex:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.toggle svg{width:20px;height:20px}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 22px;text-align:center;box-shadow:0 6px 20px rgba(38,50,77,.06)}
+.mark{width:72px;height:72px;margin:0 auto 16px;display:block}
+h1{font-size:22px;line-height:1.3;margin:0 0 8px}
+p{margin:0 0 18px;color:var(--muted)}
+.spin{width:28px;height:28px;margin:4px auto 0;border-radius:50%;border:3px solid var(--tint);border-top-color:var(--primary);animation:r .9s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation-duration:3s}}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:52px;padding:12px 18px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;border:0;cursor:pointer}
+.btn-film{background:var(--accent);color:var(--on-accent)}
+.btn-film svg{width:22px;height:22px}
+.link{display:inline-block;margin-top:14px;color:var(--link);font-weight:600;background:none;border:0;font-size:15px;cursor:pointer;padding:8px}
+.stall{display:inline-block;background:var(--tint);color:var(--ink);font-weight:700;border-radius:8px;padding:1px 8px}
+[hidden]{display:none!important}
+footer{padding:16px;padding-bottom:max(16px,env(safe-area-inset-bottom));text-align:center;font-size:13px;color:var(--muted)}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-text">
+    <div class="bar-name">SGIF · Student Growth Intelligence Framework</div>
+    <div class="bar-sub">School of Engineering &amp; Technology, SGT University</div>
+  </div>
+  <button class="toggle" id="theme" type="button" aria-label="Switch light or dark theme" title="Light or dark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+  </button>
+</header>
+
+<main>
+  <div class="card">
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#FFFFFF"/><circle cx="32" cy="32" r="29" fill="none" stroke="#2A3B63" stroke-width="3"/><circle cx="32" cy="32" r="24" fill="none" stroke="#2A3B63" stroke-width="1.5"/><text x="32" y="30" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="14" fill="#2A3B63">SGIF</text><path d="M23 38l6 6 12-13" fill="none" stroke="#E3B04B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+    <section id="checking" aria-live="polite">
+      <h1>Checking the live demo…</h1>
+      <p>One moment.</p>
+      <div class="spin" aria-hidden="true"></div>
+    </section>
+
+    <section id="opening" hidden aria-live="polite">
+      <h1>Opening the SGIF live demo…</h1>
+      <div class="spin" aria-hidden="true"></div>
+      <a class="link" id="go" href="#">Tap here if it does not open</a>
+    </section>
+
+    <section id="offline" hidden aria-live="polite">
+      <h1>The live demo is offline right now</h1>
+      <p>Ask us at <span class="stall">Stall 114</span>, or watch the 2-minute film.</p>
+      <a class="btn btn-film" href="https://youtu.be/_vrV7O8kE5I" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" opacity=".15"/><path d="M10 8l6 4-6 4z" fill="currentColor"/></svg>
+        Watch the 2-minute film
+      </a>
+      <button class="link" id="retry" type="button">Try the live demo again</button>
+    </section>
+
+    <noscript><p>Watch the 2-minute film: <a href="https://youtu.be/_vrV7O8kE5I">youtu.be/_vrV7O8kE5I</a></p></noscript>
+  </div>
+</main>
+
+<footer>Designed and developed by <a href="https://kpsingh.in">K.P. Singh</a></footer>
+
+<script>
+// ---------------------------------------------------------------------------------------------
+// The current tunnel address. update-try-link.bat (SGIF) rewrites the next line; keep it on one line.
+var TUNNEL = ""; // SGIF-TUNNEL-URL
+// ---------------------------------------------------------------------------------------------
+(function () {
+  var LIMIT = 4000; // ms for the reachability check
+  var root = document.documentElement;
+
+  try { var saved = localStorage.getItem("sgif-try-theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var dark = root.getAttribute("data-theme") ? root.getAttribute("data-theme") === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("sgif-try-theme", next); } catch (e) {}
+  });
+
+  function show(id) {
+    ["checking", "opening", "offline"].forEach(function (s) { document.getElementById(s).hidden = s !== id; });
+  }
+
+  function withTimeout(promise, ms, fallback) {
+    return new Promise(function (resolve) {
+      var t = setTimeout(function () { resolve(fallback); }, ms);
+      promise.then(function (v) { clearTimeout(t); resolve(v); }, function () { clearTimeout(t); resolve(fallback); });
+    });
+  }
+
+  // The newest address: read this page again past every cache, so a phone that kept an old copy still gets it.
+  function latestTunnel() {
+    if (!window.fetch) return Promise.resolve(TUNNEL);
+    var p = fetch(location.pathname + "?v=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.text() : ""; })
+      .then(function (html) {
+        var m = /var TUNNEL = "(https:\/\/[^"]*)"; \/\/ SGIF-TUNNEL-URL/.exec(html);
+        return m ? m[1] : TUNNEL;
+      });
+    return withTimeout(p, 2500, TUNNEL);
+  }
+
+  // Reachable = the tunnel answers AND the SGIF app behind it serves its own image.
+  // A stopped tunnel can still answer with a Cloudflare error page, which no-cors fetch cannot tell apart.
+  function reachable(base) {
+    if (!/^https:\/\/[^\s"']+$/.test(base)) return Promise.resolve(false);
+    var ctl = window.AbortController ? new AbortController() : null;
+    var page = window.fetch
+      ? fetch(base + "/try/", { mode: "no-cors", cache: "no-store", signal: ctl ? ctl.signal : undefined }).then(function () { return true; })
+      : Promise.resolve(true);
+    var image = new Promise(function (resolve) {
+      var img = new Image();
+      img.onload = function () { resolve(img.naturalWidth > 0); };
+      img.onerror = function () { resolve(false); };
+      img.src = base + "/sgif-mark-32.png?t=" + Date.now();
+    });
+    var both = Promise.all([page, image]).then(function (r) { return r[0] && r[1]; });
+    return withTimeout(both, LIMIT, false).then(function (ok) { if (!ok && ctl) ctl.abort(); return ok; });
+  }
+
+  function run() {
+    show("checking");
+    latestTunnel().then(function (base) {
+      base = (base || "").replace(/\/+$/, "");
+      return reachable(base).then(function (ok) {
+        if (!ok) { show("offline"); return; }
+        var target = base + "/try/";
+        document.getElementById("go").href = target;
+        show("opening");
+        location.replace(target);
+      });
+    });
+  }
+
+  document.getElementById("retry").addEventListener("click", run);
+  window.addEventListener("pageshow", function (e) { if (e.persisted) run(); });
+  run();
+})();
+</script>
+</body>
+</html>
