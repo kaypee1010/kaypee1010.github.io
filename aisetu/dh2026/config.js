@@ -1,8 +1,14 @@
 /* DH Bootcamp 2026: page configuration (the only file to edit after deployment).
-   api:     the Apps Script web app URL (…/exec) of backend/Code.gs deployed under aisetu@sgtuniversity.org.
-            Empty = device-only mode (nothing leaves the phone). On localhost the pages use the mock at /exec.
+   ONE-LINE SWITCH: DH_USE picks the backend.
+     "aisetu"   = the AI-SETU Sheet under aisetu@sgtuniversity.org (full join: name, roll, programme, semester, nickname)
+     "personal" = the fallback on KP's personal Google account (nickname + roll number only; deploy.md section 1b)
    session: DH2026-S1 (morning) or DH2026-S2 (afternoon). Same join identity across both.
-   decks:   KP Deck links shown on START_HERE.
-   colab:   optional link to the Colab copy of notebook/DH_Bootcamp_Session1.ipynb (shown as the alternative). */
-window.DH_CONFIG = { api: "https://script.google.com/macros/s/AKfycbwXAmhIVvcsP43T5sQefDdjqiQM7sU3EEr4DBeElUghPamwZLCtckfLigQeLLJfhJw/exec", session: "DH2026-S1", colab: "",
+   decks:   KP Deck links shown on START_HERE. colab: optional Colab copy of the notebook.
+   On localhost the pages use the local mock at /exec instead. */
+var DH_USE = "aisetu";
+var DH_BACKENDS = {
+  aisetu: "https://script.google.com/macros/s/AKfycbwXAmhIVvcsP43T5sQefDdjqiQM7sU3EEr4DBeElUghPamwZLCtckfLigQeLLJfhJw/exec",
+  personal: ""
+};
+window.DH_CONFIG = { api: DH_BACKENDS[DH_USE] || "", lite: DH_USE === "personal", session: "DH2026-S1", colab: "",
   decks: { s1: "https://slides.kpsingh.in/dh-bootcamp-s1", s2: "https://slides.kpsingh.in/dh-bootcamp-s2" } };

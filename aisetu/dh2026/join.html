@@ -543,23 +543,15 @@ mark{background:var(--gold);color:var(--gold-fg);border-radius:.2rem;padding:0 .
 .machine{margin:1.4rem 0}
 /* stars (feedback) */
 .stars{display:flex;gap:.2rem;flex-wrap:wrap}
-.stars input{position:absolute;opacity:0;width:1px;height:1px}
+.stars .star{position:relative}
+.stars input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
 .stars label{font-size:2rem;line-height:1;min-width:48px;min-height:48px;display:grid;place-items:center;cursor:pointer;color:var(--line);border-radius:var(--r)}
 .stars input:checked ~ label{color:var(--line)}
 .stars label.on{color:var(--gold)}
-.stars input:focus-visible + label{outline:2px solid var(--accent)}
-.fb-row{display:grid;gap:.3rem;padding:.6rem 0;border-bottom:1px dashed var(--line)}
+.stars .star:focus-within{outline:2px solid var(--accent)}
+.fb-row{display:grid;gap:.3rem;padding:.6rem .5rem;margin:0;border:0;border-bottom:1px dashed var(--line)}
 .fb-row b{font-weight:600}
-/* certificate */
-.cert{background:#fffdf8;color:#0f2033;border:10px double #245a87;padding:2.2rem 1.6rem;text-align:center;max-width:52rem;margin:0 auto;border-radius:.3rem}
-.cert .cert-logo{width:84px;height:84px;object-fit:contain;margin:0 auto .6rem}
-.cert h2{font-family:var(--font-display);font-size:clamp(1.5rem,1rem + 2.4vw,2.4rem);margin:.2rem 0;color:#123a5c}
-.cert .cert-name{font-family:var(--font-hand);font-size:clamp(2rem,1.4rem + 3vw,3.4rem);color:#8a5300;margin:.6rem 0}
-.cert p{margin:.3rem 0;color:#0f2033}
-.cert .cert-id{font:600 .8rem var(--font-mono);color:#46566b;margin-top:1rem}
-.cert .cert-sign{display:flex;justify-content:space-around;gap:1rem;margin-top:1.6rem;flex-wrap:wrap}
-.cert .cert-sign span{display:grid;gap:.2rem;font-size:.9rem;border-top:1px solid #245a87;padding-top:.4rem;min-width:12rem}
-@media print{.nav,.theme-toggle,.no-print,.skip,.kp-rights{display:none !important}.cert{border-width:8px}body{background:#fff}}
+@media print{.nav,.theme-toggle,.no-print,.skip,.kp-rights{display:none !important}body{background:#fff}}
 /* dashboard */
 .kpis{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:.7rem .9rem}
@@ -653,6 +645,19 @@ th{background:var(--soft);position:sticky;top:0}
   body[data-ambient]::before{display:none}
 }
 .pr p{overflow-wrap:anywhere}
+.takes-home{display:grid;gap:.7rem;padding-left:1.3rem}
+.takes-home li{padding-left:.2rem}
+/* live question sheet on phones */
+.live-sheet{position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--card);border-top:3px solid var(--gold);box-shadow:0 -12px 32px rgba(10,29,49,.28);padding:1rem 1rem calc(1rem + var(--sab));display:grid;gap:.6rem;max-height:80dvh;overflow:auto;animation:dh-sheet .35s var(--ease-out)}
+@keyframes dh-sheet{from{transform:translateY(100%)}}
+.live-tag{margin:0;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:.5rem}
+.live-dot{width:.7rem;height:.7rem;border-radius:50%;background:#e5484d;animation:dh-pulse 1.2s infinite}
+@keyframes dh-pulse{50%{opacity:.35}}
+.live-q{margin:0;font:700 1.15rem/1.3 var(--font-display);white-space:pre-wrap}
+.live-opts{display:grid;gap:.5rem}
+.live-opt{justify-content:flex-start;text-align:left;min-height:52px;white-space:normal}
+.live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
+.live-msg{margin:0;color:var(--muted)}
 
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
@@ -663,7 +668,7 @@ th{background:var(--soft);position:sticky;top:0}
   .mote{display:none !important}
 }
 </style>
-<style>/*@LOCAL-FONTS*/@font-face{font-family:"Space Grotesk";src:url("fonts/SpaceGrotesk-latin.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-500-latin.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}@font-face{font-family:"Caveat";src:url("fonts/Caveat-600-latin.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}</style>
+<style>/*@LOCAL-FONTS*/@font-face{font-family:"Space Grotesk";src:url("fonts/SpaceGrotesk-latin.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("fonts/IBMPlexMono-500-latin.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}@font-face{font-family:"Caveat";src:url("fonts/Caveat-600-latin.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}@font-face{font-family:"Playfair Display";src:url("fonts/PlayfairDisplay-latin.woff2") format("woff2");font-weight:400 900;font-style:normal;font-display:swap}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -681,24 +686,24 @@ th{background:var(--soft);position:sticky;top:0}
     <p class="sub" data-reveal>Basics of Python for Literary Studies · Wed 25 Nov 2026 · ACIC-003, SGT University</p>
     <p class="hand" data-reveal>Thirty seconds, then the game begins.</p>
     <form id="joinForm" class="stack" novalidate>
-      <label class="field" for="jName">Full name <input type="text" id="jName" name="name" autocomplete="name" required maxlength="80"><small>As it should appear on your certificate.</small></label>
+      <label class="field" for="jName">Full name <input type="text" id="jName" name="name" autocomplete="name" required maxlength="80"></label>
       <label class="field" for="jRoll">Roll number <input type="text" id="jRoll" name="roll" autocomplete="off" required maxlength="30" autocapitalize="characters"></label>
       <div class="grid-2">
         <label class="field" for="jProg">Programme <input type="text" id="jProg" name="programme" list="progList" required maxlength="80" placeholder="e.g. BA (Hons) English"><datalist id="progList"><option value="BA (Hons) English"><option value="BA (Hons) Psychology"><option value="BA (Hons) Political Science"><option value="BA (Hons) Economics"><option value="BA (Hons) Sociology"><option value="BA Liberal Arts"><option value="MA English"><option value="MA Psychology"><option value="MA Political Science"><option value="PhD"></datalist></label>
         <label class="field" for="jSem">Semester <select id="jSem" name="semester" required><option value="">Choose</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>Other</option></select></label>
       </div>
-      <label class="field" for="jEmail">Email <small>(optional, for the certificate link)</small> <input type="email" id="jEmail" name="email" autocomplete="email" maxlength="80" inputmode="email"></label>
+      <label class="field" for="jEmail">Email <small>(optional)</small> <input type="email" id="jEmail" name="email" autocomplete="email" maxlength="80" inputmode="email"></label>
       <label class="field" for="jNick">Nickname for the leaderboard <input type="text" id="jNick" name="nickname" required maxlength="20" autocomplete="off" placeholder="e.g. Sonnet Sleuth"><small>Only this nickname is ever shown on the screen. Never your name or roll number.</small></label>
       <label class="wc-stop" for="jConsent"><input type="checkbox" id="jConsent" name="consent" required> <span>My responses will be used to improve this session and AI-SETU programmes.</span></label>
       <p class="err" id="jErr" aria-live="polite"></p>
-      <button class="btn btn-primary" type="submit" id="jGo">Join and start →</button>
+      <button class="btn btn-primary" type="submit" id="jGo">Join and start</button>
       <p class="hint">Already joined on this phone? <a href="play.html" id="jResume">Continue where you left off</a>.</p>
     </form>
     <noscript><p class="plain">This page needs JavaScript. Please open it in Chrome or Safari.</p></noscript>
   </section>
   <section class="stack" style="margin-top:var(--gap)">
     <details class="reveal card"><summary>What happens with my details?</summary>
-      <div><p>Your name, roll number, programme, semester, optional email and nickname are stored in an SGT University Google Sheet owned by AI-SETU (aisetu@sgtuniversity.org), with your quiz answers and confidence ratings from this session. They are used to issue your participation certificate and to improve AI-SETU programmes. The leaderboard shows nicknames only. Nothing is published or shared outside SGT University.</p></div></details>
+      <div><p id="jPrivacy">Your name, roll number, programme, semester, optional email and nickname are stored in an SGT University Google Sheet owned by AI-SETU (aisetu@sgtuniversity.org), with your quiz answers and confidence ratings from this session. They are used to improve this session and AI-SETU programmes. The leaderboard shows nicknames only. Nothing is published or shared outside SGT University.</p></div></details>
   </section>
 </main>
 
@@ -1005,7 +1010,7 @@ th{background:var(--soft);position:sticky;top:0}
     });
   });
   /* ===== PAGE APP ===== */
-/* dh-core.js: shared client for every DH Bootcamp page (join, play, board, feedback, certificate, dashboard).
+/* dh-core.js: shared client for every DH Bootcamp page (join, play, board, feedback, dashboard).
    Talks to backend/Code.gs (or backend/mock_server.py) with JSON actions; keeps the student's state in memory with a
    localStorage mirror (token, nickname, XP, answers) so a reload mid-session loses nothing; queues events while the
    network is down and sends them later. XP table mirrors the server's (the server's totals win when they arrive).
@@ -1015,7 +1020,9 @@ th{background:var(--soft);position:sticky;top:0}
   var SESSION = CFG.session || 'DH2026-S1';
   var isLocal = /^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname);
   var qsApi = new URLSearchParams(location.search).get('api');
-  var API = qsApi || CFG.api || (isLocal ? location.origin + '/exec' : '');
+  var onLocalServer = isLocal && /^https?:$/.test(location.protocol);   // the mock (backend/mock_server.py) serves the pages and /exec
+  var API = qsApi || (onLocalServer ? location.origin + '/exec' : '') || CFG.api || '';
+  if (new URLSearchParams(location.search).get('lite') === '1') CFG.lite = true;
   var XP = (window.DH_CONTENT && window.DH_CONTENT.xp) || { mcq_correct: 10, streak_bonus: 5, streak_every: 3, level_badge: 20, exercise_run: 2, mystery_correct: 15, vote: 5 };
   var KEY = 'dh.' + SESSION.replace(/-S\d$/, '');  // one identity across both sessions
   var mem = {};
@@ -1149,23 +1156,55 @@ th{background:var(--soft);position:sticky;top:0}
   }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
+  /* live questions from the slides: a sheet slides up on the phone while the presenter has a poll open */
+  function live() {
+    if (!API || !state.token || /^local-/.test(state.token)) return;
+    var sheet = document.createElement('section'); sheet.className = 'live-sheet'; sheet.hidden = true; sheet.setAttribute('aria-live', 'polite'); sheet.setAttribute('aria-label', 'Live question');
+    document.body.appendChild(sheet); var cur = '', sent = {};
+    try { sent = JSON.parse(store.get('pollsent') || '{}'); } catch (e) {}
+    function draw(ps) {
+      if (!ps.open) { sheet.hidden = true; cur = ''; return; }
+      if (ps.qid === cur) return; cur = ps.qid;
+      var done = sent[ps.qid] != null;
+      sheet.innerHTML = '<p class="live-tag"><span class="live-dot"></span> Live question</p><p class="live-q">' + esc(ps.q) + '</p><div class="live-opts">' +
+        ps.options.map(function (o, i) { return '<button type="button" class="btn live-opt' + (done && sent[ps.qid] === i ? ' picked' : '') + '" data-i="' + i + '"' + (done ? ' disabled' : '') + '><b>' + 'ABCDEF'[i] + '</b> ' + esc(o) + '</button>'; }).join('') +
+        '</div><p class="live-msg">' + (done ? 'Answer sent. Watch the screen.' : 'Tap your answer.') + '</p>';
+      sheet.hidden = false;
+      sheet.querySelectorAll('.live-opt').forEach(function (b) { b.addEventListener('click', function () {
+        var i = Number(b.dataset.i); sheet.querySelectorAll('.live-opt').forEach(function (x) { x.disabled = true; x.classList.toggle('picked', x === b); });
+        sheet.querySelector('.live-msg').textContent = 'Sending…';
+        call('poll_answer', { token: state.token, qid: ps.qid, choice: i }).then(function () { sent[ps.qid] = i; store.set('pollsent', JSON.stringify(sent)); sheet.querySelector('.live-msg').textContent = 'Answer sent. Watch the screen.'; })
+          .catch(function (e) { sheet.querySelector('.live-msg').textContent = String(e.message); sheet.querySelectorAll('.live-opt').forEach(function (x) { x.disabled = false; }); });
+      }); });
+    }
+    function tick() { if (document.hidden) return; get('poll_state').then(function (j) { if (j && j.ok) draw(j); }).catch(function () {}); }
+    tick(); setInterval(tick, 4000); document.addEventListener('visibilitychange', tick);
+  }
   window.DH = { cfg: CFG, session: SESSION, api: API, state: function () { return state; }, call: call, get: get, record: record, join: join, rejoin: rejoin, reset: reset,
-    requireJoin: requireJoin, hud: hud, toast: toast, confetti: confetti, confidence: confidence, esc: esc, flush: flush, save: saveState, xpFor: xpFor, store: store };
+    requireJoin: requireJoin, hud: hud, toast: toast, confetti: confetti, live: live, confidence: confidence, esc: esc, flush: flush, save: saveState, xpFor: xpFor, store: store };
   document.addEventListener('DOMContentLoaded', function () { hud(); if (state.token) flush(); });
 })();
 
-/* join page */
+/* join page (full mode: name, roll, programme, semester, optional email, nickname; lite mode: roll + nickname only) */
 (function () {
   var f = document.getElementById('joinForm'), err = document.getElementById('jErr'), go = document.getElementById('jGo');
+  var lite = !!(DH.cfg && DH.cfg.lite);
   var next = new URLSearchParams(location.search).get('next') || 'play.html';
   if (!/^[\w.-]+\.html(#[\w-]*)?$/.test(next)) next = 'play.html';
+  if (lite) {
+    ['jName', 'jProg', 'jSem', 'jEmail'].forEach(function (id) { var el = document.getElementById(id); var box = el.closest('label') || el.parentNode; box.hidden = true; el.required = false; });
+    var g = document.getElementById('jProg').closest('.grid-2'); if (g) g.hidden = true;
+    var priv = document.getElementById('jPrivacy');
+    if (priv) priv.textContent = 'Only your roll number and nickname are kept, with your quiz answers, in a Google Sheet run by the resource person for this session. After the session they move to AI-SETU\'s SGT storage and are deleted from that Sheet. The screen shows nicknames only.';
+  }
   var st = DH.state();
-  if (st.token) { document.getElementById('jResume').textContent = 'Continue as ' + st.nickname + ' →'; }
-  if (!DH.api) err.textContent = 'No backend is configured on this page (DH_CONFIG.api is empty). Joining will work on this device only.';
+  if (st.token) { document.getElementById('jResume').textContent = 'Continue as ' + st.nickname; }
+  if (!DH.api) err.textContent = 'No backend is set up on this page yet, so joining works on this phone only.';
   f.addEventListener('submit', function (e) {
     e.preventDefault(); err.textContent = '';
     var d = { name: f.name.value.trim(), roll: f.roll.value.trim().toUpperCase(), programme: f.programme.value.trim(), semester: f.semester.value, email: f.email.value.trim(), nickname: f.nickname.value.trim(), consent: f.consent.checked };
-    if (!d.name || !d.roll || !d.programme || !d.semester || !d.nickname) { err.textContent = 'Please fill name, roll number, programme, semester and a nickname.'; return; }
+    if (lite) { d.name = ''; d.programme = ''; d.semester = ''; d.email = ''; }
+    if (!d.roll || !d.nickname || (!lite && (!d.name || !d.programme || !d.semester))) { err.textContent = lite ? 'Please fill your roll number and a nickname.' : 'Please fill name, roll number, programme, semester and a nickname.'; return; }
     if (!d.consent) { err.textContent = 'Please tick the consent line to take part.'; return; }
     if (d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) { err.textContent = 'That email does not look right (or leave it empty).'; return; }
     go.disabled = true; go.textContent = 'Joining…';
@@ -1173,10 +1212,8 @@ th{background:var(--soft);position:sticky;top:0}
       DH.toast(j && j.rejoined ? 'Welcome back, ' + DH.state().nickname + '!' : 'Welcome, ' + DH.state().nickname + '!');
       setTimeout(function () { location.href = next; }, 500);
     };
-    if (!DH.api) {   // device-only mode: play without a backend (dry runs, offline)
-      var s = DH.state(); s.token = 'local-' + Math.random().toString(36).slice(2, 10); s.nickname = d.nickname; s.name = d.name; DH.save(); done(null); return;
-    }
-    DH.join(d).then(done).catch(function (e) { go.disabled = false; go.textContent = 'Join and start →'; err.textContent = /offline|Failed to fetch|abort/i.test(String(e.message)) ? 'Could not reach the server. Check Wi-Fi and try again, or ask KP for the backup link.' : String(e.message); });
+    if (!DH.api) { var s = DH.state(); s.token = 'local-' + Math.random().toString(36).slice(2, 10); s.nickname = d.nickname; s.name = d.name; DH.save(); done(null); return; }
+    DH.join(d).then(done).catch(function (e) { go.disabled = false; go.textContent = 'Join and start'; err.textContent = /offline|Failed to fetch|abort/i.test(String(e.message)) ? 'Could not reach the server. Check Wi-Fi and try again, or ask the resource person.' : String(e.message); });
   });
 })();
 })();
