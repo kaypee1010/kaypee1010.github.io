@@ -804,6 +804,23 @@ th{background:var(--soft);position:sticky;top:0}
 @media (max-width:600px){.student-hdr .hud{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0;border-width:0 0 1px;padding-left:.6rem;padding-right:.6rem;gap:.35rem}
   .student-hdr .hud .badge{width:1.3rem;height:1.3rem;font-size:.75rem}.student-hdr .hud [data-dh-badges]{gap:.05rem}
   .student-hdr .hud-dot{width:22px;height:28px}.student-hdr .hud-map{width:32px;height:32px;font-size:1rem}}
+/* Part C: follow the presenter (follow.js). Pill, banner, overlays, locked levels. Theme tokens only (light and dark). */
+body.fw-on{padding-bottom:3.4rem}
+.fw-pill{position:fixed;left:.75rem;bottom:calc(.75rem + var(--sab, 0px));z-index:43;display:inline-flex;align-items:center;gap:.45rem;font:600 .82rem/1 var(--font-body, system-ui);padding:.55rem .8rem;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);box-shadow:0 4px 14px rgba(10,29,49,.18);cursor:pointer;min-height:44px}
+.fw-dot{width:.6rem;height:.6rem;border-radius:50%;background:#8a94a3;display:inline-block}
+.fw-dot.on{background:#1f9d55}.fw-dot.off{background:#c99a06}.fw-dot.self{background:#8a94a3}
+.fw-banner{position:fixed;left:.75rem;right:.75rem;bottom:calc(4rem + var(--sab, 0px));z-index:46;display:block;width:auto;text-align:left;font:700 .95rem/1.3 var(--font-body, system-ui);padding:.8rem 1rem;border-radius:12px;border:2px solid var(--accent);background:var(--card);color:var(--fg);box-shadow:0 8px 24px rgba(10,29,49,.25);cursor:pointer;min-height:44px}
+.fw-banner[hidden],.fw-ov[hidden],.fw-quiz[hidden]{display:none}
+.fw-ov{position:fixed;inset:0;z-index:44;display:grid;place-items:center;padding:1rem;background:rgba(10,29,49,.55)}
+.fw-ov .fw-card{background:var(--card);color:var(--fg);border-radius:16px;padding:1.4rem 1.2rem;max-width:26rem;width:100%;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.fw-ov.fw-watch{background:rgba(10,29,49,.35)}
+.fw-big{font-size:1.6rem;font-weight:800;margin:.2rem 0 .6rem}
+.fw-x{background:none;border:0;color:var(--accent);font:600 .95rem/1.2 var(--font-body, system-ui);text-decoration:underline;cursor:pointer;padding:.6rem;min-height:44px}
+.fw-left{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent)}
+.fw-quiz .live-tag{display:flex;align-items:center;gap:.4rem}
+.fw-lb{text-align:left}
+.levels .lv-locked{display:flex;align-items:center;gap:.8rem;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:14px;opacity:.62;color:var(--fg)}
+.lv-wait{text-align:center}
 
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
@@ -1402,8 +1419,11 @@ Guess: Shakespeare
       '<pre class="runner-out" aria-live="polite" aria-label="Output"></pre>' +
       (o.expected != null ? '<details class="reveal runner-expected"><summary>' + (o.gap ? '👀 Expected output (once your line is in)' : '👀 Expected output of the starter code') + '</summary><pre>' + esc(o.expected.trim() || '(nothing is printed)') + '</pre></details>' : '');
     var ta = el.querySelector('textarea'), run = el.querySelector('.runner-run'), reset = el.querySelector('.runner-reset'), out = el.querySelector('.runner-out'), st = el.querySelector('.runner-status');
+    var SK = o.qid ? 'dh.code.' + o.qid : '';   // Part C (R5): never lose work; a jump to another slide or a reload keeps the code
+    try { var saved = SK && localStorage.getItem(SK); if (saved != null && saved !== o.code) { ta.value = saved; st.textContent = 'your code is back'; } } catch (e) {}
+    ta.addEventListener('input', function () { try { if (SK) localStorage.setItem(SK, ta.value); } catch (e) {} });
     ta.addEventListener('keydown', function (e) { if (e.key === 'Tab') { e.preventDefault(); var s = ta.selectionStart; ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(ta.selectionEnd); ta.selectionStart = ta.selectionEnd = s + 4; } });
-    reset.addEventListener('click', function () { ta.value = o.code; out.textContent = ''; out.className = 'runner-out'; st.textContent = ''; });
+    reset.addEventListener('click', function () { ta.value = o.code; out.textContent = ''; out.className = 'runner-out'; st.textContent = ''; try { if (SK) localStorage.removeItem(SK); } catch (e) {} });
     run.addEventListener('click', function () {
       run.disabled = true; st.textContent = py ? 'running…' : 'loading Python…'; var t0 = Date.now();
       exec(ta.value).then(function (r) {

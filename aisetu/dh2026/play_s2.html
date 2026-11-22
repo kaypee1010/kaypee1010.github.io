@@ -707,6 +707,23 @@ th{background:var(--soft);position:sticky;top:0}
 @media (max-width:600px){.student-hdr .hud{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0;border-width:0 0 1px;padding-left:.6rem;padding-right:.6rem;gap:.35rem}
   .student-hdr .hud .badge{width:1.3rem;height:1.3rem;font-size:.75rem}.student-hdr .hud [data-dh-badges]{gap:.05rem}
   .student-hdr .hud-dot{width:22px;height:28px}.student-hdr .hud-map{width:32px;height:32px;font-size:1rem}}
+/* Part C: follow the presenter (follow.js). Pill, banner, overlays, locked levels. Theme tokens only (light and dark). */
+body.fw-on{padding-bottom:3.4rem}
+.fw-pill{position:fixed;left:.75rem;bottom:calc(.75rem + var(--sab, 0px));z-index:43;display:inline-flex;align-items:center;gap:.45rem;font:600 .82rem/1 var(--font-body, system-ui);padding:.55rem .8rem;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);box-shadow:0 4px 14px rgba(10,29,49,.18);cursor:pointer;min-height:44px}
+.fw-dot{width:.6rem;height:.6rem;border-radius:50%;background:#8a94a3;display:inline-block}
+.fw-dot.on{background:#1f9d55}.fw-dot.off{background:#c99a06}.fw-dot.self{background:#8a94a3}
+.fw-banner{position:fixed;left:.75rem;right:.75rem;bottom:calc(4rem + var(--sab, 0px));z-index:46;display:block;width:auto;text-align:left;font:700 .95rem/1.3 var(--font-body, system-ui);padding:.8rem 1rem;border-radius:12px;border:2px solid var(--accent);background:var(--card);color:var(--fg);box-shadow:0 8px 24px rgba(10,29,49,.25);cursor:pointer;min-height:44px}
+.fw-banner[hidden],.fw-ov[hidden],.fw-quiz[hidden]{display:none}
+.fw-ov{position:fixed;inset:0;z-index:44;display:grid;place-items:center;padding:1rem;background:rgba(10,29,49,.55)}
+.fw-ov .fw-card{background:var(--card);color:var(--fg);border-radius:16px;padding:1.4rem 1.2rem;max-width:26rem;width:100%;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.fw-ov.fw-watch{background:rgba(10,29,49,.35)}
+.fw-big{font-size:1.6rem;font-weight:800;margin:.2rem 0 .6rem}
+.fw-x{background:none;border:0;color:var(--accent);font:600 .95rem/1.2 var(--font-body, system-ui);text-decoration:underline;cursor:pointer;padding:.6rem;min-height:44px}
+.fw-left{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent)}
+.fw-quiz .live-tag{display:flex;align-items:center;gap:.4rem}
+.fw-lb{text-align:left}
+.levels .lv-locked{display:flex;align-items:center;gap:.8rem;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:14px;opacity:.62;color:var(--fg)}
+.lv-wait{text-align:center}
 
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
@@ -1223,6 +1240,7 @@ th{background:var(--soft);position:sticky;top:0}
   window.DH = { cfg: CFG, session: SESSION, api: API, state: function () { return state; }, call: call, get: get, record: record, join: join, rejoin: rejoin, reset: reset,
     requireJoin: requireJoin, hud: hud, toast: toast, confetti: confetti, live: live, confidence: confidence, esc: esc, flush: flush, save: saveState, xpFor: xpFor, store: store };
   document.addEventListener('DOMContentLoaded', function () { hud(); if (state.token) flush(); });
+  window.addEventListener('online', function () { if (state.token) flush(); });   // Part C (R9): Wi-Fi back, queued answers go out
 })();
 
 /* dh-anim.js: the animations and simulations of Session 1, zero dependencies, DOM only.
@@ -1361,6 +1379,189 @@ th{background:var(--soft);position:sticky;top:0}
   window.DH.anim = { beads: beads, shelves: shelves, walker: walker, cards: cards, fingerprint: fingerprint, fp: fp, wordcloud: wordcloud, concordance: concordance, words: words, counts: counts, top: top };
 })();
 
+/* follow.js: Follow the presenter (review/follow_presenter_rules.md, rules R1 to R10), one module for any live class.
+   Interface (R8):  DHFollow.subscribe(onStage)   phones: onStage(stage, reply) runs once per new seq
+                    DHFollow.publish(stage)       presenter only, with the key (DHFollow.publisher({post, key}))
+   Transport: a polling adapter (Apps Script or any REST server: GET poll_state). A push adapter (Firebase, WebSocket, SSE)
+   would replace polling() and nothing else; the pages never know which one runs.
+   Stage object from the server: {seq, slide, stage: watch|task|quiz|board|break|feedback, target, unlock, quiz:{qid,q,options},
+   quizOpen, revealed, at}; the reply also carries now (server ms) and next_ms (a slow-down hint).
+   Kill switch (R9): DH_CONFIG.SYNC_ENABLED === false, and the phones behave exactly as before (DHFollow.phone() returns false). */
+(function () {
+  var CFG = window.DH_CONFIG || {};
+  var BASE = { quiz: 3000, task: 3000, watch: 5000, board: 5000, feedback: 5000, 'break': 8000 }, JIT = 800;   // R8 intervals, ±0.8 s
+  var STALE = 120000, MAXFAIL = 3, QUIZ_SECS = 40, AUTO_QUIZ = 10000, TYPE_MS = 8000;                          // R9, R3, R4
+  var enabled = CFG.SYNC_ENABLED !== false;
+
+  /* ---------------- polling adapter ---------------- */
+  function polling(getFn) {
+    var subs = [], last = null, seq = null, fails = 0, timer = null, mode = 'wait', modeSubs = [], lat = [];
+    function stageName() { return last && last.stage ? last.stage.stage : 'watch'; }
+    function schedule(now) {
+      clearTimeout(timer); if (document.hidden) return;
+      var d = now ? 0 : Math.max(BASE[stageName()] || 5000, (last && last.next_ms) || 0) + (Math.random() * 2 - 1) * JIT;
+      timer = setTimeout(tick, Math.max(0, d));
+    }
+    function setMode(m) { if (m === mode) return; mode = m; modeSubs.forEach(function (f) { try { f(m); } catch (e) {} }); }
+    function evaluate() {
+      var sg = last && last.stage, fresh = !!(sg && last.now - sg.at < STALE);
+      if (fails >= MAXFAIL) setMode('self');            // R9: 3 failed checks in a row
+      else if (last) setMode(fresh ? 'live' : 'self');  // R9: no stage for 2 min (the presenter's heartbeat stopped)
+    }
+    function tick() {
+      var t0 = Date.now();
+      var cap = new Promise(function (_, no) { setTimeout(function () { no(new Error('timeout')); }, 10000); });   // a hung request counts as a failed check
+      Promise.race([getFn('poll_state'), cap]).then(function (j) {
+        if (!j || !j.ok) throw new Error('bad reply');
+        var t1 = Date.now(); fails = 0; last = j; last.offset = j.now ? j.now - (t0 + t1) / 2 : 0;
+        var sg = j.stage;
+        if (sg && sg.seq !== seq) {
+          var first = seq === null; seq = sg.seq;
+          if (!first) lat.push({ seq: sg.seq, stage: sg.stage, slide: sg.slide, ms: Math.max(0, Math.round(t1 + last.offset - sg.at)) });   // R10: slide change -> this phone
+          evaluate();
+          subs.forEach(function (f) { try { f(sg, j, first); } catch (e) { if (window.console) console.error(e); } });
+        } else evaluate();
+      }).catch(function () { fails++; evaluate(); }).then(function () { schedule(); });
+    }
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) schedule(true); else clearTimeout(timer); });   // R8: stop while hidden
+    return {
+      subscribe: function (f) { subs.push(f); if (subs.length === 1) schedule(true); },
+      onMode: function (f) { modeSubs.push(f); },
+      mode: function () { return mode; }, last: function () { return last; }, latency: function () { return lat.slice(); }, now: function () { schedule(true); }
+    };
+  }
+
+  /* ---------------- presenter side ---------------- */
+  function publisher(o) {   // o: {post(action, body) -> Promise, key() -> string}
+    var t = null, beat = null, cur = null;
+    function send() { if (!cur || !o.key()) return Promise.resolve(); return o.post('stage_set', Object.assign({ key: o.key() }, cur)).catch(function () {}); }
+    function publish(stage) {   // R2 pre-arm: entering a quiz slide publishes stage=quiz with the question; Open flips quizOpen on the server
+      cur = stage; clearTimeout(t); t = setTimeout(send, 600);   // 600 ms debounce: fast clicking through slides sends one stage
+      clearInterval(beat); beat = setInterval(send, 60000);      // heartbeat: phones know the presenter is still there (R9)
+    }
+    return { publish: publish, resend: send };
+  }
+
+  /* ---------------- phone side ---------------- */
+  var A = null, followOn = true, lastKey = 0, focusEd = false, ui = {}, opts = {}, quizState = null, firstSeen = true, presenter = false;
+  function typing() { return focusEd || Date.now() - lastKey < TYPE_MS; }   // R4
+  function el(tag, cls, html) { var x = document.createElement(tag); if (cls) x.className = cls; if (html != null) x.innerHTML = html; return x; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function toast(t) { if (window.DH && DH.toast) DH.toast(t); }
+  function hideOverlay() { if (ui.ov) ui.ov.hidden = true; }
+  function overlay(html, cls) {
+    if (!ui.ov) { ui.ov = el('div', 'fw-ov'); ui.ov.setAttribute('role', 'dialog'); ui.ov.setAttribute('aria-live', 'polite'); document.body.appendChild(ui.ov); }
+    ui.ov.className = 'fw-ov ' + (cls || ''); ui.ov.innerHTML = '<div class="fw-card">' + html + '</div>'; ui.ov.hidden = false;
+    var b = ui.ov.querySelector('[data-close]'); if (b) b.addEventListener('click', hideOverlay);
+  }
+  function banner(text, go) {   // R4: never pull a student out mid-typing
+    if (!ui.bn) { ui.bn = el('button', 'fw-banner'); ui.bn.type = 'button'; document.body.appendChild(ui.bn); }
+    ui.bn.textContent = text; ui.bn.hidden = false; ui.bn.onclick = function () { ui.bn.hidden = true; go(); };
+  }
+  function hideBanner() { if (ui.bn) ui.bn.hidden = true; }
+  function pill() {
+    ui.pl = el('button', 'fw-pill'); ui.pl.type = 'button'; document.body.appendChild(ui.pl); document.body.classList.add('fw-on');
+    ui.pl.addEventListener('click', function () { followOn = !followOn; drawPill(); toast(followOn ? '🧭 Following the presenter' : '🧭 Follow off: you move at your own pace. Quizzes still come.'); });
+    drawPill();
+  }
+  function drawPill() {
+    var m = A ? A.mode() : 'wait';
+    ui.pl.innerHTML = '<span class="fw-dot ' + (m === 'live' ? (followOn ? 'on' : 'off') : 'self') + '"></span>' + (m === 'self' ? 'Self-paced' : 'Follow: ' + (followOn ? 'on' : 'off'));
+    ui.pl.setAttribute('aria-pressed', followOn ? 'true' : 'false'); ui.pl.setAttribute('aria-label', 'Follow the presenter: ' + (followOn ? 'on' : 'off') + '. Tap to switch.');
+  }
+  function go(target) { if (target && opts.go) opts.go(target); }
+
+  /* quiz sheet: pre-armed (locked), then open with this phone's own 40 s countdown, answers until Reveal + 3 s on the server (R2, R3) */
+  function quiz(sg) {
+    var Q = sg.quiz || {}; if (!Q.qid) return;
+    var sent = {}; try { sent = JSON.parse((DH.store && DH.store.get('pollsent')) || '{}'); } catch (e) {}
+    if (!quizState || quizState.qid !== Q.qid) quizState = { qid: Q.qid, openedAt: 0, timer: null, done: sent[Q.qid] != null, pick: sent[Q.qid] };
+    var qs = quizState;
+    if (!ui.qs) { ui.qs = el('section', 'live-sheet fw-quiz'); ui.qs.setAttribute('aria-live', 'polite'); ui.qs.setAttribute('aria-label', 'Live question'); document.body.appendChild(ui.qs); }
+    if (sg.quizOpen && !qs.openedAt) qs.openedAt = Date.now();
+    var left = qs.openedAt ? Math.max(0, QUIZ_SECS - Math.floor((Date.now() - qs.openedAt) / 1000)) : QUIZ_SECS;
+    var can = sg.quizOpen && !qs.done && left > 0 && !!(DH.state().token);
+    var msg = qs.done ? 'Answer sent. Watch the screen.' : sg.revealed ? 'Revealed on the screen.' : !sg.quizOpen ? '⏳ Wait, the presenter will open this.' : !DH.state().token ? 'Join first to answer.' : left > 0 ? 'Tap your answer.' : "Time's up. Watch the screen.";
+    ui.qs.innerHTML = '<p class="live-tag"><span class="live-dot"></span> Live question' + (sg.quizOpen && !qs.done ? ' <span class="fw-left" aria-label="seconds left">' + left + ' s</span>' : '') + '</p><p class="live-q">' + esc(Q.q) + '</p><div class="live-opts">' +
+      (Q.options || []).map(function (o, i) { return '<button type="button" class="btn live-opt' + (qs.pick === i ? ' picked' : '') + '" data-i="' + i + '"' + (can ? '' : ' disabled') + '><b>' + 'ABCDEF'[i] + '</b> ' + esc(o) + '</button>'; }).join('') +
+      '</div><p class="live-msg">' + msg + '</p><p><button type="button" class="fw-x" data-hide>Hide ▾</button></p>';
+    ui.qs.hidden = false;
+    ui.qs.querySelector('[data-hide]').addEventListener('click', function () { ui.qs.hidden = true; });
+    ui.qs.querySelectorAll('.live-opt').forEach(function (b) { b.addEventListener('click', function () {
+      var i = Number(b.dataset.i); qs.done = true; qs.pick = i; ui.qs.querySelectorAll('.live-opt').forEach(function (x) { x.disabled = true; x.classList.toggle('picked', x === b); });
+      ui.qs.querySelector('.live-msg').textContent = 'Sending…';
+      DH.call('poll_answer', { token: DH.state().token, qid: Q.qid, choice: i }).then(function () { sent[Q.qid] = i; DH.store.set('pollsent', JSON.stringify(sent)); ui.qs.querySelector('.live-msg').textContent = 'Answer sent. Watch the screen.'; })
+        .catch(function (e) { qs.done = false; ui.qs.querySelector('.live-msg').textContent = String(e.message); ui.qs.querySelectorAll('.live-opt').forEach(function (x) { x.disabled = false; }); });
+    }); });
+    clearInterval(qs.timer);
+    if (sg.quizOpen && !qs.done && left > 0) qs.timer = setInterval(function () { var l = ui.qs.querySelector('.fw-left'); var n = Math.max(0, QUIZ_SECS - Math.floor((Date.now() - qs.openedAt) / 1000));
+      if (l) l.textContent = n + ' s'; if (!n) { clearInterval(qs.timer); quiz(sg); } }, 500);
+  }
+  function hideQuiz() { if (ui.qs) ui.qs.hidden = true; if (quizState) clearInterval(quizState.timer); }
+
+  function board() {
+    overlay('<p class="kicker">🏆 Leaderboard</p><ol class="lb fw-lb"><li><i>…</i><b>loading</b><span class="pts"></span></li></ol><p><button type="button" class="btn" data-close>Close</button></p>', 'fw-board');
+    DH.get('board').then(function (b) { var ol = ui.ov.querySelector('.fw-lb'); if (!b || !b.ok || !ol) return;
+      ol.innerHTML = b.players.slice(0, 5).map(function (p, i) { return '<li><i>' + (i + 1) + '</i><b>' + esc(p.nick) + '</b><span class="pts">' + p.xp + '</span></li>'; }).join('') || '<li><i>–</i><b>No one yet</b><span class="pts"></span></li>'; }).catch(function () {});
+  }
+  function apply(sg, reply, first) {
+    var st = sg.stage, t = typing();
+    if (opts.onUnlock) opts.onUnlock();
+    if (st !== 'quiz') hideQuiz();
+    if (st !== 'watch' && st !== 'board' && st !== 'break') hideOverlay();
+    if (st !== 'quiz' && st !== 'task' && st !== 'feedback') hideBanner();
+    if (st === 'quiz') {   // quizzes always come, Follow on or off (R6), but never over someone typing (R4)
+      hideOverlay();
+      if (!t || (quizState && quizState.qid === (sg.quiz || {}).qid && ui.qs && !ui.qs.hidden)) { hideBanner(); quiz(sg); return; }
+      var shownAt = Date.now(); banner('The class moved on: open the quiz ▸', function () { quiz((A.last() && A.last().stage) || sg); });
+      clearInterval(ui.waitT); ui.waitT = setInterval(function () { var cur = A.last() && A.last().stage;
+        if (!cur || cur.stage !== 'quiz' || (cur.quiz || {}).qid !== (sg.quiz || {}).qid) { clearInterval(ui.waitT); return; }
+        if (Date.now() - Math.max(lastKey, shownAt) >= AUTO_QUIZ) { clearInterval(ui.waitT); hideBanner(); quiz(cur); } }, 1000);   // R4: the quiz opens by itself after 10 s with no typing
+      return;
+    }
+    if (st === 'task') {
+      if (!sg.target) return;
+      if (!followOn && !first) { followOn = true; drawPill(); toast('🧭 Follow is back on for the new task.'); }   // R6: back on at the next task stage
+      if (!followOn) return;
+      if (first && !opts.atHome()) return;   // a phone that opens the page mid-task stays where it is
+      if (opts.here(sg.target)) return;
+      if (t) { banner('The class moved on: ' + opts.label(sg.target) + ' ▸', function () { go(sg.target); }); return; }
+      go(sg.target); return;
+    }
+    if (!followOn || t) return;   // Follow off: no overlays for watch, board, break (R6); typing: leave them alone (R4)
+    if (st === 'watch') overlay('<p class="fw-big">👀 Watch the screen</p><p><button type="button" class="fw-x" data-close>I\'m still finishing ▸</button></p>', 'fw-watch');
+    else if (st === 'board') board();
+    else if (st === 'break') overlay('<p class="fw-big">☕ Break</p><p>Stretch, drink water, chat. Your work is saved.</p><p><button type="button" class="btn" data-close>Close</button></p>', 'fw-break');
+    else if (st === 'feedback') { if (opts.feedback) location.href = opts.feedback; }
+  }
+  function phone(o) {
+    if (!enabled || !window.DH || !DH.api) return false;   // kill switch: the old behaviour, unchanged
+    try { presenter = localStorage.getItem('dh.presenter') === '1'; } catch (e) {}   // read on phones only: the deck never touches storage
+    opts = o || {}; A = polling(DH.get);
+    document.addEventListener('focusin', function (e) { if (e.target.matches && e.target.matches('textarea, input[type=text], input:not([type])')) focusEd = true; });
+    document.addEventListener('focusout', function (e) { if (e.target.matches && e.target.matches('textarea, input[type=text], input:not([type])')) { focusEd = false; lastKey = Date.now(); } });
+    document.addEventListener('keydown', function () { lastKey = Date.now(); }, true);
+    document.addEventListener('input', function () { lastKey = Date.now(); }, true);
+    pill();
+    var prev = 'wait';
+    A.onMode(function (m) { drawPill(); if (opts.onUnlock) opts.onUnlock();
+      if (m === 'self') { hideOverlay(); hideBanner(); hideQuiz(); toast('Self-paced: carry on at your own pace. Answers are kept and sent later.'); }
+      if (m === 'live' && prev === 'self' && A.last() && A.last().stage) { toast('🧭 Back with the class.'); if (DH.flush) DH.flush(); apply(A.last().stage, A.last(), true); }   // R9: queued answers go out
+      prev = m; });
+    A.subscribe(function (sg, reply, first) { if (A.mode() === 'live') apply(sg, reply, first); });
+    return true;
+  }
+  /* level lock (Session 1, KP's rule): a level opens when the presenter reaches its 'Your turn' slide; finished levels stay open.
+     All open when sync is off, in self-paced mode (no stage for 2 min or 3 failed checks), before the first stage, or on a presenter device. */
+  function unlocked() {
+    if (!enabled || presenter || !A || A.mode() !== 'live') return 5;
+    var sg = A.last() && A.last().stage; return sg ? Math.max(0, Math.min(5, Number(sg.unlock) || 0)) : 5;
+  }
+  window.DHFollow = { enabled: enabled, polling: polling, publisher: publisher, phone: phone, unlocked: unlocked,
+    subscribe: function (f) { if (A) A.subscribe(f); }, publish: null, typing: typing,
+    mode: function () { return A ? A.mode() : 'off'; }, latency: function () { return A ? A.latency() : []; }, isPresenter: function () { return presenter; } };
+})();
+
 /* play_s2: Session 2 activities (hash routes). Content from dh-content-s2.js; identity, XP and events from dh-core. */
 (function () {
   var S = window.DH_CONTENT_S2, V = document.getElementById('view'), esc = DH.esc;
@@ -1470,7 +1671,17 @@ th{background:var(--soft);position:sticky;top:0}
     DH.hud();
   }
   if (!DH.requireJoin()) return;
-  window.addEventListener('hashchange', route); DH.live(); DH.rejoin().then(function () { route(); }); route();
+  window.addEventListener('hashchange', route);
+  var LBL2 = { home: 'open the map', hoa1: 'open Human or AI, round 1', hoa2: 'open Human or AI, round 2', check1: 'open Quick check 1', check2: 'open Quick check 2', translate: 'open the translation task', ethics: 'open the ethics cases' };
+  var SYNC = window.DHFollow && DHFollow.phone({   // Part C: follow the presenter; Session 2 has no level lock
+    go: function (t) { location.hash = '#' + t; },
+    here: function (t) { return (location.hash || '#home').slice(1) === t; },
+    atHome: function () { return /^#?(home)?$/.test(location.hash || ''); },
+    label: function (t) { return LBL2[t] || 'open it'; },
+    feedback: 'feedback.html'
+  });
+  if (!SYNC) DH.live();
+  DH.rejoin().then(function () { route(); }); route();
 })();
 
 /* student_header.js (step 2, design "A + B"): the student pages' header.

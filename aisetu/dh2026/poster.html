@@ -659,6 +659,72 @@ th{background:var(--soft);position:sticky;top:0}
 .live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
 .live-msg{margin:0;color:var(--muted)}
 
+/* step 2: the read-aloud Script section of the presenter guides (one block per slide, phone stage beside it; prints one block per page region) */
+.scriptlist{display:grid;gap:.8rem}
+.scriptblk{border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.scriptblk{color:var(--fg)}
+.scriptblk header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;margin-bottom:.35rem}
+.scriptblk .sb-n{font:700 1rem var(--font-mono,monospace);background:var(--accent);color:var(--accent-fg);border-radius:.35rem;padding:.05rem .45rem}
+.scriptblk .sb-t{font-weight:700}
+.scriptblk .sb-c{margin-left:auto;color:var(--muted);font-size:.9em}
+.scriptblk .sb-body{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:.8rem}
+.scriptblk .sb-say p{margin:.2rem 0;line-height:1.55}
+.scriptblk .sb-clicks{font-size:.92em;color:var(--muted)}
+.scriptblk .sb-phone{border-left:3px solid var(--accent-2);padding:.3rem .6rem;font-size:.92em;background:var(--soft);border-radius:.3rem}
+.scriptblk .sb-ph{display:block;font-weight:700;font-size:.85em;margin-bottom:.2rem}
+@media (max-width:640px){.scriptblk .sb-body{grid-template-columns:1fr}.scriptblk .sb-c{margin-left:0}}
+@media print{.scriptblk{border-color:#999;background:#fff}.scriptblk .sb-phone{background:#fff}}
+.pr-short{margin:.2rem 0 .4rem}.pr-short img{max-width:100%;height:auto}
+
+/* step 2: student header "A + B" (play.html, play_s2.html only; body.student-hdr is set by student_header.js) */
+.student-hdr .nav{transition:transform .2s ease;will-change:transform}
+.student-hdr .nav .nav-sub{display:block}
+.student-hdr .nav-level{margin-left:auto;flex:none;font:600 .8rem var(--font-display);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .7rem;white-space:nowrap}
+.student-hdr .theme-toggle{margin-left:0}
+.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(-14px -100vmax -7px -100vmax);
+  flex-wrap:nowrap;gap:.45rem;padding:.35rem .5rem .35rem .7rem;z-index:40;transition:transform .2s ease;will-change:transform;position:sticky;position:-webkit-sticky}
+.student-hdr .hud>*{flex:none}
+.student-hdr .hud [data-dh-nick]{flex:1 1 auto;min-width:3.6rem;max-width:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-hdr .hud [data-dh-badges]{display:inline-flex;gap:.1rem}
+.student-hdr .hud .badge{width:1.55rem;height:1.55rem;font-size:.9rem;margin-right:0}
+.student-hdr .hud [data-dh-net],.student-hdr .hud [data-dh-py]{display:none}
+.student-hdr .hud-logo{width:26px;height:26px;max-width:0;opacity:0;margin-right:-.45rem;transition:max-width .2s ease,opacity .2s ease,margin .2s ease}
+.student-hdr .hud-dot{width:28px;height:28px;border:0;padding:0;background:transparent;display:inline-grid;place-items:center;cursor:pointer;border-radius:50%}
+.student-hdr .hud-dot::before{content:"";width:12px;height:12px;border-radius:50%;background:#8a94a3;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
+.student-hdr .hud-dot[data-state="on"]::before{background:#22a35a}
+.student-hdr .hud-dot[data-state="off"]::before{background:#d64535}
+.student-hdr .hud-map{margin-left:auto;width:36px;height:36px;display:inline-grid;place-items:center;border-radius:50%;text-decoration:none;font-size:1.15rem;background:var(--soft);border:1px solid var(--line)}
+.student-hdr .hud{position:sticky}
+.student-hdr .hud-tip{position:absolute;right:.5rem;top:calc(100% + 6px);background:var(--fg);color:var(--bg);font-size:.78rem;padding:.35rem .6rem;border-radius:.5rem;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap}
+.student-hdr.hdr-hidden .nav{transform:translateY(-100%)}
+.student-hdr.hdr-hidden .hud{transform:translateY(calc(-1 * var(--nav-h)))}
+.student-hdr.hdr-hidden .hud-logo{max-width:26px;opacity:1;margin-right:0}
+.student-hdr .runner,.student-hdr .stage,.student-hdr .mcq{scroll-margin-top:calc(var(--nav-h) + 4rem)}
+@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:6rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
+@media (prefers-reduced-motion:reduce){.student-hdr .nav,.student-hdr .hud,.student-hdr .hud-logo{transition:none}}
+.student-hdr .hud [data-dh-streak]:empty{display:none}
+.student-hdr .hud .xp{padding:.1rem .5rem;font-size:.85rem;white-space:nowrap}
+@media (max-width:600px){.student-hdr .hud{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0;border-width:0 0 1px;padding-left:.6rem;padding-right:.6rem;gap:.35rem}
+  .student-hdr .hud .badge{width:1.3rem;height:1.3rem;font-size:.75rem}.student-hdr .hud [data-dh-badges]{gap:.05rem}
+  .student-hdr .hud-dot{width:22px;height:28px}.student-hdr .hud-map{width:32px;height:32px;font-size:1rem}}
+/* Part C: follow the presenter (follow.js). Pill, banner, overlays, locked levels. Theme tokens only (light and dark). */
+body.fw-on{padding-bottom:3.4rem}
+.fw-pill{position:fixed;left:.75rem;bottom:calc(.75rem + var(--sab, 0px));z-index:43;display:inline-flex;align-items:center;gap:.45rem;font:600 .82rem/1 var(--font-body, system-ui);padding:.55rem .8rem;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--fg);box-shadow:0 4px 14px rgba(10,29,49,.18);cursor:pointer;min-height:44px}
+.fw-dot{width:.6rem;height:.6rem;border-radius:50%;background:#8a94a3;display:inline-block}
+.fw-dot.on{background:#1f9d55}.fw-dot.off{background:#c99a06}.fw-dot.self{background:#8a94a3}
+.fw-banner{position:fixed;left:.75rem;right:.75rem;bottom:calc(4rem + var(--sab, 0px));z-index:46;display:block;width:auto;text-align:left;font:700 .95rem/1.3 var(--font-body, system-ui);padding:.8rem 1rem;border-radius:12px;border:2px solid var(--accent);background:var(--card);color:var(--fg);box-shadow:0 8px 24px rgba(10,29,49,.25);cursor:pointer;min-height:44px}
+.fw-banner[hidden],.fw-ov[hidden],.fw-quiz[hidden]{display:none}
+.fw-ov{position:fixed;inset:0;z-index:44;display:grid;place-items:center;padding:1rem;background:rgba(10,29,49,.55)}
+.fw-ov .fw-card{background:var(--card);color:var(--fg);border-radius:16px;padding:1.4rem 1.2rem;max-width:26rem;width:100%;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.fw-ov.fw-watch{background:rgba(10,29,49,.35)}
+.fw-big{font-size:1.6rem;font-weight:800;margin:.2rem 0 .6rem}
+.fw-x{background:none;border:0;color:var(--accent);font:600 .95rem/1.2 var(--font-body, system-ui);text-decoration:underline;cursor:pointer;padding:.6rem;min-height:44px}
+.fw-left{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;color:var(--accent)}
+.fw-quiz .live-tag{display:flex;align-items:center;gap:.4rem}
+.fw-lb{text-align:left}
+.levels .lv-locked{display:flex;align-items:center;gap:.8rem;padding:.9rem 1rem;border:1px dashed var(--line);border-radius:14px;opacity:.62;color:var(--fg)}
+.lv-wait{text-align:center}
+
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1169,6 +1235,7 @@ th{background:var(--soft);position:sticky;top:0}
   window.DH = { cfg: CFG, session: SESSION, api: API, state: function () { return state; }, call: call, get: get, record: record, join: join, rejoin: rejoin, reset: reset,
     requireJoin: requireJoin, hud: hud, toast: toast, confetti: confetti, live: live, confidence: confidence, esc: esc, flush: flush, save: saveState, xpFor: xpFor, store: store };
   document.addEventListener('DOMContentLoaded', function () { hud(); if (state.token) flush(); });
+  window.addEventListener('online', function () { if (state.token) flush(); });   // Part C (R9): Wi-Fi back, queued answers go out
 })();
 })();
 </script>
