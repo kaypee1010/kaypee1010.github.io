@@ -1101,8 +1101,8 @@ body.fw-on{padding-bottom:3.4rem}
   }
   function get(action, params) {
     if (!API) return Promise.reject(new Error('offline'));
-    var u = API + (API.indexOf('?') > -1 ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&session=' + encodeURIComponent(SESSION);
-    Object.keys(params || {}).forEach(function (k) { u += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
+    var u = API + (API.indexOf('?') > -1 ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&session=' + encodeURIComponent((params && params.session) || SESSION);   // a page may name its own session (Part C)
+    Object.keys(params || {}).forEach(function (k) { if (k !== 'session') u += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
     return fetch(u, { redirect: 'follow' }).then(function (r) { return r.json(); });
   }
   /* ---- event queue (survives reloads; flushed on load and after every success) ---- */

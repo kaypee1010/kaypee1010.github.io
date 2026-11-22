@@ -1067,6 +1067,9 @@ body.fw-on{padding-bottom:3.4rem}
     });
   });
   /* ===== PAGE APP ===== */
+/* session_s2.js: play_s2.html records its rows as Session 2 by itself, so config.js needs no change at 13:30 (the join identity is shared). */
+window.DH_CONFIG = window.DH_CONFIG || {}; window.DH_CONFIG.session = 'DH2026-S2';
+
 /* dh-core.js: shared client for every DH Bootcamp page (join, play, board, feedback, dashboard).
    Talks to backend/Code.gs (or backend/mock_server.py) with JSON actions; keeps the student's state in memory with a
    localStorage mirror (token, nickname, XP, answers) so a reload mid-session loses nothing; queues events while the
@@ -1106,8 +1109,8 @@ body.fw-on{padding-bottom:3.4rem}
   }
   function get(action, params) {
     if (!API) return Promise.reject(new Error('offline'));
-    var u = API + (API.indexOf('?') > -1 ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&session=' + encodeURIComponent(SESSION);
-    Object.keys(params || {}).forEach(function (k) { u += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
+    var u = API + (API.indexOf('?') > -1 ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&session=' + encodeURIComponent((params && params.session) || SESSION);   // a page may name its own session (Part C)
+    Object.keys(params || {}).forEach(function (k) { if (k !== 'session') u += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
     return fetch(u, { redirect: 'follow' }).then(function (r) { return r.json(); });
   }
   /* ---- event queue (survives reloads; flushed on load and after every success) ---- */
@@ -1389,14 +1392,14 @@ body.fw-on{padding-bottom:3.4rem}
    Kill switch (R9): DH_CONFIG.SYNC_ENABLED === false, and the phones behave exactly as before (DHFollow.phone() returns false). */
 (function () {
   var CFG = window.DH_CONFIG || {};
-  var BASE = { quiz: 3000, task: 3000, watch: 5000, board: 5000, feedback: 5000, 'break': 8000 }, JIT = 800;   // R8 intervals, ±0.8 s
+  var BASE = { quiz: 3000, task: 3000, watch: 5000, board: 5000, feedback: 5000, 'break': 8000, off: 4000 }, JIT = 800;   // off: the old live sheet's 4 s   // R8 intervals, ±0.8 s
   var STALE = 120000, MAXFAIL = 3, QUIZ_SECS = 40, AUTO_QUIZ = 10000, TYPE_MS = 8000;                          // R9, R3, R4
   var enabled = CFG.SYNC_ENABLED !== false;
 
   /* ---------------- polling adapter ---------------- */
   function polling(getFn) {
-    var subs = [], last = null, seq = null, fails = 0, timer = null, mode = 'wait', modeSubs = [], lat = [];
-    function stageName() { return last && last.stage ? last.stage.stage : 'watch'; }
+    var subs = [], last = null, seq = null, fails = 0, timer = null, mode = 'wait', modeSubs = [], lat = [], offSubs = [];
+    function stageName() { return last && last.sync === false ? 'off' : last && last.stage ? last.stage.stage : 'watch'; }
     function schedule(now) {
       clearTimeout(timer); if (document.hidden) return;
       var d = now ? 0 : Math.max(BASE[stageName()] || 5000, (last && last.next_ms) || 0) + (Math.random() * 2 - 1) * JIT;
@@ -1405,6 +1408,7 @@ body.fw-on{padding-bottom:3.4rem}
     function setMode(m) { if (m === mode) return; mode = m; modeSubs.forEach(function (f) { try { f(m); } catch (e) {} }); }
     function evaluate() {
       var sg = last && last.stage, fresh = !!(sg && last.now - sg.at < STALE);
+      if (last && last.sync === false && fails < MAXFAIL) { setMode('off'); return; }   // the dashboard's Sync switch is off
       if (fails >= MAXFAIL) setMode('self');            // R9: 3 failed checks in a row
       else if (last) setMode(fresh ? 'live' : 'self');  // R9: no stage for 2 min (the presenter's heartbeat stopped)
     }
@@ -1415,6 +1419,7 @@ body.fw-on{padding-bottom:3.4rem}
         if (!j || !j.ok) throw new Error('bad reply');
         var t1 = Date.now(); fails = 0; last = j; last.offset = j.now ? j.now - (t0 + t1) / 2 : 0;
         var sg = j.stage;
+        if (j.sync === false) { evaluate(); offSubs.forEach(function (f) { try { f(j); } catch (e) {} }); return; }   // sync off: the old live sheet only
         if (sg && sg.seq !== seq) {
           var first = seq === null; seq = sg.seq;
           if (!first) lat.push({ seq: sg.seq, stage: sg.stage, slide: sg.slide, ms: Math.max(0, Math.round(t1 + last.offset - sg.at)) });   // R10: slide change -> this phone
@@ -1426,6 +1431,7 @@ body.fw-on{padding-bottom:3.4rem}
     document.addEventListener('visibilitychange', function () { if (!document.hidden) schedule(true); else clearTimeout(timer); });   // R8: stop while hidden
     return {
       subscribe: function (f) { subs.push(f); if (subs.length === 1) schedule(true); },
+      onOff: function (f) { offSubs.push(f); },
       onMode: function (f) { modeSubs.push(f); },
       mode: function () { return mode; }, last: function () { return last; }, latency: function () { return lat.slice(); }, now: function () { schedule(true); }
     };
@@ -1537,7 +1543,7 @@ body.fw-on{padding-bottom:3.4rem}
   function phone(o) {
     if (!enabled || !window.DH || !DH.api) return false;   // kill switch: the old behaviour, unchanged
     try { presenter = localStorage.getItem('dh.presenter') === '1'; } catch (e) {}   // read on phones only: the deck never touches storage
-    opts = o || {}; A = polling(DH.get);
+    opts = o || {}; A = polling(function (a) { return DH.get(a, opts.session ? { session: opts.session } : null); });   // play.html follows the S1 deck, play_s2.html the S2 deck
     document.addEventListener('focusin', function (e) { if (e.target.matches && e.target.matches('textarea, input[type=text], input:not([type])')) focusEd = true; });
     document.addEventListener('focusout', function (e) { if (e.target.matches && e.target.matches('textarea, input[type=text], input:not([type])')) { focusEd = false; lastKey = Date.now(); } });
     document.addEventListener('keydown', function () { lastKey = Date.now(); }, true);
@@ -1545,10 +1551,16 @@ body.fw-on{padding-bottom:3.4rem}
     pill();
     var prev = 'wait';
     A.onMode(function (m) { drawPill(); if (opts.onUnlock) opts.onUnlock();
+      if (ui.pl) ui.pl.hidden = m === 'off'; document.body.classList.toggle('fw-on', m !== 'off');
+      if (m === 'off') { hideOverlay(); hideBanner(); hideQuiz(); }
       if (m === 'self') { hideOverlay(); hideBanner(); hideQuiz(); toast('Self-paced: carry on at your own pace. Answers are kept and sent later.'); }
-      if (m === 'live' && prev === 'self' && A.last() && A.last().stage) { toast('🧭 Back with the class.'); if (DH.flush) DH.flush(); apply(A.last().stage, A.last(), true); }   // R9: queued answers go out
+      if (m === 'live' && (prev === 'self' || prev === 'off') && A.last() && A.last().stage) { toast('🧭 Back with the class.'); if (DH.flush) DH.flush(); apply(A.last().stage, A.last(), true); }   // R9: queued answers go out
       prev = m; });
     A.subscribe(function (sg, reply, first) { if (A.mode() === 'live') apply(sg, reply, first); });
+    A.onOff(function (j) {   // Sync switched off on the dashboard: behave as before sync (a question appears while it is open)
+      if (j.open && j.qid) quiz({ quiz: { qid: j.qid, q: j.q, options: j.options }, quizOpen: true, revealed: false });
+      else if (ui.qs && !ui.qs.hidden && quizState) { hideQuiz(); }
+    });
     return true;
   }
   /* level lock (Session 1, KP's rule): a level opens when the presenter reaches its 'Your turn' slide; finished levels stay open.
@@ -1674,6 +1686,7 @@ body.fw-on{padding-bottom:3.4rem}
   window.addEventListener('hashchange', route);
   var LBL2 = { home: 'open the map', hoa1: 'open Human or AI, round 1', hoa2: 'open Human or AI, round 2', check1: 'open Quick check 1', check2: 'open Quick check 2', translate: 'open the translation task', ethics: 'open the ethics cases' };
   var SYNC = window.DHFollow && DHFollow.phone({   // Part C: follow the presenter; Session 2 has no level lock
+    session: 'DH2026-S2',
     go: function (t) { location.hash = '#' + t; },
     here: function (t) { return (location.hash || '#home').slice(1) === t; },
     atHome: function () { return /^#?(home)?$/.test(location.hash || ''); },

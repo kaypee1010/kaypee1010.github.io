@@ -754,6 +754,7 @@ body.fw-on{padding-bottom:3.4rem}
     <button class="btn btn-primary" type="submit">Open</button>
     <span class="hint" id="dMsg" aria-live="polite"></span>
   </form>
+  <section id="dSync" class="card runner-ctl" hidden aria-live="polite"><b>Phones follow the slides</b><span id="dSyncState" class="pill"></span><button class="btn" type="button" id="dSyncBtn">Switch on or off</button><span class="hint">Phones obey within a few seconds. Off: self-paced, every level open, live questions still pop up.</span></section>
   <div id="dash" hidden class="stack" style="margin-top:var(--gap)">
     <div class="runner-ctl"><button class="btn" type="button" id="dRefresh">Refresh</button><label class="wc-stop" for="dAuto"><input type="checkbox" id="dAuto" checked> auto-refresh (15 s)</label><span class="hint" id="dAt"></span></div>
     <section class="kpis" id="kpis" aria-label="Key numbers"></section>
@@ -1116,8 +1117,8 @@ body.fw-on{padding-bottom:3.4rem}
   }
   function get(action, params) {
     if (!API) return Promise.reject(new Error('offline'));
-    var u = API + (API.indexOf('?') > -1 ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&session=' + encodeURIComponent(SESSION);
-    Object.keys(params || {}).forEach(function (k) { u += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
+    var u = API + (API.indexOf('?') > -1 ? '&' : '?') + 'action=' + encodeURIComponent(action) + '&session=' + encodeURIComponent((params && params.session) || SESSION);   // a page may name its own session (Part C)
+    Object.keys(params || {}).forEach(function (k) { if (k !== 'session') u += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(params[k]); });
     return fetch(u, { redirect: 'follow' }).then(function (r) { return r.json(); });
   }
   /* ---- event queue (survives reloads; flushed on load and after every success) ---- */
@@ -1300,7 +1301,7 @@ body.fw-on{padding-bottom:3.4rem}
   function load() {
     if (!DH.api) { $('dMsg').textContent = 'No backend configured (DH_CONFIG.api).'; return; }
     $('dMsg').textContent = 'loading…';
-    DH.call('admin', { key: key, op: 'export' }).then(function (j) { data = j; try { localStorage.setItem('dh.presenter', '1'); } catch (x) {} $('dash').hidden = false; $('dMsg').textContent = ''; if (window.DHSheet) { var sb = $('dSheet'); if (!sb) { sb = document.createElement('p'); sb.id = 'dSheet'; $('dAuth').insertAdjacentElement('afterend', sb); } if (!sb.firstChild) DHSheet.show(sb, key, null); } $('dAt').textContent = 'as of ' + new Date(j.at).toLocaleTimeString('en-IN') + (j.open ? ' · session OPEN' : ' · session CLOSED'); draw(); sched(); })
+    DH.call('admin', { key: key, op: 'export' }).then(function (j) { data = j; if (typeof j.sync === 'boolean') drawSync(j.sync); try { localStorage.setItem('dh.presenter', '1'); } catch (x) {} $('dash').hidden = false; $('dMsg').textContent = ''; if (window.DHSheet) { var sb = $('dSheet'); if (!sb) { sb = document.createElement('p'); sb.id = 'dSheet'; $('dAuth').insertAdjacentElement('afterend', sb); } if (!sb.firstChild) DHSheet.show(sb, key, null); } $('dAt').textContent = 'as of ' + new Date(j.at).toLocaleTimeString('en-IN') + (j.open ? ' · session OPEN' : ' · session CLOSED'); draw(); sched(); })
       .catch(function (e) { $('dMsg').textContent = String(e.message); });
   }
   function bar(label, v, max, cls, text) { return '<div class="bar ' + (cls || '') + '"><span>' + esc(label) + '</span><i style="--w:' + (max ? Math.round(100 * v / max) : 0) + '%"></i><b>' + (text != null ? text : v) + '</b></div>'; }
@@ -1370,7 +1371,10 @@ body.fw-on{padding-bottom:3.4rem}
   function op(name, confirmText) { if (confirmText && !confirm(confirmText)) return; DH.call('admin', { key: key, op: name }).then(function (j) { DH.toast(name + ': done' + (j.removed != null ? ', removed ' + j.removed : '')); load(); }).catch(function (e) { DH.toast(String(e.message)); }); }
   $('btnClose').addEventListener('click', function () { op('close', 'Close the session? New joins and answers will be refused until you open it again.'); });
   $('btnOpen').addEventListener('click', function () { op('open'); });
-  $('btnDummy').addEventListener('click', function () { op('clear_dummy', 'Delete every participant whose roll starts with TEST or whose name starts with Dummy, with their events and feedback?'); });
+  function drawSync(on) { $('dSync').hidden = false; $('dSyncState').textContent = on ? 'ON' : 'OFF'; $('dSyncState').className = 'pill ' + (on ? 'ok' : 'warn'); $('dSyncBtn').textContent = on ? 'Switch off' : 'Switch on'; $('dSyncBtn').dataset.on = on ? '1' : ''; }
+  $('dSyncBtn').addEventListener('click', function () { var to = !$('dSyncBtn').dataset.on; $('dSyncBtn').disabled = true;
+    DH.call('admin', { key: key, op: 'set_sync', on: to }).then(function (j) { drawSync(j.sync); DH.toast('Phones follow the slides: ' + (j.sync ? 'ON' : 'OFF')); }).catch(function (e) { DH.toast(String(e.message)); }).then(function () { $('dSyncBtn').disabled = false; }); });
+  $('btnDummy').addEventListener('click', function () { op('clear_dummy', 'Delete every participant whose roll starts with TEST or whose name or nickname starts with Dummy, with their events and feedback?'); });
   if (key) load();
 })();
 })();
