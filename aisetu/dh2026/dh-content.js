@@ -538,7 +538,7 @@ window.DH_CONTENT = {
 "tier": "Challenge",
 "title": "Drop the stop words",
 "gap": true,
-"task": "Small words (the, of, a) always win. Fill the gap ____ (two words, the opposite of in) so the loop skips them. Which words of meaning rise to the top?",
+"task": "Small words (a, of, it) always win. Fill the gap ____ (two words, the opposite of in) so the loop skips them. Which words of meaning rise to the top?",
 "code": "stop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\nwords = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    if word ____ stop:\n        counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
 "solution": "stop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\nwords = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    if word not in stop:\n        counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
 "expected": "[('want', 3), ('mr', 3), ('bennet', 3), ('truth', 2), ('man', 2)]\n"

@@ -959,7 +959,7 @@ counts = {}
 for word in words:
     # the card-box line from Core: add one line here
 print(top(counts, 5))" data-expected="[(&#x27;a&#x27;, 6), (&#x27;of&#x27;, 6), (&#x27;it&#x27;, 5), (&#x27;is&#x27;, 5), (&#x27;that&#x27;, 4)]
-" data-qid="n4e1" data-gap="1"></div><h3><span class="tier Challenge">Challenge</span>Drop the stop words</h3><p>Small words (the, of, a) always win. Fill the gap ____ (two words, the opposite of in) so the loop skips them. Which words of meaning rise to the top?</p><div class="runner" data-code="stop = {&quot;the&quot;, &quot;of&quot;, &quot;a&quot;, &quot;to&quot;, &quot;in&quot;, &quot;that&quot;, &quot;and&quot;, &quot;is&quot;, &quot;it&quot;, &quot;he&quot;, &quot;she&quot;, &quot;his&quot;, &quot;her&quot;, &quot;you&quot;, &quot;i&quot;, &quot;was&quot;, &quot;not&quot;, &quot;be&quot;}
+" data-qid="n4e1" data-gap="1"></div><h3><span class="tier Challenge">Challenge</span>Drop the stop words</h3><p>Small words (a, of, it) always win. Fill the gap ____ (two words, the opposite of in) so the loop skips them. Which words of meaning rise to the top?</p><div class="runner" data-code="stop = {&quot;the&quot;, &quot;of&quot;, &quot;a&quot;, &quot;to&quot;, &quot;in&quot;, &quot;that&quot;, &quot;and&quot;, &quot;is&quot;, &quot;it&quot;, &quot;he&quot;, &quot;she&quot;, &quot;his&quot;, &quot;her&quot;, &quot;you&quot;, &quot;i&quot;, &quot;was&quot;, &quot;not&quot;, &quot;be&quot;}
 words = clean(AUSTEN1)
 counts = {}
 for word in words:
