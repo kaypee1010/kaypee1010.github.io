@@ -681,10 +681,10 @@ th{background:var(--soft);position:sticky;top:0}
 .student-hdr .nav .nav-sub{display:block}
 .student-hdr .nav-level{margin-left:auto;flex:none;font:600 .8rem var(--font-display);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .7rem;white-space:nowrap}
 .student-hdr .theme-toggle{margin-left:0}
-.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 -10px 0 0 var(--bg),0 4px 14px rgba(0,0,0,.08);
+.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(-14px -100vmax -7px -100vmax);
   flex-wrap:nowrap;gap:.45rem;padding:.35rem .5rem .35rem .7rem;z-index:40;transition:transform .2s ease;will-change:transform;position:sticky;position:-webkit-sticky}
 .student-hdr .hud>*{flex:none}
-.student-hdr .hud [data-dh-nick]{flex:0 1 auto;min-width:0;max-width:7.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-hdr .hud [data-dh-nick]{flex:1 1 auto;min-width:3.6rem;max-width:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .student-hdr .hud [data-dh-badges]{display:inline-flex;gap:.1rem}
 .student-hdr .hud .badge{width:1.55rem;height:1.55rem;font-size:.9rem;margin-right:0}
 .student-hdr .hud [data-dh-net],.student-hdr .hud [data-dh-py]{display:none}
@@ -700,8 +700,13 @@ th{background:var(--soft);position:sticky;top:0}
 .student-hdr.hdr-hidden .hud{transform:translateY(calc(-1 * var(--nav-h)))}
 .student-hdr.hdr-hidden .hud-logo{max-width:26px;opacity:1;margin-right:0}
 .student-hdr .runner,.student-hdr .stage,.student-hdr .mcq{scroll-margin-top:calc(var(--nav-h) + 4rem)}
-@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:5.2rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
+@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:6rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
 @media (prefers-reduced-motion:reduce){.student-hdr .nav,.student-hdr .hud,.student-hdr .hud-logo{transition:none}}
+.student-hdr .hud [data-dh-streak]:empty{display:none}
+.student-hdr .hud .xp{padding:.1rem .5rem;font-size:.85rem;white-space:nowrap}
+@media (max-width:600px){.student-hdr .hud{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0;border-width:0 0 1px;padding-left:.6rem;padding-right:.6rem;gap:.35rem}
+  .student-hdr .hud .badge{width:1.3rem;height:1.3rem;font-size:.75rem}.student-hdr .hud [data-dh-badges]{gap:.05rem}
+  .student-hdr .hud-dot{width:22px;height:28px}.student-hdr .hud-map{width:32px;height:32px;font-size:1rem}}
 
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
@@ -730,7 +735,6 @@ th{background:var(--soft);position:sticky;top:0}
   <form id="dAuth" class="card runner-ctl" novalidate>
     <label class="sr-only" for="dKey">Admin key</label><input type="password" id="dKey" autocomplete="current-password" placeholder="Admin key" style="max-width:20rem">
     <button class="btn btn-primary" type="submit">Open</button>
-    <label class="hint" for="dExpected">Expected participants (from Dr Deepak)</label><input type="number" id="dExpected" min="0" max="500" style="max-width:6rem" inputmode="numeric">
     <span class="hint" id="dMsg" aria-live="polite"></span>
   </form>
   <div id="dash" hidden class="stack" style="margin-top:var(--gap)">
@@ -1270,8 +1274,6 @@ th{background:var(--soft);position:sticky;top:0}
   var $ = function (id) { return document.getElementById(id); };
   var TAGS = { string: 'Strings (L1)', list: 'Lists (L2)', loop: 'Loops (L3)', dict: 'Dictionaries (L4)', detective: 'Detective (L5)' };
   try { key = sessionStorage.getItem('dh.adminkey') || ''; } catch (e) {}
-  try { $('dExpected').value = localStorage.getItem('dh.expected') || '25'; } catch (e) { $('dExpected').value = '25'; }
-  $('dExpected').addEventListener('change', function () { try { localStorage.setItem('dh.expected', $('dExpected').value); } catch (e) {} if (data) draw(); });
   if (key) $('dKey').value = key;
   $('dAuth').addEventListener('submit', function (e) { e.preventDefault(); key = $('dKey').value.trim(); try { sessionStorage.setItem('dh.adminkey', key); } catch (x) {} load(); });
   $('dRefresh').addEventListener('click', load);
@@ -1280,7 +1282,7 @@ th{background:var(--soft);position:sticky;top:0}
   function load() {
     if (!DH.api) { $('dMsg').textContent = 'No backend configured (DH_CONFIG.api).'; return; }
     $('dMsg').textContent = 'loading…';
-    DH.call('admin', { key: key, op: 'export' }).then(function (j) { data = j; if (!$('dExpected').value) $('dExpected').value = j.expected || 25; $('dash').hidden = false; $('dMsg').textContent = ''; if (window.DHSheet) { var sb = $('dSheet'); if (!sb) { sb = document.createElement('p'); sb.id = 'dSheet'; $('dAuth').insertAdjacentElement('afterend', sb); } if (!sb.firstChild) DHSheet.show(sb, key, null); } $('dAt').textContent = 'as of ' + new Date(j.at).toLocaleTimeString('en-IN') + (j.open ? ' · session OPEN' : ' · session CLOSED'); draw(); sched(); })
+    DH.call('admin', { key: key, op: 'export' }).then(function (j) { data = j; $('dash').hidden = false; $('dMsg').textContent = ''; if (window.DHSheet) { var sb = $('dSheet'); if (!sb) { sb = document.createElement('p'); sb.id = 'dSheet'; $('dAuth').insertAdjacentElement('afterend', sb); } if (!sb.firstChild) DHSheet.show(sb, key, null); } $('dAt').textContent = 'as of ' + new Date(j.at).toLocaleTimeString('en-IN') + (j.open ? ' · session OPEN' : ' · session CLOSED'); draw(); sched(); })
       .catch(function (e) { $('dMsg').textContent = String(e.message); });
   }
   function bar(label, v, max, cls, text) { return '<div class="bar ' + (cls || '') + '"><span>' + esc(label) + '</span><i style="--w:' + (max ? Math.round(100 * v / max) : 0) + '%"></i><b>' + (text != null ? text : v) + '</b></div>'; }
@@ -1292,7 +1294,6 @@ th{background:var(--soft);position:sticky;top:0}
     E.forEach(function (e) { if (byTok[e.Token]) byTok[e.Token]._ev.push(e); });
     var first = function (evs, kind) { return evs.filter(function (e) { return e.Kind === kind && Number(e.Attempt) === 1; }); };
     var active = P.filter(function (p) { return p.LastSeen && now - new Date(p.LastSeen).getTime() < 5 * 60 * 1000; }).length;
-    var expected = Number($('dExpected').value) || 0;
     var levelsDone = P.filter(function (p) { return Number(p.Level) >= 5; }).length;
     var stars = F.length ? mean(F.map(function (f) { return mean(['Informative', 'Useful', 'Easy', 'Fun', 'ConfidentPython', 'Recommend'].map(function (k) { return Number(f[k]) || 0; })); })) : 0;
     // knowledge gain
@@ -1300,7 +1301,7 @@ th{background:var(--soft);position:sticky;top:0}
     E.forEach(function (e) { if (e.Kind !== 'prepost' || Number(e.Attempt) !== 1) return; var m = String(e.QID).match(/^(pre|post):(.+)$/); if (!m) return; (m[1] === 'pre' ? preQ : postQ)[m[2]] && (m[1] === 'pre' ? preQ : postQ)[m[2]].push(e.Correct === 'TRUE' || e.Correct === true); });
     var preAll = [].concat.apply([], Object.keys(preQ).map(function (k) { return preQ[k]; })), postAll = [].concat.apply([], Object.keys(postQ).map(function (k) { return postQ[k]; }));
     var gain = (postAll.length && preAll.length) ? mean(postAll) - mean(preAll) : null;
-    $('kpis').innerHTML = [['Expected', expected || '–', 'from Dr Deepak'], ['Joined', P.length, expected ? pct(P.length / expected) + ' of expected' : ''], ['Active now', active, 'seen in the last 5 min'], ['Finished all 5 levels', levelsDone, P.length ? pct(levelsDone / P.length) : ''], ['Knowledge gain', gain == null ? '–' : (gain >= 0 ? '+' : '') + Math.round(100 * gain) + ' pts', preAll.length ? pct(mean(preAll)) + ' → ' + (postAll.length ? pct(mean(postAll)) : '…') : 'awaiting the warm-up'], ['Feedback', F.length, F.length ? (Math.round(stars * 10) / 10) + ' of 5 stars' : '']]
+    $('kpis').innerHTML = [['Joined', P.length, 'students who joined'], ['Active now', active, 'seen in the last 5 min'], ['Finished all 5 levels', levelsDone, P.length ? pct(levelsDone / P.length) : ''], ['Knowledge gain', gain == null ? '–' : (gain >= 0 ? '+' : '') + Math.round(100 * gain) + ' pts', preAll.length ? pct(mean(preAll)) + ' → ' + (postAll.length ? pct(mean(postAll)) : '…') : 'awaiting the warm-up'], ['Feedback', F.length, F.length ? (Math.round(stars * 10) / 10) + ' of 5 stars' : '']]
       .map(function (k) { return '<div class="kpi"><b>' + k[1] + '</b>' + esc(k[0]) + '<br><span>' + esc(k[2]) + '</span></div>'; }).join('');
     // levels
     var lv = [0, 0, 0, 0, 0, 0]; P.forEach(function (p) { lv[Math.min(5, Number(p.Level) || 0)]++; });
@@ -1319,7 +1320,6 @@ th{background:var(--soft);position:sticky;top:0}
     Object.keys(TAGS).forEach(function (t) { var d = tag[t]; if (d && d.c.length >= 5 && mean(d.c) < 0.6) pills.push('Re-teach ' + TAGS[t] + ' · re-run its worked example'); });
     if (g.X / tot > 0.2 && tot > 10) pills.push('Many confident-but-wrong answers · show the why lines on the projector');
     if (P.length && active / P.length < 0.5 && P.length > 5) pills.push('Under half the phones are active · check Wi-Fi or switch to the offline cards');
-    if (expected && P.length < expected * 0.8 && P.length) pills.push('Joins below 80% of expected · show the QR again');
     if (!pills.length) pills.push('On track · keep the pace');
     $('pills').innerHTML = pills.map(function (p) { return '<span class="pill' + (p.indexOf('On track') === 0 ? '' : ' act') + '">' + esc(p) + '</span>'; }).join('');
     // teams
@@ -1348,7 +1348,7 @@ th{background:var(--soft);position:sticky;top:0}
   $('csvP').addEventListener('click', function () { data && csv(data.participants, 'dh2026_participants_' + stamp()); });
   $('csvE').addEventListener('click', function () { data && csv(data.events, 'dh2026_events_' + stamp()); });
   $('csvF').addEventListener('click', function () { data && csv(data.feedback, 'dh2026_feedback_' + stamp()); });
-  $('jsonX').addEventListener('click', function () { data && dl(new Blob([JSON.stringify(Object.assign({ expected: Number($('dExpected').value) || 0 }, data), null, 1)], { type: 'application/json' }), 'dh2026_export_' + stamp() + '.json'); });
+  $('jsonX').addEventListener('click', function () { data && dl(new Blob([JSON.stringify(data, null, 1)], { type: 'application/json' }), 'dh2026_export_' + stamp() + '.json'); });
   function op(name, confirmText) { if (confirmText && !confirm(confirmText)) return; DH.call('admin', { key: key, op: name }).then(function (j) { DH.toast(name + ': done' + (j.removed != null ? ', removed ' + j.removed : '')); load(); }).catch(function (e) { DH.toast(String(e.message)); }); }
   $('btnClose').addEventListener('click', function () { op('close', 'Close the session? New joins and answers will be refused until you open it again.'); });
   $('btnOpen').addEventListener('click', function () { op('open'); });

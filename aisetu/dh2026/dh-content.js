@@ -177,22 +177,28 @@ window.DH_CONTENT = {
 {
 "tier": "Core",
 "title": "Copy and shout",
-"task": "Change the line to any line you like (keep the quotes). Run. Then make it shout.",
-"code": "line = \"Where knowledge is free\"\nprint(line)\nprint(line.upper())",
+"gap": true,
+"task": "Put any line you like between the quotes. Then write one line that makes it shout (capital letters). Run.",
+"code": "line = \"Where knowledge is free\"\nprint(line)\n# make it shout: add one line here",
+"solution": "line = \"Where knowledge is free\"\nprint(line)\nprint(line.upper())",
 "expected": "Where knowledge is free\nWHERE KNOWLEDGE IS FREE\n"
 },
 {
 "tier": "Stretch",
 "title": "Count and whisper",
-"task": "Print how many characters your line has, then print it whispered (lower case).",
-"code": "line = \"Where The Mind Is Without Fear\"\nprint(len(line))\nprint(line.lower())",
+"gap": true,
+"task": "Fill the two gaps: inside len( ) put the name of your line; after the dot, the word that whispers (lower case). Run.",
+"code": "line = \"Where The Mind Is Without Fear\"\nprint(len())\nprint(line.())",
+"solution": "line = \"Where The Mind Is Without Fear\"\nprint(len(line))\nprint(line.lower())",
 "expected": "30\nwhere the mind is without fear\n"
 },
 {
 "tier": "Challenge",
 "title": "Swap a word",
-"task": "Replace one word with another so the line means something new. Predict the output before you run.",
-"code": "line = \"Shall I compare thee to a summer's day?\"\nnew_line = line.replace(\"summer's\", \"winter's\")\nprint(new_line)",
+"gap": true,
+"task": "Fill the gap ____ with a word of your own, so the line means something new. Predict the output before you run.",
+"code": "line = \"Shall I compare thee to a summer's day?\"\nnew_line = line.replace(\"summer's\", \"____\")\nprint(new_line)",
+"solution": "line = \"Shall I compare thee to a summer's day?\"\nnew_line = line.replace(\"summer's\", \"winter's\")\nprint(new_line)",
 "expected": "Shall I compare thee to a winter's day?\n"
 }
 ],
@@ -285,22 +291,28 @@ window.DH_CONTENT = {
 {
 "tier": "Core",
 "title": "Count the lines",
-"task": "Add one more line to the list (inside the brackets, in quotes, with a comma). Run and watch the count change.",
-"code": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n  \"Where words come out from the depth of truth;\",\n]\nprint(len(poem))\nprint(poem[-1])",
-"expected": "3\nWhere words come out from the depth of truth;\n"
+"gap": true,
+"task": "Add the next line of the poem to the list (in quotes, with a comma). Then fill the gap ____ so Python counts the lines. Run: the count should be 4.",
+"code": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n  \"Where the world has not been broken up into fragments by narrow domestic walls;\",\n  # add one more line here\n]\nprint(____)\nprint(poem[-1])",
+"solution": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n  \"Where the world has not been broken up into fragments by narrow domestic walls;\",\n  \"Where words come out from the depth of truth;\",\n]\nprint(len(poem))\nprint(poem[-1])",
+"expected": "4\nWhere words come out from the depth of truth;\n"
 },
 {
 "tier": "Stretch",
 "title": "Split a line into words",
-"task": "Split the second line into words and count them. Then try the first line.",
-"code": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n]\nwords = poem[1].split()\nprint(words)\nprint(len(words))",
+"gap": true,
+"task": "Fill the gap ____ so words holds the second line, split into words. Run. Then try the first line.",
+"code": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n]\nwords = ____\nprint(words)\nprint(len(words))",
+"solution": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n]\nwords = poem[1].split()\nprint(words)\nprint(len(words))",
 "expected": "['Where', 'knowledge', 'is', 'free;']\n4\n"
 },
 {
 "tier": "Challenge",
 "title": "The longest line",
-"task": "Python can pick the longest line for you. Predict which line wins before you run.",
-"code": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n  \"Where words come out from the depth of truth;\",\n]\nlongest = max(poem, key=len)\nprint(longest)\nprint(len(longest))",
+"gap": true,
+"task": "max can pick the longest line if you tell it to compare by length. Fill the gap ____ with the word that measures length. Predict which line wins before you run.",
+"code": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n  \"Where words come out from the depth of truth;\",\n]\nlongest = max(poem, key=____)\nprint(longest)\nprint(len(longest))",
+"solution": "poem = [\n  \"Where the mind is without fear and the head is held high;\",\n  \"Where knowledge is free;\",\n  \"Where words come out from the depth of truth;\",\n]\nlongest = max(poem, key=len)\nprint(longest)\nprint(len(longest))",
 "expected": "Where the mind is without fear and the head is held high;\n57\n"
 }
 ],
@@ -393,22 +405,28 @@ window.DH_CONTENT = {
 {
 "tier": "Core",
 "title": "Walk through a line",
-"task": "Run it. Then change the line to one of your own and run again. Watch the loop visit every word.",
-"code": "line = \"Where the clear stream of reason has not lost its way\"\nfor word in line.split():\n    print(word)",
+"gap": true,
+"task": "Write the one line inside the loop that prints each word (indent it 4 spaces). Run. Then change the line to one of your own.",
+"code": "line = \"Where the clear stream of reason has not lost its way\"\nfor word in line.split():\n    # print each word: add one line here",
+"solution": "line = \"Where the clear stream of reason has not lost its way\"\nfor word in line.split():\n    print(word)",
 "expected": "Where\nthe\nclear\nstream\nof\nreason\nhas\nnot\nlost\nits\nway\n"
 },
 {
 "tier": "Stretch",
 "title": "Only the long words",
-"task": "Print only the words longer than 5 letters. Change 5 to 7. What survives?",
-"code": "line = \"Where tireless striving stretches its arms towards perfection\"\nfor word in line.split():\n    if len(word) > 5:\n        print(word)",
+"gap": true,
+"task": "Fill the gap ____ so only words longer than 5 letters print. Run. Then change 5 to 7. What survives?",
+"code": "line = \"Where tireless striving stretches its arms towards perfection\"\nfor word in line.split():\n    if ____ > 5:\n        print(word)",
+"solution": "line = \"Where tireless striving stretches its arms towards perfection\"\nfor word in line.split():\n    if len(word) > 5:\n        print(word)",
 "expected": "tireless\nstriving\nstretches\ntowards\nperfection\n"
 },
 {
 "tier": "Challenge",
 "title": "Every line with 'summer'",
-"task": "Loop over the lines of Sonnet 18 and print each line that contains the word summer. This is a concordance in five lines.",
-"code": "sonnet = SONNET18.split(\"\\n\")\nfor line in sonnet:\n    if \"summer\" in line:\n        print(line)",
+"gap": true,
+"task": "Loop over the lines of Sonnet 18. Fill the gap ____ with the word to look for (in quotes), so each line that contains summer prints. Then try thee. A concordance in four lines.",
+"code": "sonnet = SONNET18.split(\"\\n\")\nfor line in sonnet:\n    if ____ in line:\n        print(line)",
+"solution": "sonnet = SONNET18.split(\"\\n\")\nfor line in sonnet:\n    if \"summer\" in line:\n        print(line)",
 "expected": "Shall I compare thee to a summer's day?\nAnd summer's lease hath all too short a date;\nBut thy eternal summer shall not fade,\n"
 }
 ],
@@ -501,22 +519,28 @@ window.DH_CONTENT = {
 {
 "tier": "Core",
 "title": "Fill the card box",
-"task": "Run it and read the dictionary. Then look up a different word in the last line.",
-"code": "line = \"so long as men can breathe or eyes can see so long lives this\"\ncounts = {}\nfor word in line.split():\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)\nprint(counts[\"so\"])",
+"gap": true,
+"task": "Write the card-box line inside the loop: add 1 to this word's card (the worked example shows how). Run and read the dictionary. Then look up a different word in the last line.",
+"code": "line = \"so long as men can breathe or eyes can see so long lives this\"\ncounts = {}\nfor word in line.split():\n    # add 1 to this word's card: add one line here\nprint(counts)\nprint(counts[\"so\"])",
+"solution": "line = \"so long as men can breathe or eyes can see so long lives this\"\ncounts = {}\nfor word in line.split():\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)\nprint(counts[\"so\"])",
 "expected": "{'so': 2, 'long': 2, 'as': 1, 'men': 1, 'can': 2, 'breathe': 1, 'or': 1, 'eyes': 1, 'see': 1, 'lives': 1, 'this': 1}\n2\n"
 },
 {
 "tier": "Stretch",
 "title": "Top 5 words of Austen's opening",
-"task": "AUSTEN1 holds the opening page of Pride and Prejudice. clean and top are ready-made helpers. Press Run, read the top 5, then change 5 to 10.",
-"code": "words = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
+"gap": true,
+"task": "AUSTEN1 holds the opening page of Pride and Prejudice; clean and top are ready-made helpers. Write the same card-box line inside the loop. Run, read the top 5, then change 5 to 10.",
+"code": "words = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    # the card-box line from Core: add one line here\nprint(top(counts, 5))",
+"solution": "words = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
 "expected": "[('a', 6), ('of', 6), ('it', 5), ('is', 5), ('that', 4)]\n"
 },
 {
 "tier": "Challenge",
 "title": "Drop the stop words",
-"task": "Small words (the, of, a) always win. Skip them with if, and see which words of meaning rise to the top.",
-"code": "stop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\nwords = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    if word not in stop:\n        counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
+"gap": true,
+"task": "Small words (the, of, a) always win. Fill the gap ____ (two words, the opposite of in) so the loop skips them. Which words of meaning rise to the top?",
+"code": "stop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\nwords = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    if word ____ stop:\n        counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
+"solution": "stop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\nwords = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    if word not in stop:\n        counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
 "expected": "[('want', 3), ('mr', 3), ('bennet', 3), ('truth', 2), ('man', 2)]\n"
 }
 ],

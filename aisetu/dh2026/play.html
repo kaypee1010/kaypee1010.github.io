@@ -1262,7 +1262,7 @@ th{background:var(--soft);position:sticky;top:0}
     });
   }
   var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
-  /* mount(el, {code, expected, qid, level, label, onRun(result)}) */
+  /* mount(el, {code, expected, gap, qid, level, label, onRun(result)}); gap = the starter has a ____ or 'add one line here' for the student (B2) */
   function mount(el, o) {
     var id = 'ed-' + (o.qid || Math.random().toString(36).slice(2));
     el.classList.add('runner');
@@ -1270,7 +1270,7 @@ th{background:var(--soft);position:sticky;top:0}
       '<textarea id="' + id + '" class="runner-code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" rows="' + Math.min(14, Math.max(3, o.code.split('\n').length + 1)) + '">' + esc(o.code) + '</textarea>' +
       '<div class="runner-ctl"><button type="button" class="btn btn-primary runner-run">▶ Run</button><button type="button" class="btn runner-reset">Reset</button><span class="runner-status" aria-live="polite"></span></div>' +
       '<pre class="runner-out" aria-live="polite" aria-label="Output"></pre>' +
-      (o.expected != null ? '<details class="reveal runner-expected"><summary>👀 Expected output of the starter code</summary><pre>' + esc(o.expected.trim() || '(nothing is printed)') + '</pre></details>' : '');
+      (o.expected != null ? '<details class="reveal runner-expected"><summary>' + (o.gap ? '👀 Expected output (once your line is in)' : '👀 Expected output of the starter code') + '</summary><pre>' + esc(o.expected.trim() || '(nothing is printed)') + '</pre></details>' : '');
     var ta = el.querySelector('textarea'), run = el.querySelector('.runner-run'), reset = el.querySelector('.runner-reset'), out = el.querySelector('.runner-out'), st = el.querySelector('.runner-status');
     ta.addEventListener('keydown', function (e) { if (e.key === 'Tab') { e.preventDefault(); var s = ta.selectionStart; ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(ta.selectionEnd); ta.selectionStart = ta.selectionEnd = s + 4; } });
     reset.addEventListener('click', function () { ta.value = o.code; out.textContent = ''; out.className = 'runner-out'; st.textContent = ''; });
@@ -1282,7 +1282,8 @@ th{background:var(--soft);position:sticky;top:0}
         if (o.onRun) o.onRun({ ok: r.ok, changed: ta.value !== o.code, ms: Date.now() - t0, live: true });
       }).catch(function () {
         out.className = 'runner-out fallback';
-        if (ta.value === o.code && o.expected != null) { out.textContent = (o.expected.trim() || '(nothing is printed)'); st.textContent = 'offline: this is the recorded output of the starter code'; }
+        if (o.gap && o.expected != null) { out.textContent = (o.expected.trim() || '(nothing is printed)'); st.textContent = 'offline: this is what it prints once your line is in'; }
+        else if (ta.value === o.code && o.expected != null) { out.textContent = (o.expected.trim() || '(nothing is printed)'); st.textContent = 'offline: this is the recorded output of the starter code'; }
         else { out.textContent = 'Python is not loaded on this device, so a changed program cannot run here. Open the Colab notebook (link at the top) or run it on a lab PC.'; st.textContent = 'offline'; }
         if (o.onRun) o.onRun({ ok: true, changed: ta.value !== o.code, ms: 0, live: false });
       }).then(function () { run.disabled = false; });
@@ -1512,7 +1513,7 @@ th{background:var(--soft);position:sticky;top:0}
     // runners
     DH.run.mount(V.querySelector('[data-worked]'), { code: L.worked.code, expected: L.worked.expected, qid: 'l' + n + 'w', label: L.worked.title });
     V.querySelectorAll('[data-ex]').forEach(function (el) { var e = L.exercises[Number(el.dataset.ex)]; var qid = 'l' + n + 'e' + el.dataset.ex;
-      DH.run.mount(el, { code: e.code, expected: e.expected, qid: qid, label: e.title, onRun: function (r) { var xp = DH.record('run', { level: n, qid: qid, answer: r.changed ? 'edited' : 'starter', correct: r.ok, ms: r.ms, extra: r.live ? 'live' : 'fallback' }); if (xp) DH.toast('+' + xp + ' XP for running it'); } }); });
+      DH.run.mount(el, { code: e.code, expected: e.expected, gap: !!e.gap, qid: qid, label: e.title, onRun: function (r) { var xp = DH.record('run', { level: n, qid: qid, answer: r.changed ? 'edited' : 'starter', correct: r.ok, ms: r.ms, extra: r.live ? 'live' : 'fallback' }); if (xp) DH.toast('+' + xp + ' XP for running it'); } }); });
     // quiz
     if (L.quiz.length) { var QB = document.getElementById('quizBox'); L.quiz.forEach(function (q) { var d = document.createElement('div'); d.className = 'mcq card'; QB.appendChild(d); mcq(d, q, { qid: q.id, level: n, kind: 'mcq', feedback: true, onDone: function () { badge(L); } }); }); }
     if (n === 5) detective(L);
