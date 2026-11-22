@@ -84,9 +84,13 @@ window.DH_CONTENT = {
 "AUSTEN2": "Mr. Bennet was so odd a mixture of quick parts, sarcastic humour, reserve, and caprice, that the experience of three-and-twenty years had been insufficient to make his wife understand his character. Her mind was less difficult to develop. She was a woman of mean understanding, little information, and uncertain temper. When she was discontented, she fancied herself nervous. The business of her life was to get her daughters married; its solace was visiting and news.",
 "DAFFODILS1": "I wandered lonely as a cloud\nThat floats on high o'er vales and hills,\nWhen all at once I saw a crowd,\nA host, of golden daffodils;\nBeside the lake, beneath the trees,\nFluttering and dancing in the breeze.",
 "DAFFODILS2": "Continuous as the stars that shine\nAnd twinkle on the milky way,\nThey stretched in never-ending line\nAlong the margin of a bay:\nTen thousand saw I at a glance,\nTossing their heads in sprightly dance.",
+"PASSAGE_A": "Yet in these thoughts myself almost despising,\nHaply I think on thee, and then my state,\nLike to the lark at break of day arising\nFrom sullen earth, sings hymns at heaven's gate;\nFor thy sweet love remember'd such wealth brings\nThat then I scorn to change my state with kings.",
 "MYSTERY_A": "Yet in these thoughts myself almost despising,\nHaply I think on thee, and then my state,\nLike to the lark at break of day arising\nFrom sullen earth, sings hymns at heaven's gate;\nFor thy sweet love remember'd such wealth brings\nThat then I scorn to change my state with kings.",
+"PASSAGE_B": "On the seashore of endless worlds children meet. The infinite sky is motionless overhead and the restless water is boisterous. On the seashore of endless worlds the children meet with shouts and dances.\nThey build their houses with sand and they play with empty shells. With withered leaves they weave their boats and smilingly float them on the vast deep. Children have their play on the seashore of worlds.\nThey know not how to swim, they know not how to cast nets. Pearl fishers dive for pearls, merchants sail in their ships, while children gather pebbles and scatter them again. They seek not for hidden treasures, they know not how to cast nets.",
 "MYSTERY_B": "On the seashore of endless worlds children meet. The infinite sky is motionless overhead and the restless water is boisterous. On the seashore of endless worlds the children meet with shouts and dances.\nThey build their houses with sand and they play with empty shells. With withered leaves they weave their boats and smilingly float them on the vast deep. Children have their play on the seashore of worlds.\nThey know not how to swim, they know not how to cast nets. Pearl fishers dive for pearls, merchants sail in their ships, while children gather pebbles and scatter them again. They seek not for hidden treasures, they know not how to cast nets.",
+"PASSAGE_C": "Mr. Bennet was so odd a mixture of quick parts, sarcastic humour, reserve, and caprice, that the experience of three-and-twenty years had been insufficient to make his wife understand his character. Her mind was less difficult to develop. She was a woman of mean understanding, little information, and uncertain temper. When she was discontented, she fancied herself nervous. The business of her life was to get her daughters married; its solace was visiting and news.",
 "MYSTERY_C": "Mr. Bennet was so odd a mixture of quick parts, sarcastic humour, reserve, and caprice, that the experience of three-and-twenty years had been insufficient to make his wife understand his character. Her mind was less difficult to develop. She was a woman of mean understanding, little information, and uncertain temper. When she was discontented, she fancied herself nervous. The business of her life was to get her daughters married; its solace was visiting and news.",
+"PASSAGE_D": "Continuous as the stars that shine\nAnd twinkle on the milky way,\nThey stretched in never-ending line\nAlong the margin of a bay:\nTen thousand saw I at a glance,\nTossing their heads in sprightly dance.",
 "MYSTERY_D": "Continuous as the stars that shine\nAnd twinkle on the milky way,\nThey stretched in never-ending line\nAlong the margin of a bay:\nTen thousand saw I at a glance,\nTossing their heads in sprightly dance."
 },
 "prepost": [
@@ -148,6 +152,7 @@ window.DH_CONTENT = {
 ]
 }
 ],
+"helpers": "def clean(text):\n    # ready-made: small letters, no punctuation, a list of words\n    import string\n    text = text.lower()\n    for p in string.punctuation:\n        text = text.replace(p, \"\")\n    return text.split()\n\ndef top(counts, n):\n    # ready-made: the n biggest cards, biggest first\n    return sorted(counts.items(), key=lambda pair: pair[1], reverse=True)[:n]\n\ndef fingerprint(text):\n    # ready-made: words per line, thee/thou/thy count, Mr./Mrs. count\n    lines = text.split(\"\\n\")\n    words = text.lower().split()\n    per_line = len(words) / len(lines)\n    thee = sum(1 for w in words if w.strip(\".,;:!?\") in (\"thee\", \"thou\", \"thy\"))\n    titles = sum(1 for w in words if w in (\"mr.\", \"mrs.\"))\n    return round(per_line, 1), thee, titles\n",
 "levels": [
 {
 "n": 1,
@@ -267,7 +272,7 @@ window.DH_CONTENT = {
 "minutes": 29,
 "case": "You are collecting a poem for an anthology. You need to know how many lines it has, which line is last, and which line is the longest.",
 "hook": "Read Gitanjali 35 line by line and number the lines as you go. Line 1, line 2 ... A list is exactly that: a shelf of items in order, each with a number.",
-"concept": "Square brackets make a list. Each item sits at a position, and the positions start at 0, not 1. len counts the items, append adds one at the end, and .split() turns a line into a list of its words.",
+"concept": "Square brackets make a list. Each item sits at a position, and the positions start at 0, not 1. len counts the items, and .split() turns a line into a list of its words.",
 "term": "List",
 "term_plain": "an ordered collection of items, counted from 0",
 "anim": "shelves",
@@ -503,15 +508,15 @@ window.DH_CONTENT = {
 {
 "tier": "Stretch",
 "title": "Top 5 words of Austen's opening",
-"task": "Count every word of the Pride and Prejudice opening (lower-cased, punctuation stripped) and print the top 5.",
-"code": "import string\ntext = AUSTEN1.lower()\nfor p in string.punctuation:\n    text = text.replace(p, \"\")\ncounts = {}\nfor word in text.split():\n    counts[word] = counts.get(word, 0) + 1\ntop = sorted(counts.items(), key=lambda pair: pair[1], reverse=True)\nprint(top[:5])",
+"task": "AUSTEN1 holds the opening page of Pride and Prejudice. clean and top are ready-made helpers. Press Run, read the top 5, then change 5 to 10.",
+"code": "words = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
 "expected": "[('a', 6), ('of', 6), ('it', 5), ('is', 5), ('that', 4)]\n"
 },
 {
 "tier": "Challenge",
 "title": "Drop the stop words",
-"task": "Small words (the, of, a) always win. Remove them and see which words of meaning rise to the top.",
-"code": "import string\nstop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\ntext = AUSTEN1.lower()\nfor p in string.punctuation:\n    text = text.replace(p, \"\")\ncounts = {}\nfor word in text.split():\n    if word not in stop:\n        counts[word] = counts.get(word, 0) + 1\ntop = sorted(counts.items(), key=lambda pair: pair[1], reverse=True)\nprint(top[:5])",
+"task": "Small words (the, of, a) always win. Skip them with if, and see which words of meaning rise to the top.",
+"code": "stop = {\"the\", \"of\", \"a\", \"to\", \"in\", \"that\", \"and\", \"is\", \"it\", \"he\", \"she\", \"his\", \"her\", \"you\", \"i\", \"was\", \"not\", \"be\"}\nwords = clean(AUSTEN1)\ncounts = {}\nfor word in words:\n    if word not in stop:\n        counts[word] = counts.get(word, 0) + 1\nprint(top(counts, 5))",
 "expected": "[('want', 3), ('mr', 3), ('bennet', 3), ('truth', 2), ('man', 2)]\n"
 }
 ],
@@ -597,22 +602,22 @@ window.DH_CONTENT = {
 "anim": "fingerprint",
 "worked": {
 "title": "Worked example: a fingerprint and a rule",
-"code": "def fingerprint(text):\n    lines = text.split(\"\\n\")\n    words = text.lower().split()\n    per_line = len(words) / len(lines)\n    thee = sum(1 for w in words if w.strip(\".,;:!?\") in (\"thee\", \"thou\", \"thy\"))\n    titles = sum(1 for w in words if w in (\"mr.\", \"mrs.\"))\n    return per_line, thee, titles\n\nper_line, thee, titles = fingerprint(SONNET18)\nprint(round(per_line, 1), thee, titles)\nif titles > 0:\n    print(\"Guess: Austen\")\nelif per_line > 15:\n    print(\"Guess: Tagore\")\nelif thee > 0:\n    print(\"Guess: Shakespeare\")\nelse:\n    print(\"Guess: Wordsworth\")",
+"code": "per_line, thee, titles = fingerprint(SONNET18)\nprint(per_line, thee, titles)\nif titles > 0:\n    print(\"Guess: Austen\")\nelif per_line > 15:\n    print(\"Guess: Tagore\")\nelif thee > 0:\n    print(\"Guess: Shakespeare\")\nelse:\n    print(\"Guess: Wordsworth\")",
 "expected": "8.1 7 0\nGuess: Shakespeare\n"
 },
 "exercises": [
 {
 "tier": "Core",
 "title": "Fingerprint the four known writers",
-"task": "Run it. Read the three numbers for each writer: words per line, thee/thou/thy count, Mr./Mrs. count.",
-"code": "def fingerprint(text):\n    lines = text.split(\"\\n\")\n    words = text.lower().split()\n    per_line = len(words) / len(lines)\n    thee = sum(1 for w in words if w.strip(\".,;:!?\") in (\"thee\", \"thou\", \"thy\"))\n    titles = sum(1 for w in words if w in (\"mr.\", \"mrs.\"))\n    return round(per_line, 1), thee, titles\n\nprint(\"Shakespeare\", fingerprint(SONNET18))\nprint(\"Tagore     \", fingerprint(GITANJALI1))\nprint(\"Austen     \", fingerprint(AUSTEN1))\nprint(\"Wordsworth \", fingerprint(DAFFODILS1))",
+"task": "fingerprint is a ready-made helper. Run it. Read the three numbers for each writer: words per line, thee/thou/thy count, Mr./Mrs. count.",
+"code": "print(\"Shakespeare\", fingerprint(SONNET18))\nprint(\"Tagore     \", fingerprint(GITANJALI1))\nprint(\"Austen     \", fingerprint(AUSTEN1))\nprint(\"Wordsworth \", fingerprint(DAFFODILS1))",
 "expected": "Shakespeare (8.1, 7, 0)\nTagore      (23.2, 7, 0)\nAusten      (17.0, 0, 4)\nWordsworth  (6.5, 0, 0)\n"
 },
 {
 "tier": "Team",
 "title": "Name the writer of a mystery passage",
-"task": "Fingerprint MYSTERY_A (then B, C, D). Apply the rule. Agree as a team, then submit your guess below with your confidence.",
-"code": "def fingerprint(text):\n    lines = text.split(\"\\n\")\n    words = text.lower().split()\n    per_line = len(words) / len(lines)\n    thee = sum(1 for w in words if w.strip(\".,;:!?\") in (\"thee\", \"thou\", \"thy\"))\n    titles = sum(1 for w in words if w in (\"mr.\", \"mrs.\"))\n    return round(per_line, 1), thee, titles\n\nper_line, thee, titles = fingerprint(MYSTERY_A)\nprint(per_line, thee, titles)\nif titles > 0:\n    print(\"Guess: Austen\")\nelif per_line > 15:\n    print(\"Guess: Tagore\")\nelif thee > 0:\n    print(\"Guess: Shakespeare\")\nelse:\n    print(\"Guess: Wordsworth\")",
+"task": "Run fingerprint(PASSAGE_A) and read the three numbers. Apply the rule. Then change A to B, C, D. Agree as a team, then submit your guess below with your confidence.",
+"code": "per_line, thee, titles = fingerprint(PASSAGE_A)\nprint(per_line, thee, titles)\nif titles > 0:\n    print(\"Guess: Austen\")\nelif per_line > 15:\n    print(\"Guess: Tagore\")\nelif thee > 0:\n    print(\"Guess: Shakespeare\")\nelse:\n    print(\"Guess: Wordsworth\")",
 "expected": "8.5 2 0\nGuess: Shakespeare\n"
 }
 ],

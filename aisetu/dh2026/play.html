@@ -659,6 +659,55 @@ th{background:var(--soft);position:sticky;top:0}
 .live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
 .live-msg{margin:0;color:var(--muted)}
 
+/* step 2: the read-aloud Script section of the presenter guides (one block per slide, phone stage beside it; prints one block per page region) */
+.scriptlist{display:grid;gap:.8rem}
+.scriptblk{border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.scriptblk{color:var(--fg)}
+.scriptblk header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;margin-bottom:.35rem}
+.scriptblk .sb-n{font:700 1rem var(--font-mono,monospace);background:var(--accent);color:var(--accent-fg);border-radius:.35rem;padding:.05rem .45rem}
+.scriptblk .sb-t{font-weight:700}
+.scriptblk .sb-c{margin-left:auto;color:var(--muted);font-size:.9em}
+.scriptblk .sb-body{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:.8rem}
+.scriptblk .sb-say p{margin:.2rem 0;line-height:1.55}
+.scriptblk .sb-clicks{font-size:.92em;color:var(--muted)}
+.scriptblk .sb-phone{border-left:3px solid var(--accent-2);padding:.3rem .6rem;font-size:.92em;background:var(--soft);border-radius:.3rem}
+.scriptblk .sb-ph{display:block;font-weight:700;font-size:.85em;margin-bottom:.2rem}
+@media (max-width:640px){.scriptblk .sb-body{grid-template-columns:1fr}.scriptblk .sb-c{margin-left:0}}
+@media print{.scriptblk{border-color:#999;background:#fff}.scriptblk .sb-phone{background:#fff}}
+.pr-short{margin:.2rem 0 .4rem}.pr-short img{max-width:100%;height:auto}
+
+/* step 2: student header "A + B" (play.html, play_s2.html only; body.student-hdr is set by student_header.js) */
+.student-hdr .nav{transition:transform .2s ease;will-change:transform}
+.student-hdr .nav .nav-sub{display:block}
+.student-hdr .nav-level{margin-left:auto;flex:none;font:600 .8rem var(--font-display);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .7rem;white-space:nowrap}
+.student-hdr .theme-toggle{margin-left:0}
+.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(-14px -100vmax -7px -100vmax);
+  flex-wrap:nowrap;gap:.45rem;padding:.35rem .5rem .35rem .7rem;z-index:40;transition:transform .2s ease;will-change:transform;position:sticky;position:-webkit-sticky}
+.student-hdr .hud>*{flex:none}
+.student-hdr .hud [data-dh-nick]{flex:1 1 auto;min-width:3.6rem;max-width:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-hdr .hud [data-dh-badges]{display:inline-flex;gap:.1rem}
+.student-hdr .hud .badge{width:1.55rem;height:1.55rem;font-size:.9rem;margin-right:0}
+.student-hdr .hud [data-dh-net],.student-hdr .hud [data-dh-py]{display:none}
+.student-hdr .hud-logo{width:26px;height:26px;max-width:0;opacity:0;margin-right:-.45rem;transition:max-width .2s ease,opacity .2s ease,margin .2s ease}
+.student-hdr .hud-dot{width:28px;height:28px;border:0;padding:0;background:transparent;display:inline-grid;place-items:center;cursor:pointer;border-radius:50%}
+.student-hdr .hud-dot::before{content:"";width:12px;height:12px;border-radius:50%;background:#8a94a3;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
+.student-hdr .hud-dot[data-state="on"]::before{background:#22a35a}
+.student-hdr .hud-dot[data-state="off"]::before{background:#d64535}
+.student-hdr .hud-map{margin-left:auto;width:36px;height:36px;display:inline-grid;place-items:center;border-radius:50%;text-decoration:none;font-size:1.15rem;background:var(--soft);border:1px solid var(--line)}
+.student-hdr .hud{position:sticky}
+.student-hdr .hud-tip{position:absolute;right:.5rem;top:calc(100% + 6px);background:var(--fg);color:var(--bg);font-size:.78rem;padding:.35rem .6rem;border-radius:.5rem;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap}
+.student-hdr.hdr-hidden .nav{transform:translateY(-100%)}
+.student-hdr.hdr-hidden .hud{transform:translateY(calc(-1 * var(--nav-h)))}
+.student-hdr.hdr-hidden .hud-logo{max-width:26px;opacity:1;margin-right:0}
+.student-hdr .runner,.student-hdr .stage,.student-hdr .mcq{scroll-margin-top:calc(var(--nav-h) + 4rem)}
+@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:6rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
+@media (prefers-reduced-motion:reduce){.student-hdr .nav,.student-hdr .hud,.student-hdr .hud-logo{transition:none}}
+.student-hdr .hud [data-dh-streak]:empty{display:none}
+.student-hdr .hud .xp{padding:.1rem .5rem;font-size:.85rem;white-space:nowrap}
+@media (max-width:600px){.student-hdr .hud{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0;border-width:0 0 1px;padding-left:.6rem;padding-right:.6rem;gap:.35rem}
+  .student-hdr .hud .badge{width:1.3rem;height:1.3rem;font-size:.75rem}.student-hdr .hud [data-dh-badges]{gap:.05rem}
+  .student-hdr .hud-dot{width:22px;height:28px}.student-hdr .hud-map{width:32px;height:32px;font-size:1rem}}
+
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1198,7 +1247,8 @@ th{background:var(--soft);position:sticky;top:0}
       .then(function (p) {
         py = p;
         var setup = Object.keys(NAMES).map(function (k) { return k + ' = ' + JSON.stringify(NAMES[k]); }).join('\n');
-        py.runPython(setup); status('Python ready', 100); return py;
+        py.runPython(setup); var H = (window.DH_CONTENT && window.DH_CONTENT.helpers) || ''; if (H) py.runPython(H);   // ready-made helpers: clean, top, fingerprint
+        status('Python ready', 100); return py;
       })
       .catch(function (e) { failed = true; loading = null; status('Python could not load here: showing expected outputs', 0); throw e; });
     return loading;
@@ -1425,12 +1475,12 @@ th{background:var(--soft);position:sticky;top:0}
       '<h2 class="kicker" style="margin-top:var(--gap)">The journey</h2><ol class="levels">' + LV.map(function (L) {
         var done = hasBadge(L); return '<li><a href="#l' + L.n + '"' + (done ? ' class="done"' : '') + '><span class="lv-em">' + L.badge + '</span><span><span class="lv-n">Level ' + L.n + '</span><br><span class="lv-name">' + L.name + '</span><br><span class="lv-idea">' + esc(L.idea) + '</span></span><span class="lv-state">' + (done ? 'badge earned' : '→') + '</span></a></li>';
       }).join('') + '<li><a href="#wrap"><span class="lv-em">🏁</span><span><span class="lv-n">Finish</span><br><span class="lv-name">Wrap-up and leaderboard</span><br><span class="lv-idea">Final check, 3 takeaways, feedback</span></span><span class="lv-state">→</span></a></li></ol>' +
-      '<p class="hint" style="margin-top:var(--gap)"><a href="#machines">Machines for the projector</a>' + (COLAB ? ' · <a href="' + esc(COLAB) + '" target="_blank" rel="noopener">Colab notebook (alternative)</a>' : '') + ' · Nothing to install: Python runs in this page.</p>');
+      '<p class="hint" style="margin-top:var(--gap)"><a href="#machines">🔧 Play with the three machines</a>' + (COLAB ? ' · <a href="' + esc(COLAB) + '" target="_blank" rel="noopener">Colab notebook (alternative)</a>' : '') + ' · Nothing to install: Python runs in this page.</p>');
   }
   function prepost(which) {
     var post = which === 'post';
     h('<p class="kicker">' + (post ? 'Final check' : 'Warm-up check') + '</p><h1>' + (post ? 'The same three questions, once more' : 'Three questions before we start') + '</h1>' +
-      '<p class="sub">' + (post ? 'Now you will see the answers. Compare with how you felt at 10:15.' : 'Pick what feels right and say how sure you are. You will see these again at the end.') + '</p><div id="ppq"></div><p><a class="btn btn-primary" href="' + (post ? '#wrap' : '#l1') + '" id="ppNext" hidden>' + (post ? 'To the wrap-up →' : 'Start Level 1 →') + '</a></p>');
+      '<p class="sub">' + (post ? 'Now you will see the answers. Compare with how you felt at the start.' : 'Pick what feels right and say how sure you are. You will see these again at the end.') + '</p><div id="ppq"></div><p><a class="btn btn-primary" href="' + (post ? '#wrap' : '#l1') + '" id="ppNext" hidden>' + (post ? 'To the wrap-up →' : 'Start Level 1 →') + '</a></p>');
     var box = document.getElementById('ppq'); var done = 0;
     C.prepost.forEach(function (q) { var d = document.createElement('div'); d.className = 'mcq card'; box.appendChild(d); var qid = (post ? 'post:' : 'pre:') + q.id; if (st().answers[qid]) done++;
       mcq(d, q, { qid: qid, level: 0, kind: 'prepost', feedback: post, onDone: function () { done++; if (done >= C.prepost.length) document.getElementById('ppNext').hidden = false; } }); });
@@ -1439,7 +1489,7 @@ th{background:var(--soft);position:sticky;top:0}
   function level(n) {
     var L = LV[n - 1]; var nextHref = n < 5 ? '#l' + (n + 1) : '#post';
     var ex = L.exercises.map(function (e, i) { return '<div class="stage"><h3><span class="tier ' + e.tier + '">' + e.tier + '</span>' + esc(e.title) + '</h3><p>' + esc(e.task) + '</p><div class="runner" data-ex="' + i + '"></div></div>'; }).join('');
-    h('<p class="kicker">Level ' + L.n + ' of 5 · ' + L.clock + '</p><h1>' + L.badge + ' ' + esc(L.name) + '</h1><p class="sub">' + esc(L.idea) + '</p>' +
+    h('<p class="kicker">Level ' + L.n + ' of 5</p><h1>' + L.badge + ' ' + esc(L.name) + '</h1><p class="sub">' + esc(L.idea) + '</p>' +
       '<section class="stage"><h3><span class="n">1</span>The case</h3><p class="plain">' + esc(L.case) + '</p></section>' +
       '<section class="stage"><h3><span class="n">2</span>The hook</h3><p>' + esc(L.hook) + '</p></section>' +
       '<section class="stage"><h3><span class="n">3</span>See it move</h3><p>' + esc(L.concept) + '</p><div class="anim" id="anim"></div></section>' +
@@ -1534,6 +1584,60 @@ th{background:var(--soft);position:sticky;top:0}
   route();
   if (!/^#(machines|home)?$/.test(location.hash || '#home')) DH.run.ready().catch(function () {});
   else setTimeout(function () { DH.run.ready().catch(function () {}); }, 1500);   // warm Python while the student reads the map
+})();
+
+/* student_header.js (step 2, design "A + B"): the student pages' header.
+   Top of the page: the full AI-SETU header (logo, AI-SETU, SGT University, a "Level N of 5" chip, the moon), then the player bar.
+   Scrolling down: the header slides up (CSS transform, 200 ms) and a small AI-SETU logo slides into the left end of the player bar:
+   one slim sticky bar [logo] nickname · XP · badges · ● · 🗺. Scrolling up: the header comes back. A 12 px threshold stops flicker.
+   The status dot replaces the 'saved · Python ready' words: green = ready and saved, grey = loading, red = offline; tap it for the words. */
+(function () {
+  var body = document.body, nav = document.querySelector('.nav'), hud = document.getElementById('hud');
+  if (!nav || !hud) return;
+  body.classList.add('student-hdr');
+  var S2 = !!window.DH_CONTENT_S2;
+  /* header: drop the AI-SETU ↗ link on these pages; its space shows the level chip and the moon */
+  var cta = nav.querySelector('.nav-cta'); if (cta) cta.remove();
+  var sub = nav.querySelector('.nav-sub'); if (sub) sub.textContent = 'SGT University';
+  var chip = document.createElement('span'); chip.className = 'nav-level'; chip.setAttribute('aria-live', 'polite');
+  var tog = nav.querySelector('.theme-toggle'); nav.insertBefore(chip, tog || null);
+  var NAMES = { home: 'Your journey', pre: 'Warm-up', post: 'Final check', wrap: 'Wrap-up', machines: 'Machines',
+    hoa1: 'Human or AI · 1', hoa2: 'Human or AI · 2', distant: 'Idea 1', arc: 'Idea 2', check1: 'Quick check 1', check2: 'Quick check 2', translate: 'Idea 3', ethics: 'Idea 4', careers: 'Careers', wrap2: 'Wrap-up' };
+  function where() {
+    var r = (location.hash || '#home').slice(1); var m = /^l([1-5])$/.exec(r);
+    chip.textContent = m ? 'Level ' + m[1] + ' of 5' : (NAMES[r] || (S2 ? 'Session 2' : 'Your journey'));
+  }
+  where(); addEventListener('hashchange', where);
+  /* player bar: a small logo slot at the left (shown once the header has slid away), the status dot, the 🗺 map button */
+  var logo = document.createElement('img'); logo.className = 'hud-logo'; logo.src = 'AI_SETU.png'; logo.alt = 'AI-SETU'; logo.width = 26; logo.height = 26;
+  hud.insertBefore(logo, hud.firstChild);
+  var dot = document.createElement('button'); dot.type = 'button'; dot.className = 'hud-dot'; dot.setAttribute('aria-label', 'Status');
+  var tip = document.createElement('span'); tip.className = 'hud-tip'; tip.setAttribute('role', 'status'); tip.hidden = true;
+  var map = hud.querySelector('a[href="#home"]');
+  hud.insertBefore(dot, map || null); hud.appendChild(tip);
+  if (map) { map.classList.add('hud-map'); map.classList.remove('hint'); map.textContent = '🗺'; map.setAttribute('aria-label', 'Map of the levels'); map.title = 'Map'; }
+  var net = hud.querySelector('[data-dh-net]'), py = hud.querySelector('[data-dh-py]');
+  function words() { return [net && net.textContent.trim() !== '·' ? net.textContent.trim() : '', py ? py.textContent.trim() : ''].filter(Boolean).join(' · ') || 'Getting ready…'; }
+  function paint() {
+    var n = net ? net.dataset.state : '', p = py ? py.dataset.state : 'on';
+    var st = (n === 'off' || p === 'off') ? 'off' : (n === 'on' && (!py || p === 'on')) ? 'on' : 'wait';
+    dot.dataset.state = st; dot.setAttribute('aria-label', 'Status: ' + words());
+    if (!tip.hidden) tip.textContent = words();
+  }
+  dot.addEventListener('click', function () { tip.hidden = !tip.hidden; tip.textContent = words(); clearTimeout(tip._t); if (!tip.hidden) tip._t = setTimeout(function () { tip.hidden = true; }, 3500); });
+  [net, py].forEach(function (el) { if (el && window.MutationObserver) new MutationObserver(paint).observe(el, { attributes: true, childList: true, characterData: true, subtree: true }); });
+  paint();
+  /* scroll: hide the header going down, show it going up (12 px threshold), never at the very top */
+  var last = scrollY, up = true, ticking = false;
+  function apply() {
+    ticking = false; var y = scrollY, d = y - last;
+    if (y < 8) { if (!up) { up = true; body.classList.remove('hdr-hidden'); } last = y; return; }
+    if (Math.abs(d) < 12) return;
+    var hide = d > 0; if (hide === !up) { last = y; return; }
+    up = !hide; body.classList.toggle('hdr-hidden', hide); last = y;
+  }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
+  window.DHHeader = { paint: paint };
 })();
 })();
 </script>

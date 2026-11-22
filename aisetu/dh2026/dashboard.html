@@ -659,6 +659,50 @@ th{background:var(--soft);position:sticky;top:0}
 .live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
 .live-msg{margin:0;color:var(--muted)}
 
+/* step 2: the read-aloud Script section of the presenter guides (one block per slide, phone stage beside it; prints one block per page region) */
+.scriptlist{display:grid;gap:.8rem}
+.scriptblk{border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.scriptblk{color:var(--fg)}
+.scriptblk header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;margin-bottom:.35rem}
+.scriptblk .sb-n{font:700 1rem var(--font-mono,monospace);background:var(--accent);color:var(--accent-fg);border-radius:.35rem;padding:.05rem .45rem}
+.scriptblk .sb-t{font-weight:700}
+.scriptblk .sb-c{margin-left:auto;color:var(--muted);font-size:.9em}
+.scriptblk .sb-body{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:.8rem}
+.scriptblk .sb-say p{margin:.2rem 0;line-height:1.55}
+.scriptblk .sb-clicks{font-size:.92em;color:var(--muted)}
+.scriptblk .sb-phone{border-left:3px solid var(--accent-2);padding:.3rem .6rem;font-size:.92em;background:var(--soft);border-radius:.3rem}
+.scriptblk .sb-ph{display:block;font-weight:700;font-size:.85em;margin-bottom:.2rem}
+@media (max-width:640px){.scriptblk .sb-body{grid-template-columns:1fr}.scriptblk .sb-c{margin-left:0}}
+@media print{.scriptblk{border-color:#999;background:#fff}.scriptblk .sb-phone{background:#fff}}
+.pr-short{margin:.2rem 0 .4rem}.pr-short img{max-width:100%;height:auto}
+
+/* step 2: student header "A + B" (play.html, play_s2.html only; body.student-hdr is set by student_header.js) */
+.student-hdr .nav{transition:transform .2s ease;will-change:transform}
+.student-hdr .nav .nav-sub{display:block}
+.student-hdr .nav-level{margin-left:auto;flex:none;font:600 .8rem var(--font-display);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .7rem;white-space:nowrap}
+.student-hdr .theme-toggle{margin-left:0}
+.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 -10px 0 0 var(--bg),0 4px 14px rgba(0,0,0,.08);
+  flex-wrap:nowrap;gap:.45rem;padding:.35rem .5rem .35rem .7rem;z-index:40;transition:transform .2s ease;will-change:transform;position:sticky;position:-webkit-sticky}
+.student-hdr .hud>*{flex:none}
+.student-hdr .hud [data-dh-nick]{flex:0 1 auto;min-width:0;max-width:7.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-hdr .hud [data-dh-badges]{display:inline-flex;gap:.1rem}
+.student-hdr .hud .badge{width:1.55rem;height:1.55rem;font-size:.9rem;margin-right:0}
+.student-hdr .hud [data-dh-net],.student-hdr .hud [data-dh-py]{display:none}
+.student-hdr .hud-logo{width:26px;height:26px;max-width:0;opacity:0;margin-right:-.45rem;transition:max-width .2s ease,opacity .2s ease,margin .2s ease}
+.student-hdr .hud-dot{width:28px;height:28px;border:0;padding:0;background:transparent;display:inline-grid;place-items:center;cursor:pointer;border-radius:50%}
+.student-hdr .hud-dot::before{content:"";width:12px;height:12px;border-radius:50%;background:#8a94a3;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
+.student-hdr .hud-dot[data-state="on"]::before{background:#22a35a}
+.student-hdr .hud-dot[data-state="off"]::before{background:#d64535}
+.student-hdr .hud-map{margin-left:auto;width:36px;height:36px;display:inline-grid;place-items:center;border-radius:50%;text-decoration:none;font-size:1.15rem;background:var(--soft);border:1px solid var(--line)}
+.student-hdr .hud{position:sticky}
+.student-hdr .hud-tip{position:absolute;right:.5rem;top:calc(100% + 6px);background:var(--fg);color:var(--bg);font-size:.78rem;padding:.35rem .6rem;border-radius:.5rem;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap}
+.student-hdr.hdr-hidden .nav{transform:translateY(-100%)}
+.student-hdr.hdr-hidden .hud{transform:translateY(calc(-1 * var(--nav-h)))}
+.student-hdr.hdr-hidden .hud-logo{max-width:26px;opacity:1;margin-right:0}
+.student-hdr .runner,.student-hdr .stage,.student-hdr .mcq{scroll-margin-top:calc(var(--nav-h) + 4rem)}
+@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:5.2rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
+@media (prefers-reduced-motion:reduce){.student-hdr .nav,.student-hdr .hud,.student-hdr .hud-logo{transition:none}}
+
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1187,6 +1231,39 @@ th{background:var(--soft);position:sticky;top:0}
   document.addEventListener('DOMContentLoaded', function () { hud(); if (state.token) flush(); });
 })();
 
+/* sheet_btn.js (step 2): "Open records Sheet ↗" for the presenter pages. The button appears only after the presenter key is
+   accepted; its address comes from the backend's admin-only sheet_url action at that moment and is never written into any file.
+   DHSheet.keyBox(container): a small key box (guides). DHSheet.show(container, key): fetch the address and show the button (dashboard).
+   The key lives in this tab's memory only. */
+(function () {
+  var CFG = window.DH_CONFIG || {};
+  var onMock = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && /^https?:$/.test(location.protocol);
+  var API = (new URLSearchParams(location.search).get('api')) || (onMock ? location.origin + '/exec' : '') || CFG.api || '';
+  function sheetUrl(key) {
+    if (!API) return Promise.reject(new Error('offline'));
+    return fetch(API, { method: 'POST', body: JSON.stringify({ action: 'sheet_url', key: key }), redirect: 'follow' })
+      .then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.ok || !/^https:\/\/docs\.google\.com\//.test(j.url || '')) throw new Error((j && j.error) || 'No address'); return j.url; });
+  }
+  function show(box, key, msg) {
+    return sheetUrl(key).then(function (url) {
+      box.innerHTML = '';
+      var a = document.createElement('a'); a.className = 'btn btn-primary sheet-btn'; a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = 'Open records Sheet ↗';
+      box.appendChild(a); if (msg) msg.textContent = ''; return true;
+    }).catch(function (e) { if (msg) msg.textContent = /fetch|offline/i.test(e.message) ? 'Offline: the Sheet button needs the backend.' : 'Key not accepted.'; return false; });
+  }
+  function keyBox(container) {
+    if (!container) return;
+    var wrap = document.createElement('div'); wrap.className = 'sheet-key no-print';
+    wrap.innerHTML = '<form class="runner-ctl" autocomplete="off"><label class="sr-only" for="sheetKey">Presenter key</label><input type="password" id="sheetKey" placeholder="Presenter key" style="max-width:14rem">' +
+      '<button type="submit" class="btn">Use key</button><span class="hint" aria-live="polite"></span></form><div class="sheet-slot"></div>';
+    container.appendChild(wrap);
+    var f = wrap.querySelector('form'), inp = wrap.querySelector('input'), msg = wrap.querySelector('.hint'), slot = wrap.querySelector('.sheet-slot');
+    f.addEventListener('submit', function (e) { e.preventDefault(); var k = inp.value.trim(); inp.value = ''; if (!k) return; msg.textContent = 'Checking…';
+      show(slot, k, msg).then(function (ok) { if (ok) { f.hidden = true; } }); });
+  }
+  window.DHSheet = { keyBox: keyBox, show: show };
+})();
+
 /* private dashboard: admin key -> export -> KPIs, bars, grid, table, CSV. Nothing computed here is stored anywhere. */
 (function () {
   var C = window.DH_CONTENT, esc = DH.esc, key = '', data = null, timer = null;
@@ -1203,7 +1280,7 @@ th{background:var(--soft);position:sticky;top:0}
   function load() {
     if (!DH.api) { $('dMsg').textContent = 'No backend configured (DH_CONFIG.api).'; return; }
     $('dMsg').textContent = 'loading…';
-    DH.call('admin', { key: key, op: 'export' }).then(function (j) { data = j; if (!$('dExpected').value) $('dExpected').value = j.expected || 25; $('dash').hidden = false; $('dMsg').textContent = ''; $('dAt').textContent = 'as of ' + new Date(j.at).toLocaleTimeString('en-IN') + (j.open ? ' · session OPEN' : ' · session CLOSED'); draw(); sched(); })
+    DH.call('admin', { key: key, op: 'export' }).then(function (j) { data = j; if (!$('dExpected').value) $('dExpected').value = j.expected || 25; $('dash').hidden = false; $('dMsg').textContent = ''; if (window.DHSheet) { var sb = $('dSheet'); if (!sb) { sb = document.createElement('p'); sb.id = 'dSheet'; $('dAuth').insertAdjacentElement('afterend', sb); } if (!sb.firstChild) DHSheet.show(sb, key, null); } $('dAt').textContent = 'as of ' + new Date(j.at).toLocaleTimeString('en-IN') + (j.open ? ' · session OPEN' : ' · session CLOSED'); draw(); sched(); })
       .catch(function (e) { $('dMsg').textContent = String(e.message); });
   }
   function bar(label, v, max, cls, text) { return '<div class="bar ' + (cls || '') + '"><span>' + esc(label) + '</span><i style="--w:' + (max ? Math.round(100 * v / max) : 0) + '%"></i><b>' + (text != null ? text : v) + '</b></div>'; }

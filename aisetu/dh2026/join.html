@@ -659,6 +659,23 @@ th{background:var(--soft);position:sticky;top:0}
 .live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
 .live-msg{margin:0;color:var(--muted)}
 
+/* step 2: the read-aloud Script section of the presenter guides (one block per slide, phone stage beside it; prints one block per page region) */
+.scriptlist{display:grid;gap:.8rem}
+.scriptblk{border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.scriptblk{color:var(--fg)}
+.scriptblk header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;margin-bottom:.35rem}
+.scriptblk .sb-n{font:700 1rem var(--font-mono,monospace);background:var(--accent);color:var(--accent-fg);border-radius:.35rem;padding:.05rem .45rem}
+.scriptblk .sb-t{font-weight:700}
+.scriptblk .sb-c{margin-left:auto;color:var(--muted);font-size:.9em}
+.scriptblk .sb-body{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:.8rem}
+.scriptblk .sb-say p{margin:.2rem 0;line-height:1.55}
+.scriptblk .sb-clicks{font-size:.92em;color:var(--muted)}
+.scriptblk .sb-phone{border-left:3px solid var(--accent-2);padding:.3rem .6rem;font-size:.92em;background:var(--soft);border-radius:.3rem}
+.scriptblk .sb-ph{display:block;font-weight:700;font-size:.85em;margin-bottom:.2rem}
+@media (max-width:640px){.scriptblk .sb-body{grid-template-columns:1fr}.scriptblk .sb-c{margin-left:0}}
+@media print{.scriptblk{border-color:#999;background:#fff}.scriptblk .sb-phone{background:#fff}}
+.pr-short{margin:.2rem 0 .4rem}.pr-short img{max-width:100%;height:auto}
+
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -689,7 +706,7 @@ th{background:var(--soft);position:sticky;top:0}
       <label class="field" for="jName">Full name <input type="text" id="jName" name="name" autocomplete="name" required maxlength="80"></label>
       <label class="field" for="jRoll">Roll number <input type="text" id="jRoll" name="roll" autocomplete="off" required maxlength="30" autocapitalize="characters"></label>
       <div class="grid-2">
-        <label class="field" for="jProg">Programme <input type="text" id="jProg" name="programme" list="progList" required maxlength="80" placeholder="e.g. BA (Hons) English"><datalist id="progList"><option value="BA (Hons) English"><option value="BA (Hons) Psychology"><option value="BA (Hons) Political Science"><option value="BA (Hons) Economics"><option value="BA (Hons) Sociology"><option value="BA Liberal Arts"><option value="MA English"><option value="MA Psychology"><option value="MA Political Science"><option value="PhD"></datalist></label>
+        <label class="field" for="jProg">Programme <input type="text" id="jProg" name="programme" list="progList" required maxlength="80" placeholder="e.g. BA (Hons) English"><datalist id="progList"><option value="BA (Hons) English"><option value="BA (Hons) Political Science"><option value="BA (Hons) International Relations"><option value="BA (Hons) Economics"><option value="BA (Hons) Sociology"><option value="BA (Hons) History"><option value="BA (Hons) Liberal Arts"><option value="MA English"><option value="Master of Public Policy"><option value="MA South Asian Studies"><option value="PhD English"></datalist><small class="hint field-hint">Not in the list? Just type it.</small></label>
         <label class="field" for="jSem">Semester <select id="jSem" name="semester" required><option value="">Choose</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>Other</option></select></label>
       </div>
       <label class="field" for="jEmail">Email <small>(optional)</small> <input type="email" id="jEmail" name="email" autocomplete="email" maxlength="80" inputmode="email"></label>

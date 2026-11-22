@@ -11,4 +11,7 @@ var DH_BACKENDS = {
   personal: ""
 };
 window.DH_CONFIG = { api: DH_BACKENDS[DH_USE] || "", lite: DH_USE === "personal", session: "DH2026-S1", colab: "",
-  decks: { s1: "https://slides.kpsingh.in/dh-bootcamp-s1", s2: "https://slides.kpsingh.in/dh-bootcamp-s2" } };
+  decks: { s1: "https://slides.kpsingh.in/dh-bootcamp-s1", s2: "https://slides.kpsingh.in/dh-bootcamp-s2" },
+  /* step 2 switches (each new behaviour can be turned off here):
+     REVEAL_LOCK: Session 2 Human-or-AI cards stay shut on the projector until 🔓 Reveal (false = tap any time, as before) */
+  REVEAL_LOCK: true };

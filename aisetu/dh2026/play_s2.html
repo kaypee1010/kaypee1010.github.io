@@ -659,6 +659,55 @@ th{background:var(--soft);position:sticky;top:0}
 .live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
 .live-msg{margin:0;color:var(--muted)}
 
+/* step 2: the read-aloud Script section of the presenter guides (one block per slide, phone stage beside it; prints one block per page region) */
+.scriptlist{display:grid;gap:.8rem}
+.scriptblk{border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.scriptblk{color:var(--fg)}
+.scriptblk header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;margin-bottom:.35rem}
+.scriptblk .sb-n{font:700 1rem var(--font-mono,monospace);background:var(--accent);color:var(--accent-fg);border-radius:.35rem;padding:.05rem .45rem}
+.scriptblk .sb-t{font-weight:700}
+.scriptblk .sb-c{margin-left:auto;color:var(--muted);font-size:.9em}
+.scriptblk .sb-body{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:.8rem}
+.scriptblk .sb-say p{margin:.2rem 0;line-height:1.55}
+.scriptblk .sb-clicks{font-size:.92em;color:var(--muted)}
+.scriptblk .sb-phone{border-left:3px solid var(--accent-2);padding:.3rem .6rem;font-size:.92em;background:var(--soft);border-radius:.3rem}
+.scriptblk .sb-ph{display:block;font-weight:700;font-size:.85em;margin-bottom:.2rem}
+@media (max-width:640px){.scriptblk .sb-body{grid-template-columns:1fr}.scriptblk .sb-c{margin-left:0}}
+@media print{.scriptblk{border-color:#999;background:#fff}.scriptblk .sb-phone{background:#fff}}
+.pr-short{margin:.2rem 0 .4rem}.pr-short img{max-width:100%;height:auto}
+
+/* step 2: student header "A + B" (play.html, play_s2.html only; body.student-hdr is set by student_header.js) */
+.student-hdr .nav{transition:transform .2s ease;will-change:transform}
+.student-hdr .nav .nav-sub{display:block}
+.student-hdr .nav-level{margin-left:auto;flex:none;font:600 .8rem var(--font-display);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .7rem;white-space:nowrap}
+.student-hdr .theme-toggle{margin-left:0}
+.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(-14px -100vmax -7px -100vmax);
+  flex-wrap:nowrap;gap:.45rem;padding:.35rem .5rem .35rem .7rem;z-index:40;transition:transform .2s ease;will-change:transform;position:sticky;position:-webkit-sticky}
+.student-hdr .hud>*{flex:none}
+.student-hdr .hud [data-dh-nick]{flex:1 1 auto;min-width:3.6rem;max-width:9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-hdr .hud [data-dh-badges]{display:inline-flex;gap:.1rem}
+.student-hdr .hud .badge{width:1.55rem;height:1.55rem;font-size:.9rem;margin-right:0}
+.student-hdr .hud [data-dh-net],.student-hdr .hud [data-dh-py]{display:none}
+.student-hdr .hud-logo{width:26px;height:26px;max-width:0;opacity:0;margin-right:-.45rem;transition:max-width .2s ease,opacity .2s ease,margin .2s ease}
+.student-hdr .hud-dot{width:28px;height:28px;border:0;padding:0;background:transparent;display:inline-grid;place-items:center;cursor:pointer;border-radius:50%}
+.student-hdr .hud-dot::before{content:"";width:12px;height:12px;border-radius:50%;background:#8a94a3;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
+.student-hdr .hud-dot[data-state="on"]::before{background:#22a35a}
+.student-hdr .hud-dot[data-state="off"]::before{background:#d64535}
+.student-hdr .hud-map{margin-left:auto;width:36px;height:36px;display:inline-grid;place-items:center;border-radius:50%;text-decoration:none;font-size:1.15rem;background:var(--soft);border:1px solid var(--line)}
+.student-hdr .hud{position:sticky}
+.student-hdr .hud-tip{position:absolute;right:.5rem;top:calc(100% + 6px);background:var(--fg);color:var(--bg);font-size:.78rem;padding:.35rem .6rem;border-radius:.5rem;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap}
+.student-hdr.hdr-hidden .nav{transform:translateY(-100%)}
+.student-hdr.hdr-hidden .hud{transform:translateY(calc(-1 * var(--nav-h)))}
+.student-hdr.hdr-hidden .hud-logo{max-width:26px;opacity:1;margin-right:0}
+.student-hdr .runner,.student-hdr .stage,.student-hdr .mcq{scroll-margin-top:calc(var(--nav-h) + 4rem)}
+@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:6rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
+@media (prefers-reduced-motion:reduce){.student-hdr .nav,.student-hdr .hud,.student-hdr .hud-logo{transition:none}}
+.student-hdr .hud [data-dh-streak]:empty{display:none}
+.student-hdr .hud .xp{padding:.1rem .5rem;font-size:.85rem;white-space:nowrap}
+@media (max-width:600px){.student-hdr .hud{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0;border-width:0 0 1px;padding-left:.6rem;padding-right:.6rem;gap:.35rem}
+  .student-hdr .hud .badge{width:1.3rem;height:1.3rem;font-size:.75rem}.student-hdr .hud [data-dh-badges]{gap:.05rem}
+  .student-hdr .hud-dot{width:22px;height:28px}.student-hdr .hud-map{width:32px;height:32px;font-size:1rem}}
+
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -1342,7 +1391,7 @@ th{background:var(--soft);position:sticky;top:0}
   function mcqs(box, qs, tagLevel) { qs.forEach(function (q) { var d = document.createElement('div'); d.className = 'mcq card'; var parts = q.q.split('\n\n'); d.innerHTML = '<p class="q"><span class="tier">' + (q.kind === 'predict' ? 'Predict' : q.kind === 'mistake' ? 'Find the mistake' : 'Think') + '</span>' + esc(parts[0]) + (parts[1] ? '<pre>' + esc(parts.slice(1).join('\n\n')) + '</pre>' : '') + '</p><div class="vbox"></div>'; box.appendChild(d); vote(d.querySelector('.vbox'), { qid: q.id, kind: 'mcq', level: tagLevel, options: q.options, answer: q.answer, why: q.why, tag: q.tag }); }); }
 
   function home() {
-    var items = [['#hoa1', '🤖', 'Human or AI? Round 1', '13:35 · four pairs, vote with confidence'], ['#distant', '📚', 'Distant reading', '13:45 · a whole novel on one screen'], ['#arc', '📈', 'The emotional arc', '13:55 · predict the shape, then reveal'], ['#check1', '✓', 'Quick check 1', '14:07 · three questions'], ['#translate', '🌐', 'Translation: what gets lost', '14:12 · round trip through Hindi'], ['#hoa2', '🤖', 'Human or AI? Round 2', '14:25 · harder pairs, streak on'], ['#ethics', '⚖️', 'AI ethics for humanities', '14:35 · eight cases, one template'], ['#check2', '✓', 'Quick check 2', '14:50 · three questions'], ['#careers', '🧭', 'Careers and projects', '14:55 · where humanities and AI meet'], ['#wrap2', '🏁', 'Wrap-up', '15:05 · board and feedback']];
+    var items = [['#hoa1', '🤖', 'Human or AI? Round 1', 'four pairs, vote with confidence'], ['#distant', '📚', 'Distant reading', 'a whole novel on one screen'], ['#arc', '📈', 'The emotional arc', 'predict the shape, then reveal'], ['#check1', '✓', 'Quick check 1', 'three questions'], ['#translate', '🌐', 'Translation: what gets lost', 'round trip through Hindi'], ['#hoa2', '🤖', 'Human or AI? Round 2', 'harder pairs, streak on'], ['#ethics', '⚖️', 'AI ethics for humanities', 'eight cases, one template'], ['#check2', '✓', 'Quick check 2', 'three questions'], ['#careers', '🧭', 'Careers and projects', 'where humanities and AI meet'], ['#wrap2', '🏁', 'Wrap-up', 'board and feedback']];
     h('<p class="kicker">Digital Humanities Bootcamp 2026 · Session 2</p><h1>AI and Digital Humanities</h1><p class="sub">Four ideas, two games, one afternoon.</p><ol class="levels">' + items.map(function (i) { return '<li><a href="' + i[0] + '"><span class="lv-em">' + i[1] + '</span><span><span class="lv-name">' + esc(i[2]) + '</span><br><span class="lv-idea">' + esc(i[3]) + '</span></span><span class="lv-state">→</span></a></li>'; }).join('') + '</ol>');
   }
   function hoa(round) {
@@ -1356,7 +1405,7 @@ th{background:var(--soft);position:sticky;top:0}
     });
   }
   function distant() {
-    h('<p class="kicker">Idea 1 · 13:45</p><h1>Distant reading</h1><p class="sub">Pride and Prejudice: ' + S.pp.chapters + ' chapters, ' + S.pp.words.toLocaleString('en-IN') + ' words, on one screen.</p>' +
+    h('<p class="kicker">Idea 1</p><h1>Distant reading</h1><p class="sub">Pride and Prejudice: ' + S.pp.chapters + ' chapters, ' + S.pp.words.toLocaleString('en-IN') + ' words, on one screen.</p>' +
       '<section class="card"><h2>The whole novel as a cloud</h2><div id="wc"></div></section>' +
       '<section class="card"><h2>Where does a word live?</h2><p class="hint">Type a name or a word: a bar per chapter shows how often it appears there.</p><label class="cc-label">Word<input type="search" id="whereWord" placeholder="Darcy" autocomplete="off"></label><div class="bars" id="whereBars" aria-live="polite"></div></section>' +
       '<p class="plain"><b>Digital Humanities</b> = asking humanities questions with computational methods, and asking humanities questions about computation.</p><p class="takeaway">Distant reading counts what close reading cannot reach; close reading explains what counting cannot see.</p>' +
@@ -1370,7 +1419,7 @@ th{background:var(--soft);position:sticky;top:0}
   }
   function arc() {
     var prev = st().answers['arc:shape'];
-    h('<p class="kicker">Idea 2 · 13:55</p><h1>The emotional arc of a story</h1><p class="sub">Every chapter scores pleasant words minus unpleasant words from a tiny classroom lexicon (' + S.lexicon.pos + ' pleasant, ' + S.lexicon.neg + ' unpleasant words). Predict the shape first.</p>' +
+    h('<p class="kicker">Idea 2</p><h1>The emotional arc of a story</h1><p class="sub">Every chapter scores pleasant words minus unpleasant words from a tiny classroom lexicon (' + S.lexicon.pos + ' pleasant, ' + S.lexicon.neg + ' unpleasant words). Predict the shape first.</p>' +
       '<section class="card mcq"><h2>Which shape is Pride and Prejudice?</h2><div class="vbox" id="shapeVote"></div></section>' +
       '<section class="card" id="arcBox" ' + (prev ? '' : 'hidden') + '><h2>The arc, chapter by chapter</h2><p class="hint">Score per 1,000 words. Tap a bar to see the chapter\'s most frequent lexicon words.</p><div id="arcChart" class="arc"></div><p id="arcDetail" class="hint" aria-live="polite"></p><p class="mixup"><b>What the lexicon cannot see:</b> "not happy" scores as happy; irony scores as sincerity; a chapter of polite insults scores as pleasant. The arc is a question to bring to the text, not an answer.</p></section>' +
       '<p><a class="btn" href="#home">Map</a> <a class="btn btn-primary" href="#check1">Quick check 1 →</a></p>');
@@ -1388,7 +1437,7 @@ th{background:var(--soft);position:sticky;top:0}
   }
   function translate() {
     var T = S.translate; var lines = T.text.split('\n').slice(0, 3);
-    h('<p class="kicker">Idea 3 · 14:12</p><h1>Translation: what gets lost</h1><p class="sub">' + esc(T.note) + '</p>' +
+    h('<p class="kicker">Idea 3</p><h1>Translation: what gets lost</h1><p class="sub">' + esc(T.note) + '</p>' +
       '<section class="card"><h2>' + esc(T.title) + ' (Tagore\'s own English, 1912)</h2><blockquote style="white-space:pre-wrap">' + esc(lines.join('\n')) + '</blockquote><ol>' + T.steps.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol></section>' +
       '<section class="card mcq"><h2>Which line lost the most?</h2><div class="vbox" id="trVote"></div><label class="field" for="trLost" style="margin-top:.6rem">What was lost, in one line? <input type="text" id="trLost" maxlength="120" placeholder="a word · a rhythm · an image"></label><button class="btn" type="button" id="trSend">Send</button> <span class="hint" id="trMsg" aria-live="polite"></span></section>' +
       '<p><a class="btn" href="#home">Map</a> <a class="btn btn-primary" href="#hoa2">Human or AI? round 2 →</a></p>');
@@ -1396,14 +1445,14 @@ th{background:var(--soft);position:sticky;top:0}
     document.getElementById('trSend').addEventListener('click', function () { var v = document.getElementById('trLost').value.trim(); if (!v) return; DH.record('vote', { level: 6, qid: 'tr:lost', answer: v, correct: false, extra: 'translate' }); document.getElementById('trMsg').textContent = 'Saved.'; });
   }
   function ethics() {
-    h('<p class="kicker">Idea 4 · 14:35</p><h1>AI ethics for humanities</h1><p class="sub">Authorship. Bias. Integrity. Citation. Eight cases: acceptable or not? +5 XP when your call matches the reasoning.</p><div id="cases"></div>' +
+    h('<p class="kicker">Idea 4</p><h1>AI ethics for humanities</h1><p class="sub">Authorship. Bias. Integrity. Citation. Eight cases: acceptable or not? +5 XP when your call matches the reasoning.</p><div id="cases"></div>' +
       '<section class="card"><h2>How to cite AI use (one line)</h2><p class="plain">' + esc(S.cite_template) + '</p></section>' +
       '<p><a class="btn" href="#home">Map</a> <a class="btn btn-primary" href="#check2">Quick check 2 →</a></p>');
     var box = document.getElementById('cases');
     S.ethics.forEach(function (c, k) { var d = document.createElement('section'); d.className = 'card mcq'; d.innerHTML = '<h2>Case ' + (k + 1) + '</h2><p>' + esc(c.case) + '</p><div class="vbox"></div>'; box.appendChild(d); vote(d.querySelector('.vbox'), { qid: 'eth:' + c.id, kind: 'vote', level: 6, options: ['Acceptable', 'Not acceptable'], answer: c.ok ? 0 : 1, why: [c.why, c.why], tag: 'ethics' }); });
   }
   function careers() {
-    h('<p class="kicker">14:55</p><h1>Where humanities and AI meet</h1><p class="sub">Roles and the day\'s work, no numbers. Look them up tonight.</p><div class="grid-2">' + S.careers.map(function (c) { return '<div class="card"><b>' + esc(c[0]) + '</b><p class="hint">' + esc(c[1]) + '</p></div>'; }).join('') + '</div>' +
+    h('<p class="kicker">Careers</p><h1>Where humanities and AI meet</h1><p class="sub">Roles and the day\'s work, no numbers. Look them up tonight.</p><div class="grid-2">' + S.careers.map(function (c) { return '<div class="card"><b>' + esc(c[0]) + '</b><p class="hint">' + esc(c[1]) + '</p></div>'; }).join('') + '</div>' +
       '<section class="card"><h2>Three projects you could start this semester</h2><ol>' + S.projects.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></section><p><a class="btn" href="#home">Map</a> <a class="btn btn-primary" href="#wrap2">Wrap-up →</a></p>');
   }
   function wrap2() {
@@ -1422,6 +1471,60 @@ th{background:var(--soft);position:sticky;top:0}
   }
   if (!DH.requireJoin()) return;
   window.addEventListener('hashchange', route); DH.live(); DH.rejoin().then(function () { route(); }); route();
+})();
+
+/* student_header.js (step 2, design "A + B"): the student pages' header.
+   Top of the page: the full AI-SETU header (logo, AI-SETU, SGT University, a "Level N of 5" chip, the moon), then the player bar.
+   Scrolling down: the header slides up (CSS transform, 200 ms) and a small AI-SETU logo slides into the left end of the player bar:
+   one slim sticky bar [logo] nickname · XP · badges · ● · 🗺. Scrolling up: the header comes back. A 12 px threshold stops flicker.
+   The status dot replaces the 'saved · Python ready' words: green = ready and saved, grey = loading, red = offline; tap it for the words. */
+(function () {
+  var body = document.body, nav = document.querySelector('.nav'), hud = document.getElementById('hud');
+  if (!nav || !hud) return;
+  body.classList.add('student-hdr');
+  var S2 = !!window.DH_CONTENT_S2;
+  /* header: drop the AI-SETU ↗ link on these pages; its space shows the level chip and the moon */
+  var cta = nav.querySelector('.nav-cta'); if (cta) cta.remove();
+  var sub = nav.querySelector('.nav-sub'); if (sub) sub.textContent = 'SGT University';
+  var chip = document.createElement('span'); chip.className = 'nav-level'; chip.setAttribute('aria-live', 'polite');
+  var tog = nav.querySelector('.theme-toggle'); nav.insertBefore(chip, tog || null);
+  var NAMES = { home: 'Your journey', pre: 'Warm-up', post: 'Final check', wrap: 'Wrap-up', machines: 'Machines',
+    hoa1: 'Human or AI · 1', hoa2: 'Human or AI · 2', distant: 'Idea 1', arc: 'Idea 2', check1: 'Quick check 1', check2: 'Quick check 2', translate: 'Idea 3', ethics: 'Idea 4', careers: 'Careers', wrap2: 'Wrap-up' };
+  function where() {
+    var r = (location.hash || '#home').slice(1); var m = /^l([1-5])$/.exec(r);
+    chip.textContent = m ? 'Level ' + m[1] + ' of 5' : (NAMES[r] || (S2 ? 'Session 2' : 'Your journey'));
+  }
+  where(); addEventListener('hashchange', where);
+  /* player bar: a small logo slot at the left (shown once the header has slid away), the status dot, the 🗺 map button */
+  var logo = document.createElement('img'); logo.className = 'hud-logo'; logo.src = 'AI_SETU.png'; logo.alt = 'AI-SETU'; logo.width = 26; logo.height = 26;
+  hud.insertBefore(logo, hud.firstChild);
+  var dot = document.createElement('button'); dot.type = 'button'; dot.className = 'hud-dot'; dot.setAttribute('aria-label', 'Status');
+  var tip = document.createElement('span'); tip.className = 'hud-tip'; tip.setAttribute('role', 'status'); tip.hidden = true;
+  var map = hud.querySelector('a[href="#home"]');
+  hud.insertBefore(dot, map || null); hud.appendChild(tip);
+  if (map) { map.classList.add('hud-map'); map.classList.remove('hint'); map.textContent = '🗺'; map.setAttribute('aria-label', 'Map of the levels'); map.title = 'Map'; }
+  var net = hud.querySelector('[data-dh-net]'), py = hud.querySelector('[data-dh-py]');
+  function words() { return [net && net.textContent.trim() !== '·' ? net.textContent.trim() : '', py ? py.textContent.trim() : ''].filter(Boolean).join(' · ') || 'Getting ready…'; }
+  function paint() {
+    var n = net ? net.dataset.state : '', p = py ? py.dataset.state : 'on';
+    var st = (n === 'off' || p === 'off') ? 'off' : (n === 'on' && (!py || p === 'on')) ? 'on' : 'wait';
+    dot.dataset.state = st; dot.setAttribute('aria-label', 'Status: ' + words());
+    if (!tip.hidden) tip.textContent = words();
+  }
+  dot.addEventListener('click', function () { tip.hidden = !tip.hidden; tip.textContent = words(); clearTimeout(tip._t); if (!tip.hidden) tip._t = setTimeout(function () { tip.hidden = true; }, 3500); });
+  [net, py].forEach(function (el) { if (el && window.MutationObserver) new MutationObserver(paint).observe(el, { attributes: true, childList: true, characterData: true, subtree: true }); });
+  paint();
+  /* scroll: hide the header going down, show it going up (12 px threshold), never at the very top */
+  var last = scrollY, up = true, ticking = false;
+  function apply() {
+    ticking = false; var y = scrollY, d = y - last;
+    if (y < 8) { if (!up) { up = true; body.classList.remove('hdr-hidden'); } last = y; return; }
+    if (Math.abs(d) < 12) return;
+    var hide = d > 0; if (hide === !up) { last = y; return; }
+    up = !hide; body.classList.toggle('hdr-hidden', hide); last = y;
+  }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
+  window.DHHeader = { paint: paint };
 })();
 })();
 </script>

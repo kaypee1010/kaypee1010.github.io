@@ -756,6 +756,50 @@ th{background:var(--soft);position:sticky;top:0}
 .live-opt.picked{background:var(--gold);color:var(--gold-fg);border-color:var(--gold)}
 .live-msg{margin:0;color:var(--muted)}
 
+/* step 2: the read-aloud Script section of the presenter guides (one block per slide, phone stage beside it; prints one block per page region) */
+.scriptlist{display:grid;gap:.8rem}
+.scriptblk{border:1px solid var(--line);border-radius:.6rem;padding:.7rem .9rem;background:var(--card);break-inside:avoid;page-break-inside:avoid}
+.scriptblk{color:var(--fg)}
+.scriptblk header{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;margin-bottom:.35rem}
+.scriptblk .sb-n{font:700 1rem var(--font-mono,monospace);background:var(--accent);color:var(--accent-fg);border-radius:.35rem;padding:.05rem .45rem}
+.scriptblk .sb-t{font-weight:700}
+.scriptblk .sb-c{margin-left:auto;color:var(--muted);font-size:.9em}
+.scriptblk .sb-body{display:grid;grid-template-columns:minmax(0,1fr) 13rem;gap:.8rem}
+.scriptblk .sb-say p{margin:.2rem 0;line-height:1.55}
+.scriptblk .sb-clicks{font-size:.92em;color:var(--muted)}
+.scriptblk .sb-phone{border-left:3px solid var(--accent-2);padding:.3rem .6rem;font-size:.92em;background:var(--soft);border-radius:.3rem}
+.scriptblk .sb-ph{display:block;font-weight:700;font-size:.85em;margin-bottom:.2rem}
+@media (max-width:640px){.scriptblk .sb-body{grid-template-columns:1fr}.scriptblk .sb-c{margin-left:0}}
+@media print{.scriptblk{border-color:#999;background:#fff}.scriptblk .sb-phone{background:#fff}}
+.pr-short{margin:.2rem 0 .4rem}.pr-short img{max-width:100%;height:auto}
+
+/* step 2: student header "A + B" (play.html, play_s2.html only; body.student-hdr is set by student_header.js) */
+.student-hdr .nav{transition:transform .2s ease;will-change:transform}
+.student-hdr .nav .nav-sub{display:block}
+.student-hdr .nav-level{margin-left:auto;flex:none;font:600 .8rem var(--font-display);color:var(--fg);background:var(--soft);border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .7rem;white-space:nowrap}
+.student-hdr .theme-toggle{margin-left:0}
+.student-hdr .hud{top:var(--nav-h);background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 -10px 0 0 var(--bg),0 4px 14px rgba(0,0,0,.08);
+  flex-wrap:nowrap;gap:.45rem;padding:.35rem .5rem .35rem .7rem;z-index:40;transition:transform .2s ease;will-change:transform;position:sticky;position:-webkit-sticky}
+.student-hdr .hud>*{flex:none}
+.student-hdr .hud [data-dh-nick]{flex:0 1 auto;min-width:0;max-width:7.5rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.student-hdr .hud [data-dh-badges]{display:inline-flex;gap:.1rem}
+.student-hdr .hud .badge{width:1.55rem;height:1.55rem;font-size:.9rem;margin-right:0}
+.student-hdr .hud [data-dh-net],.student-hdr .hud [data-dh-py]{display:none}
+.student-hdr .hud-logo{width:26px;height:26px;max-width:0;opacity:0;margin-right:-.45rem;transition:max-width .2s ease,opacity .2s ease,margin .2s ease}
+.student-hdr .hud-dot{width:28px;height:28px;border:0;padding:0;background:transparent;display:inline-grid;place-items:center;cursor:pointer;border-radius:50%}
+.student-hdr .hud-dot::before{content:"";width:12px;height:12px;border-radius:50%;background:#8a94a3;box-shadow:0 0 0 2px var(--card),0 0 0 3px var(--line)}
+.student-hdr .hud-dot[data-state="on"]::before{background:#22a35a}
+.student-hdr .hud-dot[data-state="off"]::before{background:#d64535}
+.student-hdr .hud-map{margin-left:auto;width:36px;height:36px;display:inline-grid;place-items:center;border-radius:50%;text-decoration:none;font-size:1.15rem;background:var(--soft);border:1px solid var(--line)}
+.student-hdr .hud{position:sticky}
+.student-hdr .hud-tip{position:absolute;right:.5rem;top:calc(100% + 6px);background:var(--fg);color:var(--bg);font-size:.78rem;padding:.35rem .6rem;border-radius:.5rem;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap}
+.student-hdr.hdr-hidden .nav{transform:translateY(-100%)}
+.student-hdr.hdr-hidden .hud{transform:translateY(calc(-1 * var(--nav-h)))}
+.student-hdr.hdr-hidden .hud-logo{max-width:26px;opacity:1;margin-right:0}
+.student-hdr .runner,.student-hdr .stage,.student-hdr .mcq{scroll-margin-top:calc(var(--nav-h) + 4rem)}
+@media (max-width:380px){.student-hdr .hud [data-dh-nick]{max-width:5.2rem}.student-hdr .nav-level{font-size:.74rem;padding:.25rem .55rem}.student-hdr .hud .badge{width:1.4rem;height:1.4rem;font-size:.8rem}}
+@media (prefers-reduced-motion:reduce){.student-hdr .nav,.student-hdr .hud,.student-hdr .hud-logo{transition:none}}
+
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -795,7 +839,7 @@ where the mind is without fear
 " data-qid="n1e1"></div><h3><span class="tier Challenge">Challenge</span>Swap a word</h3><p>Replace one word with another so the line means something new. Predict the output before you run.</p><div class="runner" data-code="line = &quot;Shall I compare thee to a summer&#x27;s day?&quot;
 new_line = line.replace(&quot;summer&#x27;s&quot;, &quot;winter&#x27;s&quot;)
 print(new_line)" data-expected="Shall I compare thee to a winter&#x27;s day?
-" data-qid="n1e2"></div><p class="mixup"><b>Common mix-up:</b> Quotes must open and close: &quot;Where the mind is&quot; works, &quot;Where the mind is does not.</p><p class="mixup"><b>Common mix-up:</b> Case matters to a computer: &quot;Fear&quot; and &quot;fear&quot; are two different strings.</p><p class="takeaway">A sentence is data. Once it is a string, the computer can measure it, change it and copy it a million times without tiring.</p><h3>Test yourself</h3><div class="quiz" data-quiz><p class="quiz-score" data-quiz-score aria-live="polite"></p><fieldset class="q"><legend>What does this print?<br><br>word = &quot;Tagore&quot;<br>print(len(word))</legend><button type="button" class="q-opt" data-why="len counts; it does not print the word.">Tagore</button><button type="button" class="q-opt" data-correct data-why="Yes: T, a, g, o, r, e is 6 characters.">6</button><button type="button" class="q-opt" data-why="Count again: 6 letters.">7</button><button type="button" class="q-opt" data-why="That would need .upper(), and len gives a number.">TAGORE</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>Find the mistake.<br><br>line = Where the mind is without fear<br>print(line)</legend><button type="button" class="q-opt" data-why="print is always lower case in Python.">print should be Print</button><button type="button" class="q-opt" data-correct data-why="Yes: text without quotes is read as code, and Python does not know a word called Where.">The text needs quotes around it</button><button type="button" class="q-opt" data-why="The name is yours to choose; line is fine.">line should be lines</button><button type="button" class="q-opt" data-why="Without quotes Python stops with an error.">Nothing is wrong</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>What does this print?<br><br>line = &quot;the eye of heaven&quot;<br>print(line.upper())</legend><button type="button" class="q-opt" data-why="upper() changes every letter, so the output cannot stay the same.">the eye of heaven</button><button type="button" class="q-opt" data-why="That is title case; upper() makes every letter capital.">The Eye Of Heaven</button><button type="button" class="q-opt" data-correct data-why="Yes: every letter becomes a capital.">THE EYE OF HEAVEN</button><button type="button" class="q-opt" data-why="17 would be len(line), not upper().">17</button><p class="q-fb" aria-live="polite"></p></fieldset><p class="no-js-only">Answers: Q1 B; Q2 B; Q3 C.</p></div><p class="next-up"><span aria-hidden="true">➡️</span><span><b>Coming up:</b> One line is a string. A whole poem is many lines. Level 2 puts them on a shelf.</span></p></section><section id="l2"><h2>📚 Level 2 · Collector: A poem is a list of lines</h2><p class="plain"><b>The case:</b> You are collecting a poem for an anthology. You need to know how many lines it has, which line is last, and which line is the longest.</p><h3>Hook</h3><p>Read Gitanjali 35 line by line and number the lines as you go. Line 1, line 2 ... A list is exactly that: a shelf of items in order, each with a number.</p><h3>See it move</h3><div class="anim" data-anim="shelves"></div><h3>The formal word</h3><div class="term"><b>List</b><span>an ordered collection of items, counted from 0</span></div><p class="plain"><b>In plain words:</b> Square brackets make a list. Each item sits at a position, and the positions start at 0, not 1. len counts the items, append adds one at the end, and .split() turns a line into a list of its words.</p><h3>Worked example: the lines of a poem</h3><div class="runner" data-code="poem = [
+" data-qid="n1e2"></div><p class="mixup"><b>Common mix-up:</b> Quotes must open and close: &quot;Where the mind is&quot; works, &quot;Where the mind is does not.</p><p class="mixup"><b>Common mix-up:</b> Case matters to a computer: &quot;Fear&quot; and &quot;fear&quot; are two different strings.</p><p class="takeaway">A sentence is data. Once it is a string, the computer can measure it, change it and copy it a million times without tiring.</p><h3>Test yourself</h3><div class="quiz" data-quiz><p class="quiz-score" data-quiz-score aria-live="polite"></p><fieldset class="q"><legend>What does this print?<br><br>word = &quot;Tagore&quot;<br>print(len(word))</legend><button type="button" class="q-opt" data-why="len counts; it does not print the word.">Tagore</button><button type="button" class="q-opt" data-correct data-why="Yes: T, a, g, o, r, e is 6 characters.">6</button><button type="button" class="q-opt" data-why="Count again: 6 letters.">7</button><button type="button" class="q-opt" data-why="That would need .upper(), and len gives a number.">TAGORE</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>Find the mistake.<br><br>line = Where the mind is without fear<br>print(line)</legend><button type="button" class="q-opt" data-why="print is always lower case in Python.">print should be Print</button><button type="button" class="q-opt" data-correct data-why="Yes: text without quotes is read as code, and Python does not know a word called Where.">The text needs quotes around it</button><button type="button" class="q-opt" data-why="The name is yours to choose; line is fine.">line should be lines</button><button type="button" class="q-opt" data-why="Without quotes Python stops with an error.">Nothing is wrong</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>What does this print?<br><br>line = &quot;the eye of heaven&quot;<br>print(line.upper())</legend><button type="button" class="q-opt" data-why="upper() changes every letter, so the output cannot stay the same.">the eye of heaven</button><button type="button" class="q-opt" data-why="That is title case; upper() makes every letter capital.">The Eye Of Heaven</button><button type="button" class="q-opt" data-correct data-why="Yes: every letter becomes a capital.">THE EYE OF HEAVEN</button><button type="button" class="q-opt" data-why="17 would be len(line), not upper().">17</button><p class="q-fb" aria-live="polite"></p></fieldset><p class="no-js-only">Answers: Q1 B; Q2 B; Q3 C.</p></div><p class="next-up"><span aria-hidden="true">➡️</span><span><b>Coming up:</b> One line is a string. A whole poem is many lines. Level 2 puts them on a shelf.</span></p></section><section id="l2"><h2>📚 Level 2 · Collector: A poem is a list of lines</h2><p class="plain"><b>The case:</b> You are collecting a poem for an anthology. You need to know how many lines it has, which line is last, and which line is the longest.</p><h3>Hook</h3><p>Read Gitanjali 35 line by line and number the lines as you go. Line 1, line 2 ... A list is exactly that: a shelf of items in order, each with a number.</p><h3>See it move</h3><div class="anim" data-anim="shelves"></div><h3>The formal word</h3><div class="term"><b>List</b><span>an ordered collection of items, counted from 0</span></div><p class="plain"><b>In plain words:</b> Square brackets make a list. Each item sits at a position, and the positions start at 0, not 1. len counts the items, and .split() turns a line into a list of its words.</p><h3>Worked example: the lines of a poem</h3><div class="runner" data-code="poem = [
   &quot;Where the mind is without fear and the head is held high;&quot;,
   &quot;Where knowledge is free;&quot;,
   &quot;Where words come out from the depth of truth;&quot;,
@@ -887,36 +931,20 @@ for word in line.split():
 print(counts)
 print(counts[&quot;so&quot;])" data-expected="{&#x27;so&#x27;: 2, &#x27;long&#x27;: 2, &#x27;as&#x27;: 1, &#x27;men&#x27;: 1, &#x27;can&#x27;: 2, &#x27;breathe&#x27;: 1, &#x27;or&#x27;: 1, &#x27;eyes&#x27;: 1, &#x27;see&#x27;: 1, &#x27;lives&#x27;: 1, &#x27;this&#x27;: 1}
 2
-" data-qid="n4e0"></div><h3><span class="tier Stretch">Stretch</span>Top 5 words of Austen&#x27;s opening</h3><p>Count every word of the Pride and Prejudice opening (lower-cased, punctuation stripped) and print the top 5.</p><div class="runner" data-code="import string
-text = AUSTEN1.lower()
-for p in string.punctuation:
-    text = text.replace(p, &quot;&quot;)
+" data-qid="n4e0"></div><h3><span class="tier Stretch">Stretch</span>Top 5 words of Austen&#x27;s opening</h3><p>AUSTEN1 holds the opening page of Pride and Prejudice. clean and top are ready-made helpers. Press Run, read the top 5, then change 5 to 10.</p><div class="runner" data-code="words = clean(AUSTEN1)
 counts = {}
-for word in text.split():
+for word in words:
     counts[word] = counts.get(word, 0) + 1
-top = sorted(counts.items(), key=lambda pair: pair[1], reverse=True)
-print(top[:5])" data-expected="[(&#x27;a&#x27;, 6), (&#x27;of&#x27;, 6), (&#x27;it&#x27;, 5), (&#x27;is&#x27;, 5), (&#x27;that&#x27;, 4)]
-" data-qid="n4e1"></div><h3><span class="tier Challenge">Challenge</span>Drop the stop words</h3><p>Small words (the, of, a) always win. Remove them and see which words of meaning rise to the top.</p><div class="runner" data-code="import string
-stop = {&quot;the&quot;, &quot;of&quot;, &quot;a&quot;, &quot;to&quot;, &quot;in&quot;, &quot;that&quot;, &quot;and&quot;, &quot;is&quot;, &quot;it&quot;, &quot;he&quot;, &quot;she&quot;, &quot;his&quot;, &quot;her&quot;, &quot;you&quot;, &quot;i&quot;, &quot;was&quot;, &quot;not&quot;, &quot;be&quot;}
-text = AUSTEN1.lower()
-for p in string.punctuation:
-    text = text.replace(p, &quot;&quot;)
+print(top(counts, 5))" data-expected="[(&#x27;a&#x27;, 6), (&#x27;of&#x27;, 6), (&#x27;it&#x27;, 5), (&#x27;is&#x27;, 5), (&#x27;that&#x27;, 4)]
+" data-qid="n4e1"></div><h3><span class="tier Challenge">Challenge</span>Drop the stop words</h3><p>Small words (the, of, a) always win. Skip them with if, and see which words of meaning rise to the top.</p><div class="runner" data-code="stop = {&quot;the&quot;, &quot;of&quot;, &quot;a&quot;, &quot;to&quot;, &quot;in&quot;, &quot;that&quot;, &quot;and&quot;, &quot;is&quot;, &quot;it&quot;, &quot;he&quot;, &quot;she&quot;, &quot;his&quot;, &quot;her&quot;, &quot;you&quot;, &quot;i&quot;, &quot;was&quot;, &quot;not&quot;, &quot;be&quot;}
+words = clean(AUSTEN1)
 counts = {}
-for word in text.split():
+for word in words:
     if word not in stop:
         counts[word] = counts.get(word, 0) + 1
-top = sorted(counts.items(), key=lambda pair: pair[1], reverse=True)
-print(top[:5])" data-expected="[(&#x27;want&#x27;, 3), (&#x27;mr&#x27;, 3), (&#x27;bennet&#x27;, 3), (&#x27;truth&#x27;, 2), (&#x27;man&#x27;, 2)]
-" data-qid="n4e2"></div><p class="mixup"><b>Common mix-up:</b> Looking up a card that does not exist (counts[&quot;zebra&quot;]) stops with a KeyError. counts.get(&quot;zebra&quot;, 0) answers 0 instead.</p><p class="mixup"><b>Common mix-up:</b> &quot;The&quot; and &quot;the&quot; get two cards unless you lower-case the text first.</p><p class="takeaway">A dictionary remembers. Word to count, name to age, title to author: whenever you want to look something up, you want a dictionary.</p><h3>Test yourself</h3><div class="quiz" data-quiz><p class="quiz-score" data-quiz-score aria-live="polite"></p><fieldset class="q"><legend>What does this print?<br><br>counts = {&quot;love&quot;: 3, &quot;time&quot;: 1}<br>print(counts[&quot;love&quot;])</legend><button type="button" class="q-opt" data-why="The key is love; the lookup returns its value.">love</button><button type="button" class="q-opt" data-correct data-why="Yes: the value stored under love is 3.">3</button><button type="button" class="q-opt" data-why="1 is the value under time.">1</button><button type="button" class="q-opt" data-why="A lookup returns one value, not the pair.">{&quot;love&quot;: 3}</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>This stops with an error. Why?<br><br>counts = {&quot;love&quot;: 3}<br>print(counts[&quot;time&quot;])</legend><button type="button" class="q-opt" data-why="A dictionary can hold any word as a key.">Dictionaries cannot hold the word love</button><button type="button" class="q-opt" data-correct data-why="Yes: a missing key raises a KeyError. counts.get(&quot;time&quot;, 0) would answer 0.">There is no card for time, so the lookup fails</button><button type="button" class="q-opt" data-why="print shows numbers happily.">print cannot show a number</button><button type="button" class="q-opt" data-why="Curly brackets are right for a dictionary.">The curly brackets should be square</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>After this loop, what is counts[&quot;so&quot;]?<br><br>counts = {}<br>for word in &quot;so long so long so&quot;.split():<br>    counts[word] = counts.get(word, 0) + 1</legend><button type="button" class="q-opt" data-why="so appears more than once.">1</button><button type="button" class="q-opt" data-why="Count again: so, long, so, long, so.">2</button><button type="button" class="q-opt" data-correct data-why="Yes: so appears three times.">3</button><button type="button" class="q-opt" data-why="5 is the total number of words.">5</button><p class="q-fb" aria-live="polite"></p></fieldset><p class="no-js-only">Answers: Q1 B; Q2 B; Q3 C.</p></div><p class="next-up"><span aria-hidden="true">➡️</span><span><b>Coming up:</b> Counts are fingerprints. After the break, you will use them to tell one writer from another.</span></p></section><section id="l5"><h2>🕵️ Level 5 · Literary Detective: The reader&#x27;s choice: if, and a writer&#x27;s fingerprint</h2><p class="plain"><b>The case:</b> Four unsigned passages arrive at the archive. Your team must name the writer of each using only counts: words per line, how often thee, thou and thy appear, and whether Mr. or Mrs. turns up.</p><h3>Hook</h3><p>Every writer leaves fingerprints: Shakespeare&#x27;s short lines and his thee and thou; Tagore&#x27;s long, flowing lines, also with thou; Austen&#x27;s Mr. and Mrs. and long sentences; Wordsworth&#x27;s short lines without any thee. If you can count, you can detect.</p><h3>See it move</h3><div class="anim" data-anim="fingerprint"></div><h3>The formal word</h3><div class="term"><b>If-statement</b><span>do this only when a condition is true; otherwise do something else</span></div><p class="plain"><b>In plain words:</b> if asks a question about the data and runs a block only when the answer is yes; elif asks the next question; else catches the rest. A detective&#x27;s rule is a chain of ifs.</p><h3>Worked example: a fingerprint and a rule</h3><div class="runner" data-code="def fingerprint(text):
-    lines = text.split(&quot;\n&quot;)
-    words = text.lower().split()
-    per_line = len(words) / len(lines)
-    thee = sum(1 for w in words if w.strip(&quot;.,;:!?&quot;) in (&quot;thee&quot;, &quot;thou&quot;, &quot;thy&quot;))
-    titles = sum(1 for w in words if w in (&quot;mr.&quot;, &quot;mrs.&quot;))
-    return per_line, thee, titles
-
-per_line, thee, titles = fingerprint(SONNET18)
-print(round(per_line, 1), thee, titles)
+print(top(counts, 5))" data-expected="[(&#x27;want&#x27;, 3), (&#x27;mr&#x27;, 3), (&#x27;bennet&#x27;, 3), (&#x27;truth&#x27;, 2), (&#x27;man&#x27;, 2)]
+" data-qid="n4e2"></div><p class="mixup"><b>Common mix-up:</b> Looking up a card that does not exist (counts[&quot;zebra&quot;]) stops with a KeyError. counts.get(&quot;zebra&quot;, 0) answers 0 instead.</p><p class="mixup"><b>Common mix-up:</b> &quot;The&quot; and &quot;the&quot; get two cards unless you lower-case the text first.</p><p class="takeaway">A dictionary remembers. Word to count, name to age, title to author: whenever you want to look something up, you want a dictionary.</p><h3>Test yourself</h3><div class="quiz" data-quiz><p class="quiz-score" data-quiz-score aria-live="polite"></p><fieldset class="q"><legend>What does this print?<br><br>counts = {&quot;love&quot;: 3, &quot;time&quot;: 1}<br>print(counts[&quot;love&quot;])</legend><button type="button" class="q-opt" data-why="The key is love; the lookup returns its value.">love</button><button type="button" class="q-opt" data-correct data-why="Yes: the value stored under love is 3.">3</button><button type="button" class="q-opt" data-why="1 is the value under time.">1</button><button type="button" class="q-opt" data-why="A lookup returns one value, not the pair.">{&quot;love&quot;: 3}</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>This stops with an error. Why?<br><br>counts = {&quot;love&quot;: 3}<br>print(counts[&quot;time&quot;])</legend><button type="button" class="q-opt" data-why="A dictionary can hold any word as a key.">Dictionaries cannot hold the word love</button><button type="button" class="q-opt" data-correct data-why="Yes: a missing key raises a KeyError. counts.get(&quot;time&quot;, 0) would answer 0.">There is no card for time, so the lookup fails</button><button type="button" class="q-opt" data-why="print shows numbers happily.">print cannot show a number</button><button type="button" class="q-opt" data-why="Curly brackets are right for a dictionary.">The curly brackets should be square</button><p class="q-fb" aria-live="polite"></p></fieldset><fieldset class="q"><legend>After this loop, what is counts[&quot;so&quot;]?<br><br>counts = {}<br>for word in &quot;so long so long so&quot;.split():<br>    counts[word] = counts.get(word, 0) + 1</legend><button type="button" class="q-opt" data-why="so appears more than once.">1</button><button type="button" class="q-opt" data-why="Count again: so, long, so, long, so.">2</button><button type="button" class="q-opt" data-correct data-why="Yes: so appears three times.">3</button><button type="button" class="q-opt" data-why="5 is the total number of words.">5</button><p class="q-fb" aria-live="polite"></p></fieldset><p class="no-js-only">Answers: Q1 B; Q2 B; Q3 C.</p></div><p class="next-up"><span aria-hidden="true">➡️</span><span><b>Coming up:</b> Counts are fingerprints. After the break, you will use them to tell one writer from another.</span></p></section><section id="l5"><h2>🕵️ Level 5 · Literary Detective: The reader&#x27;s choice: if, and a writer&#x27;s fingerprint</h2><p class="plain"><b>The case:</b> Four unsigned passages arrive at the archive. Your team must name the writer of each using only counts: words per line, how often thee, thou and thy appear, and whether Mr. or Mrs. turns up.</p><h3>Hook</h3><p>Every writer leaves fingerprints: Shakespeare&#x27;s short lines and his thee and thou; Tagore&#x27;s long, flowing lines, also with thou; Austen&#x27;s Mr. and Mrs. and long sentences; Wordsworth&#x27;s short lines without any thee. If you can count, you can detect.</p><h3>See it move</h3><div class="anim" data-anim="fingerprint"></div><h3>The formal word</h3><div class="term"><b>If-statement</b><span>do this only when a condition is true; otherwise do something else</span></div><p class="plain"><b>In plain words:</b> if asks a question about the data and runs a block only when the answer is yes; elif asks the next question; else catches the rest. A detective&#x27;s rule is a chain of ifs.</p><h3>Worked example: a fingerprint and a rule</h3><div class="runner" data-code="per_line, thee, titles = fingerprint(SONNET18)
+print(per_line, thee, titles)
 if titles &gt; 0:
     print(&quot;Guess: Austen&quot;)
 elif per_line &gt; 15:
@@ -926,30 +954,14 @@ elif thee &gt; 0:
 else:
     print(&quot;Guess: Wordsworth&quot;)" data-expected="8.1 7 0
 Guess: Shakespeare
-" data-qid="n5w"></div><ol class="plan"><li><span><b>Step 1.</b> def fingerprint(text):</span></li><li><span><b>Step 2.</b> per_line, thee, titles = fingerprint(SONNET18)</span></li><li><span><b>Step 3.</b> print(round(per_line, 1), thee, titles)</span></li><li><span><b>Step 4.</b> if titles &gt; 0:</span></li><li><span><b>Step 5.</b> elif per_line &gt; 15:</span></li></ol><h3><span class="tier Core">Core</span>Fingerprint the four known writers</h3><p>Run it. Read the three numbers for each writer: words per line, thee/thou/thy count, Mr./Mrs. count.</p><div class="runner" data-code="def fingerprint(text):
-    lines = text.split(&quot;\n&quot;)
-    words = text.lower().split()
-    per_line = len(words) / len(lines)
-    thee = sum(1 for w in words if w.strip(&quot;.,;:!?&quot;) in (&quot;thee&quot;, &quot;thou&quot;, &quot;thy&quot;))
-    titles = sum(1 for w in words if w in (&quot;mr.&quot;, &quot;mrs.&quot;))
-    return round(per_line, 1), thee, titles
-
-print(&quot;Shakespeare&quot;, fingerprint(SONNET18))
+" data-qid="n5w"></div><ol class="plan"><li><span><b>Step 1.</b> per_line, thee, titles = fingerprint(SONNET18)</span></li><li><span><b>Step 2.</b> print(per_line, thee, titles)</span></li><li><span><b>Step 3.</b> if titles &gt; 0:</span></li><li><span><b>Step 4.</b> elif per_line &gt; 15:</span></li><li><span><b>Step 5.</b> elif thee &gt; 0:</span></li></ol><h3><span class="tier Core">Core</span>Fingerprint the four known writers</h3><p>fingerprint is a ready-made helper. Run it. Read the three numbers for each writer: words per line, thee/thou/thy count, Mr./Mrs. count.</p><div class="runner" data-code="print(&quot;Shakespeare&quot;, fingerprint(SONNET18))
 print(&quot;Tagore     &quot;, fingerprint(GITANJALI1))
 print(&quot;Austen     &quot;, fingerprint(AUSTEN1))
 print(&quot;Wordsworth &quot;, fingerprint(DAFFODILS1))" data-expected="Shakespeare (8.1, 7, 0)
 Tagore      (23.2, 7, 0)
 Austen      (17.0, 0, 4)
 Wordsworth  (6.5, 0, 0)
-" data-qid="n5e0"></div><h3><span class="tier Team">Team</span>Name the writer of a mystery passage</h3><p>Fingerprint MYSTERY_A (then B, C, D). Apply the rule. Agree as a team, then submit your guess below with your confidence.</p><div class="runner" data-code="def fingerprint(text):
-    lines = text.split(&quot;\n&quot;)
-    words = text.lower().split()
-    per_line = len(words) / len(lines)
-    thee = sum(1 for w in words if w.strip(&quot;.,;:!?&quot;) in (&quot;thee&quot;, &quot;thou&quot;, &quot;thy&quot;))
-    titles = sum(1 for w in words if w in (&quot;mr.&quot;, &quot;mrs.&quot;))
-    return round(per_line, 1), thee, titles
-
-per_line, thee, titles = fingerprint(MYSTERY_A)
+" data-qid="n5e0"></div><h3><span class="tier Team">Team</span>Name the writer of a mystery passage</h3><p>Run fingerprint(PASSAGE_A) and read the three numbers. Apply the rule. Then change A to B, C, D. Agree as a team, then submit your guess below with your confidence.</p><div class="runner" data-code="per_line, thee, titles = fingerprint(PASSAGE_A)
 print(per_line, thee, titles)
 if titles &gt; 0:
     print(&quot;Guess: Austen&quot;)
@@ -1359,7 +1371,8 @@ Guess: Shakespeare
       .then(function (p) {
         py = p;
         var setup = Object.keys(NAMES).map(function (k) { return k + ' = ' + JSON.stringify(NAMES[k]); }).join('\n');
-        py.runPython(setup); status('Python ready', 100); return py;
+        py.runPython(setup); var H = (window.DH_CONTENT && window.DH_CONTENT.helpers) || ''; if (H) py.runPython(H);   // ready-made helpers: clean, top, fingerprint
+        status('Python ready', 100); return py;
       })
       .catch(function (e) { failed = true; loading = null; status('Python could not load here: showing expected outputs', 0); throw e; });
     return loading;
