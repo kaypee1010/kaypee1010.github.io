@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f6f7fb" id="themeColor">
-<meta name="description" content="Phone page for the live polls of the ISTD MDP session: join with an optional nickname, then answer the question on the screen.">
+<meta name="description" content="Phone page for the live polls of the ISTD MDP session: join with your name, then answer the question on the screen.">
 <title>Live polls: ISTD MDP 2026</title>
 <script>document.documentElement.classList.add('js')</script>
 <script>try{var r=document.documentElement,t=localStorage.getItem('kp:theme');if(t==='light'||t==='dark')r.dataset.theme=t}catch(e){}</script>
@@ -389,6 +389,7 @@ p code,li code,td code{background:var(--soft);padding:.1em .35em;border-radius:6
 .v-memos{display:grid;gap:12px}.v-memos[hidden]{display:none}
 .v-memo{margin:0;background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:12px 14px;font-size:1rem;line-height:1.45}
 .v-memo figcaption{font-weight:800;margin-bottom:6px}.v-memo p{margin:0 0 .55em}.v-memo p:last-child{margin-bottom:0}
+.v-go[disabled]{opacity:.45;cursor:not-allowed}
 
 /* ===== 6. REDUCED MOTION — always last ===== */
 @media (prefers-reduced-motion:reduce){
@@ -414,10 +415,10 @@ p code,li code,td code{background:var(--soft);padding:.1em .35em;border-radius:6
   <form class="v-card" data-v="join" id="joinForm" hidden>
     <h1>Live polls</h1>
     <p>Vote from your phone during the session. No sign-in, no app.</p>
-    <label for="nick">Nickname (optional)</label>
-    <input id="nick" maxlength="20" autocomplete="off" autocapitalize="words" placeholder="Leave empty to stay anonymous">
-    <button type="submit" class="v-go">Join</button>
-    <p class="v-small">Kept: this nickname (if you give one) and your votes, in an AI-SETU Google Sheet, for this session only. Nothing else: no name, phone or email.</p>
+    <label for="nick">Your name</label>
+    <input id="nick" maxlength="24" required autocomplete="off" autocapitalize="words" placeholder="Your name">
+    <button type="submit" class="v-go" disabled>Join</button>
+    <p class="v-small">Your name appears on the screen when you join. Kept: your name and your votes, in an AI-SETU Google Sheet, for this session only. Nothing else: no phone or email.</p>
   </form>
   <div class="v-card" data-v="wait" hidden>
     <p class="v-big" aria-hidden="true">👀</p>
@@ -761,9 +762,9 @@ p code,li code,td code{background:var(--soft);padding:.1em .35em;border-radius:6
   });
   /* ===== PAGE APP ===== */
 /* vote.js: the phone page of the ISTD MDP live polls (web/vote.html; published as the join QR's target).
-   Join with an optional nickname, then the page follows whatever question the deck has open: tap an option, type one word,
+   Join with your name (required since 27 Nov 2026; it appears on the join slide), then the page follows whatever question the deck has open: tap an option, type one word,
    or type a question. The backend is the Apps Script web app in poll-config.js (ISTD_POLL.api); ?api=<url> works on localhost only.
-   Kept on the phone (localStorage, key istd2026-vote): the join token, the nickname and which questions this phone answered,
+   Kept on the phone (localStorage, key istd2026-vote): the join token, the name and which questions this phone answered,
    so a reload does not ask again. Nothing else. */
 (function () {
   var CFG = window.ISTD_POLL || {}, api = CFG.api || '';
@@ -777,12 +778,13 @@ p code,li code,td code{background:var(--soft);padding:.1em .35em;border-radius:6
   function post(o) { return fetch(api, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(o) }).then(j); }
   function show(v) { document.querySelectorAll('[data-v]').forEach(function (c) { c.hidden = c.dataset.v !== v; }); }
   function status(t) { $('.v-status').textContent = t || ''; }
-  function hello() { var h = $('.v-hi'); if (h) h.textContent = me.nick ? 'Joined as ' + me.nick + '.' : 'Joined (anonymous).'; }
+  function hello() { var h = $('.v-hi'); if (h) h.textContent = me.nick ? 'Joined as ' + me.nick + '. Look for your name on the screen!' : 'Joined.'; }
 
   function join(e) {
     if (e) e.preventDefault(); if (busy) return; busy = true; status('Joining…');
-    var nick = $('#nick').value.trim().slice(0, 20);
-    post({ action: 'join', nickname: nick }).then(function (r) {
+    var nick = $('#nick').value.trim().slice(0, 24);
+    if (!nick) { busy = false; status('Please type your name.'); $('#nick').focus(); return; }
+    post({ action: 'join', name: nick }).then(function (r) {
       busy = false; if (!r.ok) { status(r.error || 'Could not join. Please try again.'); return; }
       me = { token: r.token, nick: r.nickname || '', done: {} }; save(); hello(); status(''); show('wait'); loop(0);
     }).catch(function () { busy = false; status('No connection. Check your mobile data and try again, or use a show of hands.'); });
@@ -836,6 +838,7 @@ p code,li code,td code{background:var(--soft);padding:.1em .35em;border-radius:6
 
   function init() {
     $('#joinForm').addEventListener('submit', join);
+    var nk = $('#nick'), go = $('#joinForm .v-go'), en = function () { go.disabled = !nk.value.trim(); }; nk.addEventListener('input', en); en();
     $('.v-text').addEventListener('submit', function (e) { e.preventDefault(); var t = $('#vtext').value.trim(); if (t) vote({ text: t }); });
     var links = CFG.links || {}; document.querySelectorAll('[data-link]').forEach(function (a) { if (links[a.dataset.link]) a.href = links[a.dataset.link]; });
     if (!api) { show('off'); return; }
